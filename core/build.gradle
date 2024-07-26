@@ -1,0 +1,20 @@
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+eclipse.project.name = appName + '-core'
+
+dependencies {
+  api "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+
+  api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+  api "com.badlogicgames.gdx:gdx:$gdxVersion"
+
+  api "io.github.libktx:ktx-app:$ktxVersion"
+  api "io.github.libktx:ktx-collections:$ktxVersion"
+  api "io.github.libktx:ktx-freetype:$ktxVersion"
+  api "io.github.libktx:ktx-graphics:$ktxVersion"
+  api "io.github.libktx:ktx-i18n:$ktxVersion"
+  api "io.github.libktx:ktx-inject:$ktxVersion"
+  api "io.github.libktx:ktx-log:$ktxVersion"
+  api "io.github.libktx:ktx-preferences:$ktxVersion"
+
+  implementation "space.earlygrey:shapedrawer:$shapedrawerVersion"
+}
