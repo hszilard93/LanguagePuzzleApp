@@ -9,13 +9,13 @@ gretty {
 }
 
 sourceSets.main.resources.srcDirs += [ rootProject.file('assets').path ]
-project.ext.mainClassName = 'edu.b4kancs.puzli.app.teavm.TeaVMBuilder'
+project.ext.mainClassName = 'edu.b4kancs.languagePuzzleApp.app.teavm.TeaVMBuilder'
 eclipse.project.name = appName + '-teavm'
 
 // This must be at least 11, and no higher than the JDK version this project is built with.
 java.targetCompatibility = "17"
 // This should probably be equal to targetCompatibility, above. This only affects the TeaVM module.
-java.sourceCompatibility = "17    "
+java.sourceCompatibility = "17"
 
 dependencies {
   implementation "com.github.xpenatan.gdx-teavm:backend-teavm:$gdxTeaVMVersion"
@@ -28,6 +28,7 @@ dependencies {
   implementation "org.teavm:teavm-tooling:$teaVMVersion"
 
   implementation project(':core')
+  implementation "com.github.raeleus.TenPatch:tenpatch:$tenpatchVersion:sources"
 }
 
 tasks.register('buildJavaScript', JavaExec) {

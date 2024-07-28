@@ -17,4 +17,5 @@ dependencies {
   api "io.github.libktx:ktx-preferences:$ktxVersion"
 
   implementation "space.earlygrey:shapedrawer:$shapedrawerVersion"
+  implementation "com.github.raeleus.TenPatch:tenpatch:$tenpatchVersion"
 }
