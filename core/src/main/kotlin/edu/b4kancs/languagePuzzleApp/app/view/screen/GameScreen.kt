@@ -9,10 +9,12 @@ import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.BitmapFont
+import com.badlogic.gdx.graphics.g2d.NinePatch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.graphics.glutils.FrameBuffer
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable
 import com.badlogic.gdx.utils.viewport.Viewport
 import com.ray3k.tenpatch.TenPatchDrawable
 import edu.b4kancs.languagePuzzleApp.app.GameCamera
@@ -38,9 +40,10 @@ class GameScreen(
     private val context: Context,
     private val batch: Batch,
     private val assetManager: AssetManager,
-    private val skin: Skin,
+//    private val skin: Skin,
     private val gameCamera: GameCamera,
     private val hudCamera: HudCamera,
+    private val viewport: Viewport,
     private val gameModel: GameModel
 ) : KtxScreen, BaseInputProcessor() {
 
@@ -52,21 +55,27 @@ class GameScreen(
     private lateinit var localDrawer: ShapeDrawer
     private lateinit var font: BitmapFont
     private val puzzleDrawable = PuzzlePieceDrawable(context.inject(), PuzzlePiece())
-    val base: TenPatchDrawable
-    val blank: Texture
-
-//    private var width = 100f
+    private lateinit var frameBuffer: FrameBuffer
+    private lateinit var frameRegion: TextureRegion
+    private val base: NinePatch
+    private val blank: Texture
+    private var baseWidth = 300f
 
     init {
-        base = skin.get("puzle_base_test_3_10P", TenPatchDrawable::class.java)
-//        blank = skin.get("puzle_blank_test", Drawable::class.java)
-        blank = Texture(Gdx.files.internal("puzle_blank_test_3.png"))
+//        base = skin.get("puzle_base_test_3_10P", TenPatchDrawable::class.java)
+        val ninePatchTexture = Texture(Gdx.files.internal("puzzle_base_test_3.png"))
+        base = NinePatch(ninePatchTexture, 32, 32, 32, 32)
+        blank = Texture(Gdx.files.internal("puzzle_blank_test_3.png"))
     }
 
     override fun show() {
         logger.debug { "show" }
 
         Gdx.input.inputProcessor = this
+
+        frameBuffer = FrameBuffer(Pixmap.Format.RGBA8888, viewport.screenWidth, viewport.screenHeight, false)
+        frameRegion = TextureRegion(frameBuffer.colorBufferTexture)
+        frameRegion.flip(false, true)
 
         image = assetManager.load<Texture>("graphics/logo.png")
         font = BitmapFont(Gdx.files.internal("hud_font.fnt"))
@@ -98,9 +107,8 @@ class GameScreen(
 //        val maskY = ((Gdx.graphics.height / 2) - (100f / 2))
 //        Gdx.gl.glScissor(100, 150, 100, 100)
 
-        batch.use {
-            gameCamera.update()
-
+//        batch.use {
+//            gameCamera.update()
 //            batch.projectionMatrix = gameCamera.combined
 //            if (System.currentTimeMillis() / 1000 % 2 == 0L) {
 //                batch.color = Color.RED
@@ -114,24 +122,24 @@ class GameScreen(
 
 //            batch.setBlendFunction(GL20.GL_DST_ALPHA, GL20.GL_SRC_ALPHA)
 
-            renderHud()
-        }
-
-        val frameBuffer = FrameBuffer(Pixmap.Format.RGBA8888, Gdx.graphics.width, Gdx.graphics.height, false)
-        val fboRegion = TextureRegion(frameBuffer.colorBufferTexture)
-        fboRegion.flip(false, true)
+//            renderHud()
+//        }
 
         frameBuffer.use {
             batch.use {
-                base.draw(batch, 100f, 100f, 300f, 300f)
+                baseWidth += 0.5f
+                base.draw(batch, 100f, 100f, baseWidth, 300f)
                 batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ZERO)
-                batch.draw(blank, 100f, 150f)
+                batch.draw(blank, 100f, 200f)
                 batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA)
             }
         }
 
         batch.use {
-            it.draw(fboRegion, 0f, 0f)
+            gameCamera.update()
+            batch.projectionMatrix = gameCamera.combined
+            it.draw(frameRegion, 0f, 0f)
+            renderHud()
         }
 //        stage.act()
 //        stage.draw()
@@ -142,6 +150,11 @@ class GameScreen(
 
         val viewport = context.inject<Viewport>()
         viewport.update(newWidth, newHeight)
+
+        frameBuffer = FrameBuffer(Pixmap.Format.RGBA8888, viewport.screenWidth, viewport.screenHeight, false)
+        frameRegion = TextureRegion(frameBuffer.colorBufferTexture)
+        frameRegion.flip(false, true)
+//        super.resize(newWidth, newHeight)
     }
 
     private fun createDrawer(): ShapeDrawer {
@@ -200,6 +213,7 @@ class GameScreen(
 
         if (button == Input.Buttons.RIGHT) {
             gameModel.isDebugModeOn = !gameModel.isDebugModeOn
+            logger.info { "isDebugModeOn = ${gameModel.isDebugModeOn}" }
         }
         return true
     }

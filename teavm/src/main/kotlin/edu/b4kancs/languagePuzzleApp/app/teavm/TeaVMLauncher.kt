@@ -8,7 +8,6 @@ import com.github.xpenatan.gdx.backends.teavm.TeaApplicationConfiguration
 import edu.b4kancs.languagePuzzleApp.app.Game
 import edu.b4kancs.languagePuzzleApp.app.model.Environment
 import edu.b4kancs.languagePuzzleApp.app.model.Platform
-import edu.b4kancs.languagePuzzleApp.app.view.screen.GameScreen.Companion.logger
 
 
 /** Launches the TeaVM/HTML application. */
@@ -40,7 +39,7 @@ class TeaVMLauncher {
     }
 
     private fun getEnvironment(config: TeaApplicationConfiguration): Environment {
-        logger.debug { "getEnvironment" }
+        JsInterop.log("getEnvironment")
 
         val userAgent = JsInterop.getUserAgent()
         JsInterop.log("UserAgent: $userAgent")

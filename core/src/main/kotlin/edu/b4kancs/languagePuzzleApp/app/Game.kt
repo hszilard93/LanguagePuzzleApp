@@ -43,15 +43,11 @@ class Game(environment: Environment) : KtxGame<KtxScreen>() {
         Gdx.app.logLevel = GameModel.LOG_LEVEL
         logger.debug { "create" }
 
-        val textureAtlas = TextureAtlas("skin/test_3.atlas")
-        val skin = Skin(Gdx.files.internal("skin/test_3.json"))
-        skin.addRegions(textureAtlas)
-//        val puzzleBase = ImageButton(skin)
-//        val puzzleBlank = Button(skin)
-
-
-
-        val stage = Stage(ScreenViewport())
+//        val textureAtlas = TextureAtlas("skin/test_3.atlas")
+//        val skin = Skin(Gdx.files.internal("skin/test_3.json"))
+//        skin.addRegions(textureAtlas)
+//
+//        val stage = Stage(ScreenViewport())
 
         val screenHeight = Gdx.graphics.height.toFloat()
         val screenWidth = Gdx.graphics.width.toFloat()
@@ -63,7 +59,7 @@ class Game(environment: Environment) : KtxGame<KtxScreen>() {
             bindSingleton<Batch>(SpriteBatch())
             bindSingleton(AssetManager())
 
-            bindSingleton(skin)
+//            bindSingleton(skin)
 
             bindSingleton(gameCamera.apply {
                 setToOrtho(false, viewportWidth, viewportHeight)
