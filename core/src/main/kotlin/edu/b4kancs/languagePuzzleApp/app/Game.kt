@@ -5,16 +5,11 @@ import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.badlogic.gdx.graphics.g2d.TextureAtlas
-import com.badlogic.gdx.scenes.scene2d.Stage
-import com.badlogic.gdx.scenes.scene2d.ui.Button
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton
-import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.utils.Disposable
+import com.badlogic.gdx.utils.viewport.ExtendViewport
+import com.badlogic.gdx.utils.viewport.FillViewport
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.ScreenViewport
-import com.badlogic.gdx.utils.viewport.Viewport
-import com.ray3k.tenpatch.TenPatchDrawable
 import edu.b4kancs.languagePuzzleApp.app.model.Environment
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
 import edu.b4kancs.languagePuzzleApp.app.view.screen.GameScreen
@@ -39,18 +34,10 @@ class Game(environment: Environment) : KtxGame<KtxScreen>() {
     }
 
     override fun create() {
-        disposables.add(context)
         Gdx.app.logLevel = GameModel.LOG_LEVEL
         logger.debug { "create" }
 
-//        val textureAtlas = TextureAtlas("skin/test_3.atlas")
-//        val skin = Skin(Gdx.files.internal("skin/test_3.json"))
-//        skin.addRegions(textureAtlas)
-//
-//        val stage = Stage(ScreenViewport())
-
-        val screenHeight = Gdx.graphics.height.toFloat()
-        val screenWidth = Gdx.graphics.width.toFloat()
+        disposables.add(context)
         val viewportWidth = 1200f
         val viewportHeight = 800f
 
@@ -59,27 +46,28 @@ class Game(environment: Environment) : KtxGame<KtxScreen>() {
             bindSingleton<Batch>(SpriteBatch())
             bindSingleton(AssetManager())
 
-//            bindSingleton(skin)
-
             bindSingleton(gameCamera.apply {
                 setToOrtho(false, viewportWidth, viewportHeight)
                 position.set(viewportWidth / 2, viewportHeight / 2, 0f)
-            } )
+            })
 
             bindSingleton(hudCamera.apply {
                 setToOrtho(false, viewportWidth, viewportHeight)
                 position.set(viewportWidth / 2, viewportHeight / 2, 0f)
-            } )
-            bindSingleton<Viewport>(FitViewport(viewportWidth, viewportHeight, gameCamera))
+            })
+
+            bindSingleton<FillViewport>(FillViewport(viewportWidth, viewportHeight, gameCamera))
+            bindSingleton<FitViewport>(FitViewport(viewportWidth, viewportHeight, hudCamera))
         }
         with(context) {
-            addScreen(GameScreen(inject(), inject(), inject(), inject(), inject(), inject(), inject()))
+            addScreen(GameScreen(inject(), inject(), inject(), inject(), inject(), inject(), inject(), inject()))
         }
         setScreen<GameScreen>()
         super.create()
     }
 
     override fun dispose() {
+        logger.debug { "dispose" }
         disposables.disposeSafely()
         super.dispose()
     }
