@@ -60,7 +60,16 @@ class Game(environment: Environment) : KtxGame<KtxScreen>() {
             bindSingleton<FitViewport>(FitViewport(viewportWidth, viewportHeight, hudCamera))
         }
         with(context) {
-            addScreen(GameScreen(inject(), inject(), inject(), inject(), inject(), inject(), inject(), inject()))
+            addScreen(GameScreen(
+                context = inject(),
+                batch = inject(),
+                assetManager = inject(),
+                gameViewport = inject(),
+                hudViewport = inject(),
+                gameCamera = inject(),
+                hudCamera = inject(),
+                gameModel = inject()
+            ))
         }
         setScreen<GameScreen>()
         super.create()

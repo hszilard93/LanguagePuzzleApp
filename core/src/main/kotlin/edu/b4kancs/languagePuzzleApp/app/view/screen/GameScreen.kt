@@ -13,11 +13,9 @@ import com.badlogic.gdx.graphics.g2d.NinePatch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.graphics.glutils.FrameBuffer
 import com.badlogic.gdx.math.Vector2
-import com.badlogic.gdx.utils.viewport.ExtendViewport
+import com.badlogic.gdx.math.Vector3
 import com.badlogic.gdx.utils.viewport.FillViewport
 import com.badlogic.gdx.utils.viewport.FitViewport
-import com.badlogic.gdx.utils.viewport.ScreenViewport
-import com.badlogic.gdx.utils.viewport.Viewport
 import edu.b4kancs.languagePuzzleApp.app.GameCamera
 import edu.b4kancs.languagePuzzleApp.app.HudCamera
 import edu.b4kancs.languagePuzzleApp.app.misc
@@ -50,20 +48,35 @@ class GameScreen(
         val logger = logger<GameScreen>()
     }
 
-    private lateinit var image: Asset<Texture>
     private lateinit var localDrawer: ShapeDrawer
     private lateinit var font: BitmapFont
-//    private val puzzleDrawable = PuzzlePieceDrawable(context, PuzzlePiece())
+
+    //    private val puzzleDrawable = PuzzlePieceDrawable(context, PuzzlePiece())
     private lateinit var frameBuffer: FrameBuffer
     private lateinit var frameRegion: TextureRegion
     private val base: NinePatch
     private val blank: Texture
-    private var baseWidth = 300f
+    private val tab: Texture
+    private var baseWidth = 0f
+    private var blankAspectRatio = 1f
+    private var tabAspectRatio = 1f
+    private val minZoom = 0.9f
+    private val maxZoom = 2f
+
+    private var frameRegionSizeMultiplier = 1f
 
     init {
-        val ninePatchTexture = Texture(Gdx.files.internal("puzzle_base_test_3.png"))
-        base = NinePatch(ninePatchTexture, 32, 32, 32, 32)
-        blank = Texture(Gdx.files.internal("puzzle_blank_test_3.png"))
+        val baseTexture = Texture(Gdx.files.internal("puzzle_base_test_3.png"))
+        base = NinePatch(baseTexture, 32, 32, 32, 32)
+        baseWidth = base.totalWidth
+
+        blank = Texture(Gdx.files.internal("puzzle_blank_7.png"), Pixmap.Format.RGBA8888, true)
+        blank.anisotropicFilter = 4f
+        blankAspectRatio = blank.height.toFloat() / blank.width.toFloat()
+
+        tab = Texture(Gdx.files.internal("puzzle_tab.png"), Pixmap.Format.RGBA8888, true)
+        tab.anisotropicFilter = 4f
+        tabAspectRatio = tab.height.toFloat() / tab.width.toFloat()
     }
 
     override fun show() {
@@ -72,10 +85,14 @@ class GameScreen(
         Gdx.input.inputProcessor = this
 
         frameBuffer = FrameBuffer(Pixmap.Format.RGBA8888, gameViewport.worldWidth.toInt(), gameViewport.worldHeight.toInt(), false)
-        frameRegion = TextureRegion(frameBuffer.colorBufferTexture, gameViewport.worldWidth.toInt(), gameViewport.worldHeight.toInt())
+        frameRegion = TextureRegion(frameBuffer.colorBufferTexture, gameViewport.screenWidth, gameViewport.screenHeight)
         frameRegion.flip(false, true)
 
-        image = assetManager.load<Texture>("graphics/logo.png")
+        gameCamera.apply {
+            setToOrtho(false)
+            zoom = 1f
+        }
+
         font = BitmapFont(Gdx.files.internal("hud_font.fnt"))
 
         if (!context.contains<ShapeDrawer>()) {
@@ -95,44 +112,52 @@ class GameScreen(
 
     override fun resize(newWidth: Int, newHeight: Int) {
         logger.debug { "resize newWidth=$newWidth newHeight=$newHeight" }
-        gameViewport.update(newWidth, newHeight)
-        hudViewport.update(newWidth, newHeight)
 
-        frameBuffer = FrameBuffer(Pixmap.Format.RGBA8888, gameViewport.worldWidth.toInt(), gameViewport.worldHeight.toInt(), false)
-        frameRegion = TextureRegion(frameBuffer.colorBufferTexture, gameViewport.worldWidth.toInt(), gameViewport.worldHeight.toInt())
-        frameRegion.flip(false, true)
+//        if (::frameBuffer.isInitialized) {
+//            gameViewport.worldWidth *= 1f + (newWidth - gameViewport.screenWidth)
+//            gameViewport.worldHeight *= 1f + (newHeight - gameViewport.screenHeight)
+//        }
+        gameViewport.update(newWidth, newHeight, true)
+
+        hudViewport.update(newWidth, newHeight, true)
+
+        if (::frameBuffer.isInitialized) updateFrameBuffer()
     }
 
     override fun render(delta: Float) {
         logger.misc { "render delta=$delta" }
 
+        gameCamera.update()
         setBackgroundColor(180, 255, 180, 1f)
 
         frameBuffer.use {
             batch.use {
-                batch.projectionMatrix = gameCamera.combined
-                baseWidth += 0.5f
-                base.draw(batch, 100f, 100f, baseWidth, 300f)
+//                logger.debug { "frameBuffer.width=${frameBuffer.width} frameBuffer.height=${frameBuffer.height}" }
+//                logger.debug { "frameRegion.regionWidth=${frameRegion.regionWidth} frameRegion.regionHeight=${frameRegion.regionHeight}" }
+
+//                setBackgroundColor(100, 150, 150, 1f)
+//                baseWidth += 5f
+                base.draw(batch, 100f, 100f, baseWidth, baseWidth)
+//                base.draw(batch, 100f, 100f, baseWidth, baseWidth * 0.66f)
                 batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ZERO)
-                batch.draw(blank, 100f, 200f)
+
+                val blankWidth = 200f
+                batch.draw(blank, 250f, 99.5f, blankWidth, blankWidth * blankAspectRatio)
+
                 batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA)
+
+                val tabWidth = blankWidth
+                batch.draw(tab, 250f, 595f, tabWidth, tabWidth * tabAspectRatio)
+
             }
         }
 
         batch.use {
             gameViewport.apply()
             batch.projectionMatrix = gameCamera.combined
-            it.draw(frameRegion, 0f, 0f, gameViewport.worldWidth, gameViewport.worldHeight)
-//            hudViewport.apply()
-//            batch.projectionMatrix = hudCamera.combined
+            it.draw(frameRegion, 0f, 0f, frameRegion.regionWidth.toFloat(), frameRegion.regionHeight.toFloat())
             renderHud()
         }
-    }
-
-    private fun setBackgroundColor(red: Int, green: Int, blue: Int, alpha: Float) {
-        logger.misc { "setBackgroundColor red=$red green=$green blue=$blue alpha=$alpha" }
-        Gdx.gl.glClearColor(red.toRGBFloat(), green.toRGBFloat(), blue.toRGBFloat(), alpha)
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
     }
 
     private fun renderHud() {
@@ -142,8 +167,9 @@ class GameScreen(
         hudViewport.apply()
         batch.projectionMatrix = hudCamera.combined
 
-        font.draw(batch, "Upper left, FPS=" + Gdx.graphics.framesPerSecond, 0f, hudCamera.viewportHeight)
+        font.draw(batch, "FPS=" + Gdx.graphics.framesPerSecond, 0f, hudCamera.viewportHeight)
         font.draw(batch, "Lower left", 0f, font.lineHeight)
+        font.draw(batch, "Zoom: %.1f".format(gameCamera.zoom), hudCamera.viewportWidth - 75f, hudCamera.viewportHeight)
 
         if (gameModel.isDebugModeOn) {
             // Render the mouse position interpreted as real pixel coordinates within the viewport ("0, 0" is the viewports bottom left corner)
@@ -159,6 +185,12 @@ class GameScreen(
                 font.draw(batch, "$mouseViewportX, $mouseViewportY", renderX, renderY + 10f)
             }
         }
+    }
+
+    private fun setBackgroundColor(red: Int, green: Int, blue: Int, alpha: Float) {
+        logger.misc { "setBackgroundColor red=$red green=$green blue=$blue alpha=$alpha" }
+        Gdx.gl.glClearColor(red.toRGBFloat(), green.toRGBFloat(), blue.toRGBFloat(), alpha)
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
     }
 
     private fun createDrawer(): ShapeDrawer {
@@ -187,6 +219,67 @@ class GameScreen(
         logger.debug { "keyDown keycode=$keycode" }
         return true
     }
+
+    override fun scrolled(amountX: Float, amountY: Float): Boolean {
+        // Get Mouse Position in World Coordinates BEFORE Zoom
+        val mouseWorldPosBefore = Vector3(Gdx.input.x.toFloat(), Gdx.input.y.toFloat(), 0f)
+        gameCamera.unproject(mouseWorldPosBefore)
+
+        // Apply Zoom
+        val newZoom: Float = (gameCamera.zoom + amountY * 0.1f).coerceIn(minZoom, maxZoom) // Use clamp for cleaner limits
+        gameCamera.zoom = newZoom
+        gameCamera.update()
+
+        // Get Mouse Position in World Coordinates AFTER Zoom
+        val mouseWorldPosAfter = Vector3(Gdx.input.x.toFloat(), Gdx.input.y.toFloat(), 0f)
+        gameCamera.unproject(mouseWorldPosAfter)
+
+        // Calculate Camera Offset
+        val offsetX = mouseWorldPosAfter.x - mouseWorldPosBefore.x
+        val offsetY = mouseWorldPosAfter.y - mouseWorldPosBefore.y
+
+        // Move the Camera
+        gameCamera.translate(-offsetX, -offsetY, 0f)
+        gameCamera.update()
+
+//        gameViewport.worldWidth *= newZoom
+//        gameViewport.worldHeight *= newZoom
+//        gameViewport.update(gameViewport.screenWidth, gameViewport.screenHeight)
+//        gameViewport.apply()
+
+        logger.debug { "gameCamera.viewportWidth ${gameCamera.viewportWidth}; gameCamera.viewportHeight ${gameCamera.viewportHeight}" }
+
+        updateFrameBuffer()
+
+        return true
+    }
+
+    private fun updateFrameBuffer() {
+        logger.debug { "updateFrameBuffer" }
+
+        // Calculate Visible World Width & Height
+        val visibleWorldWidth = (gameCamera.viewportWidth * gameCamera.zoom).toInt()
+        val visibleWorldHeight = (gameCamera.viewportHeight * gameCamera.zoom).toInt()
+//        val visibleWorldWidth = gameCamera.viewportWidth.toInt()
+//        val visibleWorldHeight = gameCamera.viewportHeight.toInt()
+        logger.debug { "visibleWorldWidth=$visibleWorldWidth visibleWorldHeight=$visibleWorldHeight" }
+
+        // Dispose of the old Framebuffer (if there is one)
+        if (::frameBuffer.isInitialized) frameBuffer.dispose()
+
+        // Create a new Framebuffer with the calculated size
+        logger.debug { "visibleWorldWidth=$visibleWorldWidth visibleWorldHeight=$visibleWorldHeight" }
+        frameBuffer = FrameBuffer(Pixmap.Format.RGBA8888, visibleWorldWidth, visibleWorldHeight, false)
+
+        // Update the TextureRegion
+        frameRegion = TextureRegion(frameBuffer.colorBufferTexture, 0, 0, visibleWorldWidth, visibleWorldHeight)
+//        frameRegion = TextureRegion(frameBuffer.colorBufferTexture, 0, 0, (visibleWorldWidth * frameRegionSizeMultiplier).toInt(), (visibleWorldHeight * frameRegionSizeMultiplier).toInt())
+//        frameRegionSizeMultiplier += 0.1f
+
+        logger.debug { "frameRegion.regionWidth=${frameRegion.regionWidth} frameRegion.regionHeight=${frameRegion.regionHeight}" }
+        frameRegion.flip(false, true)
+    }
+
 
     private fun drawShape() {
 //        drawer.line(0f, 0f, 100f, 100f, 10f)
