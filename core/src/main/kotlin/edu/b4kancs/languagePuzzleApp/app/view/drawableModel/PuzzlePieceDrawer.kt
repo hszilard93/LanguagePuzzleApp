@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.NinePatch
+import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.graphics.glutils.ShaderProgram
 import edu.b4kancs.languagePuzzleApp.app.misc
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 import edu.b4kancs.languagePuzzleApp.app.model.Side
@@ -16,20 +18,17 @@ import ktx.log.logger
 class PuzzlePieceDrawer(
     private val context: Context
 ) {
+    private val batch = context.inject<Batch>()
     private val base9Patch: NinePatch
     private val blankTexture: Texture
     private val tabTexture: Texture
-    private val batch = context.inject<Batch>()
-    private var blankAspectRatio: Float = 0f
-    private var tabAspectRatio: Float = 0f
 
     companion object {
         private val logger = logger<PuzzlePieceDrawer>()
         private const val BLANK_WIDTH = 120f
         private const val BLANK_HEIGHT = BLANK_WIDTH * 0.75f
         private const val TAB_WIDTH = 110f
-        private const val TAB_HEIGHT = 96f   //TAB_WIDTH * 0.75f
-        private const val ANISOTROPIC_FILTER_VALUE = 8f
+        private const val TAB_HEIGHT = TAB_WIDTH * 0.88f
     }
 
     init {
@@ -38,16 +37,19 @@ class PuzzlePieceDrawer(
         base9Patch = NinePatch(baseTexture, 20, 20, 20, 20)
 
         blankTexture = Texture(Gdx.files.internal("puzzle_blank_03.png"), Pixmap.Format.RGBA8888, true)
-        tabTexture = Texture(Gdx.files.internal("puzzle_tab_03.png"), Pixmap.Format.RGBA8888, true)
-        blankAspectRatio = blankTexture.width.toFloat() / blankTexture.height.toFloat()
-        tabAspectRatio = tabTexture.width.toFloat() / tabTexture.height.toFloat()
+        tabTexture = Texture(Gdx.files.internal("puzzle_tab_03_noalpha.png"), Pixmap.Format.RGBA8888, true)
+//        blankTexture.bind()
+//        tabTexture.bind()
         blankTexture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear)
-        tabTexture.setFilter(Texture.TextureFilter.MipMapLinearNearest, Texture.TextureFilter.Nearest)
+        tabTexture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear)
     }
 
     fun render(puzzlePiece: PuzzlePiece) {
+        logger.misc { "render" }
+
+        val defaultShader = batch.shader
+
         batch.use {
-            logger.misc { "render" }
 
             batch.color = puzzlePiece.color
 
@@ -59,6 +61,7 @@ class PuzzlePieceDrawer(
 
             drawTabs(puzzlePiece)
         }
+        batch.shader = defaultShader
     }
 
     private fun drawBlanks(puzzlePiece: PuzzlePiece) {
@@ -66,7 +69,6 @@ class PuzzlePieceDrawer(
 
         batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ZERO)
 
-//        var BLANK_HEIGHT = BLANK_WIDTH / blankAspectRatio
         for (blank in puzzlePiece.blanks) {
             val blankX: Float
             val blankY: Float
@@ -98,8 +100,6 @@ class PuzzlePieceDrawer(
                 Side.RIGHT -> {
                     width = BLANK_HEIGHT
                     height = BLANK_WIDTH
-//                    blankX = puzzlePiece.pos.x + puzzlePiece.width - BLANK_HEIGHT - 34
-//                    blankX = puzzlePiece.pos.x + puzzlePiece.width - (BLANK_WIDTH + BLANK_HEIGHT) / 2
                     blankX = puzzlePiece.pos.x + puzzlePiece.width - (width + height) / 2
                     blankY = puzzlePiece.pos.y + (puzzlePiece.height / 2) - (height / 2) - (height - width) / 2
                     rotation = 90f

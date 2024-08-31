@@ -31,7 +31,7 @@ fun main() {
         setWindowIcon(*(arrayOf(128, 64, 32, 16).map { "libgdx$it.png" }.toTypedArray()))
         setForegroundFPS(90)
         setIdleFPS(10)
-        setBackBufferConfig(8, 8, 8, 8, 16, 0, 8)
+        setBackBufferConfig(8, 8, 8, 8, 16, 0, 0)
     }
 
     Lwjgl3Application(game, config)

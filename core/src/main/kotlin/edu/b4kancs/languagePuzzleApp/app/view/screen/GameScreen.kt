@@ -6,11 +6,13 @@ import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.Pixmap
+import com.badlogic.gdx.graphics.PixmapIO
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.graphics.glutils.FrameBuffer
+import com.badlogic.gdx.graphics.glutils.ShaderProgram
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.math.Vector3
 import com.badlogic.gdx.utils.viewport.FillViewport
@@ -29,6 +31,7 @@ import ktx.graphics.use
 import ktx.inject.Context
 import ktx.log.logger
 import space.earlygrey.shapedrawer.ShapeDrawer
+import javax.swing.Spring.height
 
 
 class GameScreen(
@@ -46,22 +49,24 @@ class GameScreen(
         val logger = logger<GameScreen>()
     }
 
-    private lateinit var localDrawer: ShapeDrawer
-    private lateinit var font: BitmapFont
-    //    private val puzzleDrawable = PuzzlePieceDrawable(context, PuzzlePiece())
-    private lateinit var frameBufferPool: GdxArray<FrameBuffer>
-    private lateinit var frameRegionPool: GdxArray<TextureRegion>
+    private val hudFont: BitmapFont
+    private val frameBufferPool: GdxArray<FrameBuffer>
+    private val frameRegionPool: GdxArray<TextureRegion>
+    private val shaderProgram: ShaderProgram
 
     private val puzzlePieceDrawer = PuzzlePieceDrawer(context)
-    private val minZoom = 0.9f
-    private val maxZoom = 2f
+    private val minZoom = 0.3f
+    private val maxZoom = 1.4f
     private var shouldDisplayDebugInfo = false
 
+    private var hasSavedScreenshot = false
 
-    override fun show() {
-        logger.debug { "show" }
+    init {
+        logger.debug { "init" }
 
-        Gdx.input.inputProcessor = this
+        shaderProgram = loadShader()
+
+        hudFont = BitmapFont(Gdx.files.internal("hud_font.fnt"))
 
         frameBufferPool = gdxArrayOf<FrameBuffer>(true)
         frameRegionPool = gdxArrayOf<TextureRegion>(true)
@@ -73,16 +78,19 @@ class GameScreen(
             frameRegion.flip(false, true)
             frameRegionPool.add(frameRegion)
         }
+    }
+
+    override fun show() {
+        logger.debug { "show" }
+
+        Gdx.input.inputProcessor = this
 
 //        frameBuffer = FrameBuffer(Pixmap.Format.RGBA8888, gameViewport.worldWidth.toInt(), gameViewport.worldHeight.toInt(), false)
 
         gameCamera.apply {
             setToOrtho(false)
-            zoom = 1f
+            zoom = 0.5f
         }
-
-        font = BitmapFont(Gdx.files.internal("hud_font.fnt"))
-//        assetManager.finishLoading()
 
         super.show()
     }
@@ -94,10 +102,8 @@ class GameScreen(
 
         hudViewport.update(newWidth, newHeight, true)
 
-        if (::frameBufferPool.isInitialized) {
-            for (frameBuffer in frameBufferPool) {
+        for (frameBuffer in frameBufferPool) {
 //                updateFrameBuffer(frameBuffer)
-            }
         }
     }
 
@@ -116,7 +122,6 @@ class GameScreen(
         if (puzzles.isNotEmpty()) {
 
             val puzzlesByLayers = gameModel.puzzlePieces.groupBy { it.depth }
-
             if (puzzlesByLayers.keys.max() > frameBufferPool.size) {
                 logger.error { "NEED TO CREATE DYNAMIC FRAMEBUFFER POOL!" }
             }
@@ -128,9 +133,26 @@ class GameScreen(
                     }
                 }
 
-                batch.use {
-                    val frameRegion = frameRegionPool[layerI]
-                    it.draw(frameRegion, 0f, 0f, frameRegion.regionWidth.toFloat(), frameRegion.regionHeight.toFloat())
+                if (!hasSavedScreenshot) {
+                    hasSavedScreenshot = true
+                    saveFrameBufferToPNG(frameBufferPool[layerI])
+                }
+
+                val resultTexture = frameBufferPool[layerI].colorBufferTexture
+
+                shaderProgram.use { shader ->
+                    shader.setUniform2fv(
+                        "u_textureSize",
+                        floatArrayOf(resultTexture.width.toFloat(), resultTexture.height.toFloat()),
+                        0,
+                        2
+                    )
+                    batch.use { batch ->
+//                    val frameRegion = frameRegionPool[layerI]
+                        batch.shader = shader
+                        batch.draw(resultTexture, 0f, 0f, resultTexture.width.toFloat(), resultTexture.height.toFloat())
+                        batch.shader = null
+                    }
                 }
             }
         }
@@ -147,9 +169,9 @@ class GameScreen(
         hudViewport.apply()
         batch.projectionMatrix = hudCamera.combined
 
-        font.draw(batch, "FPS=" + Gdx.graphics.framesPerSecond, 0f, hudCamera.viewportHeight)
-        font.draw(batch, "Lower left", 0f, font.lineHeight)
-        font.draw(batch, "Zoom: %.1f".format(gameCamera.zoom), hudCamera.viewportWidth - 75f, hudCamera.viewportHeight)
+        hudFont.draw(batch, "FPS=" + Gdx.graphics.framesPerSecond, 0f, hudCamera.viewportHeight)
+        hudFont.draw(batch, "Lower left", 0f, hudFont.lineHeight)
+        hudFont.draw(batch, "Zoom: %.1f".format(gameCamera.zoom), hudCamera.viewportWidth - 75f, hudCamera.viewportHeight)
 
         if (Game.isDebugModeOn && shouldDisplayDebugInfo) {
             // Render the mouse position interpreted as real pixel coordinates within the viewport ("0, 0" is the viewports bottom left corner)
@@ -162,7 +184,7 @@ class GameScreen(
             if (hudViewport.screenWidth >= 200) {  // Catches errors when the viewport is too small or not visible (e.g. window is minimized)
                 val renderX = (renderVector.x + 10f).coerceIn(10f, hudViewport.worldWidth - 100f)
                 val renderY = (renderVector.y + 10f).coerceIn(10f, hudViewport.worldHeight - 10f)
-                font.draw(batch, "$mouseViewportX, $mouseViewportY", renderX, renderY + 10f)
+                hudFont.draw(batch, "$mouseViewportX, $mouseViewportY", renderX, renderY + 10f)
             }
         }
     }
@@ -229,25 +251,31 @@ class GameScreen(
         return true
     }
 
-//    private fun updateFrameBuffer(frameBuffer: FrameBuffer) {
-//        logger.debug { "updateFrameBuffer" }
-//
-//        // Calculate Visible World Width & Height
-//        val visibleWorldWidth = (gameCamera.viewportWidth * gameCamera.zoom).toInt()
-//        val visibleWorldHeight = (gameCamera.viewportHeight * gameCamera.zoom).toInt()
-//        logger.debug { "visibleWorldWidth=$visibleWorldWidth visibleWorldHeight=$visibleWorldHeight" }
-//
-//        // Dispose of the old Framebuffer (if there is one)
-//        if (::frameBuffer.isInitialized) frameBuffer.dispose()
-//
-//        // Create a new Framebuffer with the calculated size
-//        logger.debug { "visibleWorldWidth=$visibleWorldWidth visibleWorldHeight=$visibleWorldHeight" }
-//        frameBuffer = FrameBuffer(Pixmap.Format.RGBA8888, visibleWorldWidth, visibleWorldHeight, false)
-//
-//        // Update the TextureRegion
-//        frameRegion = TextureRegion(frameBuffer.colorBufferTexture, 0, 0, visibleWorldWidth, visibleWorldHeight)
-//
-//        logger.debug { "frameRegion.regionWidth=${frameRegion.regionWidth} frameRegion.regionHeight=${frameRegion.regionHeight}" }
-//        frameRegion.flip(false, true)
-//    }
+    private fun loadShader(): ShaderProgram {
+        val vertexShader = Gdx.files.internal("shaders/seamless.vert").readString()
+        val fragmentShader = Gdx.files.internal("shaders/seamless.frag").readString()
+        val shaderProgram = ShaderProgram(vertexShader, fragmentShader)
+
+        if (!shaderProgram.isCompiled) {
+            logger.error { "Shader compilation failed:\n" + shaderProgram.log }
+            throw IllegalStateException()
+        }
+        return shaderProgram
+    }
+
+    private fun saveFrameBufferToPNG(frameBuffer: FrameBuffer) {
+        val pixmap: Pixmap
+        val fbWidth = frameBuffer.width
+        val fbHeight = frameBuffer.height
+        frameBuffer.use {
+            pixmap = Pixmap.createFromFrameBuffer(0, 0, fbWidth, fbHeight)
+        }
+        val flippedPixmap: Pixmap = Pixmap(fbWidth, fbHeight, pixmap.format)
+        for (y in 0 until fbHeight) {
+            flippedPixmap.drawPixmap(pixmap, 0, y, 0, fbHeight - y - 1, fbWidth, 1)
+        }
+        pixmap.dispose() // Dispose the original pixmap
+        PixmapIO.writePNG(Gdx.files.local("frameBufferScreenshot.png"), flippedPixmap);
+        flippedPixmap.dispose();
+    }
 }
