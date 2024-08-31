@@ -29,8 +29,8 @@ class PuzzlePieceDrawable(
     }
 
     init {
-        minWidth = if (puzzlePiece.tabs.any { it.onSide == Side.TOP || it.onSide == Side.BOTTOM }) 400f else 200f
-        minHeight = if ((puzzlePiece.tabs + puzzlePiece.blanks).any { it.onSide in setOf(Side.LEFT, Side.RIGHT) }) 300f else 150f
+        minWidth = if (puzzlePiece.tabs.any { it.side == Side.TOP || it.side == Side.BOTTOM }) 400f else 200f
+        minHeight = if ((puzzlePiece.tabs + puzzlePiece.blanks).any { it.side in setOf(Side.LEFT, Side.RIGHT) }) 300f else 150f
 
         generateParts()
     }

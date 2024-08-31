@@ -2,13 +2,13 @@ package edu.b4kancs.languagePuzzleApp.app.view.drawableModel
 
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable
 
-const val defaultPadding = 10f
+const val DEFAULT_PADDING = 10f
 
 abstract class DrawablePaddingImpl(
-    var topPadding: Float = defaultPadding,
-    var bottomPadding: Float = defaultPadding,
-    var leftPadding: Float = defaultPadding,
-    var rightPadding: Float = defaultPadding
+    var topPadding: Float = DEFAULT_PADDING,
+    var bottomPadding: Float = DEFAULT_PADDING,
+    var leftPadding: Float = DEFAULT_PADDING,
+    var rightPadding: Float = DEFAULT_PADDING
 ) : Drawable {
     override fun getTopHeight(): Float = topPadding
 
