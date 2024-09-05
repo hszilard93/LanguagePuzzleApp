@@ -3,11 +3,9 @@ package edu.b4kancs.languagePuzzleApp.app.view.screen
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.assets.AssetManager
-import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.PixmapIO
-import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.TextureRegion
@@ -30,9 +28,6 @@ import ktx.collections.gdxArrayOf
 import ktx.graphics.use
 import ktx.inject.Context
 import ktx.log.logger
-import space.earlygrey.shapedrawer.ShapeDrawer
-import javax.swing.Spring.height
-
 
 class GameScreen(
     private val context: Context,
@@ -58,6 +53,8 @@ class GameScreen(
     private val minZoom = 0.3f
     private val maxZoom = 1.4f
     private var shouldDisplayDebugInfo = false
+    private var isDragging = false
+    private val lastTouch = Vector3()
 
     private var hasSavedScreenshot = false
 
@@ -129,6 +126,8 @@ class GameScreen(
             for (layerI in 0 until frameBufferPool.size) {
                 puzzlesByLayers[layerI]?.forEach { puzzle ->
                     frameBufferPool[layerI].use {
+                        Gdx.gl.glClearColor(0f, 0f, 0f, 0f)
+                        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
                         puzzlePieceDrawer.render(puzzle)
                     }
                 }
@@ -149,7 +148,7 @@ class GameScreen(
                     )
                     batch.use { batch ->
 //                    val frameRegion = frameRegionPool[layerI]
-                        batch.shader = shader
+//                        batch.shader = shader
                         batch.draw(resultTexture, 0f, 0f, resultTexture.width.toFloat(), resultTexture.height.toFloat())
                         batch.shader = null
                     }
@@ -195,26 +194,43 @@ class GameScreen(
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
     }
 
-    private fun createDrawer(): ShapeDrawer {
-        logger.debug { "createDrawer" }
-
-        val pixmap = Pixmap(1, 1, Pixmap.Format.RGBA8888)
-        pixmap.setColor(Color.WHITE)
-        pixmap.drawPixel(0, 0)
-        val texture = Texture(pixmap)
-        pixmap.dispose()
-        val textureRegion = TextureRegion(texture, 0, 0, 1, 1)
-        return ShapeDrawer(batch, textureRegion)
-    }
-
     override fun touchDown(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
         logger.debug { "touchDown button=$button" }
 
-        if (button == Input.Buttons.RIGHT) {
-            shouldDisplayDebugInfo = !shouldDisplayDebugInfo
-            logger.info { "displayDebugInfo = $shouldDisplayDebugInfo" }
+        return when (button) {
+            Input.Buttons.RIGHT -> {
+                shouldDisplayDebugInfo = !shouldDisplayDebugInfo
+                logger.info { "displayDebugInfo = $shouldDisplayDebugInfo" }
+                true
+            }
+
+            Input.Buttons.LEFT -> {
+                isDragging = true
+                lastTouch.set(gameCamera.unproject(Vector3(screenX.toFloat(), screenY.toFloat(), 0f)))
+                true
+            }
+
+            else -> false
         }
-        return true
+    }
+
+    override fun touchDragged(screenX: Int, screenY: Int, pointer: Int): Boolean {
+        if (isDragging) {
+            val currentTouch = gameCamera.unproject(Vector3(screenX.toFloat(), screenY.toFloat(), 0f))
+            val delta = currentTouch.sub(lastTouch)
+            gameCamera.translate(-delta.x, -delta.y, 0f)
+            lastTouch.set(screenX.toFloat(), screenY.toFloat(), 0f)
+            return true
+        }
+        return false
+    }
+
+    override fun touchUp(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
+        if (button == Input.Buttons.LEFT) {
+            isDragging = false
+            return true
+        }
+        return false
     }
 
     override fun keyDown(keycode: Int): Boolean {
@@ -277,5 +293,19 @@ class GameScreen(
         pixmap.dispose() // Dispose the original pixmap
         PixmapIO.writePNG(Gdx.files.local("frameBufferScreenshot.png"), flippedPixmap);
         flippedPixmap.dispose();
+    }
+
+    override fun dispose() {
+        logger.debug { "dispose" }
+
+        hudFont.dispose()
+        shaderProgram.dispose()
+        puzzlePieceDrawer.dispose()
+
+        frameBufferPool.forEach { it.dispose() }
+        frameBufferPool.clear()
+        frameRegionPool.clear()
+
+        super.dispose()
     }
 }

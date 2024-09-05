@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.NinePatch
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.glutils.ShaderProgram
+import com.badlogic.gdx.utils.Disposable
 import edu.b4kancs.languagePuzzleApp.app.misc
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 import edu.b4kancs.languagePuzzleApp.app.model.Side
@@ -17,7 +18,7 @@ import ktx.log.logger
 
 class PuzzlePieceDrawer(
     private val context: Context
-) {
+) : Disposable {
     private val batch = context.inject<Batch>()
     private val base9Patch: NinePatch
     private val blankTexture: Texture
@@ -37,7 +38,7 @@ class PuzzlePieceDrawer(
         base9Patch = NinePatch(baseTexture, 20, 20, 20, 20)
 
         blankTexture = Texture(Gdx.files.internal("puzzle_blank_03.png"), Pixmap.Format.RGBA8888, true)
-        tabTexture = Texture(Gdx.files.internal("puzzle_tab_03_noalpha.png"), Pixmap.Format.RGBA8888, true)
+        tabTexture = Texture(Gdx.files.internal("puzzle_tab_05.png"), Pixmap.Format.RGBA8888, true)
 //        blankTexture.bind()
 //        tabTexture.bind()
         blankTexture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear)
@@ -158,14 +159,14 @@ class PuzzlePieceDrawer(
                 Side.LEFT -> {
                     width = TAB_HEIGHT
                     height = TAB_WIDTH
-                    tabX = puzzlePiece.pos.x - width + tabOffset - 7
+                    tabX = puzzlePiece.pos.x - width + tabOffset - 6.5f
                     tabY = puzzlePiece.pos.y + puzzlePiece.height / 2 - TAB_HEIGHT / 2
                     rotation = 90f
                 }
                 Side.RIGHT -> {
                     width = TAB_HEIGHT
                     height = TAB_WIDTH
-                    tabX = puzzlePiece.pos.x + puzzlePiece.width - tabOffset + 7
+                    tabX = puzzlePiece.pos.x + puzzlePiece.width - tabOffset + 6.5f
                     tabY = puzzlePiece.pos.y + puzzlePiece.height / 2 - TAB_HEIGHT / 2
                     rotation = 270f
                 }
@@ -190,5 +191,9 @@ class PuzzlePieceDrawer(
                 /* flipY = */ false
             )
         }
+    }
+
+    override fun dispose() {
+        TODO("Not yet implemented")
     }
 }
