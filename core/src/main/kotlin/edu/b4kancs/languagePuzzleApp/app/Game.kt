@@ -2,11 +2,11 @@ package edu.b4kancs.languagePuzzleApp.app
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.assets.AssetManager
+import com.badlogic.gdx.graphics.Camera
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.utils.Disposable
-import com.badlogic.gdx.utils.viewport.FillViewport
 import com.badlogic.gdx.utils.viewport.FitViewport
 import edu.b4kancs.languagePuzzleApp.app.model.Environment
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
@@ -28,8 +28,10 @@ class Game(val environment: Environment) : KtxGame<KtxScreen>() {
     private val gameModel = GameModel()
 
     companion object {
+        const val WORLD_WIDTH = 2000
+        const val WORLD_HEIGHT = 2000
         const val LOG_LEVEL = com.badlogic.gdx.utils.Logger.DEBUG
-        const val isDebugModeOn = true
+        const val IS_DEBUG_MODE_ON = true
         val logger = logger<Game>()
     }
 
@@ -38,8 +40,12 @@ class Game(val environment: Environment) : KtxGame<KtxScreen>() {
         logger.debug { "create" }
 
         disposables.add(context)
-        val viewportWidth = 1200f
-        val viewportHeight = 800f
+        val screenWidth = Gdx.graphics.width.toFloat()
+        val screenHeight = Gdx.graphics.height.toFloat()
+        val aspectRatio = screenHeight / screenWidth
+
+        val gameViewportWidth = WORLD_WIDTH / 2f
+        val gameViewportHeight = gameViewportWidth * aspectRatio
 
         context.register {
             bindSingleton(gameModel)
@@ -47,18 +53,22 @@ class Game(val environment: Environment) : KtxGame<KtxScreen>() {
             bindSingleton(AssetManager())
 
             bindSingleton(gameCamera.apply {
-                setToOrtho(false, viewportWidth, viewportHeight)
-                position.set(viewportWidth / 2, viewportHeight / 2, 0f)
             })
 
             bindSingleton(hudCamera.apply {
-                setToOrtho(false, viewportWidth, viewportHeight)
-                position.set(viewportWidth / 2, viewportHeight / 2, 0f)
+                setToOrtho(false, screenWidth, screenHeight)
+                position.set(gameViewportWidth / 2, gameViewportHeight / 2, 0f)
             })
 
-            bindSingleton<FillViewport>(FillViewport(viewportWidth, viewportHeight, gameCamera))
-            bindSingleton<FitViewport>(FitViewport(viewportWidth, viewportHeight, hudCamera))
+            bindSingleton<GameViewport>(
+                GameViewport(WORLD_WIDTH.toFloat(), WORLD_HEIGHT.toFloat(), gameCamera).apply {
+                    worldWidth = 1200f//WORLD_WIDTH.toFloat()
+                    worldHeight = 800f//WORLD_HEIGHT.toFloat()
+                }
+            )
+            bindSingleton<HudViewport>(HudViewport(screenWidth, screenHeight, hudCamera))
         }
+
         with(context) {
             addScreen(
                 GameScreen(
@@ -84,6 +94,11 @@ class Game(val environment: Environment) : KtxGame<KtxScreen>() {
     }
 }
 
+// Due to the simplistic DI system's constraints, named classes are necessary where multiple singletons of the same type have to be used.
 class GameCamera : OrthographicCamera()
 
 class HudCamera : OrthographicCamera()
+
+class GameViewport(width: Float, height: Float, camera: Camera) : FitViewport(width, height, camera)
+
+class HudViewport(width: Float, height: Float, camera: Camera) : FitViewport(width, height, camera)

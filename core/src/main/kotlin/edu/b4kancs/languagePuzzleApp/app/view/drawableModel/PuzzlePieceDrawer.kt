@@ -1,13 +1,13 @@
 package edu.b4kancs.languagePuzzleApp.app.view.drawableModel
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.NinePatch
-import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.badlogic.gdx.graphics.glutils.ShaderProgram
+import com.badlogic.gdx.graphics.glutils.FrameBuffer
 import com.badlogic.gdx.utils.Disposable
 import edu.b4kancs.languagePuzzleApp.app.misc
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
@@ -38,23 +38,29 @@ class PuzzlePieceDrawer(
         base9Patch = NinePatch(baseTexture, 20, 20, 20, 20)
 
         blankTexture = Texture(Gdx.files.internal("puzzle_blank_03.png"), Pixmap.Format.RGBA8888, true)
-        tabTexture = Texture(Gdx.files.internal("puzzle_tab_05.png"), Pixmap.Format.RGBA8888, true)
-//        blankTexture.bind()
-//        tabTexture.bind()
+//        tabTexture = Texture(Gdx.files.internal("puzzle_tab_06.png"), Pixmap.Format.RGBA8888, true)
+//        tabTexture = loadAndPremultiplyTexture("puzzle_tab_07.png")
+        tabTexture = loadAndProcessTexture("puzzle_tab_07.png")
+//        val preTabTexture = Texture(Gdx.files.internal("puzzle_tab_06.png"), Pixmap.Format.RGBA8888, true)
+        blankTexture.bind()
+        tabTexture.bind()
         blankTexture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear)
         tabTexture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear)
+
+//        preTabTexture.textureData.prepare()
+//        val tabPixmap = preTabTexture.textureData.consumePixmap()
+//        processPixmap(tabPixmap)
+//        tabTexture = Texture(tabPixmap)
     }
 
     fun render(puzzlePiece: PuzzlePiece) {
         logger.misc { "render" }
 
-        val defaultShader = batch.shader
-
         batch.use {
-
             batch.color = puzzlePiece.color
 
-            base9Patch.draw(batch, puzzlePiece.pos.x, puzzlePiece.pos.y, puzzlePiece.width, puzzlePiece.height)
+//            base9Patch.draw(batch, puzzlePiece.pos.x, puzzlePiece.pos.y, puzzlePiece.width, puzzlePiece.height)
+            base9Patch.draw(batch, 0f, 0f, puzzlePiece.width, puzzlePiece.height)
 
             drawBlanks(puzzlePiece)
 
@@ -62,7 +68,6 @@ class PuzzlePieceDrawer(
 
             drawTabs(puzzlePiece)
         }
-        batch.shader = defaultShader
     }
 
     private fun drawBlanks(puzzlePiece: PuzzlePiece) {
@@ -80,29 +85,29 @@ class PuzzlePieceDrawer(
                 Side.TOP -> {
                     width = BLANK_WIDTH
                     height = BLANK_HEIGHT
-                    blankX = puzzlePiece.pos.x + puzzlePiece.width / 2 - BLANK_WIDTH / 2
-                    blankY = puzzlePiece.pos.y + puzzlePiece.height - BLANK_HEIGHT
+                    blankX = 0f + puzzlePiece.width / 2 - BLANK_WIDTH / 2
+                    blankY = 0f + puzzlePiece.height - BLANK_HEIGHT
                     rotation = 180f
                 }
                 Side.BOTTOM -> {
                     width = BLANK_WIDTH
                     height = BLANK_HEIGHT
-                    blankX = puzzlePiece.pos.x + puzzlePiece.width / 2 - BLANK_WIDTH / 2
-                    blankY = puzzlePiece.pos.y
+                    blankX = 0f + puzzlePiece.width / 2 - BLANK_WIDTH / 2
+                    blankY = 0f
                     rotation = 0f
                 }
                 Side.LEFT -> {
                     width = BLANK_HEIGHT
                     height = BLANK_WIDTH
-                    blankX = puzzlePiece.pos.x + (height - width) / 2
-                    blankY = puzzlePiece.pos.y + puzzlePiece.height / 2 - BLANK_HEIGHT / 2
+                    blankX = 0f + (height - width) / 2
+                    blankY = 0f + puzzlePiece.height / 2 - BLANK_HEIGHT / 2
                     rotation = 270f
                 }
                 Side.RIGHT -> {
                     width = BLANK_HEIGHT
                     height = BLANK_WIDTH
-                    blankX = puzzlePiece.pos.x + puzzlePiece.width - (width + height) / 2
-                    blankY = puzzlePiece.pos.y + (puzzlePiece.height / 2) - (height / 2) - (height - width) / 2
+                    blankX = 0f + puzzlePiece.width - (width + height) / 2
+                    blankY = 0f + (puzzlePiece.height / 2) - (height / 2) - (height - width) / 2
                     rotation = 90f
                 }
             }
@@ -133,6 +138,8 @@ class PuzzlePieceDrawer(
     private fun drawTabs(puzzlePiece: PuzzlePiece) {
         logger.misc { "drawBlanks" }
 
+        batch.setBlendFunctionSeparate(GL20.GL_ONE, GL20.GL_ONE_MINUS_SRC_ALPHA, GL20.GL_ONE, GL20.GL_ONE_MINUS_SRC_COLOR)
+
         for (tab in puzzlePiece.tabs) {
             batch.color = tab.color ?: puzzlePiece.color
             val tabX: Float
@@ -145,29 +152,29 @@ class PuzzlePieceDrawer(
                 Side.TOP -> {
                     width = TAB_WIDTH
                     height = TAB_HEIGHT
-                    tabX = puzzlePiece.pos.x + puzzlePiece.width / 2 - TAB_WIDTH / 2
-                    tabY = puzzlePiece.pos.y + puzzlePiece.height - tabOffset
+                    tabX = 0f + puzzlePiece.width / 2 - TAB_WIDTH / 2
+                    tabY = 0f + puzzlePiece.height - tabOffset
                     rotation = 0f
                 }
                 Side.BOTTOM -> {
                     width = TAB_WIDTH
                     height = TAB_HEIGHT
-                    tabX = puzzlePiece.pos.x + puzzlePiece.width / 2 - TAB_WIDTH / 2
-                    tabY = puzzlePiece.pos.y - TAB_HEIGHT + tabOffset
+                    tabX = 0f + puzzlePiece.width / 2 - TAB_WIDTH / 2
+                    tabY = 0f - TAB_HEIGHT + tabOffset
                     rotation = 180f
                 }
                 Side.LEFT -> {
                     width = TAB_HEIGHT
                     height = TAB_WIDTH
-                    tabX = puzzlePiece.pos.x - width + tabOffset - 6.5f
-                    tabY = puzzlePiece.pos.y + puzzlePiece.height / 2 - TAB_HEIGHT / 2
+                    tabX = 0f - width + tabOffset - 6.5f
+                    tabY = 0f + puzzlePiece.height / 2 - TAB_HEIGHT / 2
                     rotation = 90f
                 }
                 Side.RIGHT -> {
                     width = TAB_HEIGHT
                     height = TAB_WIDTH
-                    tabX = puzzlePiece.pos.x + puzzlePiece.width - tabOffset + 6.5f
-                    tabY = puzzlePiece.pos.y + puzzlePiece.height / 2 - TAB_HEIGHT / 2
+                    tabX = 0f + puzzlePiece.width - tabOffset + 6.5f
+                    tabY = 0f + puzzlePiece.height / 2 - TAB_HEIGHT / 2
                     rotation = 270f
                 }
             }
@@ -190,6 +197,49 @@ class PuzzlePieceDrawer(
                 /* flipX = */ false,
                 /* flipY = */ false
             )
+        }
+
+        batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA)
+    }
+
+    private fun loadAndPremultiplyTexture(path: String): Texture {
+        val pixmap = Pixmap(Gdx.files.internal(path))
+//        premultiplyPixmap(pixmap)
+        val texture = Texture(pixmap, true) // true enables mipmaps
+        pixmap.dispose()
+        return texture
+    }
+
+    private fun premultiplyPixmap(pixmap: Pixmap) {
+        val pixels = pixmap.pixels
+        val numPixels = pixmap.width * pixmap.height
+        for (i in 0 until numPixels) {
+            val color = Color(pixels.getInt(i * 4))
+            val alpha = color.a
+            val newColor = Color.rgba8888(color.r * alpha, color.g * alpha, color.b * alpha, color.a)
+            pixels.putInt(i * 4, newColor)
+        }
+    }
+
+    private fun loadAndProcessTexture(path: String): Texture {
+        val unprocessedTexture = Texture(Gdx.files.internal(path))
+        unprocessedTexture.textureData.prepare()
+        val pixmap = unprocessedTexture.textureData.consumePixmap()
+//        processPixmap(pixmap)
+        val processedTexture = Texture(pixmap, true)
+        processedTexture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear)
+        pixmap.dispose()
+        return processedTexture
+    }
+
+    private fun processPixmap(pixmap: Pixmap) {
+        val pixels = pixmap.pixels
+        for (i in 0 until pixmap.width * pixmap.height) {
+            val color = Color(pixels.getInt(i * 4))
+            if (color.a < 1.0 && color.a > 0.0) {
+                val newColor = Color.rgba8888(255f, 255f, 255f, 1f)
+                pixels.putInt(i * 4, newColor)
+            }
         }
     }
 

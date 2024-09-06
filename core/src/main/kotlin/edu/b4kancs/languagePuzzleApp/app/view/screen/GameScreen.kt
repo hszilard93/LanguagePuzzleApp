@@ -13,11 +13,11 @@ import com.badlogic.gdx.graphics.glutils.FrameBuffer
 import com.badlogic.gdx.graphics.glutils.ShaderProgram
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.math.Vector3
-import com.badlogic.gdx.utils.viewport.FillViewport
-import com.badlogic.gdx.utils.viewport.FitViewport
 import edu.b4kancs.languagePuzzleApp.app.Game
 import edu.b4kancs.languagePuzzleApp.app.GameCamera
+import edu.b4kancs.languagePuzzleApp.app.GameViewport
 import edu.b4kancs.languagePuzzleApp.app.HudCamera
+import edu.b4kancs.languagePuzzleApp.app.HudViewport
 import edu.b4kancs.languagePuzzleApp.app.misc
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
 import edu.b4kancs.languagePuzzleApp.app.view.drawableModel.PuzzlePieceDrawer
@@ -33,8 +33,8 @@ class GameScreen(
     private val context: Context,
     private val batch: Batch,
     private val assetManager: AssetManager,
-    private val gameViewport: FillViewport,
-    private val hudViewport: FitViewport,
+    private val gameViewport: GameViewport,
+    private val hudViewport: HudViewport,
     private val gameCamera: GameCamera,
     private val hudCamera: HudCamera,
     private val gameModel: GameModel
@@ -50,8 +50,9 @@ class GameScreen(
     private val shaderProgram: ShaderProgram
 
     private val puzzlePieceDrawer = PuzzlePieceDrawer(context)
-    private val minZoom = 0.3f
-    private val maxZoom = 1.4f
+    private val minZoom = 1f
+    private val maxZoom = 1.6f
+    private val startZoom = 1.3f
     private var shouldDisplayDebugInfo = false
     private var isDragging = false
     private val lastTouch = Vector3()
@@ -69,11 +70,11 @@ class GameScreen(
         frameRegionPool = gdxArrayOf<TextureRegion>(true)
 
         for (i in 0 until 3) {  // Start with 3 default layers. Will be enough in most cases.
-            val frameBuffer = FrameBuffer(Pixmap.Format.RGBA8888, gameViewport.worldWidth.toInt(), gameViewport.worldHeight.toInt(), false)
+            val frameBuffer = FrameBuffer(Pixmap.Format.RGBA8888, Gdx.graphics.width, Gdx.graphics.height, false)
             frameBufferPool.add(frameBuffer)
-            val frameRegion = TextureRegion(frameBuffer.colorBufferTexture, gameViewport.screenWidth, gameViewport.screenHeight)
-            frameRegion.flip(false, true)
-            frameRegionPool.add(frameRegion)
+//            val frameRegion = TextureRegion(frameBuffer.colorBufferTexture, gameViewport.screenWidth, gameViewport.screenHeight)
+//            frameRegion.flip(false, true)
+//            frameRegionPool.add(frameRegion)
         }
     }
 
@@ -86,7 +87,7 @@ class GameScreen(
 
         gameCamera.apply {
             setToOrtho(false)
-            zoom = 0.5f
+            zoom = startZoom
         }
 
         super.show()
@@ -95,13 +96,14 @@ class GameScreen(
     override fun resize(newWidth: Int, newHeight: Int) {
         logger.debug { "resize newWidth=$newWidth newHeight=$newHeight" }
 
-        gameViewport.update(newWidth, newHeight, true)
+        val aspectRatio = newHeight / newWidth
+
+//        gameViewport.update(WORLD_WIDTH / 10, WORLD_WIDTH / 10 * aspectRatio, false)
+        gameViewport.update(newWidth / 2, newHeight / 2, false)
 
         hudViewport.update(newWidth, newHeight, true)
 
-        for (frameBuffer in frameBufferPool) {
-//                updateFrameBuffer(frameBuffer)
-        }
+        updateFrameBuffers()
     }
 
     override fun render(delta: Float) {
@@ -125,33 +127,65 @@ class GameScreen(
 
             for (layerI in 0 until frameBufferPool.size) {
                 puzzlesByLayers[layerI]?.forEach { puzzle ->
-                    frameBufferPool[layerI].use {
+                    val frameBuffer = FrameBuffer(
+                        Pixmap.Format.RGBA8888,
+                        puzzle.renderSize.first.toInt(),
+                        puzzle.renderSize.second.toInt(),
+                        false
+                    )
+                    frameBuffer.use {
                         Gdx.gl.glClearColor(0f, 0f, 0f, 0f)
                         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
                         puzzlePieceDrawer.render(puzzle)
                     }
-                }
-
-                if (!hasSavedScreenshot) {
-                    hasSavedScreenshot = true
-                    saveFrameBufferToPNG(frameBufferPool[layerI])
-                }
-
-                val resultTexture = frameBufferPool[layerI].colorBufferTexture
-
-                shaderProgram.use { shader ->
-                    shader.setUniform2fv(
-                        "u_textureSize",
-                        floatArrayOf(resultTexture.width.toFloat(), resultTexture.height.toFloat()),
-                        0,
-                        2
-                    )
-                    batch.use { batch ->
-//                    val frameRegion = frameRegionPool[layerI]
-//                        batch.shader = shader
-                        batch.draw(resultTexture, 0f, 0f, resultTexture.width.toFloat(), resultTexture.height.toFloat())
-                        batch.shader = null
+                    val textureRegion = frameBuffer.colorBufferTexture
+                    Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0)
+                    textureRegion.bind()
+                    batch.use {
+                        it.draw(
+                            textureRegion,
+                            puzzle.renderPos.x,
+                            puzzle.renderPos.y,
+                            textureRegion.width.toFloat(),
+                            textureRegion.height.toFloat()
+                        )
                     }
+
+//                    frameBufferPool[layerI].use {
+//                        Gdx.gl.glClearColor(0f, 0f, 0f, 0.1f)
+//                        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
+//                        puzzlePieceDrawer.render(puzzle)
+//                    }
+//                }
+
+                    if (!hasSavedScreenshot && layerI == 1) {
+                        hasSavedScreenshot = true
+                        saveFrameBufferToPNG(frameBuffer)
+                    }
+
+
+//                val resultTexture = frameBufferPool[layerI].colorBufferTexture
+//                resultTexture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear)
+//
+//                Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0)
+//                resultTexture.bind()
+//                Gdx.gl.glGenerateMipmap(GL20.GL_TEXTURE_2D)
+//
+//                resultTexture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear)
+
+//                shaderProgram.use { shader ->
+//                    shader.setUniform2fv(
+//                        "u_textureSize",
+//                        floatArrayOf(resultTexture.width.toFloat(), resultTexture.height.toFloat()),
+//                        0,
+//                        2
+//                    )
+//                    batch.use { batch ->
+//                        val frameRegion = frameRegionPool[layerI]
+//                        batch.shader = shader
+//                        batch.draw(resultTexture, 0f, 0f, resultTexture.width.toFloat(), resultTexture.height.toFloat())
+//                        batch.shader = null
+//                    }
                 }
             }
         }
@@ -172,7 +206,7 @@ class GameScreen(
         hudFont.draw(batch, "Lower left", 0f, hudFont.lineHeight)
         hudFont.draw(batch, "Zoom: %.1f".format(gameCamera.zoom), hudCamera.viewportWidth - 75f, hudCamera.viewportHeight)
 
-        if (Game.isDebugModeOn && shouldDisplayDebugInfo) {
+        if (Game.IS_DEBUG_MODE_ON && shouldDisplayDebugInfo) {
             // Render the mouse position interpreted as real pixel coordinates within the viewport ("0, 0" is the viewports bottom left corner)
             val screenHeight = Gdx.graphics.height.toFloat()
             val mouseX = Gdx.input.x.toFloat()
@@ -180,10 +214,11 @@ class GameScreen(
             val mouseViewportX = mouseX - hudViewport.leftGutterWidth
             val mouseViewportY = screenHeight - mouseY - hudViewport.bottomGutterHeight
             val renderVector = hudViewport.unproject(Vector2(mouseX, mouseY))
+            val worldVector = gameCamera.unproject(Vector3(mouseX, mouseY, 0f))
             if (hudViewport.screenWidth >= 200) {  // Catches errors when the viewport is too small or not visible (e.g. window is minimized)
                 val renderX = (renderVector.x + 10f).coerceIn(10f, hudViewport.worldWidth - 100f)
                 val renderY = (renderVector.y + 10f).coerceIn(10f, hudViewport.worldHeight - 10f)
-                hudFont.draw(batch, "$mouseViewportX, $mouseViewportY", renderX, renderY + 10f)
+                hudFont.draw(batch, "$mouseViewportX, $mouseViewportY\n${worldVector.x}, ${worldVector.y}", renderX, renderY + 10f)
             }
         }
     }
@@ -205,8 +240,8 @@ class GameScreen(
             }
 
             Input.Buttons.LEFT -> {
-                isDragging = true
                 lastTouch.set(gameCamera.unproject(Vector3(screenX.toFloat(), screenY.toFloat(), 0f)))
+                isDragging = true
                 true
             }
 
@@ -216,10 +251,17 @@ class GameScreen(
 
     override fun touchDragged(screenX: Int, screenY: Int, pointer: Int): Boolean {
         if (isDragging) {
-            val currentTouch = gameCamera.unproject(Vector3(screenX.toFloat(), screenY.toFloat(), 0f))
-            val delta = currentTouch.sub(lastTouch)
-            gameCamera.translate(-delta.x, -delta.y, 0f)
-            lastTouch.set(screenX.toFloat(), screenY.toFloat(), 0f)
+//            val currentTouch = gameCamera.unproject(Vector3(screenX.toFloat(), screenY.toFloat(), 0f))
+//            val delta = currentTouch.sub(lastTouch)
+//            gameCamera.translate(-delta.x, -delta.y, 0f)
+//            lastTouch.set(gameCamera.unproject(Vector3(screenX.toFloat(), screenY.toFloat(), 0f)))
+            val x = Gdx.input.deltaX.toFloat()
+            val y = Gdx.input.deltaY.toFloat()
+
+            gameCamera.translate(-x, -y)
+            gameViewport.apply()
+            gameCamera.update()
+
             return true
         }
         return false
@@ -262,9 +304,28 @@ class GameScreen(
 
         logger.debug { "gameCamera.viewportWidth ${gameCamera.viewportWidth}; gameCamera.viewportHeight ${gameCamera.viewportHeight}" }
 
-//        updateFrameBuffer()
+        updateFrameBuffers()
 
         return true
+    }
+
+    private fun updateFrameBuffers() {
+//        for (i in 0 until frameBufferPool.size) {
+//            frameBufferPool[i].dispose() // Dispose the old frame buffer
+//
+//            val newFrameBuffer = FrameBuffer(
+//                Pixmap.Format.RGBA8888,
+//                gameViewport.worldWidth.toInt(),
+//                gameViewport.worldHeight.toInt(),
+//                false
+//            )
+//            frameBufferPool[i] = newFrameBuffer // Replace with the new frame buffer
+
+//            frameRegionPool[i].texture = newFrameBuffer.colorBufferTexture
+//            frameRegionPool[i].regionWidth = gameViewport.screenWidth
+//            frameRegionPool[i].regionHeight = gameViewport.screenHeight
+//            frameRegionPool[i].flip(false, true)
+//        }
     }
 
     private fun loadShader(): ShaderProgram {
