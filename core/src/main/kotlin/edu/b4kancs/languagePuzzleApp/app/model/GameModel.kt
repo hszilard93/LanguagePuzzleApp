@@ -2,8 +2,6 @@ package edu.b4kancs.languagePuzzleApp.app.model
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Vector2
-import edu.b4kancs.languagePuzzleApp.app.Game.Companion.WORLD_HEIGHT
-import edu.b4kancs.languagePuzzleApp.app.Game.Companion.WORLD_WIDTH
 
 const val LOG_LEVEL_MISC = 4
 

@@ -40,6 +40,8 @@ class PuzzlePiece(
             renderSize = calculateRenderSize(width, field)
         }
 
+    var hasChangedSizeSinceLastRender = true
+
     lateinit var renderPos: Vector2
         private set
     lateinit var renderSize: Pair<Float, Float>
@@ -48,6 +50,10 @@ class PuzzlePiece(
     companion object {
         const val MIN_WIDTH = 300f
         const val MIN_HEIGHT = 300f
+        const val BLANK_WIDTH = 120f
+        const val BLANK_HEIGHT = BLANK_WIDTH * 0.75f
+        const val TAB_WIDTH = 110f
+        const val TAB_HEIGHT = TAB_WIDTH * 0.88f
     }
 
     // Validate the PuzzlePiece on initialization
@@ -64,9 +70,9 @@ class PuzzlePiece(
         }
     }
 
-    private fun calculateRenderPosition(pos: Vector2): Vector2 = Vector2(pos.x - 50, pos.y - 50)
+    private fun calculateRenderPosition(pos: Vector2): Vector2 = Vector2(pos.x - TAB_HEIGHT, pos.y - TAB_HEIGHT)
 
-    private fun calculateRenderSize(width: Float, height: Float): Pair<Float, Float> = width + 100 to height + 100
+    private fun calculateRenderSize(width: Float, height: Float): Pair<Float, Float> = width + 2 * TAB_HEIGHT to height + 2 * TAB_HEIGHT
 }
 
 class InvalidPuzzlePieceException(message: String) : IllegalArgumentException(message)

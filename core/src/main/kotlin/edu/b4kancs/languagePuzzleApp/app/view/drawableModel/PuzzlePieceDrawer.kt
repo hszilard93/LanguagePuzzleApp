@@ -7,11 +7,14 @@ import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.NinePatch
-import com.badlogic.gdx.graphics.glutils.FrameBuffer
 import com.badlogic.gdx.utils.Disposable
 import edu.b4kancs.languagePuzzleApp.app.misc
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
+import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece.Companion.BLANK_HEIGHT
 import edu.b4kancs.languagePuzzleApp.app.model.Side
+import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece.Companion.BLANK_WIDTH
+import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece.Companion.TAB_HEIGHT
+import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece.Companion.TAB_WIDTH
 import ktx.graphics.use
 import ktx.inject.Context
 import ktx.log.logger
@@ -26,10 +29,7 @@ class PuzzlePieceDrawer(
 
     companion object {
         private val logger = logger<PuzzlePieceDrawer>()
-        private const val BLANK_WIDTH = 120f
-        private const val BLANK_HEIGHT = BLANK_WIDTH * 0.75f
-        private const val TAB_WIDTH = 110f
-        private const val TAB_HEIGHT = TAB_WIDTH * 0.88f
+        private const val BASE_OFFSET = TAB_HEIGHT
     }
 
     init {
@@ -38,19 +38,12 @@ class PuzzlePieceDrawer(
         base9Patch = NinePatch(baseTexture, 20, 20, 20, 20)
 
         blankTexture = Texture(Gdx.files.internal("puzzle_blank_03.png"), Pixmap.Format.RGBA8888, true)
-//        tabTexture = Texture(Gdx.files.internal("puzzle_tab_06.png"), Pixmap.Format.RGBA8888, true)
-//        tabTexture = loadAndPremultiplyTexture("puzzle_tab_07.png")
-        tabTexture = loadAndProcessTexture("puzzle_tab_07.png")
-//        val preTabTexture = Texture(Gdx.files.internal("puzzle_tab_06.png"), Pixmap.Format.RGBA8888, true)
         blankTexture.bind()
-        tabTexture.bind()
         blankTexture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear)
-        tabTexture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear)
 
-//        preTabTexture.textureData.prepare()
-//        val tabPixmap = preTabTexture.textureData.consumePixmap()
-//        processPixmap(tabPixmap)
-//        tabTexture = Texture(tabPixmap)
+        tabTexture = Texture(Gdx.files.internal("puzzle_tab_07.png"), Pixmap.Format.RGBA8888, true)
+        tabTexture.bind()
+        tabTexture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear)
     }
 
     fun render(puzzlePiece: PuzzlePiece) {
@@ -59,8 +52,7 @@ class PuzzlePieceDrawer(
         batch.use {
             batch.color = puzzlePiece.color
 
-//            base9Patch.draw(batch, puzzlePiece.pos.x, puzzlePiece.pos.y, puzzlePiece.width, puzzlePiece.height)
-            base9Patch.draw(batch, 0f, 0f, puzzlePiece.width, puzzlePiece.height)
+            base9Patch.draw(batch, BASE_OFFSET, BASE_OFFSET, puzzlePiece.width, puzzlePiece.height)
 
             drawBlanks(puzzlePiece)
 
@@ -85,29 +77,32 @@ class PuzzlePieceDrawer(
                 Side.TOP -> {
                     width = BLANK_WIDTH
                     height = BLANK_HEIGHT
-                    blankX = 0f + puzzlePiece.width / 2 - BLANK_WIDTH / 2
-                    blankY = 0f + puzzlePiece.height - BLANK_HEIGHT
+                    blankX = BASE_OFFSET + puzzlePiece.width / 2 - BLANK_WIDTH / 2
+                    blankY = BASE_OFFSET + puzzlePiece.height - BLANK_HEIGHT
                     rotation = 180f
                 }
+
                 Side.BOTTOM -> {
                     width = BLANK_WIDTH
                     height = BLANK_HEIGHT
-                    blankX = 0f + puzzlePiece.width / 2 - BLANK_WIDTH / 2
-                    blankY = 0f
+                    blankX = BASE_OFFSET + puzzlePiece.width / 2 - BLANK_WIDTH / 2
+                    blankY = BASE_OFFSET
                     rotation = 0f
                 }
+
                 Side.LEFT -> {
                     width = BLANK_HEIGHT
                     height = BLANK_WIDTH
-                    blankX = 0f + (height - width) / 2
-                    blankY = 0f + puzzlePiece.height / 2 - BLANK_HEIGHT / 2
+                    blankX = BASE_OFFSET + (height - width) / 2
+                    blankY = BASE_OFFSET + puzzlePiece.height / 2 - BLANK_HEIGHT / 2
                     rotation = 270f
                 }
+
                 Side.RIGHT -> {
                     width = BLANK_HEIGHT
                     height = BLANK_WIDTH
-                    blankX = 0f + puzzlePiece.width - (width + height) / 2
-                    blankY = 0f + (puzzlePiece.height / 2) - (height / 2) - (height - width) / 2
+                    blankX = BASE_OFFSET + puzzlePiece.width - (width + height) / 2
+                    blankY = BASE_OFFSET + (puzzlePiece.height / 2) - (height / 2) - (height - width) / 2
                     rotation = 90f
                 }
             }
@@ -152,29 +147,32 @@ class PuzzlePieceDrawer(
                 Side.TOP -> {
                     width = TAB_WIDTH
                     height = TAB_HEIGHT
-                    tabX = 0f + puzzlePiece.width / 2 - TAB_WIDTH / 2
-                    tabY = 0f + puzzlePiece.height - tabOffset
+                    tabX = BASE_OFFSET + puzzlePiece.width / 2 - TAB_WIDTH / 2
+                    tabY = BASE_OFFSET + puzzlePiece.height - tabOffset
                     rotation = 0f
                 }
+
                 Side.BOTTOM -> {
                     width = TAB_WIDTH
                     height = TAB_HEIGHT
-                    tabX = 0f + puzzlePiece.width / 2 - TAB_WIDTH / 2
-                    tabY = 0f - TAB_HEIGHT + tabOffset
+                    tabX = BASE_OFFSET + puzzlePiece.width / 2 - TAB_WIDTH / 2
+                    tabY = BASE_OFFSET - TAB_HEIGHT + tabOffset
                     rotation = 180f
                 }
+
                 Side.LEFT -> {
                     width = TAB_HEIGHT
                     height = TAB_WIDTH
-                    tabX = 0f - width + tabOffset - 6.5f
-                    tabY = 0f + puzzlePiece.height / 2 - TAB_HEIGHT / 2
+                    tabX = BASE_OFFSET - width + tabOffset - 6.5f
+                    tabY = BASE_OFFSET + puzzlePiece.height / 2 - TAB_HEIGHT / 2
                     rotation = 90f
                 }
+
                 Side.RIGHT -> {
                     width = TAB_HEIGHT
                     height = TAB_WIDTH
-                    tabX = 0f + puzzlePiece.width - tabOffset + 6.5f
-                    tabY = 0f + puzzlePiece.height / 2 - TAB_HEIGHT / 2
+                    tabX = BASE_OFFSET + puzzlePiece.width - tabOffset + 6.5f
+                    tabY = BASE_OFFSET + puzzlePiece.height / 2 - TAB_HEIGHT / 2
                     rotation = 270f
                 }
             }
@@ -204,7 +202,6 @@ class PuzzlePieceDrawer(
 
     private fun loadAndPremultiplyTexture(path: String): Texture {
         val pixmap = Pixmap(Gdx.files.internal(path))
-//        premultiplyPixmap(pixmap)
         val texture = Texture(pixmap, true) // true enables mipmaps
         pixmap.dispose()
         return texture
