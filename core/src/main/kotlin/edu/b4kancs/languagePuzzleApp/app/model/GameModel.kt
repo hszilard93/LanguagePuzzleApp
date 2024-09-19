@@ -33,11 +33,11 @@ class GameModel {
 
         puzzlePieces.add(
             PuzzlePiece(
-                pos = Vector2(basePosition.x + 700f, basePosition.y + 350f),
+                pos = Vector2(basePosition.x + 601f, basePosition.y + 100f),
                 tabs = listOf(PuzzleTab(Side.LEFT, Color.CHARTREUSE), PuzzleTab(Side.TOP, Color.SKY)),
                 blanks = listOf(PuzzleBlank(Side.BOTTOM)),
                 color = Color.YELLOW,
-                depth = 2
+                depth = 0
             )
         )
     }

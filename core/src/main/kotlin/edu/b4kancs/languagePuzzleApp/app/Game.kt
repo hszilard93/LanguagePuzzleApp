@@ -7,13 +7,14 @@ import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.utils.Disposable
-import com.badlogic.gdx.utils.Scaling
 import com.badlogic.gdx.utils.viewport.ExtendViewport
 import edu.b4kancs.languagePuzzleApp.app.model.Environment
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
+import edu.b4kancs.languagePuzzleApp.app.view.screen.Constants
 import edu.b4kancs.languagePuzzleApp.app.view.screen.GameScreen
 import ktx.app.KtxGame
 import ktx.app.KtxScreen
+import ktx.assets.DisposableContainer
 import ktx.assets.disposeSafely
 import ktx.inject.Context
 import ktx.inject.register
@@ -21,11 +22,11 @@ import ktx.log.logger
 
 
 /** [com.badlogic.gdx.ApplicationListener] implementation shared by all platforms. */
-class Game(val environment: Environment) : KtxGame<KtxScreen>() {
+class Game(private val environment: Environment) : KtxGame<KtxScreen>() {
     private val context = Context()
     private val hudCamera = HudCamera()
     private val gameCamera = GameCamera()
-    private val disposables = ArrayList<Disposable>()
+    private val disposables = DisposableContainer()
     private val gameModel = GameModel()
 
     companion object {
@@ -38,31 +39,66 @@ class Game(val environment: Environment) : KtxGame<KtxScreen>() {
         Gdx.app.logLevel = LOG_LEVEL
         logger.debug { "create" }
 
-        disposables.add(context)
+        disposables.register(context)
         val screenWidth = Gdx.graphics.width.toFloat()
         val screenHeight = Gdx.graphics.height.toFloat()
         val aspectRatio = screenHeight / screenWidth
+
+        val gameVirtualWidth: Float
+        val gameVirtualHeight: Float
+        val gameMinWorldWidth: Float
+        val gameMinWorldHeight: Float
+        val gameMaxWorldWidth: Float
+        val gameMaxWorldHeight: Float
+        if (environment.isMobile()) {
+            gameVirtualWidth = Constants.GAME_MOBILE_VIRTUAL_WIDTH
+            gameVirtualHeight = Constants.GAME_MOBILE_VIRTUAL_HEIGHT
+            gameMinWorldWidth = Constants.GAME_MOBILE_MIN_WORLD_WIDTH
+            gameMinWorldHeight = Constants.GAME_MOBILE_MIN_WORLD_HEIGHT
+            gameMaxWorldWidth = Constants.GAME_MOBILE_MAX_WORLD_WIDTH
+            gameMaxWorldHeight = Constants.GAME_MOBILE_MAX_WORLD_HEIGHT
+        } else {
+            gameVirtualWidth = Constants.GAME_VIRTUAL_WIDTH
+            gameVirtualHeight = Constants.GAME_VIRTUAL_HEIGHT
+            gameMinWorldWidth = Constants.GAME_MIN_WORLD_WIDTH
+            gameMinWorldHeight = Constants.GAME_MIN_WORLD_HEIGHT
+            gameMaxWorldWidth = Constants.GAME_MAX_WORLD_WIDTH
+            gameMaxWorldHeight = Constants.GAME_MAX_WORLD_HEIGHT
+        }
 
         context.register {
             bindSingleton(gameModel)
             bindSingleton<Batch>(SpriteBatch())
             bindSingleton(AssetManager())
+            bindSingleton(environment)
 
             bindSingleton(gameCamera.apply {
-                setToOrtho(false, screenWidth, screenHeight)
+                setToOrtho(false, gameVirtualWidth, gameVirtualHeight)
             })
 
             bindSingleton(hudCamera.apply {
-                setToOrtho(false, screenWidth, screenHeight)
-//                position.set(gameViewportWidth / 2, gameViewportHeight / 2, 0f)
+                setToOrtho(false, gameVirtualWidth, gameVirtualHeight)
             })
 
-            bindSingleton<GameViewport>(GameViewport(screenWidth, screenHeight, gameCamera).apply {
-                setScaling(Scaling.contain)
-            })
-            bindSingleton<HudViewport>(HudViewport(screenWidth, screenHeight, hudCamera).apply {
-                setScaling(Scaling.contain)
-            })
+            bindSingleton<GameViewport>(
+                GameViewport(
+                    gameMinWorldWidth,
+                    gameMinWorldHeight,
+                    gameMaxWorldWidth,
+                    gameMaxWorldHeight,
+                    gameCamera
+                )
+            )
+
+            bindSingleton<HudViewport>(
+                HudViewport(
+                    gameMinWorldWidth,
+                    gameMinWorldHeight,
+                    gameMaxWorldWidth,
+                    gameMaxWorldHeight,
+                    hudCamera
+                )
+            )
         }
 
         with(context) {
@@ -75,7 +111,8 @@ class Game(val environment: Environment) : KtxGame<KtxScreen>() {
                     hudViewport = inject(),
                     gameCamera = inject(),
                     hudCamera = inject(),
-                    gameModel = inject()
+                    gameModel = inject(),
+                    environment = inject()
                 )
             )
         }
@@ -95,6 +132,8 @@ class GameCamera : OrthographicCamera()
 
 class HudCamera : OrthographicCamera()
 
-class GameViewport(width: Float, height: Float, camera: Camera) : ExtendViewport(width, height, camera)
+class GameViewport(minWorldWidth: Float, minWorldHeight: Float, maxWorldWidth: Float, maxWorldHeight: Float, camera: Camera) :
+    ExtendViewport(minWorldWidth, minWorldHeight, maxWorldWidth, maxWorldHeight, camera)
 
-class HudViewport(width: Float, height: Float, camera: Camera) : ExtendViewport(width, height, camera)
+class HudViewport(minWorldWidth: Float, minWorldHeight: Float, maxWorldWidth: Float, maxWorldHeight: Float, camera: Camera) :
+    ExtendViewport(minWorldWidth, minWorldHeight, maxWorldWidth, maxWorldHeight, camera)

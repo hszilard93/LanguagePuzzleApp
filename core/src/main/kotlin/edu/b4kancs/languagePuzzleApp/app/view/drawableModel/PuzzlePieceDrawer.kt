@@ -1,7 +1,6 @@
 package edu.b4kancs.languagePuzzleApp.app.view.drawableModel
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.Texture
@@ -11,10 +10,10 @@ import com.badlogic.gdx.utils.Disposable
 import edu.b4kancs.languagePuzzleApp.app.misc
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece.Companion.BLANK_HEIGHT
-import edu.b4kancs.languagePuzzleApp.app.model.Side
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece.Companion.BLANK_WIDTH
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece.Companion.TAB_HEIGHT
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece.Companion.TAB_WIDTH
+import edu.b4kancs.languagePuzzleApp.app.model.Side
 import ktx.graphics.use
 import ktx.inject.Context
 import ktx.log.logger
@@ -164,7 +163,7 @@ class PuzzlePieceDrawer(
                     width = TAB_HEIGHT
                     height = TAB_WIDTH
                     tabX = BASE_OFFSET - width + tabOffset - 6.5f
-                    tabY = BASE_OFFSET + puzzlePiece.height / 2 - TAB_HEIGHT / 2
+                    tabY = BASE_OFFSET + puzzlePiece.height / 2 - TAB_HEIGHT / 2 - 13f
                     rotation = 90f
                 }
 
@@ -200,47 +199,50 @@ class PuzzlePieceDrawer(
         batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA)
     }
 
-    private fun loadAndPremultiplyTexture(path: String): Texture {
-        val pixmap = Pixmap(Gdx.files.internal(path))
-        val texture = Texture(pixmap, true) // true enables mipmaps
-        pixmap.dispose()
-        return texture
-    }
-
-    private fun premultiplyPixmap(pixmap: Pixmap) {
-        val pixels = pixmap.pixels
-        val numPixels = pixmap.width * pixmap.height
-        for (i in 0 until numPixels) {
-            val color = Color(pixels.getInt(i * 4))
-            val alpha = color.a
-            val newColor = Color.rgba8888(color.r * alpha, color.g * alpha, color.b * alpha, color.a)
-            pixels.putInt(i * 4, newColor)
-        }
-    }
-
-    private fun loadAndProcessTexture(path: String): Texture {
-        val unprocessedTexture = Texture(Gdx.files.internal(path))
-        unprocessedTexture.textureData.prepare()
-        val pixmap = unprocessedTexture.textureData.consumePixmap()
-//        processPixmap(pixmap)
-        val processedTexture = Texture(pixmap, true)
-        processedTexture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear)
-        pixmap.dispose()
-        return processedTexture
-    }
-
-    private fun processPixmap(pixmap: Pixmap) {
-        val pixels = pixmap.pixels
-        for (i in 0 until pixmap.width * pixmap.height) {
-            val color = Color(pixels.getInt(i * 4))
-            if (color.a < 1.0 && color.a > 0.0) {
-                val newColor = Color.rgba8888(255f, 255f, 255f, 1f)
-                pixels.putInt(i * 4, newColor)
-            }
-        }
-    }
-
     override fun dispose() {
-        TODO("Not yet implemented")
+        logger.debug { "dispose" }
+
+        base9Patch.texture.dispose()
+        blankTexture.dispose()
+        tabTexture.dispose()
     }
+
+//    private fun loadAndPremultiplyTexture(path: String): Texture {
+//        val pixmap = Pixmap(Gdx.files.internal(path))
+//        val texture = Texture(pixmap, true) // true enables mipmaps
+//        pixmap.dispose()
+//        return texture
+//    }
+//
+//    private fun premultiplyPixmap(pixmap: Pixmap) {
+//        val pixels = pixmap.pixels
+//        val numPixels = pixmap.width * pixmap.height
+//        for (i in 0 until numPixels) {
+//            val color = Color(pixels.getInt(i * 4))
+//            val alpha = color.a
+//            val newColor = Color.rgba8888(color.r * alpha, color.g * alpha, color.b * alpha, color.a)
+//            pixels.putInt(i * 4, newColor)
+//        }
+//    }
+//
+//    private fun loadAndProcessTexture(path: String): Texture {
+//        val unprocessedTexture = Texture(Gdx.files.internal(path))
+//        unprocessedTexture.textureData.prepare()
+//        val pixmap = unprocessedTexture.textureData.consumePixmap()
+////        processPixmap(pixmap)
+//        val processedTexture = Texture(pixmap, true)
+//        processedTexture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear)
+//        pixmap.dispose()
+//        return processedTexture
+//    }
+//
+//    private fun processPixmap(pixmap: Pixmap) {
+//        val pixels = pixmap.pixels
+//        for (i in 0 until pixmap.width * pixmap.height) {
+//            val color = Color(pixels.getInt(i * 4))
+//            if (color.a < 1.0 && color.a > 0.0) {
+//                val newColor = Color.rgba8888(255f, 255f, 255f, 1f)
+//                pixels.putInt(i * 4, newColor)
+//            }
+//        }
 }
