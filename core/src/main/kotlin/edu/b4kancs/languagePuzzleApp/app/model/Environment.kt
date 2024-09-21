@@ -16,5 +16,5 @@ data class Environment(
     val screenWidth: Int?,
     val screenHeight: Int?
 ) {
-    fun isMobile(): Boolean = platform in setOf(Platform.WEB_ANDROID, Platform.WEB_IOS)
+    val isMobile: Boolean = platform in setOf(Platform.WEB_ANDROID, Platform.WEB_IOS)
 }

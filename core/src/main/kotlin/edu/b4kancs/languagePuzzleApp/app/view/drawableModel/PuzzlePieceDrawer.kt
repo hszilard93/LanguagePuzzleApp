@@ -8,11 +8,9 @@ import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.NinePatch
 import com.badlogic.gdx.utils.Disposable
 import edu.b4kancs.languagePuzzleApp.app.misc
+import edu.b4kancs.languagePuzzleApp.app.model.PuzzleBlank
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
-import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece.Companion.BLANK_HEIGHT
-import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece.Companion.BLANK_WIDTH
-import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece.Companion.TAB_HEIGHT
-import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece.Companion.TAB_WIDTH
+import edu.b4kancs.languagePuzzleApp.app.model.PuzzleTab
 import edu.b4kancs.languagePuzzleApp.app.model.Side
 import ktx.graphics.use
 import ktx.inject.Context
@@ -28,7 +26,7 @@ class PuzzlePieceDrawer(
 
     companion object {
         private val logger = logger<PuzzlePieceDrawer>()
-        private const val BASE_OFFSET = TAB_HEIGHT
+        private const val BASE_OFFSET = PuzzleTab.HEIGHT
     }
 
     init {
@@ -74,32 +72,32 @@ class PuzzlePieceDrawer(
             val height: Float
             when (blank.side) {
                 Side.TOP -> {
-                    width = BLANK_WIDTH
-                    height = BLANK_HEIGHT
-                    blankX = BASE_OFFSET + puzzlePiece.width / 2 - BLANK_WIDTH / 2
-                    blankY = BASE_OFFSET + puzzlePiece.height - BLANK_HEIGHT
+                    width = PuzzleBlank.WIDTH
+                    height = PuzzleBlank.HEIGHT
+                    blankX = BASE_OFFSET + puzzlePiece.width / 2 - PuzzleBlank.WIDTH / 2
+                    blankY = BASE_OFFSET + puzzlePiece.height - PuzzleBlank.HEIGHT
                     rotation = 180f
                 }
 
                 Side.BOTTOM -> {
-                    width = BLANK_WIDTH
-                    height = BLANK_HEIGHT
-                    blankX = BASE_OFFSET + puzzlePiece.width / 2 - BLANK_WIDTH / 2
+                    width = PuzzleBlank.WIDTH
+                    height = PuzzleBlank.HEIGHT
+                    blankX = BASE_OFFSET + puzzlePiece.width / 2 - PuzzleBlank.WIDTH / 2
                     blankY = BASE_OFFSET
                     rotation = 0f
                 }
 
                 Side.LEFT -> {
-                    width = BLANK_HEIGHT
-                    height = BLANK_WIDTH
+                    width = PuzzleBlank.HEIGHT
+                    height = PuzzleBlank.WIDTH
                     blankX = BASE_OFFSET + (height - width) / 2
-                    blankY = BASE_OFFSET + puzzlePiece.height / 2 - BLANK_HEIGHT / 2
+                    blankY = BASE_OFFSET + puzzlePiece.height / 2 - PuzzleBlank.HEIGHT / 2
                     rotation = 270f
                 }
 
                 Side.RIGHT -> {
-                    width = BLANK_HEIGHT
-                    height = BLANK_WIDTH
+                    width = PuzzleBlank.HEIGHT
+                    height = PuzzleBlank.WIDTH
                     blankX = BASE_OFFSET + puzzlePiece.width - (width + height) / 2
                     blankY = BASE_OFFSET + (puzzlePiece.height / 2) - (height / 2) - (height - width) / 2
                     rotation = 90f
@@ -112,8 +110,8 @@ class PuzzlePieceDrawer(
                 /* y = */ blankY,
                 /* originX = */ width / 2,
                 /* originY = */ height / 2,
-                /* width = */ BLANK_WIDTH,
-                /* height = */ BLANK_HEIGHT,
+                /* width = */ PuzzleBlank.WIDTH,
+                /* height = */ PuzzleBlank.HEIGHT,
                 /* scaleX = */ 1f,
                 /* scaleY = */ 1f,
                 /* rotation = */ rotation,
@@ -144,34 +142,34 @@ class PuzzlePieceDrawer(
             val tabOffset = 10f
             when (tab.side) {
                 Side.TOP -> {
-                    width = TAB_WIDTH
-                    height = TAB_HEIGHT
-                    tabX = BASE_OFFSET + puzzlePiece.width / 2 - TAB_WIDTH / 2
+                    width = PuzzleTab.WIDTH
+                    height =  PuzzleTab.HEIGHT
+                    tabX = BASE_OFFSET + puzzlePiece.width / 2 - PuzzleTab.WIDTH / 2
                     tabY = BASE_OFFSET + puzzlePiece.height - tabOffset
                     rotation = 0f
                 }
 
                 Side.BOTTOM -> {
-                    width = TAB_WIDTH
-                    height = TAB_HEIGHT
-                    tabX = BASE_OFFSET + puzzlePiece.width / 2 - TAB_WIDTH / 2
-                    tabY = BASE_OFFSET - TAB_HEIGHT + tabOffset
+                    width = PuzzleTab.WIDTH
+                    height =  PuzzleTab.HEIGHT
+                    tabX = BASE_OFFSET + puzzlePiece.width / 2 - PuzzleTab.WIDTH / 2
+                    tabY = BASE_OFFSET - PuzzleTab.HEIGHT + tabOffset
                     rotation = 180f
                 }
 
                 Side.LEFT -> {
-                    width = TAB_HEIGHT
-                    height = TAB_WIDTH
+                    width = PuzzleTab.HEIGHT
+                    height = PuzzleTab.WIDTH
                     tabX = BASE_OFFSET - width + tabOffset - 6.5f
-                    tabY = BASE_OFFSET + puzzlePiece.height / 2 - TAB_HEIGHT / 2 - 13f
+                    tabY = BASE_OFFSET + puzzlePiece.height / 2 - PuzzleTab.HEIGHT / 2 - 13f
                     rotation = 90f
                 }
 
                 Side.RIGHT -> {
-                    width = TAB_HEIGHT
-                    height = TAB_WIDTH
+                    width = PuzzleTab.HEIGHT
+                    height = PuzzleTab.WIDTH
                     tabX = BASE_OFFSET + puzzlePiece.width - tabOffset + 6.5f
-                    tabY = BASE_OFFSET + puzzlePiece.height / 2 - TAB_HEIGHT / 2
+                    tabY = BASE_OFFSET + puzzlePiece.height / 2 - PuzzleTab.HEIGHT / 2
                     rotation = 270f
                 }
             }
@@ -182,8 +180,8 @@ class PuzzlePieceDrawer(
                 /* y = */ tabY,
                 /* originX = */ width / 2,
                 /* originY = */ height / 2,
-                /* width = */ TAB_WIDTH,
-                /* height = */ TAB_HEIGHT,
+                /* width = */ PuzzleTab.WIDTH,
+                /* height = */ PuzzleTab.HEIGHT,
                 /* scaleX = */ 1f,
                 /* scaleY = */ 1f,
                 /* rotation = */ rotation,

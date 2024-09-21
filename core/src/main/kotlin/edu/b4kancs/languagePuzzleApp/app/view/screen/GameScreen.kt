@@ -2,8 +2,10 @@ package edu.b4kancs.languagePuzzleApp.app.view.screen
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
+import com.badlogic.gdx.InputAdapter
 import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.assets.AssetManager
+import com.badlogic.gdx.graphics.Cursor
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.Pixmap
@@ -25,7 +27,13 @@ import edu.b4kancs.languagePuzzleApp.app.model.Environment
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 import edu.b4kancs.languagePuzzleApp.app.view.drawableModel.PuzzlePieceDrawer
+import edu.b4kancs.languagePuzzleApp.app.view.screen.CustomCursorLoader.CustomCursor.CLOSED_HAND_CURSOR
+import edu.b4kancs.languagePuzzleApp.app.view.screen.CustomCursorLoader.CustomCursor.OPEN_HAND_CURSOR
+import edu.b4kancs.languagePuzzleApp.app.view.screen.CustomCursorLoader.loadCustomCursor
 import edu.b4kancs.languagePuzzleApp.app.view.utils.toRGBFloat
+import edu.b4kancs.languagePuzzleApp.app.view.utils.toVector2
+import edu.b4kancs.languagePuzzleApp.app.view.utils.toVector3
+import edu.b4kancs.languagePuzzleApp.app.view.utils.unprojectScreenCoords
 import ktx.app.KtxScreen
 import ktx.collections.GdxMap
 import ktx.collections.gdxMapOf
@@ -53,17 +61,28 @@ class GameScreen(
     private val frameBufferMap: GdxMap<PuzzlePiece, FrameBuffer>
     private val frameBufferCamera = OrthographicCamera()
 
+    private var draggedPuzzlePiece: PuzzlePiece? = null
+        set(puzzlePiece) {
+            field = puzzlePiece
+            puzzlePiece?.depth = gameModel.puzzlePieces.maxOfOrNull { it.depth }?.plus(1) ?: 0
+        }
+    private var lastMouseScreenPos: Vector2 = Vector2()
+    private var lastMouseWorldPos: Vector2 = Vector2()
+    private var currentCursor: Cursor? = null
+
     private val puzzlePieceDrawer = PuzzlePieceDrawer(context)
     private val inputMultiplexer = InputMultiplexer()
     private val displayDensity = Gdx.graphics.density
+    private var realToVirtualResolutionRatio: Float = 1f
     private val minZoom = 0.1f
     private val maxZoom = 5f
+
     private val startZoom = 2f
     private var shouldDisplayDebugInfo = false
     private var isDraggingGame = false
     private val lastTouch = Vector3()
-
-    private var realToVirtualResolutionRatio: Float = 1f
+    private val handOpenCursor = if (!environment.isMobile) loadCustomCursor(OPEN_HAND_CURSOR) else null
+    private val handClosedCursor = if (!environment.isMobile) loadCustomCursor(CLOSED_HAND_CURSOR) else null
 
     private var hasSavedScreenshot = false
 
@@ -81,8 +100,8 @@ class GameScreen(
     override fun show() {
         logger.debug { "show" }
 
-        inputMultiplexer.addProcessor(createGameGestureDetector())
-        inputMultiplexer.addProcessor(createBaseInputProcessor())
+        inputMultiplexer.addProcessor(GameGestureDetector())
+        inputMultiplexer.addProcessor(GameInputProcessor())
         Gdx.input.inputProcessor = inputMultiplexer
 
         gameCamera.apply {
@@ -131,48 +150,45 @@ class GameScreen(
 
     private fun renderGameWorld(delta: Float) {
         val puzzles = gameModel.puzzlePieces
-        if (puzzles.isNotEmpty()) {
 
-            val puzzlesByLayers = gameModel.puzzlePieces.groupBy { it.depth }
+        val puzzlesByLayers = gameModel.puzzlePieces.groupBy { it.depth }
+        puzzlesByLayers.keys.sorted().forEach { layerI ->
+            puzzlesByLayers[layerI]?.forEach { puzzle ->
+                if (!isPuzzleVisible(puzzle)) return@forEach
 
-            for (layerI in puzzlesByLayers.keys.sorted()) {
-                puzzlesByLayers[layerI]?.forEach { puzzle ->
-                    if (!isPuzzleVisible(puzzle)) return@forEach
+                val frameBuffer = getFrameBufferByPuzzlePiece(puzzle)
 
-                    val frameBuffer = getFrameBufferByPuzzlePiece(puzzle)
+                frameBuffer.use {
+                    Gdx.gl.glClearColor(0f, 0f, 0f, 0.05f)
+                    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
-                    frameBuffer.use {
-                        Gdx.gl.glClearColor(0f, 0f, 0f, 0.05f)
-                        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
+                    // Set up the camera for this FrameBuffer
+                    frameBufferCamera.setToOrtho(false, puzzle.boundingBoxSize.first, puzzle.boundingBoxSize.second)
+                    frameBufferCamera.update()
+                    batch.projectionMatrix = frameBufferCamera.combined
 
-                        // Set up the camera for this FrameBuffer
-                        frameBufferCamera.setToOrtho(false, puzzle.renderSize.first, puzzle.renderSize.second)
-                        frameBufferCamera.update()
-                        batch.projectionMatrix = frameBufferCamera.combined
+                    puzzlePieceDrawer.render(puzzle)
+                }
 
-                        puzzlePieceDrawer.render(puzzle)
-                    }
+                batch.projectionMatrix = gameCamera.combined
 
-                    batch.projectionMatrix = gameCamera.combined
+                val textureRegion = frameBuffer.colorBufferTexture
+                Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0)
+                textureRegion.bind()
+                batch.use {
+                    gameViewport.apply()
+                    it.draw(
+                        textureRegion,
+                        puzzle.boundingBoxPos.x,
+                        puzzle.boundingBoxPos.y,
+                        puzzle.boundingBoxSize.first,
+                        puzzle.boundingBoxSize.second
+                    )
+                }
 
-                    val textureRegion = frameBuffer.colorBufferTexture
-                    Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0)
-                    textureRegion.bind()
-                    batch.use {
-                        gameViewport.apply()
-                        it.draw(
-                            textureRegion,
-                            puzzle.renderPos.x,
-                            puzzle.renderPos.y,
-                            puzzle.renderSize.first,
-                            puzzle.renderSize.second
-                        )
-                    }
-
-                    if (!hasSavedScreenshot && layerI == 1) {
-                        hasSavedScreenshot = true
-                        saveFrameBufferToPNG(frameBuffer)
-                    }
+                if (!hasSavedScreenshot && layerI == 1) {
+                    hasSavedScreenshot = true
+                    saveFrameBufferToPNG(frameBuffer)
                 }
             }
         }
@@ -200,7 +216,7 @@ class GameScreen(
                 val mouseX = Gdx.input.x.toFloat()
                 val mouseY = Gdx.input.y.toFloat()
                 val renderVector = hudViewport.unproject(Vector2(mouseX, mouseY))
-                val worldVector = gameCamera.unproject(Vector3(mouseX, mouseY, 0f))
+                val worldVector = gameCamera.unproject(Vector3(mouseX, mouseY, 0f)).toVector2()
                 if (hudViewport.screenWidth >= 200) {  // Ensure viewport is large enough
                     val renderX = (renderVector.x + 10f).coerceIn(10f, hudViewport.worldWidth - 100f)
                     val renderY = (renderVector.y + 10f).coerceIn(10f, hudViewport.worldHeight - 10f)
@@ -216,32 +232,38 @@ class GameScreen(
     }
 
     private fun setBackgroundColor(red: Int, green: Int, blue: Int, alpha: Float) {
-        logger.misc { "setBackgroundColor red=$red green=$green blue=$blue alpha=$alpha" }
+        logger.misc { "setBackgroundColor red=$red, green=$green, blue=$blue, alpha=$alpha" }
         Gdx.gl.glClearColor(red.toRGBFloat(), green.toRGBFloat(), blue.toRGBFloat(), alpha)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
     }
 
     private fun getFrameBufferByPuzzlePiece(puzzle: PuzzlePiece): FrameBuffer {
-        if (!frameBufferMap.containsKey(puzzle) || puzzle.hasChangedSizeSinceLastRender) {
+        logger.misc { "getFrameBufferByPuzzlePiece puzzle=$puzzle" }
+
+        return if (frameBufferMap.containsKey(puzzle) && !puzzle.hasChangedSizeSinceLastRender) {
+            frameBufferMap[puzzle]
+        }
+        else {
+            frameBufferMap[puzzle]?.dispose()   // Dispose of the old FrameBuffer
             val newFrameBuffer = FrameBuffer(
                 Pixmap.Format.RGBA8888,
-                puzzle.renderSize.first.toInt(),
-                puzzle.renderSize.second.toInt(),
+                puzzle.boundingBoxSize.first.toInt(),
+                puzzle.boundingBoxSize.second.toInt(),
                 false
             )
             frameBufferMap.put(puzzle, newFrameBuffer)
             puzzle.hasChangedSizeSinceLastRender = false
+            frameBufferMap[puzzle]
         }
-        return frameBufferMap[puzzle]
     }
 
     private fun isPuzzleVisible(puzzle: PuzzlePiece): Boolean {
         return gameCamera.frustum.boundsInFrustum(
-            puzzle.renderPos.x,
-            puzzle.renderPos.y,
+            puzzle.boundingBoxPos.x,
+            puzzle.boundingBoxPos.y,
             0f, // z-coordinate
-            puzzle.renderSize.first,
-            puzzle.renderSize.second,
+            puzzle.boundingBoxSize.first,
+            puzzle.boundingBoxSize.second,
             1f // depth (assuming 2D)
         )
     }
@@ -274,130 +296,16 @@ class GameScreen(
         flippedPixmap.dispose()
     }
 
-    private fun createBaseInputProcessor(): BaseInputProcessor {
-        logger.debug { "createBaseInputProcessor" }
-
-        return object : BaseInputProcessor() {
-            override fun touchDown(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
-                logger.debug { "touchDown button=$button\n density = $displayDensity" }
-
-                return when (button) {
-                    Input.Buttons.RIGHT -> {
-                        shouldDisplayDebugInfo = !shouldDisplayDebugInfo
-                        logger.info { "displayDebugInfo = $shouldDisplayDebugInfo" }
-                        true
-                    }
-
-                    Input.Buttons.LEFT -> {
-                        lastTouch.set(gameCamera.unproject(Vector3(screenX.toFloat(), screenY.toFloat(), 0f)))
-                        isDraggingGame = true
-                        true
-                    }
-
-                    else -> false
-                }
-            }
-
-            override fun touchDragged(screenX: Int, screenY: Int, pointer: Int): Boolean {
-                logger.debug { "touchDragged screenX=$screenX screenY=$screenY" }
-
-                if (isDraggingGame) {
-                    val deltaX = Gdx.input.deltaX.toFloat() * (1 / realToVirtualResolutionRatio * gameCamera.zoom)
-                    val deltaY = Gdx.input.deltaY.toFloat() * (1 / realToVirtualResolutionRatio * gameCamera.zoom)
-
-                    gameCamera.translate(-deltaX, deltaY, 0f)
-                    gameCamera.update()
-
-                    return true
-                }
-                return false
-            }
-
-            override fun touchUp(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
-                logger.debug { "touchUp button=$button" }
-
-                if (button == Input.Buttons.LEFT) {
-                    isDraggingGame = false
-                    return true
-                }
-                return false
-            }
-
-            override fun keyDown(keycode: Int): Boolean {
-                logger.debug { "keyDown keycode=$keycode" }
-                return true
-            }
-
-            override fun scrolled(amountX: Float, amountY: Float): Boolean {
-                // Get Mouse Position in World Coordinates BEFORE Zoom
-                val mouseWorldPosBefore = Vector3(Gdx.input.x.toFloat(), Gdx.input.y.toFloat(), 0f)
-                gameCamera.unproject(mouseWorldPosBefore)
-
-                // Apply Zoom
-                val newZoom: Float = (gameCamera.zoom + amountY * 0.1f).coerceIn(minZoom, maxZoom)
-                gameCamera.zoom = newZoom
-                gameCamera.update()
-
-                // Get Mouse Position in World Coordinates AFTER Zoom
-                val mouseWorldPosAfter = Vector3(Gdx.input.x.toFloat(), Gdx.input.y.toFloat(), 0f)
-                gameCamera.unproject(mouseWorldPosAfter)
-
-                // Calculate Camera Offset
-                val offsetX = mouseWorldPosAfter.x - mouseWorldPosBefore.x
-                val offsetY = mouseWorldPosAfter.y - mouseWorldPosBefore.y
-
-                // Move the Camera
-                gameCamera.translate(-offsetX, -offsetY, 0f)
-                gameCamera.update()
-
-                logger.debug { "gameCamera.viewportWidth ${gameCamera.viewportWidth}; gameCamera.viewportHeight ${gameCamera.viewportHeight}" }
-
-                return true
-            }
+    private fun setCursor(cursor: Cursor?) {
+        logger.debug { "setCursor cursor=$cursor" }
+        if (cursor != null) {
+            Gdx.graphics.setCursor(cursor)
+            currentCursor = cursor
         }
-    }
-
-    // Touch specific gesture handling
-    private fun createGameGestureDetector(): GestureDetector {
-        logger.debug { "createGameGestureDetector" }
-
-        return GestureDetector(object : AbstractGestureListener() {
-
-            private var lastZoomDistance = 0f
-            private var lastZoomTime = System.currentTimeMillis()
-
-            override fun longPress(x: Float, y: Float): Boolean {
-                logger.debug { "longPress x=$x y=$y" }
-                // Toggle debug info on long press
-                shouldDisplayDebugInfo = !shouldDisplayDebugInfo
-                logger.info { "displayDebugInfo = $shouldDisplayDebugInfo" }
-                return true
-            }
-
-            override fun zoom(originalDistance: Float, currentDistance: Float): Boolean {
-                logger.debug { "zoom originalDistance=$originalDistance currentDistance=$currentDistance" }
-
-                // Reset zoom after 0.2 seconds of no zoom
-                if (System.currentTimeMillis() - lastZoomTime > 100) {
-                    lastZoomDistance = 0f
-                }
-
-                if (originalDistance > 0f) {
-                    if (lastZoomDistance == 0f) lastZoomDistance = originalDistance
-
-                    val scaleDelta = (1f - currentDistance / lastZoomDistance).coerceIn(-0.05f, 0.05f)
-                    logger.debug { "scaleDelta=$scaleDelta" }
-                    val newZoom = (gameCamera.zoom + scaleDelta).coerceIn(minZoom, maxZoom)
-                    logger.debug { "newZoom=$newZoom" }
-                    gameCamera.zoom = newZoom
-                    gameCamera.update()
-
-                    lastZoomDistance = currentDistance
-                    lastZoomTime = System.currentTimeMillis()
-                }
-                return true
-            }
-        })
+        else {
+            Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow)
+            currentCursor = null
+        }
     }
 
     override fun dispose() {
@@ -408,6 +316,10 @@ class GameScreen(
 
         frameBufferMap.forEach { it.value.dispose() }
         frameBufferMap.clear()
+        handOpenCursor?.dispose()
+        handClosedCursor?.dispose()
+
+        Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow)
 
         inputMultiplexer.clear()
         if (Gdx.input.inputProcessor == inputMultiplexer) {
@@ -416,4 +328,191 @@ class GameScreen(
 
         super.dispose()
     }
+
+    /* ###########################
+    Input processing inner classes
+    ############################ */
+
+    inner class GameInputProcessor : InputAdapter() {
+
+        init {
+            logger.debug { "GameInputProcessor.init" }
+        }
+
+        override fun mouseMoved(screenX: Int, screenY: Int): Boolean {
+            logger.misc { "mouseMoved screenX=$screenX screenY=$screenY" }
+
+            val worldCoordinates = gameCamera.unprojectScreenCoords(screenX, screenY)
+            val mousePos = Vector2(worldCoordinates.x, worldCoordinates.y)
+
+            var overPuzzlePiece = gameModel.puzzlePieces.any { isPointOverPuzzlePiece(mousePos, it) }
+
+            if (!environment.isMobile) {
+                if (overPuzzlePiece && draggedPuzzlePiece == null) {
+                    setCursor(handOpenCursor)
+                }
+                else if (currentCursor != null) {
+                    setCursor(null)
+                }
+            }
+
+            return false
+        }
+
+        override fun touchDown(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
+            logger.debug { "touchDown button=$button\t density = $displayDensity" }
+
+            when (button) {
+                Input.Buttons.LEFT -> {
+                    val worldCoordinates = gameCamera.unprojectScreenCoords(screenX, screenY)
+                    val mousePos = Vector2(worldCoordinates.x, worldCoordinates.y)
+
+                    for (puzzlePiece in gameModel.puzzlePieces) {
+                        if (isPointOverPuzzlePiece(mousePos, puzzlePiece)) {
+                            logger.info { "touchDown puzzlePiece=$puzzlePiece" }
+                            draggedPuzzlePiece = puzzlePiece
+                            lastMouseWorldPos.set(mousePos)
+                            if (!environment.isMobile) {
+                                setCursor(handClosedCursor)
+                            }
+                            return true
+                        }
+                    }
+
+                    // If not touching a puzzle piece, start dragging the game
+                    isDraggingGame = true
+                    lastTouch.set(worldCoordinates.toVector3())
+                    return true
+
+                }
+                Input.Buttons.RIGHT -> {
+                    shouldDisplayDebugInfo = !shouldDisplayDebugInfo
+                    logger.info { "displayDebugInfo = $shouldDisplayDebugInfo" }
+                    return true
+                }
+                else -> return false
+            }
+        }
+
+        override fun touchDragged(screenX: Int, screenY: Int, pointer: Int): Boolean {
+            logger.debug { "touchDragged screenX=$screenX screenY=$screenY" }
+
+            val worldCoordinates = gameCamera.unprojectScreenCoords(screenX, screenY)
+            val mousePos = Vector2(worldCoordinates.x, worldCoordinates.y)
+
+            if (draggedPuzzlePiece != null) {
+                val delta = mousePos.cpy().sub(lastMouseWorldPos)
+                draggedPuzzlePiece!!.apply {
+                    pos = pos.add(delta)
+                }
+                lastMouseWorldPos.set(mousePos)
+                return true
+            }
+            else if (isDraggingGame) {
+                val deltaX = Gdx.input.deltaX.toFloat() * (1 / realToVirtualResolutionRatio * gameCamera.zoom)
+                val deltaY = Gdx.input.deltaY.toFloat() * (1 / realToVirtualResolutionRatio * gameCamera.zoom)
+                gameCamera.translate(-deltaX, deltaY, 0f)
+                gameCamera.update()
+                return true
+            }
+            return false
+        }
+
+        override fun touchUp(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
+            logger.debug { "touchUp button=$button" }
+
+            if (button == Input.Buttons.LEFT) {
+                draggedPuzzlePiece = null
+                isDraggingGame = false
+                if (!environment.isMobile) {
+                    if (currentCursor == handClosedCursor) {
+                        setCursor(handOpenCursor)
+                        gameModel.rebasePuzzleDepths()
+                    }
+                }
+                return true
+            }
+            return false
+        }
+
+        override fun keyDown(keycode: Int): Boolean {
+            logger.debug { "keyDown keycode=$keycode" }
+            return true
+        }
+
+        override fun scrolled(amountX: Float, amountY: Float): Boolean {
+            // Get Mouse Position in World Coordinates BEFORE Zoom
+            val mouseWorldPosBefore = Vector3(Gdx.input.x.toFloat(), Gdx.input.y.toFloat(), 0f)
+            gameCamera.unproject(mouseWorldPosBefore)
+
+            // Apply Zoom
+            val newZoom: Float = (gameCamera.zoom + amountY * 0.1f).coerceIn(minZoom, maxZoom)
+            gameCamera.zoom = newZoom
+            gameCamera.update()
+
+            // Get Mouse Position in World Coordinates AFTER Zoom
+            val mouseWorldPosAfter = Vector3(Gdx.input.x.toFloat(), Gdx.input.y.toFloat(), 0f)
+            gameCamera.unproject(mouseWorldPosAfter)
+
+            // Calculate Camera Offset
+            val offsetX = mouseWorldPosAfter.x - mouseWorldPosBefore.x
+            val offsetY = mouseWorldPosAfter.y - mouseWorldPosBefore.y
+
+            // Move the Camera
+            gameCamera.translate(-offsetX, -offsetY, 0f)
+            gameCamera.update()
+
+            logger.debug { "gameCamera.viewportWidth ${gameCamera.viewportWidth}; gameCamera.viewportHeight ${gameCamera.viewportHeight}" }
+
+            return true
+        }
+
+        private fun isPointOverPuzzlePiece(point: Vector2, puzzlePiece: PuzzlePiece): Boolean {
+            val x = puzzlePiece.pos.x
+            val y = puzzlePiece.pos.y
+            val width = puzzlePiece.width
+            val height = puzzlePiece.height
+
+            return point.x >= x && point.x <= x + width && point.y >= y && point.y <= y + height
+        }
+    }
+
+    // Touch specific gesture handling
+    inner class GameGestureDetector : GestureDetector(object : AbstractGestureListener() {
+
+        private var lastZoomDistance = 0f
+        private var lastZoomTime = System.currentTimeMillis()
+
+        override fun longPress(x: Float, y: Float): Boolean {
+            logger.debug { "longPress x=$x y=$y" }
+            // Toggle debug info on long press
+            shouldDisplayDebugInfo = !shouldDisplayDebugInfo
+            logger.info { "displayDebugInfo = $shouldDisplayDebugInfo" }
+            return true
+        }
+
+        override fun zoom(originalDistance: Float, currentDistance: Float): Boolean {
+            logger.debug { "zoom originalDistance=$originalDistance currentDistance=$currentDistance" }
+
+            // Reset zoom after 0.2 seconds of no zoom
+            if (System.currentTimeMillis() - lastZoomTime > 100) {
+                lastZoomDistance = 0f
+            }
+
+            if (originalDistance > 0f) {
+                if (lastZoomDistance == 0f) lastZoomDistance = originalDistance
+
+                val scaleDelta = (1f - currentDistance / lastZoomDistance).coerceIn(-0.05f, 0.05f)
+                logger.debug { "scaleDelta=$scaleDelta" }
+                val newZoom = (gameCamera.zoom + scaleDelta).coerceIn(minZoom, maxZoom)
+                logger.debug { "newZoom=$newZoom" }
+                gameCamera.zoom = newZoom
+                gameCamera.update()
+
+                lastZoomDistance = currentDistance
+                lastZoomTime = System.currentTimeMillis()
+            }
+            return true
+        }
+    })
 }

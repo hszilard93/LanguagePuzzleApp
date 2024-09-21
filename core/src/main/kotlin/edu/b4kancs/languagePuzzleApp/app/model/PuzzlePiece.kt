@@ -3,16 +3,39 @@ package edu.b4kancs.languagePuzzleApp.app.model
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Vector2
 
-interface PuzzlePieceFeature { val side: Side }
+enum class Side {
+    TOP, BOTTOM, LEFT, RIGHT;
+
+    fun opposite(): Side = when (this) {
+        TOP -> BOTTOM
+        BOTTOM -> TOP
+        LEFT -> RIGHT
+        RIGHT -> LEFT
+    }
+}
+
+interface PuzzlePieceFeature {
+    val side: Side
+}
 
 data class PuzzleTab(
     override val side: Side,
     val color: Color? = null
-) : PuzzlePieceFeature
+) : PuzzlePieceFeature {
+    companion object {
+        const val WIDTH = 110f
+        const val HEIGHT = WIDTH * 0.88f
+    }
+}
 
 data class PuzzleBlank( // An indentation on a puzzle piece is called a 'blank'
     override val side: Side
-) : PuzzlePieceFeature
+) : PuzzlePieceFeature {
+    companion object {
+        const val WIDTH = 120f
+        const val HEIGHT = WIDTH * 0.75f
+    }
+}
 
 class PuzzlePiece(
     pos: Vector2,
@@ -27,33 +50,30 @@ class PuzzlePiece(
     var pos: Vector2 = Vector2(0f, 0f)
         set(value) {
             field = value
-            renderPos = calculateRenderPosition(field)
+            boundingBoxPos = calculateRenderPosition(field)
         }
     var width: Float = MIN_WIDTH
         set(value) {
             field = value.coerceAtLeast(MIN_WIDTH)
-            renderSize = calculateRenderSize(field, height)
+            boundingBoxSize = calculateRenderSize(field, height)
         }
     var height: Float = MIN_HEIGHT
         set(value) {
             field = value.coerceAtLeast(MIN_HEIGHT)
-            renderSize = calculateRenderSize(width, field)
+            boundingBoxSize = calculateRenderSize(width, field)
         }
 
     var hasChangedSizeSinceLastRender = true
 
-    lateinit var renderPos: Vector2
+    // Properties of the bounding box drawn around the puzzle base and it's possible tabs
+    lateinit var boundingBoxPos: Vector2
         private set
-    lateinit var renderSize: Pair<Float, Float>
+    lateinit var boundingBoxSize: Pair<Float, Float>
         private set
 
     companion object {
         const val MIN_WIDTH = 300f
         const val MIN_HEIGHT = 300f
-        const val BLANK_WIDTH = 120f
-        const val BLANK_HEIGHT = BLANK_WIDTH * 0.75f
-        const val TAB_WIDTH = 110f
-        const val TAB_HEIGHT = TAB_WIDTH * 0.88f
     }
 
     // Validate the PuzzlePiece on initialization
@@ -70,9 +90,37 @@ class PuzzlePiece(
         }
     }
 
-    private fun calculateRenderPosition(pos: Vector2): Vector2 = Vector2(pos.x - TAB_HEIGHT, pos.y - TAB_HEIGHT)
+    private fun calculateRenderPosition(pos: Vector2): Vector2 = Vector2(pos.x - PuzzleTab.HEIGHT, pos.y - PuzzleTab.HEIGHT)
 
-    private fun calculateRenderSize(width: Float, height: Float): Pair<Float, Float> = width + 2 * TAB_HEIGHT to height + 2 * TAB_HEIGHT
+    private fun calculateRenderSize(width: Float, height: Float): Pair<Float, Float> = width + 2 * PuzzleTab.HEIGHT to height + 2 * PuzzleTab.HEIGHT
+
+    // Method to calculate the midpoint of a tab or a blank on a given side
+    fun getFeatureMidpoint(feature: PuzzlePieceFeature): Vector2 {
+        val (featureWidth, featureHeight) = when (feature) {
+            is PuzzleTab -> PuzzleTab.WIDTH to PuzzleTab.HEIGHT
+            is PuzzleBlank -> PuzzleBlank.WIDTH to PuzzleBlank.HEIGHT
+            else -> throw IllegalArgumentException("Unknown feature type")
+        }
+
+        return when (feature.side) {
+            Side.TOP -> Vector2(
+                pos.x + width / 2,
+                pos.y + height + featureHeight / 2
+            )
+            Side.BOTTOM -> Vector2(
+                pos.x + width / 2,
+                pos.y - featureHeight / 2
+            )
+            Side.LEFT -> Vector2(
+                pos.x - featureHeight / 2,
+                pos.y + height / 2
+            )
+            Side.RIGHT -> Vector2(
+                pos.x + width + featureHeight / 2,
+                pos.y + height / 2
+            )
+        }
+    }
 }
 
 class InvalidPuzzlePieceException(message: String) : IllegalArgumentException(message)

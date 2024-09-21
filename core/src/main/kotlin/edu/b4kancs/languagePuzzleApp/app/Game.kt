@@ -27,7 +27,7 @@ class Game(private val environment: Environment) : KtxGame<KtxScreen>() {
     private val hudCamera = HudCamera()
     private val gameCamera = GameCamera()
     private val disposables = DisposableContainer()
-    private val gameModel = GameModel()
+    private lateinit var gameModel: GameModel
 
     companion object {
         const val LOG_LEVEL = com.badlogic.gdx.utils.Logger.DEBUG
@@ -50,7 +50,7 @@ class Game(private val environment: Environment) : KtxGame<KtxScreen>() {
         val gameMinWorldHeight: Float
         val gameMaxWorldWidth: Float
         val gameMaxWorldHeight: Float
-        if (environment.isMobile()) {
+        if (environment.isMobile) {
             gameVirtualWidth = Constants.GAME_MOBILE_VIRTUAL_WIDTH
             gameVirtualHeight = Constants.GAME_MOBILE_VIRTUAL_HEIGHT
             gameMinWorldWidth = Constants.GAME_MOBILE_MIN_WORLD_WIDTH
@@ -67,7 +67,6 @@ class Game(private val environment: Environment) : KtxGame<KtxScreen>() {
         }
 
         context.register {
-            bindSingleton(gameModel)
             bindSingleton<Batch>(SpriteBatch())
             bindSingleton(AssetManager())
             bindSingleton(environment)
@@ -99,6 +98,9 @@ class Game(private val environment: Environment) : KtxGame<KtxScreen>() {
                     hudCamera
                 )
             )
+            // It is important to initialize the gameModel late!
+            gameModel = GameModel()
+            bindSingleton(gameModel)
         }
 
         with(context) {
