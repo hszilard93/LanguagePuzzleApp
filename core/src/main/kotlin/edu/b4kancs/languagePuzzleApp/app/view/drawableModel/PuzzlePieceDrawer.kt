@@ -1,11 +1,14 @@
 package edu.b4kancs.languagePuzzleApp.app.view.drawableModel
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.NinePatch
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer
+import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Disposable
 import edu.b4kancs.languagePuzzleApp.app.misc
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzleBlank
@@ -15,6 +18,7 @@ import edu.b4kancs.languagePuzzleApp.app.model.Side
 import ktx.graphics.use
 import ktx.inject.Context
 import ktx.log.logger
+import space.earlygrey.shapedrawer.ShapeDrawer
 
 class PuzzlePieceDrawer(
     private val context: Context
@@ -49,11 +53,10 @@ class PuzzlePieceDrawer(
         batch.use {
             batch.color = puzzlePiece.color
 
+            batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA)
             base9Patch.draw(batch, BASE_OFFSET, BASE_OFFSET, puzzlePiece.width, puzzlePiece.height)
 
             drawBlanks(puzzlePiece)
-
-            batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA)
 
             drawTabs(puzzlePiece)
         }
@@ -65,6 +68,8 @@ class PuzzlePieceDrawer(
         batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ZERO)
 
         for (blank in puzzlePiece.blanks) {
+            batch.color = blank.glowColor ?: puzzlePiece.color
+
             val blankX: Float
             val blankY: Float
             val rotation: Float
@@ -75,16 +80,16 @@ class PuzzlePieceDrawer(
                     width = PuzzleBlank.WIDTH
                     height = PuzzleBlank.HEIGHT
                     blankX = BASE_OFFSET + puzzlePiece.width / 2 - PuzzleBlank.WIDTH / 2
-                    blankY = BASE_OFFSET + puzzlePiece.height - PuzzleBlank.HEIGHT
-                    rotation = 180f
+                    blankY = BASE_OFFSET
+                    rotation = 0f
                 }
 
                 Side.BOTTOM -> {
                     width = PuzzleBlank.WIDTH
                     height = PuzzleBlank.HEIGHT
                     blankX = BASE_OFFSET + puzzlePiece.width / 2 - PuzzleBlank.WIDTH / 2
-                    blankY = BASE_OFFSET
-                    rotation = 0f
+                    blankY = BASE_OFFSET + puzzlePiece.height - PuzzleBlank.HEIGHT
+                    rotation = 180f
                 }
 
                 Side.LEFT -> {
@@ -133,7 +138,9 @@ class PuzzlePieceDrawer(
         batch.setBlendFunctionSeparate(GL20.GL_ONE, GL20.GL_ONE_MINUS_SRC_ALPHA, GL20.GL_ONE, GL20.GL_ONE_MINUS_SRC_COLOR)
 
         for (tab in puzzlePiece.tabs) {
+//            batch.color = tab.glowColor ?: (tab.color ?: puzzlePiece.color)
             batch.color = tab.color ?: puzzlePiece.color
+
             val tabX: Float
             val tabY: Float
             val width: Float
@@ -143,18 +150,18 @@ class PuzzlePieceDrawer(
             when (tab.side) {
                 Side.TOP -> {
                     width = PuzzleTab.WIDTH
-                    height =  PuzzleTab.HEIGHT
+                    height = PuzzleTab.HEIGHT
                     tabX = BASE_OFFSET + puzzlePiece.width / 2 - PuzzleTab.WIDTH / 2
-                    tabY = BASE_OFFSET + puzzlePiece.height - tabOffset
-                    rotation = 0f
+                    tabY = BASE_OFFSET - PuzzleTab.HEIGHT + tabOffset
+                    rotation = 180f
                 }
 
                 Side.BOTTOM -> {
                     width = PuzzleTab.WIDTH
-                    height =  PuzzleTab.HEIGHT
+                    height = PuzzleTab.HEIGHT
                     tabX = BASE_OFFSET + puzzlePiece.width / 2 - PuzzleTab.WIDTH / 2
-                    tabY = BASE_OFFSET - PuzzleTab.HEIGHT + tabOffset
-                    rotation = 180f
+                    tabY = BASE_OFFSET + puzzlePiece.height - tabOffset
+                    rotation = 0f
                 }
 
                 Side.LEFT -> {
@@ -195,6 +202,32 @@ class PuzzlePieceDrawer(
         }
 
         batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA)
+    }
+
+    // For debugging only
+    private fun drawCrosshair(batch: Batch, center: Vector2, color: Color = Color.WHITE) {
+        // Strongly discouraged: Creating a ShapeRenderer here is inefficient!
+        val shapeRenderer = ShapeRenderer()
+
+        // Set the projection matrix based on the batch's transform matrix. Important!
+//        shapeRenderer.projectionMatrix = batch.projectionMatrix
+//        shapeRenderer.transformMatrix = batch.transformMatrix
+//        shapeRenderer.updateMatrices()
+
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line)
+        shapeRenderer.color = color
+
+        val x = center.x
+        val y = center.y
+        val halfSize = 10f
+
+        shapeRenderer.line(x - halfSize, y, x + halfSize, y)
+        shapeRenderer.line(x, y - halfSize, x, y + halfSize)
+
+        shapeRenderer.end()
+
+        // Dispose immediately – essential to prevent resource leaks.
+        shapeRenderer.dispose()
     }
 
     override fun dispose() {

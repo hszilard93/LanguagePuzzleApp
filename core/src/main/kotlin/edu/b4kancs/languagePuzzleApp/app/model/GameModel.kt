@@ -12,7 +12,7 @@ class GameModel {
     val puzzlePieces: MutableList<PuzzlePiece> = ArrayList()
 
     //    val basePosition = Vector2(WORLD_WIDTH / 2f, WORLD_HEIGHT / 2f)
-    val basePosition = Vector2(0f, 0f)
+    private val basePosition = Vector2(0f, 0f)
 
     companion object {
         val logger = logger<GameModel>()
@@ -24,30 +24,33 @@ class GameModel {
         puzzlePieces.add(
             PuzzlePiece(
                 pos = Vector2(basePosition.x + 300f, basePosition.y + 401f),
-                tabs = listOf(PuzzleTab(Side.BOTTOM), PuzzleTab(Side.RIGHT), PuzzleTab(Side.TOP)),
-                blanks = listOf(PuzzleBlank(Side.LEFT)),
                 color = Color.ROYAL,
                 depth = 1
-            )
+            ).apply {
+                tabs.addAll(listOf(PuzzleTab(this, Side.BOTTOM), PuzzleTab(this, Side.TOP)))
+                blanks.addAll(listOf(PuzzleBlank(this, Side.LEFT), PuzzleBlank(this, Side.RIGHT)))
+            }
         )
 
         puzzlePieces.add(
             PuzzlePiece(
                 pos = Vector2(basePosition.x + 300f, basePosition.y + 100f),
-                tabs = listOf(PuzzleTab(Side.LEFT)),
-                blanks = listOf(PuzzleBlank(Side.TOP), PuzzleBlank(Side.RIGHT), PuzzleBlank(Side.BOTTOM)),
                 color = Color.YELLOW
-            )
+            ).apply {
+                tabs.addAll(listOf(PuzzleTab(this, Side.LEFT)))
+                blanks.addAll(listOf(PuzzleBlank(this, Side.TOP), PuzzleBlank(this, Side.RIGHT), PuzzleBlank(this, Side.BOTTOM)))
+            }
         )
 
         puzzlePieces.add(
             PuzzlePiece(
                 pos = Vector2(basePosition.x + 601f, basePosition.y + 100f),
-                tabs = listOf(PuzzleTab(Side.LEFT, Color.CHARTREUSE), PuzzleTab(Side.TOP, Color.SKY)),
-                blanks = listOf(PuzzleBlank(Side.BOTTOM)),
-                color = Color.YELLOW,
+                color = Color.OLIVE,
                 depth = 0
-            )
+            ).apply {
+                tabs.addAll(listOf(PuzzleTab(this, Side.LEFT, Color.CHARTREUSE), PuzzleTab(this, Side.TOP, Color.SKY)))
+                blanks.addAll(listOf(PuzzleBlank(this, Side.BOTTOM), PuzzleBlank(this, Side.RIGHT)))
+            }
         )
     }
 

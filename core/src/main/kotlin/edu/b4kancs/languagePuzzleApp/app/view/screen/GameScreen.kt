@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input
 import com.badlogic.gdx.InputAdapter
 import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.assets.AssetManager
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Cursor
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
@@ -25,7 +26,10 @@ import edu.b4kancs.languagePuzzleApp.app.HudViewport
 import edu.b4kancs.languagePuzzleApp.app.misc
 import edu.b4kancs.languagePuzzleApp.app.model.Environment
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
+import edu.b4kancs.languagePuzzleApp.app.model.PuzzleBlank
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
+import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePieceFeature
+import edu.b4kancs.languagePuzzleApp.app.model.PuzzleTab
 import edu.b4kancs.languagePuzzleApp.app.view.drawableModel.PuzzlePieceDrawer
 import edu.b4kancs.languagePuzzleApp.app.view.screen.CustomCursorLoader.CustomCursor.CLOSED_HAND_CURSOR
 import edu.b4kancs.languagePuzzleApp.app.view.screen.CustomCursorLoader.CustomCursor.OPEN_HAND_CURSOR
@@ -36,10 +40,13 @@ import edu.b4kancs.languagePuzzleApp.app.view.utils.toVector3
 import edu.b4kancs.languagePuzzleApp.app.view.utils.unprojectScreenCoords
 import ktx.app.KtxScreen
 import ktx.collections.GdxMap
+import ktx.collections.filter
+import ktx.collections.flatMap
 import ktx.collections.gdxMapOf
 import ktx.graphics.use
 import ktx.inject.Context
 import ktx.log.logger
+import space.earlygrey.shapedrawer.ShapeDrawer
 
 class GameScreen(
     private val context: Context,
@@ -83,6 +90,8 @@ class GameScreen(
     private val lastTouch = Vector3()
     private val handOpenCursor = if (!environment.isMobile) loadCustomCursor(OPEN_HAND_CURSOR) else null
     private val handClosedCursor = if (!environment.isMobile) loadCustomCursor(CLOSED_HAND_CURSOR) else null
+
+    private val puzzleSnapHelper = PuzzleSnapHelper(gameModel)
 
     private var hasSavedScreenshot = false
 
@@ -159,7 +168,7 @@ class GameScreen(
                 val frameBuffer = getFrameBufferByPuzzlePiece(puzzle)
 
                 frameBuffer.use {
-                    Gdx.gl.glClearColor(0f, 0f, 0f, 0.05f)
+                    Gdx.gl.glClearColor(0f, 0f, 0f, 0f)
                     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
                     // Set up the camera for this FrameBuffer
@@ -369,8 +378,11 @@ class GameScreen(
 
                     for (puzzlePiece in gameModel.puzzlePieces) {
                         if (isPointOverPuzzlePiece(mousePos, puzzlePiece)) {
-                            logger.info { "touchDown puzzlePiece=$puzzlePiece" }
+                            logger.debug { "touchDown puzzlePiece=$puzzlePiece" }
+
                             draggedPuzzlePiece = puzzlePiece
+                            draggedPuzzlePiece!!.getAllFeatures().forEach { puzzleSnapHelper.updatePuzzleFeatureCompatibilityMap(it) }
+
                             lastMouseWorldPos.set(mousePos)
                             if (!environment.isMobile) {
                                 setCursor(handClosedCursor)
@@ -383,13 +395,14 @@ class GameScreen(
                     isDraggingGame = true
                     lastTouch.set(worldCoordinates.toVector3())
                     return true
-
                 }
+
                 Input.Buttons.RIGHT -> {
                     shouldDisplayDebugInfo = !shouldDisplayDebugInfo
                     logger.info { "displayDebugInfo = $shouldDisplayDebugInfo" }
                     return true
                 }
+
                 else -> return false
             }
         }
@@ -405,6 +418,8 @@ class GameScreen(
                 draggedPuzzlePiece!!.apply {
                     pos = pos.add(delta)
                 }
+                puzzleSnapHelper.updatePuzzleFeaturesByProximity()
+
                 lastMouseWorldPos.set(mousePos)
                 return true
             }
@@ -422,7 +437,12 @@ class GameScreen(
             logger.debug { "touchUp button=$button" }
 
             if (button == Input.Buttons.LEFT) {
+                draggedPuzzlePiece?.getAllFeatures()?.forEach { puzzleSnapHelper.clearPuzzleFeatureCompatibilityMap(it) }
                 draggedPuzzlePiece = null
+
+                puzzleSnapHelper.performSnap()
+                puzzleSnapHelper.clearPuzzleFeaturesByProximity()
+
                 isDraggingGame = false
                 if (!environment.isMobile) {
                     if (currentCursor == handClosedCursor) {
