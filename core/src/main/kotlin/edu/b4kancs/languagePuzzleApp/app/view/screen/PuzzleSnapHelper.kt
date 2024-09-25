@@ -72,7 +72,7 @@ class PuzzleSnapHelper(private val gameModel: GameModel) {
         // Reset all glowColors
         gameModel.puzzlePieces.forEach { puzzlePiece ->
             puzzlePiece.getAllFeatures().forEach { feature ->
-                feature.glowColor = null
+                feature.isGlowing = false
             }
         }
 
@@ -81,8 +81,8 @@ class PuzzleSnapHelper(private val gameModel: GameModel) {
             snapFeature = closestPair.first
             snapTarget = closestPair.second
             logger.info { "snapFeature=(${snapFeature!!.getType()}, ${snapFeature!!.side}, ${snapFeature!!.getFeatureMidpoint()}), targetFeature=(${snapTarget!!.getType()}, ${snapTarget!!.side}, ${snapTarget!!.getFeatureMidpoint()}), distance=$minDistance" }
-            snapTarget!!.glowColor = Color.CYAN
-            snapFeature!!.glowColor = Color.VIOLET
+            snapTarget!!.isGlowing = true
+            snapFeature!!.isGlowing = true
             logger.debug { "Snapping pair found with distance=$minDistance: $snapFeature and $snapTarget" }
         }
         else {
@@ -94,6 +94,6 @@ class PuzzleSnapHelper(private val gameModel: GameModel) {
 
     fun clearPuzzleFeaturesByProximity() {
         logger.debug { "clearPuzzleFeaturesByProximity" }
-        gameModel.puzzlePieces.flatMap { it.getAllFeatures() }.forEach { it.glowColor = null }
+        gameModel.puzzlePieces.flatMap { it.getAllFeatures() }.forEach { it.isGlowing = false }
     }
 }

@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.NinePatch
+import com.badlogic.gdx.graphics.glutils.ShaderProgram
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Disposable
@@ -18,7 +19,6 @@ import edu.b4kancs.languagePuzzleApp.app.model.Side
 import ktx.graphics.use
 import ktx.inject.Context
 import ktx.log.logger
-import space.earlygrey.shapedrawer.ShapeDrawer
 
 class PuzzlePieceDrawer(
     private val context: Context
@@ -27,6 +27,9 @@ class PuzzlePieceDrawer(
     private val base9Patch: NinePatch
     private val blankTexture: Texture
     private val tabTexture: Texture
+
+    private val glowBlankShader: ShaderProgram
+    private val glowTabShader: ShaderProgram
 
     companion object {
         private val logger = logger<PuzzlePieceDrawer>()
@@ -38,13 +41,34 @@ class PuzzlePieceDrawer(
         val baseTexture = Texture(Gdx.files.internal("puzzle_base_02.png"))
         base9Patch = NinePatch(baseTexture, 20, 20, 20, 20)
 
-        blankTexture = Texture(Gdx.files.internal("puzzle_blank_03.png"), Pixmap.Format.RGBA8888, true)
+        blankTexture = Texture(Gdx.files.internal("puzzle_blank_06.png"), Pixmap.Format.RGBA8888, true)
         blankTexture.bind()
         blankTexture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear)
 
-        tabTexture = Texture(Gdx.files.internal("puzzle_tab_07.png"), Pixmap.Format.RGBA8888, true)
+        tabTexture = Texture(Gdx.files.internal("puzzle_tab_08.png"), Pixmap.Format.RGBA8888, true)
         tabTexture.bind()
         tabTexture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear)
+
+        // Load shaders
+        glowTabShader = ShaderProgram(
+            Gdx.files.internal("shaders/glow.vert"),
+            Gdx.files.internal("shaders/glow_tab.frag")
+        )
+        if (!glowTabShader.isCompiled) {
+            logger.error { "glowTabShader compilation failed: ${glowTabShader.log}" }
+            throw RuntimeException("Shader compilation failed: ${glowTabShader.log}")
+        }
+
+        glowBlankShader = ShaderProgram(
+            Gdx.files.internal("shaders/glow.vert"),
+            Gdx.files.internal("shaders/glow_blank.frag")
+        )
+        if (!glowBlankShader.isCompiled) {
+            logger.error { "glowBlankShader compilation failed: ${glowBlankShader.log}" }
+            throw RuntimeException("Shader compilation failed: ${glowBlankShader.log}")
+        }
+
+
     }
 
     fun render(puzzlePiece: PuzzlePiece) {
@@ -68,7 +92,16 @@ class PuzzlePieceDrawer(
         batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ZERO)
 
         for (blank in puzzlePiece.blanks) {
-            batch.color = blank.glowColor ?: puzzlePiece.color
+            batch.color = puzzlePiece.color
+
+            if (blank.isGlowing) {
+                batch.shader = glowBlankShader
+                glowTabShader.bind()
+                glowTabShader.setUniformf("u_glowColor", Color.FIREBRICK)
+                glowTabShader.setUniformf("u_glowIntensity", 0.3f)
+                glowTabShader.setUniformf("u_resolution", PuzzleBlank.WIDTH)
+                batch.color = Color.WHITE
+            }
 
             val blankX: Float
             val blankY: Float
@@ -127,6 +160,8 @@ class PuzzlePieceDrawer(
                 /* flipX = */ false,
                 /* flipY = */ false
             )
+
+            batch.shader = null
         }
 
         batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA)
@@ -138,8 +173,16 @@ class PuzzlePieceDrawer(
         batch.setBlendFunctionSeparate(GL20.GL_ONE, GL20.GL_ONE_MINUS_SRC_ALPHA, GL20.GL_ONE, GL20.GL_ONE_MINUS_SRC_COLOR)
 
         for (tab in puzzlePiece.tabs) {
-//            batch.color = tab.glowColor ?: (tab.color ?: puzzlePiece.color)
             batch.color = tab.color ?: puzzlePiece.color
+
+            if (tab.isGlowing) {
+                batch.shader = glowTabShader
+                glowTabShader.bind()
+                glowTabShader.setUniformf("u_glowColor", Color.FIREBRICK)
+                glowTabShader.setUniformf("u_glowIntensity", 0.2f) // Adjust as needed
+                glowTabShader.setUniformf("u_resolution", PuzzleTab.WIDTH)
+                batch.color = Color.WHITE
+            }
 
             val tabX: Float
             val tabY: Float
@@ -199,6 +242,8 @@ class PuzzlePieceDrawer(
                 /* flipX = */ false,
                 /* flipY = */ false
             )
+
+            batch.shader = null
         }
 
         batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA)

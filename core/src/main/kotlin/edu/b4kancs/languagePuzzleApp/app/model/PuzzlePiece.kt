@@ -18,7 +18,7 @@ enum class Side {
 interface PuzzlePieceFeature {
     val owner: PuzzlePiece
     val side: Side
-    var glowColor: Color?
+    var isGlowing: Boolean
 
     fun getType(): String {
         return if (this is PuzzleTab) "Tab" else "Blank"
@@ -27,7 +27,7 @@ interface PuzzlePieceFeature {
     // Method to calculate the midpoint of the feature
     fun getFeatureMidpoint(): Vector2 {
         val (featureWidth, featureHeight) = when (this) {
-            is PuzzleTab -> PuzzleTab.WIDTH to PuzzleTab.HEIGHT - 5f    // Some minor adjustments to the shape due to various factors
+            is PuzzleTab -> PuzzleTab.WIDTH to PuzzleTab.HEIGHT - 5f    // Some minor adjustments to the midpoint calculation due to various factors
             is PuzzleBlank -> PuzzleBlank.WIDTH to PuzzleBlank.HEIGHT * -1f // The blank is drawn in the opposite direction
             else -> throw IllegalArgumentException("Unknown feature type")
         }
@@ -58,7 +58,7 @@ data class PuzzleTab(
     override val side: Side,
     val color: Color? = null,
 ) : PuzzlePieceFeature {
-    override var glowColor: Color? = null
+    override var isGlowing: Boolean = false
 
     companion object {
         const val WIDTH = 110f
@@ -70,7 +70,7 @@ data class PuzzleBlank( // An indentation on a puzzle piece is called a 'blank'
     override val owner: PuzzlePiece,
     override val side: Side
 ) : PuzzlePieceFeature {
-    override var glowColor: Color? = null
+    override var isGlowing: Boolean = false
 
     companion object {
         const val WIDTH = 120f
