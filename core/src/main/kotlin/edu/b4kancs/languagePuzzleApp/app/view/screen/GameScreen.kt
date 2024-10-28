@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.PixmapIO
+import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.glutils.FrameBuffer
 import com.badlogic.gdx.graphics.glutils.ShaderProgram
@@ -17,7 +18,12 @@ import com.badlogic.gdx.input.GestureDetector
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.math.Vector3
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.actions.Actions
+import com.badlogic.gdx.scenes.scene2d.ui.Image
+import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import com.badlogic.gdx.scenes.scene2d.ui.Window
+import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Timer
 import com.badlogic.gdx.utils.viewport.ScreenViewport
 import edu.b4kancs.languagePuzzleApp.app.Game
@@ -31,7 +37,6 @@ import edu.b4kancs.languagePuzzleApp.app.model.Environment
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
 import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
-import edu.b4kancs.languagePuzzleApp.app.model.PuzzleTab
 import edu.b4kancs.languagePuzzleApp.app.view.drawableModel.PuzzlePieceDrawer
 import edu.b4kancs.languagePuzzleApp.app.view.screen.CustomCursorLoader.CustomCursor.CLOSED_HAND_CURSOR
 import edu.b4kancs.languagePuzzleApp.app.view.screen.CustomCursorLoader.CustomCursor.OPEN_HAND_CURSOR
@@ -106,12 +111,20 @@ class GameScreen(
 
     private val puzzleSnapHelper = PuzzleSnapHelper(gameModel)
 
+    // UI Elements
+    private lateinit var exerciseDescriptionFrame: Window
+    private lateinit var exerciseDescriptionLabel: Label
+    private lateinit var checkMarkImage: Image
+
     private var hasSavedScreenshot = false
 
     init {
         logger.debug { "init" }
 
         frameBufferMap = gdxMapOf()
+
+        initializeExerciseDescriptionUI()
+        initializeCheckMarkUI()
     }
 
     override fun show() {
@@ -145,6 +158,12 @@ class GameScreen(
         realToVirtualResolutionRatio = maxOf(screenSize.first / viewPortSize.first, screenSize.second / viewPortSize.second)
         logger.debug { "screenSize=$screenSize; viewPortSize=$viewPortSize" }
         logger.debug { "realToVirtualResolutionRatio=$realToVirtualResolutionRatio" }
+
+        // Update the position and size of the exercise description frame if visible
+        if (::exerciseDescriptionFrame.isInitialized && exerciseDescriptionFrame.isVisible) {
+            exerciseDescriptionFrame.setSize(newWidth.toFloat(), 100f) // Height can be adjusted
+            exerciseDescriptionFrame.setPosition(0f, newHeight - exerciseDescriptionFrame.height)
+        }
     }
 
     override fun render(delta: Float) {
@@ -360,6 +379,116 @@ class GameScreen(
         )
     }
 
+    private fun initializeExerciseDescriptionUI() {
+        logger.debug { "Initializing Exercise Description UI." }
+
+        // Create the window with no title
+        exerciseDescriptionFrame = Window("", uiSkin).apply {
+            background = skin.getDrawable("white")
+
+            // Set semi-transparent background color (e.g., black with 50% opacity)
+            background.minWidth = 300f
+            background.minHeight = 50f
+            color.a = 0.75f // Semi-transparent
+            isMovable = false
+            isResizable = false
+
+            // Set specific padding: 20px top, 40px left and right, and 10px bottom
+            padTop(20f)
+            padLeft(40f)
+            padRight(40f)
+            padBottom(10f)
+
+            // Initially invisible; visibility will be handled in updateExerciseDescription()
+            isVisible = false
+        }
+
+        // Create the label for the description text
+        exerciseDescriptionLabel = Label("", uiSkin).apply {
+            setWrap(true) // Enable text wrapping
+            setAlignment(Align.center) // Center-align the text
+        }
+
+        // Add the label to the window
+        exerciseDescriptionFrame.add(exerciseDescriptionLabel).expand().fill().row()
+
+        // Position the window at the top center of the screen with a small margin
+        exerciseDescriptionFrame.setPosition(
+            (hudViewport.worldWidth - exerciseDescriptionFrame.width) / 2,
+            hudViewport.worldHeight - exerciseDescriptionFrame.height - 10f
+        )
+
+        // Add the window to the UI stage
+        uiStage.addActor(exerciseDescriptionFrame)
+
+        // Update the description based on the current exercise
+        updateExerciseDescription()
+    }
+
+    private fun updateExerciseDescription() {
+        val currentExercise = gameModel.currentExercise
+        if (currentExercise != null && currentExercise.task.isNotBlank()) {
+            // Set the description text
+            exerciseDescriptionLabel.setText(currentExercise.task)
+
+            // Adjust the window size based on the content
+            exerciseDescriptionFrame.pack()
+
+            // Reposition the window to stay at the top center after packing
+            exerciseDescriptionFrame.setPosition(
+                (hudViewport.worldWidth - exerciseDescriptionFrame.width) / 2,
+                hudViewport.worldHeight - exerciseDescriptionFrame.height - 10f
+            )
+
+            // Make the window visible
+            exerciseDescriptionFrame.isVisible = true
+        } else {
+            // Hide the window if there's no description
+            exerciseDescriptionFrame.isVisible = false
+        }
+    }
+
+    private fun initializeCheckMarkUI() {
+        logger.debug { "Initializing CheckMark UI." }
+
+        val texture = Texture(Gdx.files.internal("graphics/checkmark.png"), Pixmap.Format.RGBA8888, true)
+
+        // Create an Image actor with the checkmark texture
+        checkMarkImage = Image(texture).apply {
+            // Set the size of the checkmark (adjust as needed)
+            setSize(80f, 80f) // Example size; adjust based on your design
+
+            // Position it at the lower right corner with 20px padding from the edges
+            setPosition(
+                1080f, // 20px padding from the right
+                20f // 20px padding from the bottom
+            )
+
+            // Initially invisible
+            isVisible = false
+        }
+
+        // Add the checkmark image to the UI stage
+        uiStage.addActor(checkMarkImage)
+    }
+
+    private fun displayCheckMark() {
+        logger.debug { "displayCheckMark" }
+
+        if (::checkMarkImage.isInitialized) {
+            // Make the checkmark visible
+            checkMarkImage.isVisible = true
+
+            // Optionally, reset the alpha to 0 before fading in
+            checkMarkImage.color.a = 0.5f
+
+            // Add a fade-in action (e.g., over 1 second)
+            checkMarkImage.addAction(Actions.fadeIn(1f))
+        } else {
+            logger.error { "CheckMarkImage has not been initialized!" }
+        }
+    }
+
     override fun dispose() {
         logger.debug { "dispose" }
 
@@ -513,14 +642,19 @@ class GameScreen(
             val mousePos = Vector2(worldCoordinates.x, worldCoordinates.y)
 
             if (draggedPuzzlePiece != null) {
-                val delta = mousePos.cpy().sub(lastMouseWorldPos)
-                draggedPuzzlePiece!!.apply {
-                    pos = pos.add(delta)
-                }
-                puzzleSnapHelper.updatePuzzleFeaturesByProximity()
+                try {
+                    val delta = mousePos.cpy().sub(lastMouseWorldPos)
+                    draggedPuzzlePiece!!.apply {
+                        pos = pos.add(delta)
+                    }
+                    puzzleSnapHelper.updatePuzzleFeaturesByProximity()
 
-                lastMouseWorldPos.set(mousePos)
-                return true
+                    lastMouseWorldPos.set(mousePos)
+                    return true
+                }
+                catch (e: ConcurrentModificationException) {
+                    logger.error { "touchDragged ConcurrentModificationException message=\n${e.message}" }
+                }
             }
             else if (isDraggingGame) {
                 val deltaX = Gdx.input.deltaX.toFloat() * (1 / realToVirtualResolutionRatio * gameCamera.zoom)
@@ -541,6 +675,9 @@ class GameScreen(
 
                 puzzleSnapHelper.performSnap()
                 puzzleSnapHelper.clearPuzzleFeaturesByProximity()
+                if (gameModel.isSolved()) {
+                    displayCheckMark()
+                }
 
                 isDraggingGame = false
                 if (!environment.isMobile) {

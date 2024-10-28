@@ -2,7 +2,10 @@ package edu.b4kancs.languagePuzzleApp.app.model
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Vector2
-import edu.b4kancs.languagePuzzleApp.app.model.CustomColors.*
+import edu.b4kancs.languagePuzzleApp.app.model.CustomColors.ADVERB_PURPLE
+import edu.b4kancs.languagePuzzleApp.app.model.CustomColors.OBJECT_YELLOW
+import edu.b4kancs.languagePuzzleApp.app.model.CustomColors.OFF_WHITE
+import edu.b4kancs.languagePuzzleApp.app.model.CustomColors.SUBJECT_GREEN
 import ktx.log.logger
 
 enum class Side {
@@ -58,14 +61,17 @@ interface PuzzlePieceFeature {
                 owner.pos.x + owner.width / 2,
                 owner.pos.y + owner.height + featureHeight / 2
             )
+
             Side.BOTTOM -> Vector2(
                 owner.pos.x + owner.width / 2,
                 owner.pos.y - featureHeight / 2
             )
+
             Side.LEFT -> Vector2(
                 owner.pos.x - featureHeight / 2,
                 owner.pos.y + owner.height / 2
             )
+
             Side.RIGHT -> Vector2(
                 owner.pos.x + owner.width + featureHeight / 2,
                 owner.pos.y + owner.height / 2
@@ -86,6 +92,13 @@ data class PuzzleTab(
         const val WIDTH = 110f
         const val HEIGHT = WIDTH * 0.88f
     }
+
+//    override fun equals(other: Any?): Boolean {
+//        if (other is PuzzleTab) {
+//            return owner == other.owner && grammaticalRole == other.grammaticalRole && text == other.text
+//        }
+//        return false
+//    }
 }
 
 data class PuzzleBlank( // An indentation on a puzzle piece is called a 'blank'
@@ -239,6 +252,18 @@ class PuzzlePiece(
 
     private fun calculateRenderSize(width: Float, height: Float): Pair<Float, Float> =
         width + 2 * PuzzleTab.HEIGHT to height + 2 * PuzzleTab.HEIGHT
+
+//    override fun equals(other: Any?): Boolean {
+//        if (other is PuzzlePiece)
+//            return other.text == text
+//                && other.grammaticalRole == grammaticalRole
+//                && tabs.containsAll(other.tabs)
+//                && tabs.size == other.tabs.size
+//                && blanks.containsAll(other.blanks)
+//                && blanks.size == other.blanks.size
+//
+//        return false
+//    }
 }
 
 class InvalidPuzzlePieceException(message: String) : IllegalArgumentException(message)

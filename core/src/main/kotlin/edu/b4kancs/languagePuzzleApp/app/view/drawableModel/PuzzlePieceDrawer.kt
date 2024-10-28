@@ -26,7 +26,7 @@ import ktx.inject.Context
 import ktx.log.logger
 
 class PuzzlePieceDrawer(
-    private val context: Context
+    context: Context
 ) : Disposable {
     private val batch = context.inject<Batch>()
     private val font: BitmapFont = context.inject()
@@ -100,7 +100,7 @@ class PuzzlePieceDrawer(
 
         // Draw the text centered on the puzzle piece
         font.color = Color.BLACK
-        val text = puzzlePiece.text // + " " + puzzlePiece.connections.size
+        val text = puzzlePiece.text + " (${puzzlePiece.connections.size})"
         if (text.isNotEmpty()) {
 //            val maxTextWidth = puzzlePiece.boundingBoxSize.first - 20f // 10f padding on each side
 
