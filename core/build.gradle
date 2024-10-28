@@ -15,6 +15,7 @@ dependencies {
   api "io.github.libktx:ktx-inject:$ktxVersion"
   api "io.github.libktx:ktx-log:$ktxVersion"
   api "io.github.libktx:ktx-preferences:$ktxVersion"
+  api "io.github.libktx:ktx-scene2d:$ktxVersion"
 
   implementation "space.earlygrey:shapedrawer:$shapedrawerVersion"
 //  implementation "com.github.raeleus.TenPatch:tenpatch:$tenpatchVersion"

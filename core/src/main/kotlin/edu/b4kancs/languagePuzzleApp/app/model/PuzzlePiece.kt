@@ -89,7 +89,7 @@ data class PuzzleBlank( // An indentation on a puzzle piece is called a 'blank'
 }
 
 class PuzzlePiece(
-    val text: String,
+    var text: String,
     val grammaticalRole: GrammaticalRole,
     pos: Vector2,
     width: Float = MIN_WIDTH,

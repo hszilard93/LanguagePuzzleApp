@@ -11,14 +11,15 @@ import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.PixmapIO
 import com.badlogic.gdx.graphics.g2d.Batch
-import com.badlogic.gdx.graphics.g2d.BitmapFont
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter
 import com.badlogic.gdx.graphics.glutils.FrameBuffer
 import com.badlogic.gdx.graphics.glutils.ShaderProgram
 import com.badlogic.gdx.input.GestureDetector
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.math.Vector3
+import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import com.badlogic.gdx.utils.Timer
+import com.badlogic.gdx.utils.viewport.ScreenViewport
 import edu.b4kancs.languagePuzzleApp.app.Game
 import edu.b4kancs.languagePuzzleApp.app.GameCamera
 import edu.b4kancs.languagePuzzleApp.app.GameViewport
@@ -34,6 +35,7 @@ import edu.b4kancs.languagePuzzleApp.app.view.drawableModel.PuzzlePieceDrawer
 import edu.b4kancs.languagePuzzleApp.app.view.screen.CustomCursorLoader.CustomCursor.CLOSED_HAND_CURSOR
 import edu.b4kancs.languagePuzzleApp.app.view.screen.CustomCursorLoader.CustomCursor.OPEN_HAND_CURSOR
 import edu.b4kancs.languagePuzzleApp.app.view.screen.CustomCursorLoader.loadCustomCursor
+import edu.b4kancs.languagePuzzleApp.app.view.ui.TextEditorPopup
 import edu.b4kancs.languagePuzzleApp.app.view.utils.toRGBFloat
 import edu.b4kancs.languagePuzzleApp.app.view.utils.toVector2
 import edu.b4kancs.languagePuzzleApp.app.view.utils.toVector3
@@ -62,7 +64,11 @@ class GameScreen(
         val logger = logger<GameScreen>()
     }
 
+    private val uiStage = Stage(ScreenViewport())
+    private val uiSkin = Skin(Gdx.files.internal("skin/holo/uiskin.json"))
+
     private val hudFont: HudFont = context.inject()
+
     // private val puzzleFont: BitmapFont = context.inject()
     private val frameBufferMap: GdxMap<PuzzlePiece, FrameBuffer>
     private val frameBufferCamera = OrthographicCamera()
@@ -83,6 +89,9 @@ class GameScreen(
     private val minZoom = 0.1f
     private val maxZoom = 5f
 
+    private var editingPuzzlePiece: PuzzlePiece? = null
+    private var textEditorPopup: TextEditorPopup? = null
+
     private val startZoom = 2f
     private var shouldDisplayDebugInfo = false
     private var isDraggingGame = false
@@ -97,23 +106,16 @@ class GameScreen(
     init {
         logger.debug { "init" }
 
-        /* Load fonts */
-//        hudFont = BitmapFont(Gdx.files.internal("fonts/hud_font.fnt")).apply {
-//            data.setScale(1f * displayDensity)
-//        }
-//
-//        val typeFontGenerator = FreeTypeFontGenerator(Gdx.files.internal("fonts/libre-baskerville.regular.ttf"))
-//        val typeFontParameter = FreeTypeFontParameter().apply { size = 12 }
-//        puzzleFont = typeFontGenerator.generateFont(typeFontParameter)
-
         frameBufferMap = gdxMapOf()
     }
 
     override fun show() {
         logger.debug { "show" }
 
+        inputMultiplexer.addProcessor(uiStage)
         inputMultiplexer.addProcessor(GameGestureDetector())
         inputMultiplexer.addProcessor(GameInputProcessor())
+
         Gdx.input.inputProcessor = inputMultiplexer
 
         gameCamera.apply {
@@ -159,6 +161,10 @@ class GameScreen(
         hudViewport.apply()
         batch.projectionMatrix = hudCamera.combined
         renderHud()
+
+        // Update and draw the UI Stage
+        uiStage.act(delta)
+        uiStage.draw()
     }
 
     private fun renderGameWorld(delta: Float) {
@@ -328,9 +334,32 @@ class GameScreen(
         }
     }
 
+    private fun openTextEditor(puzzlePiece: PuzzlePiece) {
+        // Prevent multiple popups
+        if (editingPuzzlePiece != null) {
+            return
+        }
+        editingPuzzlePiece = puzzlePiece
+
+        TextEditorPopup(
+            stage = uiStage,
+            skin = uiSkin,
+            puzzlePiece = puzzlePiece,
+            onSave = { newText ->
+                puzzlePiece.text = newText
+                editingPuzzlePiece = null
+            },
+            onCancel = {
+                editingPuzzlePiece = null
+            }
+        )
+    }
+
     override fun dispose() {
         logger.debug { "dispose" }
 
+        uiStage.dispose()
+        uiSkin.dispose()
         hudFont.dispose()
         //puzzleFont.dispose()
         puzzlePieceDrawer.dispose()
@@ -355,6 +384,11 @@ class GameScreen(
     ############################ */
 
     inner class GameInputProcessor : InputAdapter() {
+
+        private var lastClickTime: Long = 0
+        private val doubleClickThreshold = 300
+        private var longPressTimer: Timer.Task? = null
+        private val longPressDuration = 500
 
         init {
             logger.debug { "GameInputProcessor.init" }
@@ -388,16 +422,28 @@ class GameScreen(
                     val worldCoordinates = gameCamera.unprojectScreenCoords(screenX, screenY)
                     val mousePos = Vector2(worldCoordinates.x, worldCoordinates.y)
 
+                    val currentTime = System.currentTimeMillis()
+
                     for (puzzlePiece in gameModel.puzzlePieces) {
                         if (isPointOverPuzzlePiece(mousePos, puzzlePiece)) {
-                            logger.debug { "touchDown puzzlePiece=$puzzlePiece" }
+                            // Detect double click
+                            if (currentTime - lastClickTime < doubleClickThreshold) {
+                                logger.debug { "doubleClick puzzlePiece=$puzzlePiece" }
+                                openTextEditor(puzzlePiece)
+                                lastClickTime = 0
+                                longPressTimer?.cancel()
+                            }
+                            else {
+                                logger.debug { "touchDown puzzlePiece=$puzzlePiece" }
+                                lastClickTime = currentTime
 
-                            draggedPuzzlePiece = puzzlePiece
-                            draggedPuzzlePiece!!.getAllFeatures().forEach { puzzleSnapHelper.updatePuzzleFeatureCompatibilityMap(it) }
+                                draggedPuzzlePiece = puzzlePiece
+                                draggedPuzzlePiece!!.getAllFeatures().forEach { puzzleSnapHelper.updatePuzzleFeatureCompatibilityMap(it) }
 
-                            lastMouseWorldPos.set(mousePos)
-                            if (!environment.isMobile) {
-                                setCursor(handClosedCursor)
+                                lastMouseWorldPos.set(mousePos)
+                                if (!environment.isMobile) {
+                                    setCursor(handClosedCursor)
+                                }
                             }
                             return true
                         }
