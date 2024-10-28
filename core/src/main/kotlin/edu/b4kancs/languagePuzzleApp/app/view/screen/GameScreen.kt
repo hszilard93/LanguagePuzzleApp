@@ -5,7 +5,6 @@ import com.badlogic.gdx.Input
 import com.badlogic.gdx.InputAdapter
 import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.assets.AssetManager
-import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Cursor
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
@@ -13,6 +12,8 @@ import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.PixmapIO
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.BitmapFont
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter
 import com.badlogic.gdx.graphics.glutils.FrameBuffer
 import com.badlogic.gdx.graphics.glutils.ShaderProgram
 import com.badlogic.gdx.input.GestureDetector
@@ -22,14 +23,13 @@ import edu.b4kancs.languagePuzzleApp.app.Game
 import edu.b4kancs.languagePuzzleApp.app.GameCamera
 import edu.b4kancs.languagePuzzleApp.app.GameViewport
 import edu.b4kancs.languagePuzzleApp.app.HudCamera
+import edu.b4kancs.languagePuzzleApp.app.HudFont
 import edu.b4kancs.languagePuzzleApp.app.HudViewport
 import edu.b4kancs.languagePuzzleApp.app.misc
 import edu.b4kancs.languagePuzzleApp.app.model.Environment
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
-import edu.b4kancs.languagePuzzleApp.app.model.PuzzleBlank
+import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
-import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePieceFeature
-import edu.b4kancs.languagePuzzleApp.app.model.PuzzleTab
 import edu.b4kancs.languagePuzzleApp.app.view.drawableModel.PuzzlePieceDrawer
 import edu.b4kancs.languagePuzzleApp.app.view.screen.CustomCursorLoader.CustomCursor.CLOSED_HAND_CURSOR
 import edu.b4kancs.languagePuzzleApp.app.view.screen.CustomCursorLoader.CustomCursor.OPEN_HAND_CURSOR
@@ -40,13 +40,11 @@ import edu.b4kancs.languagePuzzleApp.app.view.utils.toVector3
 import edu.b4kancs.languagePuzzleApp.app.view.utils.unprojectScreenCoords
 import ktx.app.KtxScreen
 import ktx.collections.GdxMap
-import ktx.collections.filter
-import ktx.collections.flatMap
 import ktx.collections.gdxMapOf
 import ktx.graphics.use
 import ktx.inject.Context
 import ktx.log.logger
-import space.earlygrey.shapedrawer.ShapeDrawer
+
 
 class GameScreen(
     private val context: Context,
@@ -64,7 +62,8 @@ class GameScreen(
         val logger = logger<GameScreen>()
     }
 
-    private val hudFont: BitmapFont
+    private val hudFont: HudFont = context.inject()
+    private val puzzleFont: BitmapFont = context.inject()
     private val frameBufferMap: GdxMap<PuzzlePiece, FrameBuffer>
     private val frameBufferCamera = OrthographicCamera()
 
@@ -98,10 +97,14 @@ class GameScreen(
     init {
         logger.debug { "init" }
 
-        // Adjust font scaling based on display density
-        hudFont = BitmapFont(Gdx.files.internal("hud_font.fnt")).apply {
-            data.setScale(1f * displayDensity)
-        }
+        /* Load fonts */
+//        hudFont = BitmapFont(Gdx.files.internal("fonts/hud_font.fnt")).apply {
+//            data.setScale(1f * displayDensity)
+//        }
+//
+//        val typeFontGenerator = FreeTypeFontGenerator(Gdx.files.internal("fonts/libre-baskerville.regular.ttf"))
+//        val typeFontParameter = FreeTypeFontParameter().apply { size = 12 }
+//        puzzleFont = typeFontGenerator.generateFont(typeFontParameter)
 
         frameBufferMap = gdxMapOf()
     }
@@ -117,6 +120,7 @@ class GameScreen(
             setToOrtho(false, Constants.GAME_VIRTUAL_WIDTH, Constants.GAME_VIRTUAL_HEIGHT)
             zoom = startZoom
         }
+        recenterCamera()
 
         super.show()
     }
@@ -317,10 +321,18 @@ class GameScreen(
         }
     }
 
+    private fun recenterCamera() {
+        logger.debug { "recenterCamera" }
+        gameModel.puzzlePieces.find { it.grammaticalRole == GrammaticalRole.VERB }?.let {
+            gameCamera.position.set(it.pos.x + it.width / 2, it.pos.y + it.height / 2 + 200f, 0f)
+        }
+    }
+
     override fun dispose() {
         logger.debug { "dispose" }
 
         hudFont.dispose()
+        puzzleFont.dispose()
         puzzlePieceDrawer.dispose()
 
         frameBufferMap.forEach { it.value.dispose() }

@@ -23,33 +23,49 @@ class GameModel {
 
         puzzlePieces.add(
             PuzzlePiece(
-                pos = Vector2(basePosition.x + 300f, basePosition.y + 401f),
-                color = Color.ROYAL,
+                text = "ad",
+                grammaticalRole = GrammaticalRole.VERB,
+                pos = Vector2(basePosition.x + 400f, basePosition.y + 300f),
                 depth = 1
             ).apply {
-                tabs.addAll(listOf(PuzzleTab(this, Side.BOTTOM), PuzzleTab(this, Side.TOP)))
-                blanks.addAll(listOf(PuzzleBlank(this, Side.LEFT), PuzzleBlank(this, Side.RIGHT)))
+                tabs.addAll(listOf(
+                    PuzzleTab(this, Side.LEFT, GrammaticalRole.SUBJECT),
+                    PuzzleTab(this, Side.TOP, GrammaticalRole.OBJECT, text = "-t"),
+                    PuzzleTab(this, Side.RIGHT, GrammaticalRole.ADVERBIAL, text = "-nak/\nnek")
+                ))
+                //blanks.addAll(listOf(PuzzleBlank(this, Side.LEFT), PuzzleBlank(this, Side.RIGHT)))
             }
         )
 
         puzzlePieces.add(
             PuzzlePiece(
-                pos = Vector2(basePosition.x + 300f, basePosition.y + 100f),
-                color = Color.YELLOW
+                text = "Peti",
+                grammaticalRole = GrammaticalRole.SUBJECT,
+                pos = Vector2(basePosition.x + 0f, basePosition.y + 300f)
             ).apply {
-                tabs.addAll(listOf(PuzzleTab(this, Side.LEFT)))
-                blanks.addAll(listOf(PuzzleBlank(this, Side.TOP), PuzzleBlank(this, Side.RIGHT), PuzzleBlank(this, Side.BOTTOM)))
+                blanks.addAll(listOf(PuzzleBlank(this, Side.RIGHT)))
             }
         )
 
         puzzlePieces.add(
             PuzzlePiece(
-                pos = Vector2(basePosition.x + 601f, basePosition.y + 100f),
-                color = Color.OLIVE,
+                text = "virág",
+                grammaticalRole = GrammaticalRole.OBJECT,
+                pos = Vector2(basePosition.x + 400f, basePosition.y + 700),
                 depth = 0
             ).apply {
-                tabs.addAll(listOf(PuzzleTab(this, Side.LEFT, Color.CHARTREUSE), PuzzleTab(this, Side.TOP, Color.SKY)))
-                blanks.addAll(listOf(PuzzleBlank(this, Side.BOTTOM), PuzzleBlank(this, Side.RIGHT)))
+                blanks.addAll(listOf(PuzzleBlank(this, Side.BOTTOM)))
+            }
+        )
+
+        puzzlePieces.add(
+            PuzzlePiece(
+                text = "Eszti",
+                grammaticalRole = GrammaticalRole.ADVERBIAL,
+                pos = Vector2(basePosition.x + 800f, basePosition.y + 300f),
+                depth = 0
+            ).apply {
+                blanks.addAll(listOf(PuzzleBlank(this, Side.LEFT)))
             }
         )
     }

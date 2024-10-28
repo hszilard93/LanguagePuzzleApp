@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Batch
+import com.badlogic.gdx.graphics.g2d.BitmapFont
+import com.badlogic.gdx.graphics.g2d.GlyphLayout
 import com.badlogic.gdx.graphics.g2d.NinePatch
 import com.badlogic.gdx.graphics.glutils.ShaderProgram
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
@@ -24,6 +26,7 @@ class PuzzlePieceDrawer(
     private val context: Context
 ) : Disposable {
     private val batch = context.inject<Batch>()
+    private val font: BitmapFont = context.inject()
     private val base9Patch: NinePatch
     private val blankTexture: Texture
     private val tabTexture: Texture
@@ -67,22 +70,36 @@ class PuzzlePieceDrawer(
             logger.error { "glowBlankShader compilation failed: ${glowBlankShader.log}" }
             throw RuntimeException("Shader compilation failed: ${glowBlankShader.log}")
         }
-
-
     }
 
     fun render(puzzlePiece: PuzzlePiece) {
         logger.misc { "render" }
 
         batch.use {
-            batch.color = puzzlePiece.color
+            batch.color = puzzlePiece.grammaticalRole.color
 
-            batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA)
+//            batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA)
             base9Patch.draw(batch, BASE_OFFSET, BASE_OFFSET, puzzlePiece.width, puzzlePiece.height)
+
+            drawText(puzzlePiece)
 
             drawBlanks(puzzlePiece)
 
             drawTabs(puzzlePiece)
+        }
+    }
+
+    private fun drawText(puzzlePiece: PuzzlePiece) {
+        logger.misc { "drawText" }
+
+        // Draw the text centered on the puzzle piece
+        font.color = Color.BLACK
+        val text = puzzlePiece.text
+        if (!text.isNullOrEmpty()) {
+            val layout = GlyphLayout(font, text)
+            val textX = BASE_OFFSET + (puzzlePiece.width - layout.width) / 2
+            val textY = BASE_OFFSET + (puzzlePiece.height - layout.height) / 2
+            font.draw(batch, text, textX, textY)
         }
     }
 
@@ -92,16 +109,16 @@ class PuzzlePieceDrawer(
         batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ZERO)
 
         for (blank in puzzlePiece.blanks) {
-            batch.color = puzzlePiece.color
+            batch.color = puzzlePiece.grammaticalRole.color
 
-            if (blank.isGlowing) {
-                batch.shader = glowBlankShader
-                glowTabShader.bind()
-                glowTabShader.setUniformf("u_glowColor", Color.FIREBRICK)
-                glowTabShader.setUniformf("u_glowIntensity", 0.3f)
-                glowTabShader.setUniformf("u_resolution", PuzzleBlank.WIDTH)
-                batch.color = Color.WHITE
-            }
+//            if (blank.isGlowing) {
+//                batch.shader = glowBlankShader
+//                glowTabShader.bind()
+//                glowTabShader.setUniformf("u_glowColor", Color.FIREBRICK)
+//                glowTabShader.setUniformf("u_glowIntensity", 0.3f)
+//                glowTabShader.setUniformf("u_resolution", PuzzleBlank.WIDTH)
+//                batch.color = Color.WHITE
+//            }
 
             val blankX: Float
             val blankY: Float
@@ -142,6 +159,7 @@ class PuzzlePieceDrawer(
                 }
             }
 
+            @Suppress("InconsistentCommentForJavaParameter")
             batch.draw(
                 /* texture = */ blankTexture,
                 /* x = */ blankX,
@@ -162,6 +180,7 @@ class PuzzlePieceDrawer(
             )
 
             batch.shader = null
+            batch.color = Color.WHITE
         }
 
         batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA)
@@ -173,15 +192,14 @@ class PuzzlePieceDrawer(
         batch.setBlendFunctionSeparate(GL20.GL_ONE, GL20.GL_ONE_MINUS_SRC_ALPHA, GL20.GL_ONE, GL20.GL_ONE_MINUS_SRC_COLOR)
 
         for (tab in puzzlePiece.tabs) {
-            batch.color = tab.color ?: puzzlePiece.color
+            batch.color = tab.grammaticalRole.color
 
             if (tab.isGlowing) {
                 batch.shader = glowTabShader
                 glowTabShader.bind()
-                glowTabShader.setUniformf("u_glowColor", Color.FIREBRICK)
-                glowTabShader.setUniformf("u_glowIntensity", 0.2f) // Adjust as needed
+                glowTabShader.setUniformf("u_glowColor", Color.TEAL)
+                glowTabShader.setUniformf("u_glowIntensity", 0.05f) // Adjustable
                 glowTabShader.setUniformf("u_resolution", PuzzleTab.WIDTH)
-                batch.color = Color.WHITE
             }
 
             val tabX: Float
@@ -224,6 +242,7 @@ class PuzzlePieceDrawer(
                 }
             }
 
+            @Suppress("InconsistentCommentForJavaParameter")
             batch.draw(
                 /* texture = */ tabTexture,
                 /* x = */ tabX,
@@ -242,6 +261,8 @@ class PuzzlePieceDrawer(
                 /* flipX = */ false,
                 /* flipY = */ false
             )
+
+            batch.color = Color.WHITE
 
             batch.shader = null
         }

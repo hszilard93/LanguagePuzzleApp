@@ -2,6 +2,7 @@ package edu.b4kancs.languagePuzzleApp.app.model
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Vector2
+import edu.b4kancs.languagePuzzleApp.app.model.CustomColors.*
 import ktx.log.logger
 
 enum class Side {
@@ -13,6 +14,14 @@ enum class Side {
         LEFT -> RIGHT
         RIGHT -> LEFT
     }
+}
+
+enum class GrammaticalRole(val color: Color) {
+    VERB(Color.WHITE),
+    SUBJECT(SUBJECT_GREEN.value),
+    OBJECT(OBJECT_YELLOW.value),
+    ADVERBIAL(ADVERB_PURPLE.value),
+    UNDEFINED(Color.WHITE)
 }
 
 interface PuzzlePieceFeature {
@@ -56,7 +65,8 @@ interface PuzzlePieceFeature {
 data class PuzzleTab(
     override val owner: PuzzlePiece,
     override val side: Side,
-    val color: Color? = null,
+    val grammaticalRole: GrammaticalRole,
+    val text: String? = null
 ) : PuzzlePieceFeature {
     override var isGlowing: Boolean = false
 
@@ -79,11 +89,12 @@ data class PuzzleBlank( // An indentation on a puzzle piece is called a 'blank'
 }
 
 class PuzzlePiece(
+    val text: String,
+    val grammaticalRole: GrammaticalRole,
     pos: Vector2,
     width: Float = MIN_WIDTH,
     height: Float = MIN_HEIGHT,
-    var depth: Int = 0,
-    val color: Color = Color.YELLOW
+    var depth: Int = 0
 ) {
     val tabs: MutableList<PuzzleTab> = mutableListOf()
     val blanks: MutableList<PuzzleBlank> = mutableListOf()
@@ -132,7 +143,7 @@ class PuzzlePiece(
             )
         }
 
-        logger.info { "PuzzlePiece initialized\t pos=$pos color=$color" }
+        logger.info { "PuzzlePiece initialized\t text=$text grammaticalRole=$grammaticalRole pos=$pos" }
     }
 
     fun getAllFeatures(): List<PuzzlePieceFeature> = tabs + blanks

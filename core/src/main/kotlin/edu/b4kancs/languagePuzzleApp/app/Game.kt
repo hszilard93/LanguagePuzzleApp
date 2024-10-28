@@ -2,11 +2,14 @@ package edu.b4kancs.languagePuzzleApp.app
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.assets.AssetManager
+import com.badlogic.gdx.files.FileHandle
 import com.badlogic.gdx.graphics.Camera
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.Batch
+import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.badlogic.gdx.utils.Disposable
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter
 import com.badlogic.gdx.utils.viewport.ExtendViewport
 import edu.b4kancs.languagePuzzleApp.app.model.Environment
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
@@ -57,7 +60,8 @@ class Game(private val environment: Environment) : KtxGame<KtxScreen>() {
             gameMinWorldHeight = Constants.GAME_MOBILE_MIN_WORLD_HEIGHT
             gameMaxWorldWidth = Constants.GAME_MOBILE_MAX_WORLD_WIDTH
             gameMaxWorldHeight = Constants.GAME_MOBILE_MAX_WORLD_HEIGHT
-        } else {
+        }
+        else {
             gameVirtualWidth = Constants.GAME_VIRTUAL_WIDTH
             gameVirtualHeight = Constants.GAME_VIRTUAL_HEIGHT
             gameMinWorldWidth = Constants.GAME_MIN_WORLD_WIDTH
@@ -78,6 +82,21 @@ class Game(private val environment: Environment) : KtxGame<KtxScreen>() {
             bindSingleton(hudCamera.apply {
                 setToOrtho(false, gameVirtualWidth, gameVirtualHeight)
             })
+
+            bindSingleton<HudFont>(
+                HudFont(Gdx.files.internal("fonts/hud_font.fnt")).apply {
+                    data.setScale(1f * Gdx.graphics.density)
+                }
+            )
+
+            bindSingleton<BitmapFont> {
+                val typeFontGenerator = FreeTypeFontGenerator(Gdx.files.internal("fonts/libre-baskerville.regular.ttf"))
+                val typeFontParameter = FreeTypeFontParameter().apply {
+                    size = 48
+                    flip = true
+                }
+                typeFontGenerator.generateFont(typeFontParameter)
+            }
 
             bindSingleton<GameViewport>(
                 GameViewport(
@@ -139,3 +158,5 @@ class GameViewport(minWorldWidth: Float, minWorldHeight: Float, maxWorldWidth: F
 
 class HudViewport(minWorldWidth: Float, minWorldHeight: Float, maxWorldWidth: Float, maxWorldHeight: Float, camera: Camera) :
     ExtendViewport(minWorldWidth, minWorldHeight, maxWorldWidth, maxWorldHeight, camera)
+
+class HudFont(fileHandle: FileHandle) : BitmapFont(fileHandle)
