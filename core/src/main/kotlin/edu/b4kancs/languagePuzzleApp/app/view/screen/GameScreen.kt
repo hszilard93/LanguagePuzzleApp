@@ -63,7 +63,7 @@ class GameScreen(
     }
 
     private val hudFont: HudFont = context.inject()
-    private val puzzleFont: BitmapFont = context.inject()
+    // private val puzzleFont: BitmapFont = context.inject()
     private val frameBufferMap: GdxMap<PuzzlePiece, FrameBuffer>
     private val frameBufferCamera = OrthographicCamera()
 
@@ -332,7 +332,7 @@ class GameScreen(
         logger.debug { "dispose" }
 
         hudFont.dispose()
-        puzzleFont.dispose()
+        //puzzleFont.dispose()
         puzzlePieceDrawer.dispose()
 
         frameBufferMap.forEach { it.value.dispose() }

@@ -66,7 +66,7 @@ data class PuzzleTab(
     override val owner: PuzzlePiece,
     override val side: Side,
     val grammaticalRole: GrammaticalRole,
-    val text: String? = null
+    val text: String = ""
 ) : PuzzlePieceFeature {
     override var isGlowing: Boolean = false
 

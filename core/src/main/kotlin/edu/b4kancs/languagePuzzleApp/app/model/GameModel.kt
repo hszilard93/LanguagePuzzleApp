@@ -31,9 +31,8 @@ class GameModel {
                 tabs.addAll(listOf(
                     PuzzleTab(this, Side.LEFT, GrammaticalRole.SUBJECT),
                     PuzzleTab(this, Side.TOP, GrammaticalRole.OBJECT, text = "-t"),
-                    PuzzleTab(this, Side.RIGHT, GrammaticalRole.ADVERBIAL, text = "-nak/\nnek")
+                    PuzzleTab(this, Side.RIGHT, GrammaticalRole.ADVERBIAL, text = "-nak\n/nek")
                 ))
-                //blanks.addAll(listOf(PuzzleBlank(this, Side.LEFT), PuzzleBlank(this, Side.RIGHT)))
             }
         )
 

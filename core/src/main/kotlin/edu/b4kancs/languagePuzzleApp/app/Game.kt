@@ -86,6 +86,7 @@ class Game(private val environment: Environment) : KtxGame<KtxScreen>() {
             bindSingleton<HudFont>(
                 HudFont(Gdx.files.internal("fonts/hud_font.fnt")).apply {
                     data.setScale(1f * Gdx.graphics.density)
+                    disposables.register(this)
                 }
             )
 
@@ -96,6 +97,7 @@ class Game(private val environment: Environment) : KtxGame<KtxScreen>() {
                     flip = true
                 }
                 typeFontGenerator.generateFont(typeFontParameter)
+                    .apply { disposables.register(this) }
             }
 
             bindSingleton<GameViewport>(

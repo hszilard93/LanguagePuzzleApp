@@ -81,7 +81,7 @@ class PuzzlePieceDrawer(
 //            batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA)
             base9Patch.draw(batch, BASE_OFFSET, BASE_OFFSET, puzzlePiece.width, puzzlePiece.height)
 
-            drawText(puzzlePiece)
+            drawTextOnPuzzle(puzzlePiece)
 
             drawBlanks(puzzlePiece)
 
@@ -89,7 +89,7 @@ class PuzzlePieceDrawer(
         }
     }
 
-    private fun drawText(puzzlePiece: PuzzlePiece) {
+    private fun drawTextOnPuzzle(puzzlePiece: PuzzlePiece) {
         logger.misc { "drawText" }
 
         // Draw the text centered on the puzzle piece
@@ -262,12 +262,27 @@ class PuzzlePieceDrawer(
                 /* flipY = */ false
             )
 
+            if (tab.text.isNotEmpty()) {
+                drawTextOnTab(tab.text, Vector2(tabX, tabY))
+            }
+
             batch.color = Color.WHITE
 
             batch.shader = null
         }
 
         batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA)
+    }
+
+    private fun drawTextOnTab(text: String, pos: Vector2) {
+        logger.misc { "drawText" }
+
+        font.color = Color.BLACK
+
+        val layout = GlyphLayout(font, text)
+        val textX = pos.x + (BASE_OFFSET - layout.width) / 2
+        val textY = pos.y + (BASE_OFFSET - layout.height) / 2
+        font.draw(batch, text, textX, textY)
     }
 
     // For debugging only
