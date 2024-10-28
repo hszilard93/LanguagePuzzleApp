@@ -8,7 +8,9 @@ object CustomCursorLoader {
     enum class CustomCursor(val path: String) {
 //        ARROW_CURSOR("cursors/pointer_arrow_large_1.png"),
         OPEN_HAND_CURSOR("cursors/pointer_grab_large.png"),
-        CLOSED_HAND_CURSOR("cursors/pointer_grabbing_large.png")
+        CLOSED_HAND_CURSOR("cursors/pointer_grabbing_large.png"),
+        ROTATE_LEFT_CURSOR("cursors/pointer_rotate-left.png"),
+        ROTATE_RIGHT_CURSOR("cursors/pointer_rotate-right.png")
     }
 
     private val logger = ktx.log.logger<CustomCursorLoader>()

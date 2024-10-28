@@ -163,6 +163,78 @@ class PuzzlePiece(
 
     fun getAllFeatures(): List<PuzzlePieceFeature> = tabs + blanks
 
+    fun rotateLeft() {
+        logger.debug { "rotateLeft" }
+
+        // Rotate each tab and blank's side
+        val newTabs = tabs.map {
+            val newSide = when (it.side) {
+                Side.TOP -> Side.LEFT
+                Side.BOTTOM -> Side.RIGHT
+                Side.LEFT -> Side.BOTTOM
+                Side.RIGHT -> Side.TOP
+            }
+            PuzzleTab(it.owner, newSide, it.grammaticalRole, it.text)
+        }
+        tabs.clear()
+        tabs.addAll(newTabs)
+
+        val newBlanks = blanks.map {
+            val newSide = when (it.side) {
+                Side.TOP -> Side.LEFT
+                Side.BOTTOM -> Side.RIGHT
+                Side.LEFT -> Side.BOTTOM
+                Side.RIGHT -> Side.TOP
+            }
+            PuzzleBlank(it.owner, newSide)
+        }
+        blanks.clear()
+        blanks.addAll(newBlanks)
+
+        // Recalculate bounding box position and size
+        boundingBoxSize = calculateRenderSize(width, height)
+        boundingBoxPos = calculateRenderPosition(pos)
+
+        // Mark that size has changed to recreate its FrameBuffer
+        hasChangedSizeSinceLastRender = true
+    }
+
+    fun rotateRight() {
+        logger.debug { "rotateRight" }
+
+        // Rotate each tab and blank's side in the opposite direction
+        val newTabs = tabs.map {
+            val newSide = when (it.side) {
+                Side.TOP -> Side.RIGHT
+                Side.BOTTOM -> Side.LEFT
+                Side.LEFT -> Side.TOP
+                Side.RIGHT -> Side.BOTTOM
+            }
+            PuzzleTab(it.owner, newSide, it.grammaticalRole, it.text)
+        }
+        tabs.clear()
+        tabs.addAll(newTabs)
+
+        val newBlanks = blanks.map {
+            val newSide = when (it.side) {
+                Side.TOP -> Side.RIGHT
+                Side.BOTTOM -> Side.LEFT
+                Side.LEFT -> Side.TOP
+                Side.RIGHT -> Side.BOTTOM
+            }
+            PuzzleBlank(it.owner, newSide)
+        }
+        blanks.clear()
+        blanks.addAll(newBlanks)
+
+        // Recalculate bounding box position and size
+        boundingBoxSize = calculateRenderSize(width, height)
+        boundingBoxPos = calculateRenderPosition(pos)
+
+        // Mark that size has changed to recreate its FrameBuffer
+        hasChangedSizeSinceLastRender = true
+    }
+
     private fun calculateRenderPosition(pos: Vector2): Vector2 = Vector2(pos.x - PuzzleTab.HEIGHT, pos.y - PuzzleTab.HEIGHT)
 
     private fun calculateRenderSize(width: Float, height: Float): Pair<Float, Float> =

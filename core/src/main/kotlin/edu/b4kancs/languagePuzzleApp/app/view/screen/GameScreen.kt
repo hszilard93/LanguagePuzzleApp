@@ -31,9 +31,12 @@ import edu.b4kancs.languagePuzzleApp.app.model.Environment
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
 import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
+import edu.b4kancs.languagePuzzleApp.app.model.PuzzleTab
 import edu.b4kancs.languagePuzzleApp.app.view.drawableModel.PuzzlePieceDrawer
 import edu.b4kancs.languagePuzzleApp.app.view.screen.CustomCursorLoader.CustomCursor.CLOSED_HAND_CURSOR
 import edu.b4kancs.languagePuzzleApp.app.view.screen.CustomCursorLoader.CustomCursor.OPEN_HAND_CURSOR
+import edu.b4kancs.languagePuzzleApp.app.view.screen.CustomCursorLoader.CustomCursor.ROTATE_LEFT_CURSOR
+import edu.b4kancs.languagePuzzleApp.app.view.screen.CustomCursorLoader.CustomCursor.ROTATE_RIGHT_CURSOR
 import edu.b4kancs.languagePuzzleApp.app.view.screen.CustomCursorLoader.loadCustomCursor
 import edu.b4kancs.languagePuzzleApp.app.view.ui.TextEditorPopup
 import edu.b4kancs.languagePuzzleApp.app.view.utils.toRGBFloat
@@ -90,7 +93,7 @@ class GameScreen(
     private val maxZoom = 5f
 
     private var editingPuzzlePiece: PuzzlePiece? = null
-    private var textEditorPopup: TextEditorPopup? = null
+    private var puzzlePieceToRotate: PuzzlePiece? = null
 
     private val startZoom = 2f
     private var shouldDisplayDebugInfo = false
@@ -98,6 +101,8 @@ class GameScreen(
     private val lastTouch = Vector3()
     private val handOpenCursor = if (!environment.isMobile) loadCustomCursor(OPEN_HAND_CURSOR) else null
     private val handClosedCursor = if (!environment.isMobile) loadCustomCursor(CLOSED_HAND_CURSOR) else null
+    private val rotateLeftCursor = if (!environment.isMobile) loadCustomCursor(ROTATE_LEFT_CURSOR) else null
+    private val rotateRightCursor = if (!environment.isMobile) loadCustomCursor(ROTATE_RIGHT_CURSOR) else null
 
     private val puzzleSnapHelper = PuzzleSnapHelper(gameModel)
 
@@ -382,6 +387,9 @@ class GameScreen(
     /* ###########################
     Input processing inner classes
     ############################ */
+    private enum class Corner {
+        TOP_LEFT, TOP_RIGHT
+    }
 
     inner class GameInputProcessor : InputAdapter() {
 
@@ -405,9 +413,30 @@ class GameScreen(
             if (!environment.isMobile) {
                 if (overPuzzlePiece && draggedPuzzlePiece == null) {
                     setCursor(handOpenCursor)
+                    return true
                 }
-                else if (currentCursor != null) {
-                    setCursor(null)
+                else {
+                    for (puzzlePiece in gameModel.puzzlePieces.filter { it.connections.isEmpty() }) {
+                        val (ptr, corner) = isPointerNearCorner(mousePos, puzzlePiece) ?: (null to null)
+                        puzzlePieceToRotate = ptr
+                        if (puzzlePieceToRotate != null) {
+                            if (corner == Corner.TOP_LEFT) {
+                                if (!environment.isMobile) {
+                                    setCursor(rotateLeftCursor)
+                                }
+                            }
+                            else {
+                                if (!environment.isMobile) {
+                                    setCursor(rotateRightCursor)
+                                }
+                            }
+                            return true
+                        }
+                    }
+                    // If the cursor is not over a puzzle piece, or near a corner reset the cursor
+                    if (currentCursor != null) {
+                        setCursor(null)
+                    }
                 }
             }
 
@@ -419,6 +448,18 @@ class GameScreen(
 
             when (button) {
                 Input.Buttons.LEFT -> {
+
+                    if (currentCursor == rotateLeftCursor) {
+                        logger.debug { "rotateLeft" }
+                        puzzlePieceToRotate!!.rotateLeft()
+                        return true
+                    }
+                    else if(currentCursor == rotateRightCursor) {
+                        logger.debug { "rotateRight" }
+                        puzzlePieceToRotate!!.rotateRight()
+                        return true
+                    }
+
                     val worldCoordinates = gameCamera.unprojectScreenCoords(screenX, screenY)
                     val mousePos = Vector2(worldCoordinates.x, worldCoordinates.y)
 
@@ -545,13 +586,44 @@ class GameScreen(
             return true
         }
 
-        private fun isPointOverPuzzlePiece(point: Vector2, puzzlePiece: PuzzlePiece): Boolean {
+        private fun isPointOverPuzzlePiece(mousePos: Vector2, puzzlePiece: PuzzlePiece): Boolean {
             val x = puzzlePiece.pos.x
             val y = puzzlePiece.pos.y
             val width = puzzlePiece.width
             val height = puzzlePiece.height
 
-            return point.x >= x && point.x <= x + width && point.y >= y && point.y <= y + height
+            return mousePos.x >= x && mousePos.x <= x + width && mousePos.y >= y && mousePos.y <= y + height
+        }
+
+        private fun isPointerNearCorner(mousePos: Vector2, puzzlePiece: PuzzlePiece): Pair<PuzzlePiece, Corner>? {
+            logger.misc { "isPointerNearCorner mousePos=$mousePos" }
+
+            val maxDistanceFromCorner = 25f
+            // Define the top-left and top-right corners
+            val topLeft = Vector2(
+                puzzlePiece.pos.x,
+                puzzlePiece.pos.y + puzzlePiece.height
+            )
+            val topRight = Vector2(
+                puzzlePiece.pos.x + puzzlePiece.width,
+                puzzlePiece.pos.y + puzzlePiece.height
+            )
+
+            // Calculate distances to corners
+            val distanceToTopLeft = mousePos.dst(topLeft)
+            val distanceToTopRight = mousePos.dst(topRight)
+
+            // Check if within CORNER_RADIUS
+            if (distanceToTopRight < maxDistanceFromCorner) {
+                logger.debug { "isPointerNearCorner pointer is near ${puzzlePiece.text} distanceToTopRight=$distanceToTopRight" }
+                return Pair(puzzlePiece, Corner.TOP_RIGHT)
+            }
+            else if (distanceToTopLeft < maxDistanceFromCorner) {
+                logger.debug { "isPointerNearCorner pointer is near ${puzzlePiece.text} distanceToTopLeft=$distanceToTopLeft" }
+                return Pair(puzzlePiece, Corner.TOP_LEFT)
+            }
+
+            return null
         }
     }
 
