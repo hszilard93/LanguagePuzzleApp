@@ -12,8 +12,11 @@ import com.badlogic.gdx.graphics.g2d.NinePatch
 import com.badlogic.gdx.graphics.glutils.ShaderProgram
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Disposable
 import edu.b4kancs.languagePuzzleApp.app.misc
+import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole.UNDEFINED
+import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole.VERB
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzleBlank
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzleTab
@@ -30,6 +33,7 @@ class PuzzlePieceDrawer(
     private val base9Patch: NinePatch
     private val blankTexture: Texture
     private val tabTexture: Texture
+    private val shapeRenderer = ShapeRenderer()
 
     private val glowBlankShader: ShaderProgram
     private val glowTabShader: ShaderProgram
@@ -75,8 +79,10 @@ class PuzzlePieceDrawer(
     fun render(puzzlePiece: PuzzlePiece) {
         logger.misc { "render" }
 
+        shapeRenderer.flush()
+
         batch.use {
-            batch.color = puzzlePiece.grammaticalRole.color
+            batch.color = calculatePuzzleColor(puzzlePiece)
 
 //            batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA)
             base9Patch.draw(batch, BASE_OFFSET, BASE_OFFSET, puzzlePiece.width, puzzlePiece.height)
@@ -94,12 +100,49 @@ class PuzzlePieceDrawer(
 
         // Draw the text centered on the puzzle piece
         font.color = Color.BLACK
-        val text = puzzlePiece.text
-        if (!text.isNullOrEmpty()) {
-            val layout = GlyphLayout(font, text)
-            val textX = BASE_OFFSET + (puzzlePiece.width - layout.width) / 2
-            val textY = BASE_OFFSET + (puzzlePiece.height - layout.height) / 2
-            font.draw(batch, text, textX, textY)
+        val text = puzzlePiece.text // + " " + puzzlePiece.connections.size
+        if (text.isNotEmpty()) {
+//            val maxTextWidth = puzzlePiece.boundingBoxSize.first - 20f // 10f padding on each side
+
+            val leftBlankOffset = if (puzzlePiece.blanks.any { it.side == Side.LEFT }) PuzzleBlank.WIDTH * 0.75f else 0f
+            val rightBlankOffset = if (puzzlePiece.blanks.any { it.side == Side.RIGHT }) PuzzleBlank.WIDTH * 0.75f else 0f
+            val topBlankOffset = if (puzzlePiece.blanks.any { it.side == Side.TOP }) PuzzleBlank.HEIGHT * 1.2f else 0f
+            val bottomBlankOffset = if (puzzlePiece.blanks.any { it.side == Side.BOTTOM }) PuzzleBlank.HEIGHT * 1.2f else 0f
+
+            val maxLayoutWidth = puzzlePiece.width - leftBlankOffset - rightBlankOffset - 20f
+            val maxLayoutHeight = puzzlePiece.height - topBlankOffset - bottomBlankOffset - 20f
+
+            val layout = GlyphLayout().apply {
+                setText(font, text, Color.BLACK, maxLayoutWidth, Align.center, true)
+            }
+
+            if (layout.height > maxLayoutHeight) {
+                puzzlePiece.height += 4f
+                puzzlePiece.pos.x -= 2f
+                puzzlePiece.width += 4f
+                puzzlePiece.pos.y -= 2f
+            }
+
+            // Calculate positions to center the text
+            val textX = BASE_OFFSET + 10f + leftBlankOffset
+            val textY = BASE_OFFSET - 5f + (puzzlePiece.height - layout.height) / 2 - bottomBlankOffset / 4
+
+            font.draw(batch, layout, textX, textY)
+
+//            batch.end()
+//
+//            shapeRenderer.projectionMatrix = batch.projectionMatrix  // Match the projection matrix
+//            shapeRenderer.transformMatrix = batch.transformMatrix    // Match the transform matrix
+//
+//            shapeRenderer.begin(ShapeRenderer.ShapeType.Line)
+//            shapeRenderer.color = Color.RED  // Choose a color for the border
+//
+//            // Calculate the rectangle around the text
+//            // Note: In LibGDX, y increases upwards, and BitmapFont.draw uses the baseline for y
+//            shapeRenderer.rect(textX, textY - maxLayoutHeight / 2, maxLayoutWidth, maxLayoutHeight)
+//            shapeRenderer.end()
+//
+//            batch.begin()  // Restart the SpriteBatch for further rendering
         }
     }
 
@@ -109,7 +152,7 @@ class PuzzlePieceDrawer(
         batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ZERO)
 
         for (blank in puzzlePiece.blanks) {
-            batch.color = puzzlePiece.grammaticalRole.color
+            batch.color = calculatePuzzleColor(puzzlePiece)
 
 //            if (blank.isGlowing) {
 //                batch.shader = glowBlankShader
@@ -283,6 +326,19 @@ class PuzzlePieceDrawer(
         val textX = pos.x + (BASE_OFFSET - layout.width) / 2
         val textY = pos.y + (BASE_OFFSET - layout.height) / 2
         font.draw(batch, text, textX, textY)
+    }
+
+    private fun calculatePuzzleColor(puzzlePiece: PuzzlePiece): Color {
+        return puzzlePiece.let {
+            if (it.grammaticalRole != UNDEFINED) {
+                it.grammaticalRole.color
+            }
+            else {
+                it.connections.firstOrNull { c -> c.puzzlesConnected.any { p -> p.grammaticalRole == VERB } }?.via?.grammaticalRole?.color
+                    ?: UNDEFINED.color
+            }
+        }
+
     }
 
     // For debugging only

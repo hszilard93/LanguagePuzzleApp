@@ -93,7 +93,7 @@ class Game(private val environment: Environment) : KtxGame<KtxScreen>() {
             bindSingleton<BitmapFont> {
                 val typeFontGenerator = FreeTypeFontGenerator(Gdx.files.internal("fonts/libre-baskerville.regular.ttf"))
                 val typeFontParameter = FreeTypeFontParameter().apply {
-                    size = 48
+                    size = 36
                     flip = true
                 }
                 typeFontGenerator.generateFont(typeFontParameter)

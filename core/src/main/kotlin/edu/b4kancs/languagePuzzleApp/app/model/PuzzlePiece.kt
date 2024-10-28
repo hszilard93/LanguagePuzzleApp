@@ -21,7 +21,19 @@ enum class GrammaticalRole(val color: Color) {
     SUBJECT(SUBJECT_GREEN.value),
     OBJECT(OBJECT_YELLOW.value),
     ADVERBIAL(ADVERB_PURPLE.value),
-    UNDEFINED(Color.WHITE)
+    UNDEFINED(OFF_WHITE.value)
+}
+
+data class Connection(
+    val puzzlesConnected: Set<PuzzlePiece>,
+    val via: PuzzleTab,
+    val roleOfConnection: GrammaticalRole
+) {
+    fun removeConnection() {
+        puzzlesConnected.forEach { puzzle ->
+            puzzle.connections.remove(this)
+        }
+    }
 }
 
 interface PuzzlePieceFeature {
@@ -98,12 +110,15 @@ class PuzzlePiece(
 ) {
     val tabs: MutableList<PuzzleTab> = mutableListOf()
     val blanks: MutableList<PuzzleBlank> = mutableListOf()
+    val connections: MutableSet<Connection> = HashSet()
 
     // Automatically update the renderPos every time the position of the puzzle changes
+    // Clear existing connections as well
     var pos: Vector2 = Vector2(0f, 0f)
         set(value) {
             field = value
             boundingBoxPos = calculateRenderPosition(field)
+            connections.forEach(Connection::removeConnection)
         }
     var width: Float = MIN_WIDTH
         set(value) {

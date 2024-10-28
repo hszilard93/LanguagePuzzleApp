@@ -9,8 +9,9 @@ enum class TaskType {
     COMPLETE_PUZZLE
 }
 
-data class ExerciseModel(
+data class Exercise(
     val type: TaskType,
-    val sentence: String,
-    val predefinedPieces: List<PuzzlePiece>,
+    val task: String,
+    val predefinedPieces: Set<PuzzlePiece>,
+    val solutionConfiguration: List<PuzzlePiece>
 )

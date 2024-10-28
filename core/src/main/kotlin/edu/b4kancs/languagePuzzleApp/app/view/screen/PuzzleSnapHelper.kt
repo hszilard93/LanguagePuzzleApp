@@ -1,7 +1,9 @@
 package edu.b4kancs.languagePuzzleApp.app.view.screen
 
 import com.badlogic.gdx.graphics.Color
+import edu.b4kancs.languagePuzzleApp.app.model.Connection
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
+import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzleBlank
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePieceFeature
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzleTab
@@ -16,8 +18,8 @@ class PuzzleSnapHelper(private val gameModel: GameModel) {
     }
 
     private val puzzleFeatureCompatibilityMap = GdxMap<PuzzlePieceFeature, List<PuzzlePieceFeature>>()
-    var snapFeature: PuzzlePieceFeature? = null
-    var snapTarget: PuzzlePieceFeature? = null
+    private var snapFeature: PuzzlePieceFeature? = null
+    private var snapTarget: PuzzlePieceFeature? = null
 
     fun performSnap() {
         logger.info { "performSnap snapFeature=$snapFeature snapTarget=$snapTarget" }
@@ -26,6 +28,18 @@ class PuzzleSnapHelper(private val gameModel: GameModel) {
             val delta = snapFeature!!.getFeatureMidpoint().sub(snapTarget!!.getFeatureMidpoint())
             val puzzleToSnap = snapFeature!!.owner
             puzzleToSnap.pos = puzzleToSnap.pos.sub(delta)
+
+            val puzzle1 = snapFeature!!.owner
+            val puzzle2 = snapTarget!!.owner
+            val newConnection =
+                Connection(
+                    setOf(puzzle1, puzzle2),
+                    (if (snapFeature is PuzzleTab) snapFeature else snapTarget) as PuzzleTab,
+                    GrammaticalRole.ADVERBIAL
+                )
+
+            puzzle1.connections.add(newConnection)
+            puzzle2.connections.add(newConnection)
         }
     }
 

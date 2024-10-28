@@ -39,7 +39,7 @@ class GameModel {
         puzzlePieces.add(
             PuzzlePiece(
                 text = "Peti",
-                grammaticalRole = GrammaticalRole.SUBJECT,
+                grammaticalRole = GrammaticalRole.UNDEFINED,
                 pos = Vector2(basePosition.x + 0f, basePosition.y + 300f)
             ).apply {
                 blanks.addAll(listOf(PuzzleBlank(this, Side.RIGHT)))
