@@ -125,7 +125,11 @@ class PuzzlePieceDrawer(
                 puzzlePiece.width += 4f
                 puzzlePiece.pos.y -= 2f
             }
-            else if (puzzlePiece.width > PuzzlePiece.MIN_WIDTH && maxLayoutHeight - layout.height > 40f) {
+            else if (
+                puzzlePiece.width > PuzzlePiece.MIN_WIDTH
+                && maxLayoutHeight - layout.height > 40f
+                && puzzlePiece.isConnected().not()
+            ) {
                 puzzlePiece.height -= 4f
                 puzzlePiece.pos.x += 2f
                 puzzlePiece.width -= 4f

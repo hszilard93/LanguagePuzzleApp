@@ -370,7 +370,7 @@ class GameScreen(
             skin = uiSkin,
             puzzlePiece = puzzlePiece,
             onSave = { newText ->
-                puzzlePiece.text = newText
+                if (!puzzlePiece.isConnected()) puzzlePiece.text = newText
                 editingPuzzlePiece = null
             },
             onCancel = {
@@ -545,7 +545,7 @@ class GameScreen(
                     return true
                 }
                 else {
-                    for (puzzlePiece in gameModel.puzzlePieces.filter { it.connections.isEmpty() }) {
+                    for (puzzlePiece in gameModel.puzzlePieces.filter { !it.isConnected() }) {
                         val (ptr, corner) = isPointerNearCorner(mousePos, puzzlePiece) ?: (null to null)
                         puzzlePieceToRotate = ptr
                         if (puzzlePieceToRotate != null) {
@@ -599,7 +599,8 @@ class GameScreen(
                             // Detect double click
                             if (currentTime - lastClickTime < doubleClickThreshold) {
                                 logger.debug { "doubleClick puzzlePiece=$puzzlePiece" }
-                                openTextEditor(puzzlePiece)
+                                if (!puzzlePiece.isConnected()) openTextEditor(puzzlePiece)
+
                                 lastClickTime = 0
                                 longPressTimer?.cancel()
                             }

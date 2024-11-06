@@ -1,10 +1,10 @@
 package edu.b4kancs.languagePuzzleApp.app.view.screen
 
-import com.badlogic.gdx.graphics.Color
 import edu.b4kancs.languagePuzzleApp.app.model.Connection
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
 import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzleBlank
+import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePieceFeature
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzleTab
 import ktx.collections.GdxMap
@@ -19,27 +19,42 @@ class PuzzleSnapHelper(private val gameModel: GameModel) {
 
     private val puzzleFeatureCompatibilityMap = GdxMap<PuzzlePieceFeature, List<PuzzlePieceFeature>>()
     private var snapFeature: PuzzlePieceFeature? = null
-    private var snapTarget: PuzzlePieceFeature? = null
+    private var targetFeature: PuzzlePieceFeature? = null
 
     fun performSnap() {
-        logger.info { "performSnap snapFeature=$snapFeature snapTarget=$snapTarget" }
+        logger.info { "performSnap snapFeature=$snapFeature snapTarget=$targetFeature" }
 
-        if (snapFeature != null && snapTarget != null) {
-            val delta = snapFeature!!.getFeatureMidpoint().sub(snapTarget!!.getFeatureMidpoint())
+        if (snapFeature != null && targetFeature != null) {
+            val (maleFeature: PuzzleTab, femaleFeature: PuzzleBlank) =
+                if (snapFeature is PuzzleTab) (snapFeature as PuzzleTab) to (targetFeature as PuzzleBlank)
+                else (targetFeature as PuzzleTab) to (snapFeature as PuzzleBlank)
+
+            val snapPiece = snapFeature!!.owner
+            val targetPiece = targetFeature!!.owner
+
+            // Make the smaller puzzle grow to the matching size
+            if (targetPiece.width < snapPiece.width) {
+                targetPiece.width = snapPiece.width
+                targetPiece.height = snapPiece.height
+            }
+            else if (snapPiece.width < targetPiece.width) {
+                snapPiece.width = targetPiece.width
+                snapPiece.height = targetPiece.height
+            }
+
+            val delta = snapFeature!!.getFeatureMidpoint().sub(targetFeature!!.getFeatureMidpoint())
             val puzzleToSnap = snapFeature!!.owner
             puzzleToSnap.pos = puzzleToSnap.pos.sub(delta)
 
-            val puzzle1 = snapFeature!!.owner
-            val puzzle2 = snapTarget!!.owner
             val newConnection =
                 Connection(
-                    setOf(puzzle1, puzzle2),
-                    (if (snapFeature is PuzzleTab) snapFeature else snapTarget) as PuzzleTab,
+                    setOf(snapPiece, targetPiece),
+                    (if (snapFeature is PuzzleTab) snapFeature else targetFeature) as PuzzleTab,
                     GrammaticalRole.ADVERBIAL
                 )
 
-            puzzle1.connections.add(newConnection)
-            puzzle2.connections.add(newConnection)
+            snapPiece.connections.add(newConnection)
+            targetPiece.connections.add(newConnection)
         }
     }
 
@@ -93,16 +108,16 @@ class PuzzleSnapHelper(private val gameModel: GameModel) {
         // Apply glow colors if the closest pair is within the threshold
         if (closestPair != null && minDistance <= SNAPPING_THRESHOLD) {
             snapFeature = closestPair.first
-            snapTarget = closestPair.second
-            logger.info { "snapFeature=(${snapFeature!!.getType()}, ${snapFeature!!.side}, ${snapFeature!!.getFeatureMidpoint()}), targetFeature=(${snapTarget!!.getType()}, ${snapTarget!!.side}, ${snapTarget!!.getFeatureMidpoint()}), distance=$minDistance" }
-            snapTarget!!.isGlowing = true
+            targetFeature = closestPair.second
+            logger.info { "snapFeature=(${snapFeature!!.getType()}, ${snapFeature!!.side}, ${snapFeature!!.getFeatureMidpoint()}), targetFeature=(${targetFeature!!.getType()}, ${targetFeature!!.side}, ${targetFeature!!.getFeatureMidpoint()}), distance=$minDistance" }
+            targetFeature!!.isGlowing = true
             snapFeature!!.isGlowing = true
-            logger.debug { "Snapping pair found with distance=$minDistance: $snapFeature and $snapTarget" }
+            logger.debug { "Snapping pair found with distance=$minDistance: $snapFeature and $targetFeature" }
         }
         else {
             logger.debug { "No snapping pair within threshold found." }
             snapFeature = null
-            snapTarget = null
+            targetFeature = null
         }
     }
 
