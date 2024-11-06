@@ -206,7 +206,7 @@ class GameScreen(
                     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
                     // Set up the camera for this FrameBuffer
-                    frameBufferCamera.setToOrtho(false, puzzle.boundingBoxSize.first, puzzle.boundingBoxSize.second)
+                    frameBufferCamera.setToOrtho(false, puzzle.boundingBoxSize, puzzle.boundingBoxSize)
                     frameBufferCamera.update()
                     batch.projectionMatrix = frameBufferCamera.combined
 
@@ -224,8 +224,8 @@ class GameScreen(
                         textureRegion,
                         puzzle.boundingBoxPos.x,
                         puzzle.boundingBoxPos.y,
-                        puzzle.boundingBoxSize.first,
-                        puzzle.boundingBoxSize.second
+                        puzzle.boundingBoxSize,
+                        puzzle.boundingBoxSize
                     )
                 }
 
@@ -290,8 +290,8 @@ class GameScreen(
             frameBufferMap[puzzle]?.dispose()   // Dispose of the old FrameBuffer
             val newFrameBuffer = FrameBuffer(
                 Pixmap.Format.RGBA8888,
-                puzzle.boundingBoxSize.first.toInt(),
-                puzzle.boundingBoxSize.second.toInt(),
+                puzzle.boundingBoxSize.toInt(),
+                puzzle.boundingBoxSize.toInt(),
                 false
             )
             frameBufferMap.put(puzzle, newFrameBuffer)
@@ -305,8 +305,8 @@ class GameScreen(
             puzzle.boundingBoxPos.x,
             puzzle.boundingBoxPos.y,
             0f, // z-coordinate
-            puzzle.boundingBoxSize.first,
-            puzzle.boundingBoxSize.second,
+            puzzle.boundingBoxSize,
+            puzzle.boundingBoxSize,
             1f // depth (assuming 2D)
         )
     }
@@ -354,7 +354,7 @@ class GameScreen(
     private fun recenterCamera() {
         logger.debug { "recenterCamera" }
         gameModel.puzzlePieces.find { it.grammaticalRole == GrammaticalRole.VERB }?.let {
-            gameCamera.position.set(it.pos.x + it.width / 2, it.pos.y + it.height / 2 + 200f, 0f)
+            gameCamera.position.set(it.pos.x + it.size / 2, it.pos.y + it.size / 2 + 200f, 0f)
         }
     }
 
@@ -494,16 +494,12 @@ class GameScreen(
 
         uiStage.dispose()
         uiSkin.dispose()
-        hudFont.dispose()
-        //puzzleFont.dispose()
         puzzlePieceDrawer.dispose()
 
         frameBufferMap.forEach { it.value.dispose() }
         frameBufferMap.clear()
         handOpenCursor?.dispose()
         handClosedCursor?.dispose()
-
-        Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow)
 
         inputMultiplexer.clear()
         if (Gdx.input.inputProcessor == inputMultiplexer) {
@@ -727,8 +723,8 @@ class GameScreen(
         private fun isPointOverPuzzlePiece(mousePos: Vector2, puzzlePiece: PuzzlePiece): Boolean {
             val x = puzzlePiece.pos.x
             val y = puzzlePiece.pos.y
-            val width = puzzlePiece.width
-            val height = puzzlePiece.height
+            val width = puzzlePiece.size
+            val height = puzzlePiece.size
 
             return mousePos.x >= x && mousePos.x <= x + width && mousePos.y >= y && mousePos.y <= y + height
         }
@@ -740,11 +736,11 @@ class GameScreen(
             // Define the top-left and top-right corners
             val topLeft = Vector2(
                 puzzlePiece.pos.x,
-                puzzlePiece.pos.y + puzzlePiece.height
+                puzzlePiece.pos.y + puzzlePiece.size
             )
             val topRight = Vector2(
-                puzzlePiece.pos.x + puzzlePiece.width,
-                puzzlePiece.pos.y + puzzlePiece.height
+                puzzlePiece.pos.x + puzzlePiece.size,
+                puzzlePiece.pos.y + puzzlePiece.size
             )
 
             // Calculate distances to corners

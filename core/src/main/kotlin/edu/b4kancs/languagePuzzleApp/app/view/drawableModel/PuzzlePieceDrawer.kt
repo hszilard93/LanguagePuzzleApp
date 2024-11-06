@@ -89,7 +89,7 @@ class PuzzlePieceDrawer(
         batch.use {
             batch.color = calculatePuzzleColor(puzzlePiece)
 
-            base9Patch.draw(batch, BASE_OFFSET, BASE_OFFSET, puzzlePiece.width, puzzlePiece.height)
+            base9Patch.draw(batch, BASE_OFFSET, BASE_OFFSET, puzzlePiece.size, puzzlePiece.size)
 
             drawBlanks(puzzlePiece)
 
@@ -111,8 +111,8 @@ class PuzzlePieceDrawer(
             val topBlankOffset = if (puzzlePiece.blanks.any { it.side == Side.TOP }) PuzzleBlank.HEIGHT * 0.5f else 0f
             val bottomBlankOffset = if (puzzlePiece.blanks.any { it.side == Side.BOTTOM }) PuzzleBlank.HEIGHT * 0.5f else 0f
 
-            val maxLayoutWidth = puzzlePiece.width - leftBlankOffset - rightBlankOffset - 20f
-            val maxLayoutHeight = puzzlePiece.height - topBlankOffset - bottomBlankOffset - 20f
+            val maxLayoutWidth = puzzlePiece.size - leftBlankOffset - rightBlankOffset - 20f
+            val maxLayoutHeight = puzzlePiece.size - topBlankOffset - bottomBlankOffset - 20f
 
             val layout = GlyphLayout().apply {
                 setText(font, text, Color.BLACK, maxLayoutWidth, Align.left, true)
@@ -120,19 +120,17 @@ class PuzzlePieceDrawer(
 
             // Causes the puzzle base to adjust its size frame by frame until the text fits. Produces a nice looking animation.
             if (layout.height > maxLayoutHeight) {
-                puzzlePiece.height += 4f
+                puzzlePiece.size += 4f
                 puzzlePiece.pos.x -= 2f
-                puzzlePiece.width += 4f
                 puzzlePiece.pos.y -= 2f
             }
             else if (
-                puzzlePiece.width > PuzzlePiece.MIN_WIDTH
+                puzzlePiece.size > PuzzlePiece.MIN_SIZE
                 && maxLayoutHeight - layout.height > 40f
                 && puzzlePiece.isConnected().not()
             ) {
-                puzzlePiece.height -= 4f
+                puzzlePiece.size -= 4f
                 puzzlePiece.pos.x += 2f
-                puzzlePiece.width -= 4f
                 puzzlePiece.pos.y += 2f
             }
 
@@ -145,13 +143,13 @@ class PuzzlePieceDrawer(
                 else 0f
 
             // Calculate positions to center the text
-            val layoutX = BASE_OFFSET + (puzzlePiece.width - leftBlankOffset - rightBlankOffset) / 2 -
+            val layoutX = BASE_OFFSET + (puzzlePiece.size - leftBlankOffset - rightBlankOffset) / 2 -
                 layout.width / 2 + leftBlankOffset
-            val layoutY = BASE_OFFSET + (puzzlePiece.height - topBlankOffset - bottomBlankOffset) / 2 -
+            val layoutY = BASE_OFFSET + (puzzlePiece.size - topBlankOffset - bottomBlankOffset) / 2 -
                 layout.height / 2 + topBlankOffset + verticalPaddingForSmallText
 
             font.draw(batch, layout, layoutX, layoutY)
-            drawGlyphLayoutBounds(layout, Vector2(layoutX, layoutY))
+            // drawGlyphLayoutDebugBounds(layout, Vector2(layoutX, layoutY))
         }
     }
 
@@ -181,7 +179,7 @@ class PuzzlePieceDrawer(
                 Side.TOP -> {
                     width = PuzzleBlank.WIDTH
                     height = PuzzleBlank.HEIGHT
-                    blankX = BASE_OFFSET + puzzlePiece.width / 2 - PuzzleBlank.WIDTH / 2
+                    blankX = BASE_OFFSET + puzzlePiece.size / 2 - PuzzleBlank.WIDTH / 2
                     blankY = BASE_OFFSET
                     rotation = 0f
                 }
@@ -189,8 +187,8 @@ class PuzzlePieceDrawer(
                 Side.BOTTOM -> {
                     width = PuzzleBlank.WIDTH
                     height = PuzzleBlank.HEIGHT
-                    blankX = BASE_OFFSET + puzzlePiece.width / 2 - PuzzleBlank.WIDTH / 2
-                    blankY = BASE_OFFSET + puzzlePiece.height - PuzzleBlank.HEIGHT
+                    blankX = BASE_OFFSET + puzzlePiece.size / 2 - PuzzleBlank.WIDTH / 2
+                    blankY = BASE_OFFSET + puzzlePiece.size - PuzzleBlank.HEIGHT
                     rotation = 180f
                 }
 
@@ -198,15 +196,15 @@ class PuzzlePieceDrawer(
                     width = PuzzleBlank.HEIGHT
                     height = PuzzleBlank.WIDTH
                     blankX = BASE_OFFSET + (height - width) / 2
-                    blankY = BASE_OFFSET + puzzlePiece.height / 2 - PuzzleBlank.HEIGHT / 2
+                    blankY = BASE_OFFSET + puzzlePiece.size / 2 - PuzzleBlank.HEIGHT / 2
                     rotation = 270f
                 }
 
                 Side.RIGHT -> {
                     width = PuzzleBlank.HEIGHT
                     height = PuzzleBlank.WIDTH
-                    blankX = BASE_OFFSET + puzzlePiece.width - (width + height) / 2
-                    blankY = BASE_OFFSET + (puzzlePiece.height / 2) - (height / 2) - (height - width) / 2
+                    blankX = BASE_OFFSET + puzzlePiece.size - (width + height) / 2
+                    blankY = BASE_OFFSET + (puzzlePiece.size / 2) - (height / 2) - (height - width) / 2
                     rotation = 90f
                 }
             }
@@ -265,7 +263,7 @@ class PuzzlePieceDrawer(
                 Side.TOP -> {
                     width = PuzzleTab.WIDTH
                     height = PuzzleTab.HEIGHT
-                    tabX = BASE_OFFSET + puzzlePiece.width / 2 - PuzzleTab.WIDTH / 2
+                    tabX = BASE_OFFSET + puzzlePiece.size / 2 - PuzzleTab.WIDTH / 2
                     tabY = BASE_OFFSET - PuzzleTab.HEIGHT + tabOffset
                     rotation = 180f
                 }
@@ -273,8 +271,8 @@ class PuzzlePieceDrawer(
                 Side.BOTTOM -> {
                     width = PuzzleTab.WIDTH
                     height = PuzzleTab.HEIGHT
-                    tabX = BASE_OFFSET + puzzlePiece.width / 2 - PuzzleTab.WIDTH / 2
-                    tabY = BASE_OFFSET + puzzlePiece.height - tabOffset
+                    tabX = BASE_OFFSET + puzzlePiece.size / 2 - PuzzleTab.WIDTH / 2
+                    tabY = BASE_OFFSET + puzzlePiece.size - tabOffset
                     rotation = 0f
                 }
 
@@ -282,15 +280,15 @@ class PuzzlePieceDrawer(
                     width = PuzzleTab.HEIGHT
                     height = PuzzleTab.WIDTH
                     tabX = BASE_OFFSET - width + tabOffset
-                    tabY = BASE_OFFSET + puzzlePiece.height / 2 - PuzzleTab.HEIGHT / 2
+                    tabY = BASE_OFFSET + puzzlePiece.size / 2 - PuzzleTab.HEIGHT / 2
                     rotation = 90f
                 }
 
                 Side.RIGHT -> {
                     width = PuzzleTab.HEIGHT
                     height = PuzzleTab.WIDTH
-                    tabX = BASE_OFFSET + puzzlePiece.width - tabOffset
-                    tabY = BASE_OFFSET + puzzlePiece.height / 2 - PuzzleTab.HEIGHT / 2
+                    tabX = BASE_OFFSET + puzzlePiece.size - tabOffset
+                    tabY = BASE_OFFSET + puzzlePiece.size / 2 - PuzzleTab.HEIGHT / 2
                     rotation = 270f
                 }
             }
@@ -383,7 +381,7 @@ class PuzzlePieceDrawer(
     }
 
     // For debugging only
-    private fun drawGlyphLayoutBounds(layout: GlyphLayout, pos: Vector2) {
+    private fun drawGlyphLayoutDebugBounds(layout: GlyphLayout, pos: Vector2) {
         batch.end()
 
         shapeRenderer.projectionMatrix = batch.projectionMatrix  // Match the projection matrix

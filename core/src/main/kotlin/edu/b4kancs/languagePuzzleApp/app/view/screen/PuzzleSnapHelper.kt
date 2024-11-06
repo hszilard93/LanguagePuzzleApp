@@ -33,13 +33,18 @@ class PuzzleSnapHelper(private val gameModel: GameModel) {
             val targetPiece = targetFeature!!.owner
 
             // Make the smaller puzzle grow to the matching size
-            if (targetPiece.width < snapPiece.width) {
-                targetPiece.width = snapPiece.width
-                targetPiece.height = snapPiece.height
+            if (targetPiece.size < snapPiece.size) {
+                val preMidpoint = targetFeature!!.getFeatureMidpoint()
+                targetPiece.size = snapPiece.size
+                val postGrowthDelta = targetFeature!!.getFeatureMidpoint().sub(preMidpoint)
+                logger.debug { "snapPiece = \"${snapPiece.text}\" targetPiece = \"${targetPiece.text}\" \npostGrowthDelta = $postGrowthDelta" }
+                targetPiece.pos = targetPiece.pos.sub(postGrowthDelta)
             }
-            else if (snapPiece.width < targetPiece.width) {
-                snapPiece.width = targetPiece.width
-                snapPiece.height = targetPiece.height
+            else if (snapPiece.size < targetPiece.size) {
+                val preMidpoint = snapFeature!!.getFeatureMidpoint()
+                snapPiece.size = targetPiece.size
+                val postGrowthDelta = snapFeature!!.getFeatureMidpoint().sub(preMidpoint)
+                snapPiece.pos.add(postGrowthDelta)
             }
 
             val delta = snapFeature!!.getFeatureMidpoint().sub(targetFeature!!.getFeatureMidpoint())

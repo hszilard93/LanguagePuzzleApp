@@ -30,8 +30,8 @@ class TextEditorPopup(
         window = Window("", skin).apply {
             setSize(250f, 100f)
             setPosition(
-                puzzlePiece.pos.x + puzzlePiece.width / 2 - width / 2,
-                puzzlePiece.pos.y + puzzlePiece.height / 2 - height / 2,
+                puzzlePiece.pos.x + puzzlePiece.size / 2 - width / 2,
+                puzzlePiece.pos.y + puzzlePiece.size / 2 - height / 2,
                 Align.center
             )
             isMovable = true

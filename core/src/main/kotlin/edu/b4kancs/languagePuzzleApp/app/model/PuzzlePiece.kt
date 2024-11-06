@@ -58,23 +58,20 @@ interface PuzzlePieceFeature {
 
         return when (this.side) {
             Side.TOP -> Vector2(
-                owner.pos.x + owner.width / 2,
-                owner.pos.y + owner.height + featureHeight / 2
+                owner.pos.x + owner.size / 2,
+                owner.pos.y + owner.size + featureHeight / 2
             )
-
             Side.BOTTOM -> Vector2(
-                owner.pos.x + owner.width / 2,
+                owner.pos.x + owner.size / 2,
                 owner.pos.y - featureHeight / 2
             )
-
             Side.LEFT -> Vector2(
                 owner.pos.x - featureHeight / 2,
-                owner.pos.y + owner.height / 2
+                owner.pos.y + owner.size / 2
             )
-
             Side.RIGHT -> Vector2(
-                owner.pos.x + owner.width + featureHeight / 2,
-                owner.pos.y + owner.height / 2
+                owner.pos.x + owner.size + featureHeight / 2,
+                owner.pos.y + owner.size / 2
             )
         }
     }
@@ -128,18 +125,16 @@ class PuzzlePiece(
     var pos: Vector2 = Vector2(0f, 0f)
         set(value) {
             field = value
-            boundingBoxPos = calculateRenderPosition(field)
+            boundingBoxPos = calculateRenderPosition()
             connections.forEach(Connection::removeConnection)
         }
-    var width: Float = MIN_WIDTH
+    var size: Float = MIN_SIZE
         set(value) {
-            field = value.coerceAtLeast(MIN_WIDTH)
-            boundingBoxSize = calculateRenderSize(field, height)
-        }
-    var height: Float = MIN_HEIGHT
-        set(value) {
-            field = value.coerceAtLeast(MIN_HEIGHT)
-            boundingBoxSize = calculateRenderSize(width, field)
+            val adjustedVal = value.coerceAtLeast(MIN_SIZE)
+            val diff = adjustedVal - field
+            field = adjustedVal
+            pos = pos.add(Vector2(diff / 2, diff / 2))
+            boundingBoxPos = calculateRenderPosition()
         }
 
     var hasChangedSizeSinceLastRender = true
@@ -147,20 +142,19 @@ class PuzzlePiece(
     // Properties of the bounding box drawn around the puzzle base and it's possible tabs
     lateinit var boundingBoxPos: Vector2
         private set
-    lateinit var boundingBoxSize: Pair<Float, Float>
+
+    var boundingBoxSize: Float = calculateRenderSize()
         private set
+        get() = calculateRenderSize()
 
     companion object {
         val logger = logger<PuzzlePiece>()
-        const val MIN_WIDTH = 300f
-        const val MIN_HEIGHT = 300f
+        const val MIN_SIZE = 300f
     }
 
     // Validate the PuzzlePiece on initialization
     init {
         this.pos = pos
-        this.width = width
-        this.height = height
         if (tabs.map { it.side }.intersect(blanks.map { it.side }.toSet()).isNotEmpty()) {
             throw InvalidPuzzlePieceException(
                 "PuzzlePiece has overlapping tabs and blanks!" +
@@ -202,10 +196,6 @@ class PuzzlePiece(
         blanks.clear()
         blanks.addAll(newBlanks)
 
-        // Recalculate bounding box position and size
-        boundingBoxSize = calculateRenderSize(width, height)
-        boundingBoxPos = calculateRenderPosition(pos)
-
         // Mark that size has changed to recreate its FrameBuffer
         hasChangedSizeSinceLastRender = true
     }
@@ -238,18 +228,15 @@ class PuzzlePiece(
         blanks.clear()
         blanks.addAll(newBlanks)
 
-        // Recalculate bounding box position and size
-        boundingBoxSize = calculateRenderSize(width, height)
-        boundingBoxPos = calculateRenderPosition(pos)
-
         // Mark that size has changed to recreate its FrameBuffer
         hasChangedSizeSinceLastRender = true
     }
 
-    private fun calculateRenderPosition(pos: Vector2): Vector2 = Vector2(pos.x - PuzzleTab.HEIGHT, pos.y - PuzzleTab.HEIGHT)
+    fun isConnected(): Boolean = connections.isNotEmpty()
 
-    private fun calculateRenderSize(width: Float, height: Float): Pair<Float, Float> =
-        width + 2 * PuzzleTab.HEIGHT to height + 2 * PuzzleTab.HEIGHT
+    private fun calculateRenderPosition(): Vector2 = Vector2(pos.x - PuzzleTab.HEIGHT, pos.y - PuzzleTab.HEIGHT)
+
+    private fun calculateRenderSize(): Float = size + 2f * PuzzleTab.HEIGHT
 
 //    override fun equals(other: Any?): Boolean {
 //        if (other is PuzzlePiece)
