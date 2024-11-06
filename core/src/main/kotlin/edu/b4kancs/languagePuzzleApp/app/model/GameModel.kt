@@ -145,6 +145,9 @@ class GameModel {
         ).apply {
             // Add a blank on the bottom
             blanks.add(PuzzleBlank(this, Side.BOTTOM))
+//            blanks.add(PuzzleBlank(this, Side.TOP))
+//            blanks.add(PuzzleBlank(this, Side.LEFT))
+//            blanks.add(PuzzleBlank(this, Side.RIGHT))
         }
     }
 

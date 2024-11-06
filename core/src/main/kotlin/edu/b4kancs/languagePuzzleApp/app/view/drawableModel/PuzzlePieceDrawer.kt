@@ -25,6 +25,7 @@ import ktx.graphics.use
 import ktx.inject.Context
 import ktx.log.logger
 
+
 class PuzzlePieceDrawer(
     context: Context
 ) : Disposable {
@@ -40,6 +41,10 @@ class PuzzlePieceDrawer(
 
     companion object {
         private val logger = logger<PuzzlePieceDrawer>()
+
+        /* The PuzzlePiece being drawn includes not just the base of the puzzle but also the tabs.
+        The BASE_OFFSET is the amount by which the puzzle base is offset from the edges of the texture being drawn,
+        i.e. the space the tabs can take up. */
         private const val BASE_OFFSET = PuzzleTab.HEIGHT
     }
 
@@ -48,11 +53,11 @@ class PuzzlePieceDrawer(
         val baseTexture = Texture(Gdx.files.internal("puzzle_base_02.png"))
         base9Patch = NinePatch(baseTexture, 20, 20, 20, 20)
 
-        blankTexture = Texture(Gdx.files.internal("puzzle_blank_06.png"), Pixmap.Format.RGBA8888, true)
+        blankTexture = Texture(Gdx.files.internal("puzzle_blank_alt_03.png"), Pixmap.Format.RGBA8888, true)
         blankTexture.bind()
         blankTexture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear)
 
-        tabTexture = Texture(Gdx.files.internal("puzzle_tab_08.png"), Pixmap.Format.RGBA8888, true)
+        tabTexture = Texture(Gdx.files.internal("puzzle_tab_alt_06.png"), Pixmap.Format.RGBA8888, true)
         tabTexture.bind()
         tabTexture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear)
 
@@ -84,14 +89,13 @@ class PuzzlePieceDrawer(
         batch.use {
             batch.color = calculatePuzzleColor(puzzlePiece)
 
-//            batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA)
             base9Patch.draw(batch, BASE_OFFSET, BASE_OFFSET, puzzlePiece.width, puzzlePiece.height)
-
-            drawTextOnPuzzle(puzzlePiece)
 
             drawBlanks(puzzlePiece)
 
             drawTabs(puzzlePiece)
+
+            drawTextOnPuzzle(puzzlePiece)
         }
     }
 
@@ -102,47 +106,48 @@ class PuzzlePieceDrawer(
         font.color = Color.BLACK
         val text = puzzlePiece.text + " (${puzzlePiece.connections.size})"
         if (text.isNotEmpty()) {
-//            val maxTextWidth = puzzlePiece.boundingBoxSize.first - 20f // 10f padding on each side
-
-            val leftBlankOffset = if (puzzlePiece.blanks.any { it.side == Side.LEFT }) PuzzleBlank.WIDTH * 0.75f else 0f
-            val rightBlankOffset = if (puzzlePiece.blanks.any { it.side == Side.RIGHT }) PuzzleBlank.WIDTH * 0.75f else 0f
-            val topBlankOffset = if (puzzlePiece.blanks.any { it.side == Side.TOP }) PuzzleBlank.HEIGHT * 1.2f else 0f
-            val bottomBlankOffset = if (puzzlePiece.blanks.any { it.side == Side.BOTTOM }) PuzzleBlank.HEIGHT * 1.2f else 0f
+            val leftBlankOffset = if (puzzlePiece.blanks.any { it.side == Side.LEFT }) PuzzleBlank.WIDTH * 0.5f else 0f
+            val rightBlankOffset = if (puzzlePiece.blanks.any { it.side == Side.RIGHT }) PuzzleBlank.WIDTH * 0.5f else 0f
+            val topBlankOffset = if (puzzlePiece.blanks.any { it.side == Side.TOP }) PuzzleBlank.HEIGHT * 0.5f else 0f
+            val bottomBlankOffset = if (puzzlePiece.blanks.any { it.side == Side.BOTTOM }) PuzzleBlank.HEIGHT * 0.5f else 0f
 
             val maxLayoutWidth = puzzlePiece.width - leftBlankOffset - rightBlankOffset - 20f
             val maxLayoutHeight = puzzlePiece.height - topBlankOffset - bottomBlankOffset - 20f
 
             val layout = GlyphLayout().apply {
-                setText(font, text, Color.BLACK, maxLayoutWidth, Align.center, true)
+                setText(font, text, Color.BLACK, maxLayoutWidth, Align.left, true)
             }
 
+            // Causes the puzzle base to adjust its size frame by frame until the text fits. Produces a nice looking animation.
             if (layout.height > maxLayoutHeight) {
                 puzzlePiece.height += 4f
                 puzzlePiece.pos.x -= 2f
                 puzzlePiece.width += 4f
                 puzzlePiece.pos.y -= 2f
             }
+            else if (puzzlePiece.width > PuzzlePiece.MIN_WIDTH && maxLayoutHeight - layout.height > 40f) {
+                puzzlePiece.height -= 4f
+                puzzlePiece.pos.x += 2f
+                puzzlePiece.width -= 4f
+                puzzlePiece.pos.y += 2f
+            }
+
+            val verticalPaddingForSmallText =
+                if (maxLayoutHeight - layout.height > 80f) {
+                    if (topBlankOffset != 0f && bottomBlankOffset == 0f) -20f
+                    else if (topBlankOffset == 0f && bottomBlankOffset != 0f) 20f
+                    else 0f
+                }
+                else 0f
 
             // Calculate positions to center the text
-            val textX = BASE_OFFSET + 10f + leftBlankOffset
-            val textY = BASE_OFFSET - 5f + (puzzlePiece.height - layout.height) / 2 - bottomBlankOffset / 4
+            val layoutX = BASE_OFFSET + (puzzlePiece.width - leftBlankOffset - rightBlankOffset) / 2 -
+                layout.width / 2 + leftBlankOffset
+            val layoutY = BASE_OFFSET + (puzzlePiece.height - topBlankOffset - bottomBlankOffset) / 2 -
+                layout.height / 2 + topBlankOffset + verticalPaddingForSmallText
 
-            font.draw(batch, layout, textX, textY)
-
-//            batch.end()
-//
-//            shapeRenderer.projectionMatrix = batch.projectionMatrix  // Match the projection matrix
-//            shapeRenderer.transformMatrix = batch.transformMatrix    // Match the transform matrix
-//
-//            shapeRenderer.begin(ShapeRenderer.ShapeType.Line)
-//            shapeRenderer.color = Color.RED  // Choose a color for the border
-//
-//            // Calculate the rectangle around the text
-//            // Note: In LibGDX, y increases upwards, and BitmapFont.draw uses the baseline for y
-//            shapeRenderer.rect(textX, textY - maxLayoutHeight / 2, maxLayoutWidth, maxLayoutHeight)
-//            shapeRenderer.end()
-//
-//            batch.begin()  // Restart the SpriteBatch for further rendering
+            font.draw(batch, layout, layoutX, layoutY)
+            drawGlyphLayoutBounds(layout, Vector2(layoutX, layoutY))
         }
     }
 
@@ -226,6 +231,7 @@ class PuzzlePieceDrawer(
             batch.color = Color.WHITE
         }
 
+        Gdx.gl20.glBlendEquation(GL20.GL_FUNC_ADD)
         batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA)
     }
 
@@ -271,15 +277,15 @@ class PuzzlePieceDrawer(
                 Side.LEFT -> {
                     width = PuzzleTab.HEIGHT
                     height = PuzzleTab.WIDTH
-                    tabX = BASE_OFFSET - width + tabOffset - 6.5f
-                    tabY = BASE_OFFSET + puzzlePiece.height / 2 - PuzzleTab.HEIGHT / 2 - 13f
+                    tabX = BASE_OFFSET - width + tabOffset
+                    tabY = BASE_OFFSET + puzzlePiece.height / 2 - PuzzleTab.HEIGHT / 2
                     rotation = 90f
                 }
 
                 Side.RIGHT -> {
                     width = PuzzleTab.HEIGHT
                     height = PuzzleTab.WIDTH
-                    tabX = BASE_OFFSET + puzzlePiece.width - tabOffset + 6.5f
+                    tabX = BASE_OFFSET + puzzlePiece.width - tabOffset
                     tabY = BASE_OFFSET + puzzlePiece.height / 2 - PuzzleTab.HEIGHT / 2
                     rotation = 270f
                 }
@@ -306,7 +312,7 @@ class PuzzlePieceDrawer(
             )
 
             if (tab.text.isNotEmpty()) {
-                drawTextOnTab(tab.text, Vector2(tabX, tabY))
+                drawTextOnTab(tab.text, Vector2(tabX, tabY), tab.side)
             }
 
             batch.color = Color.WHITE
@@ -317,15 +323,46 @@ class PuzzlePieceDrawer(
         batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA)
     }
 
-    private fun drawTextOnTab(text: String, pos: Vector2) {
+    private fun drawTextOnTab(text: String, tabPos: Vector2, side: Side) {
         logger.misc { "drawText" }
 
         font.color = Color.BLACK
 
-        val layout = GlyphLayout(font, text)
-        val textX = pos.x + (BASE_OFFSET - layout.width) / 2
-        val textY = pos.y + (BASE_OFFSET - layout.height) / 2
-        font.draw(batch, text, textX, textY)
+        val layout = GlyphLayout().apply {
+            setText(font, text, Color.BLACK, PuzzleTab.WIDTH, Align.left, false)
+        }
+
+        val xOffset: Float
+        val yOffset: Float
+
+        when (side) {
+            Side.TOP -> {
+                xOffset = PuzzleTab.WIDTH / 2 - layout.width / 2
+                yOffset = (PuzzleTab.HEIGHT / 4 * 3) - layout.height / 2 - 16f
+            }
+
+            Side.BOTTOM -> {
+                xOffset = PuzzleTab.WIDTH / 2 - layout.width / 2
+                yOffset = PuzzleTab.HEIGHT / 4 - layout.height / 2 + 8f
+            }
+
+            Side.LEFT -> {
+                xOffset = (PuzzleTab.HEIGHT / 4 * 3f) - layout.width / 2 - 8f
+                yOffset = PuzzleTab.WIDTH / 2 - layout.height / 2
+            }
+
+            Side.RIGHT -> {
+                xOffset = PuzzleTab.HEIGHT / 4 - layout.width / 2 + 8f
+                yOffset = PuzzleTab.WIDTH / 2 - layout.height / 2
+            }
+        }
+
+        val layoutX = tabPos.x + xOffset
+        val layoutY = tabPos.y + yOffset
+
+        // drawGlyphLayoutBounds(layout, Vector2(layoutX, layoutY))
+
+        font.draw(batch, layout, layoutX, layoutY)
     }
 
     private fun calculatePuzzleColor(puzzlePiece: PuzzlePiece): Color {
@@ -339,6 +376,24 @@ class PuzzlePieceDrawer(
             }
         }
 
+    }
+
+    // For debugging only
+    private fun drawGlyphLayoutBounds(layout: GlyphLayout, pos: Vector2) {
+        batch.end()
+
+        shapeRenderer.projectionMatrix = batch.projectionMatrix  // Match the projection matrix
+        shapeRenderer.transformMatrix = batch.transformMatrix    // Match the transform matrix
+
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line)
+        shapeRenderer.color = Color.RED  // Choose a color for the border
+
+        // Calculate the rectangle around the text
+        // Note: In LibGDX, y increases upwards, and BitmapFont.draw uses the baseline for y
+        shapeRenderer.rect(pos.x, pos.y, layout.width, layout.height)
+        shapeRenderer.end()
+
+        batch.begin()
     }
 
     // For debugging only

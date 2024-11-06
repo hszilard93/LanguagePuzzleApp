@@ -51,8 +51,8 @@ interface PuzzlePieceFeature {
     // Method to calculate the midpoint of the feature
     fun getFeatureMidpoint(): Vector2 {
         val (featureWidth, featureHeight) = when (this) {
-            is PuzzleTab -> PuzzleTab.WIDTH to PuzzleTab.HEIGHT - 5f    // Some minor adjustments to the midpoint calculation due to various factors
-            is PuzzleBlank -> PuzzleBlank.WIDTH to PuzzleBlank.HEIGHT * -1f // The blank is drawn in the opposite direction
+            is PuzzleTab -> PuzzleTab.WIDTH to PuzzleTab.HEIGHT + 5f    // Some minor adjustments to the midpoint calculation due to various factors
+            is PuzzleBlank -> PuzzleBlank.WIDTH to ((PuzzleBlank.HEIGHT) * -1f) // The blank is drawn in the opposite direction
             else -> throw IllegalArgumentException("Unknown feature type")
         }
 
@@ -89,8 +89,8 @@ data class PuzzleTab(
     override var isGlowing: Boolean = false
 
     companion object {
-        const val WIDTH = 110f
-        const val HEIGHT = WIDTH * 0.88f
+        const val WIDTH = 150f
+        const val HEIGHT = WIDTH * 1f
     }
 
 //    override fun equals(other: Any?): Boolean {
@@ -108,8 +108,8 @@ data class PuzzleBlank( // An indentation on a puzzle piece is called a 'blank'
     override var isGlowing: Boolean = false
 
     companion object {
-        const val WIDTH = 120f
-        const val HEIGHT = WIDTH * 0.75f
+        const val WIDTH = 151f
+        const val HEIGHT = WIDTH * 1f
     }
 }
 
@@ -117,8 +117,6 @@ class PuzzlePiece(
     var text: String,
     val grammaticalRole: GrammaticalRole,
     pos: Vector2,
-    width: Float = MIN_WIDTH,
-    height: Float = MIN_HEIGHT,
     var depth: Int = 0
 ) {
     val tabs: MutableList<PuzzleTab> = mutableListOf()

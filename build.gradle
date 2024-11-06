@@ -57,7 +57,7 @@ configure(subprojects) {
 
 subprojects {
   version = '0.0.1'
-  ext.appName = 'PuzliApp'
+  ext.appName = 'PuzzliApp'
   repositories {
     mavenCentral()
     maven { url 'https://s01.oss.sonatype.org' }
@@ -70,4 +70,4 @@ subprojects {
   }
 }
 
-eclipse.project.name = 'PuzliApp' + '-parent'
+eclipse.project.name = 'PuzzliApp' + '-parent'
