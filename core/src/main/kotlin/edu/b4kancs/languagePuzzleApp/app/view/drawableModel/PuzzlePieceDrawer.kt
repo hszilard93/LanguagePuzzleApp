@@ -82,7 +82,7 @@ class PuzzlePieceDrawer(
     }
 
     fun render(puzzlePiece: PuzzlePiece) {
-        logger.misc { "render" }
+        logger.debug { "render puzzlePiece.text=\"${puzzlePiece.text}\"" }
 
         shapeRenderer.flush()
 
@@ -400,7 +400,7 @@ class PuzzlePieceDrawer(
 
     // For debugging only
     private fun drawCrosshair(batch: Batch, center: Vector2, color: Color = Color.WHITE) {
-        // Strongly discouraged: Creating a ShapeRenderer here is inefficient!
+        // Just for debugging. Creating a ShapeRenderer here is inefficient!
         val shapeRenderer = ShapeRenderer()
 
         // Set the projection matrix based on the batch's transform matrix. Important!
@@ -419,8 +419,6 @@ class PuzzlePieceDrawer(
         shapeRenderer.line(x, y - halfSize, x, y + halfSize)
 
         shapeRenderer.end()
-
-        // Dispose immediately – essential to prevent resource leaks.
         shapeRenderer.dispose()
     }
 
@@ -431,43 +429,4 @@ class PuzzlePieceDrawer(
         blankTexture.dispose()
         tabTexture.dispose()
     }
-
-//    private fun loadAndPremultiplyTexture(path: String): Texture {
-//        val pixmap = Pixmap(Gdx.files.internal(path))
-//        val texture = Texture(pixmap, true) // true enables mipmaps
-//        pixmap.dispose()
-//        return texture
-//    }
-//
-//    private fun premultiplyPixmap(pixmap: Pixmap) {
-//        val pixels = pixmap.pixels
-//        val numPixels = pixmap.width * pixmap.height
-//        for (i in 0 until numPixels) {
-//            val color = Color(pixels.getInt(i * 4))
-//            val alpha = color.a
-//            val newColor = Color.rgba8888(color.r * alpha, color.g * alpha, color.b * alpha, color.a)
-//            pixels.putInt(i * 4, newColor)
-//        }
-//    }
-//
-//    private fun loadAndProcessTexture(path: String): Texture {
-//        val unprocessedTexture = Texture(Gdx.files.internal(path))
-//        unprocessedTexture.textureData.prepare()
-//        val pixmap = unprocessedTexture.textureData.consumePixmap()
-////        processPixmap(pixmap)
-//        val processedTexture = Texture(pixmap, true)
-//        processedTexture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear)
-//        pixmap.dispose()
-//        return processedTexture
-//    }
-//
-//    private fun processPixmap(pixmap: Pixmap) {
-//        val pixels = pixmap.pixels
-//        for (i in 0 until pixmap.width * pixmap.height) {
-//            val color = Color(pixels.getInt(i * 4))
-//            if (color.a < 1.0 && color.a > 0.0) {
-//                val newColor = Color.rgba8888(255f, 255f, 255f, 1f)
-//                pixels.putInt(i * 4, newColor)
-//            }
-//        }
 }

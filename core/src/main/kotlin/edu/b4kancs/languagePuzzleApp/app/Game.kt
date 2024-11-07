@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFont
 import com.badlogic.gdx.utils.viewport.ExtendViewport
 import edu.b4kancs.languagePuzzleApp.app.model.Environment
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
+import edu.b4kancs.languagePuzzleApp.app.other.gdxSmartFontMaster.SmartFontGenerator
 import edu.b4kancs.languagePuzzleApp.app.view.screen.Constants
 import edu.b4kancs.languagePuzzleApp.app.view.screen.GameScreen
 import ktx.app.KtxGame
@@ -41,6 +42,10 @@ class Game(private val environment: Environment) : KtxGame<KtxScreen>() {
     override fun create() {
         Gdx.app.logLevel = LOG_LEVEL
         logger.debug { "create" }
+
+        /* Run this if you need to prerender font .ttf font files. */
+//        generateAndExportBitmapFont("fonts/Roboto-Regular.ttf", 24)
+        /* */
 
         disposables.register(context)
         val screenWidth = Gdx.graphics.width.toFloat()
@@ -84,20 +89,29 @@ class Game(private val environment: Environment) : KtxGame<KtxScreen>() {
             })
 
             bindSingleton<HudFont>(
-                HudFont(Gdx.files.internal("fonts/hud_font.fnt")).apply {
+                HudFont(Gdx.files.internal("fonts/hud_font.fnt"), false).apply {
                     data.setScale(1f * Gdx.graphics.density)
                     disposables.register(this)
                 }
+//                HudFont(Gdx.files.internal("fonts/pregen/32_liberation-mono.regular.ttf.fnt"), false)
             )
 
             bindSingleton<BitmapFont> {
-                val typeFontGenerator = FreeTypeFontGenerator(Gdx.files.internal("fonts/libre-baskerville.regular.ttf"))
-                val typeFontParameter = FreeTypeFontParameter().apply {
-                    size = 34
-                    flip = true
-                }
-                typeFontGenerator.generateFont(typeFontParameter)
-                    .apply { disposables.register(this) }
+//                val typeFontGenerator = FreeTypeFontGenerator(Gdx.files.internal("fonts/libre-baskerville.regular.ttf"))
+//                val typeFontParameter = FreeTypeFontParameter().apply {
+//                    size = 34
+//                    flip = true
+//                }
+//                 typeFontGenerator.generateFont(typeFontParameter)
+//                    .apply { disposables.register(this) }
+
+
+//                BitmapFont(Gdx.files.internal("fonts/exp/libre-baskerville.fnt"), true).apply {
+//                    data.setScale(0.11f * Gdx.graphics.density)
+//                    disposables.register(this)
+//                }
+
+                BitmapFont(Gdx.files.internal("fonts/pregen/35_libre-baskerville.regular.ttf.fnt"), true)
             }
 
             bindSingleton<GameViewport>(
@@ -148,6 +162,34 @@ class Game(private val environment: Environment) : KtxGame<KtxScreen>() {
         disposables.disposeSafely()
         super.dispose()
     }
+
+    private fun generateBitmapFont(): BitmapFont {
+        val fontGenerator = FreeTypeFontGenerator(Gdx.files.internal("fonts/libre-baskerville.regular.ttf"))
+        val parameter = FreeTypeFontParameter().apply {
+            size = 34
+            flip = true
+            // Add other parameters as needed
+        }
+        val bitmapFont = fontGenerator.generateFont(parameter)
+        disposables.register(bitmapFont)
+        fontGenerator.dispose()
+
+        return bitmapFont
+    }
+
+    private fun generateAndExportBitmapFont(fileName: String, fontSize: Int): BitmapFont {
+        logger.info { "generateAndExportBitmapFont fileName=$fileName" }
+        val fontGenerator = SmartFontGenerator()
+        val fileHandle = Gdx.files.internal(fileName)
+        val font = fontGenerator.createFont(
+            fileHandle,
+            fileName,
+            fontSize,
+            flip = true,
+            forceGenerate = true
+        )
+        return font
+    }
 }
 
 // Due to the simplistic DI system's constraints, named classes are necessary where multiple singletons of the same type have to be used.
@@ -161,4 +203,4 @@ class GameViewport(minWorldWidth: Float, minWorldHeight: Float, maxWorldWidth: F
 class HudViewport(minWorldWidth: Float, minWorldHeight: Float, maxWorldWidth: Float, maxWorldHeight: Float, camera: Camera) :
     ExtendViewport(minWorldWidth, minWorldHeight, maxWorldWidth, maxWorldHeight, camera)
 
-class HudFont(fileHandle: FileHandle) : BitmapFont(fileHandle)
+class HudFont(fileHandle: FileHandle, flip: Boolean) : BitmapFont(fileHandle, flip)

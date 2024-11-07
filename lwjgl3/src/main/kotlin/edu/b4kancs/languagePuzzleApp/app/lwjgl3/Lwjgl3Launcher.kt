@@ -26,7 +26,7 @@ fun main() {
     val environment = Environment(Platform.DESKTOP, null, defaultWidth, defaultHeight)
     val game = Game(environment)
     val config = Lwjgl3ApplicationConfiguration().apply {
-        setTitle("PuzliApp")
+        setTitle("PuzzliApp")
         setWindowedMode(defaultWidth, defaultHeight)
         setResizable(false)
         setWindowIcon(*(arrayOf(128, 64, 32, 16).map { "libgdx$it.png" }.toTypedArray()))

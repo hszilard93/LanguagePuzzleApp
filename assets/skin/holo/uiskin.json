@@ -1,6 +1,7 @@
 {
 com.badlogic.gdx.graphics.g2d.BitmapFont: {
-	default-font: {file: default.fnt }
+	default-font: {file: Roboto-Regular.ttf.fnt },
+    exercise-font: {file: PlaywriteGBS.ttf.fnt }
 },
 com.badlogic.gdx.graphics.Color: {
 	green: {a: 1, b: 0, g: 1, r: 0 },
@@ -58,7 +59,7 @@ com.badlogic.gdx.scenes.scene2d.ui.Slider$SliderStyle: {
 	default-vertical: {background: apptheme_progress_vertical_bg_holo_light, knobBefore: apptheme_progress_vertical_primary_holo_light, knob: apptheme_fastscroll_thumb_pressed_holo_v }
 },
 com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
-	default: {font: default-font, fontColor: default }
+	default: {font: exercise-font, fontColor: default }
 },
 com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
 	default: {selection: apptheme_list_activated_holo, background: apptheme_textfield_default_holo_light, focusedBackground: apptheme_textfield_focused_holo_light, disabledBackground: apptheme_textfield_disabled_holo_light, font: default-font, fontColor: default, disabledFontColor: grey, cursor: cursor },
