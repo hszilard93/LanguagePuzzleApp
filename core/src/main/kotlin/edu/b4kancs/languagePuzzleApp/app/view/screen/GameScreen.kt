@@ -133,7 +133,7 @@ class GameScreen(
         inputMultiplexer.addProcessor(uiStage)
         inputMultiplexer.addProcessor(GameGestureDetector())
         inputMultiplexer.addProcessor(GameInputProcessor())
-
+        
         Gdx.input.inputProcessor = inputMultiplexer
 
         gameCamera.apply {
@@ -442,7 +442,8 @@ class GameScreen(
 
             // Make the window visible
             exerciseDescriptionFrame.isVisible = true
-        } else {
+        }
+        else {
             // Hide the window if there's no description
             exerciseDescriptionFrame.isVisible = false
         }
@@ -484,7 +485,8 @@ class GameScreen(
 
             // Add a fade-in action (e.g., over 1 second)
             checkMarkImage.addAction(Actions.fadeIn(1f))
-        } else {
+        }
+        else {
             logger.error { "CheckMarkImage has not been initialized!" }
         }
     }
@@ -546,14 +548,10 @@ class GameScreen(
                         puzzlePieceToRotate = ptr
                         if (puzzlePieceToRotate != null) {
                             if (corner == Corner.TOP_LEFT) {
-                                if (!environment.isMobile) {
-                                    setCursor(rotateLeftCursor)
-                                }
+                                setCursor(rotateLeftCursor)
                             }
                             else {
-                                if (!environment.isMobile) {
-                                    setCursor(rotateRightCursor)
-                                }
+                                setCursor(rotateRightCursor)
                             }
                             return true
                         }
@@ -579,7 +577,7 @@ class GameScreen(
                         puzzlePieceToRotate!!.rotateLeft()
                         return true
                     }
-                    else if(currentCursor == rotateRightCursor) {
+                    else if (currentCursor == rotateRightCursor) {
                         logger.debug { "rotateRight" }
                         puzzlePieceToRotate!!.rotateRight()
                         return true
@@ -633,7 +631,7 @@ class GameScreen(
         }
 
         override fun touchDragged(screenX: Int, screenY: Int, pointer: Int): Boolean {
-            logger.debug { "touchDragged screenX=$screenX screenY=$screenY" }
+            logger.misc { "touchDragged screenX=$screenX screenY=$screenY" }
 
             val worldCoordinates = gameCamera.unprojectScreenCoords(screenX, screenY)
             val mousePos = Vector2(worldCoordinates.x, worldCoordinates.y)
@@ -648,8 +646,7 @@ class GameScreen(
 
                     lastMouseWorldPos.set(mousePos)
                     return true
-                }
-                catch (e: ConcurrentModificationException) {
+                } catch (e: ConcurrentModificationException) {
                     logger.error { "touchDragged ConcurrentModificationException message=\n${e.message}" }
                 }
             }
@@ -749,11 +746,11 @@ class GameScreen(
 
             // Check if within CORNER_RADIUS
             if (distanceToTopRight < maxDistanceFromCorner) {
-                logger.debug { "isPointerNearCorner pointer is near ${puzzlePiece.text} distanceToTopRight=$distanceToTopRight" }
+                logger.misc { "isPointerNearCorner pointer is near ${puzzlePiece.text} distanceToTopRight=$distanceToTopRight" }
                 return Pair(puzzlePiece, Corner.TOP_RIGHT)
             }
             else if (distanceToTopLeft < maxDistanceFromCorner) {
-                logger.debug { "isPointerNearCorner pointer is near ${puzzlePiece.text} distanceToTopLeft=$distanceToTopLeft" }
+                logger.misc { "isPointerNearCorner pointer is near ${puzzlePiece.text} distanceToTopLeft=$distanceToTopLeft" }
                 return Pair(puzzlePiece, Corner.TOP_LEFT)
             }
 
