@@ -116,14 +116,14 @@ class PuzzlePieceDrawer(
 
             drawTabs(puzzlePiece)
 
-            drawTextOnPuzzle(puzzlePiece)
+//            drawTextOnPuzzle(puzzlePiece)
         }
     }
 
     private fun drawTextOnPuzzle(puzzlePiece: PuzzlePiece) {
         logger.misc { "drawText" }
 
-        val text = puzzlePiece.text + " (${puzzlePiece.connections.size})"
+        val text = puzzlePiece.text + " (${puzzlePiece.getConnectionSize()})"
         if (text.isEmpty()) return
 
         val blanks = puzzlePiece.blanks.map { it.side }.toSet()
@@ -341,9 +341,9 @@ class PuzzlePieceDrawer(
                 /* flipY = */ false
             )
 
-            if (tab.text.isNotEmpty()) {
-                drawTextOnTab(tab.text, Vector2(tabX, tabY), tab.side)
-            }
+//            if (tab.text.isNotEmpty()) {
+//                drawTextOnTab(tab.text, Vector2(tabX, tabY), tab.side)
+//            }
 
             batch.color = Color.WHITE
             batch.shader = null
@@ -426,11 +426,10 @@ class PuzzlePieceDrawer(
                 it.grammaticalRole.color
             }
             else {
-                it.connections.firstOrNull { c -> c.puzzlesConnected.any { p -> p.grammaticalRole == VERB } }?.via?.grammaticalRole?.color
+                it.getAllConnections().firstOrNull { c -> c.puzzlesConnected.any { p -> p.grammaticalRole == VERB } }?.via?.grammaticalRole?.color
                     ?: UNDEFINED.color
             }
         }
-
     }
 
     // For debugging only

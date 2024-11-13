@@ -8,6 +8,7 @@ import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePieceFeature
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzleTab
 import ktx.collections.GdxMap
+import ktx.collections.flatMap
 import ktx.log.logger
 
 class PuzzleSnapHelper(private val gameModel: GameModel) {
@@ -58,8 +59,8 @@ class PuzzleSnapHelper(private val gameModel: GameModel) {
                     GrammaticalRole.ADVERBIAL
                 )
 
-            snapPiece.connections.add(newConnection)
-            targetPiece.connections.add(newConnection)
+            snapPiece.addConnection(newConnection)
+            targetPiece.addConnection(newConnection)
         }
     }
 
@@ -96,7 +97,9 @@ class PuzzleSnapHelper(private val gameModel: GameModel) {
 
             for (target in compatibles) {
                 val distance = feature.getFeatureMidpoint().dst(target.getFeatureMidpoint())
-                if (distance < minDistance) {
+                val isTargetConnected = target in target.owner.getAllConnections().map { it.via }
+
+                if (distance < minDistance && !isTargetConnected) {
                     minDistance = distance
                     closestPair = Pair(feature, target)
                 }

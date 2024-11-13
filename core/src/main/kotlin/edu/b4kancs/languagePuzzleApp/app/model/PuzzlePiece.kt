@@ -6,6 +6,9 @@ import edu.b4kancs.languagePuzzleApp.app.model.CustomColors.ADVERB_PURPLE
 import edu.b4kancs.languagePuzzleApp.app.model.CustomColors.OBJECT_YELLOW
 import edu.b4kancs.languagePuzzleApp.app.model.CustomColors.OFF_WHITE
 import edu.b4kancs.languagePuzzleApp.app.model.CustomColors.SUBJECT_GREEN
+import ktx.collections.GdxSet
+import ktx.collections.isNotEmpty
+import ktx.collections.toGdxSet
 import ktx.log.logger
 
 enum class Side {
@@ -34,7 +37,7 @@ data class Connection(
 ) {
     fun removeConnection() {
         puzzlesConnected.forEach { puzzle ->
-            puzzle.connections.remove(this)
+            puzzle.removeConnection(this)
         }
     }
 }
@@ -84,6 +87,10 @@ data class PuzzleTab(
     val text: String = ""
 ) : PuzzlePieceFeature {
     override var isGlowing: Boolean = false
+    set(value) {
+        field = value
+        owner.hasChangedAppearance = true
+    }
 
     companion object {
         const val WIDTH = 150f
@@ -112,13 +119,19 @@ data class PuzzleBlank( // An indentation on a puzzle piece is called a 'blank'
 
 class PuzzlePiece(
     var text: String,
-    val grammaticalRole: GrammaticalRole,
+    grammaticalRole: GrammaticalRole,
     pos: Vector2,
     var depth: Int = 0
 ) {
     val tabs: MutableList<PuzzleTab> = mutableListOf()
     val blanks: MutableList<PuzzleBlank> = mutableListOf()
-    val connections: MutableSet<Connection> = HashSet()
+    private val connections = GdxSet<Connection>()
+
+    var grammaticalRole: GrammaticalRole = grammaticalRole
+        set(value) {
+            field = value
+            hasChangedAppearance = true
+        }
 
     // Automatically update the renderPos every time the position of the puzzle changes
     // Clear existing connections as well
@@ -137,7 +150,7 @@ class PuzzlePiece(
             boundingBoxPos = calculateRenderPosition()
         }
 
-    var hasChangedSizeSinceLastRender = true
+    var hasChangedAppearance = true
 
     // Properties of the bounding box drawn around the puzzle base and it's possible tabs
     lateinit var boundingBoxPos: Vector2
@@ -197,7 +210,7 @@ class PuzzlePiece(
         blanks.addAll(newBlanks)
 
         // Mark that size has changed to recreate its FrameBuffer
-        hasChangedSizeSinceLastRender = true
+        hasChangedAppearance = true
     }
 
     fun rotateRight() {
@@ -229,10 +242,26 @@ class PuzzlePiece(
         blanks.addAll(newBlanks)
 
         // Mark that size has changed to recreate its FrameBuffer
-        hasChangedSizeSinceLastRender = true
+        hasChangedAppearance = true
     }
 
     fun isConnected(): Boolean = connections.isNotEmpty()
+
+    fun getConnectionSize(): Int = connections.size
+
+    fun getAllConnections(): GdxSet<Connection> {
+        return connections.toGdxSet()  // Return a copy
+    }
+
+    fun addConnection(connection: Connection) {
+        connections.add(connection)
+        hasChangedAppearance = true
+    }
+
+    fun removeConnection(connection: Connection) {
+        connections.remove(connection)
+        hasChangedAppearance = true
+    }
 
     private fun calculateRenderPosition(): Vector2 = Vector2(pos.x - PuzzleTab.HEIGHT, pos.y - PuzzleTab.HEIGHT)
 

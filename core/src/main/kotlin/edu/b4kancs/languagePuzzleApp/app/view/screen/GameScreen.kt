@@ -51,6 +51,7 @@ import edu.b4kancs.languagePuzzleApp.app.view.utils.unprojectScreenCoords
 import ktx.app.KtxScreen
 import ktx.collections.GdxMap
 import ktx.collections.gdxMapOf
+import ktx.collections.set
 import ktx.graphics.use
 import ktx.inject.Context
 import ktx.log.logger
@@ -78,8 +79,10 @@ class GameScreen(
     private val hudFont: HudFont = context.inject()
 
     // private val puzzleFont: BitmapFont = context.inject()
-    private val frameBufferMap: GdxMap<PuzzlePiece, FrameBuffer>
+    private val puzzlePieceFrameBufferMap: GdxMap<PuzzlePiece, FrameBuffer>
     private val frameBufferCamera = OrthographicCamera()
+
+    private val puzzlePieceTextureMap = GdxMap<PuzzlePiece, Texture>()
 
     private var draggedPuzzlePiece: PuzzlePiece? = null
         set(puzzlePiece) {
@@ -121,10 +124,10 @@ class GameScreen(
     init {
         logger.debug { "init" }
 
-        frameBufferMap = gdxMapOf()
+        puzzlePieceFrameBufferMap = gdxMapOf()
 
-        initializeExerciseDescriptionUI()
-        initializeCheckMarkUI()
+//        initializeExerciseDescriptionUI()
+//        initializeCheckMarkUI()
     }
 
     override fun show() {
@@ -133,7 +136,7 @@ class GameScreen(
         inputMultiplexer.addProcessor(uiStage)
         inputMultiplexer.addProcessor(GameGestureDetector())
         inputMultiplexer.addProcessor(GameInputProcessor())
-        
+
         Gdx.input.inputProcessor = inputMultiplexer
 
         gameCamera.apply {
@@ -196,45 +199,51 @@ class GameScreen(
 
         val puzzlesByLayers = gameModel.puzzlePieces.groupBy { it.depth }
         puzzlesByLayers.keys.sorted().forEach { layerI ->
-            puzzlesByLayers[layerI]?.forEach { puzzle ->
-                if (!isPuzzleVisible(puzzle)) return@forEach
+            puzzlesByLayers[layerI]?.forEach { puzzlePiece ->
+                if (!isPuzzleVisible(puzzlePiece)) return@forEach
 
-                val frameBuffer = getFrameBufferByPuzzlePiece(puzzle)
+                val texture = getTextureByPuzzlePiece(puzzlePiece)
 
-                frameBuffer.use {
-                    Gdx.gl.glClearColor(0f, 0f, 0f, 0f)
-                    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
-
-                    // Set up the camera for this FrameBuffer
-                    frameBufferCamera.setToOrtho(false, puzzle.boundingBoxSize, puzzle.boundingBoxSize)
-                    frameBufferCamera.update()
-                    batch.projectionMatrix = frameBufferCamera.combined
-
-                    puzzlePieceDrawer.render(puzzle)
-                }
-
-                batch.projectionMatrix = gameCamera.combined
-
-                val textureRegion = frameBuffer.colorBufferTexture
                 Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0)
-                textureRegion.bind()
+                texture.bind()
                 batch.use {
                     gameViewport.apply()
                     it.draw(
-                        textureRegion,
-                        puzzle.boundingBoxPos.x,
-                        puzzle.boundingBoxPos.y,
-                        puzzle.boundingBoxSize,
-                        puzzle.boundingBoxSize
+                        texture,
+                        puzzlePiece.boundingBoxPos.x,
+                        puzzlePiece.boundingBoxPos.y,
+                        puzzlePiece.boundingBoxSize,
+                        puzzlePiece.boundingBoxSize
                     )
                 }
 
                 if (!hasSavedScreenshot && layerI == 1) {
                     hasSavedScreenshot = true
-                    saveFrameBufferToPNG(frameBuffer)
+//                    saveTextureToPNG(texture, layerI.toString())
                 }
             }
         }
+    }
+
+    private fun renderPuzzle(puzzlePiece: PuzzlePiece): Texture {
+        logger.debug { "renderPuzzle puzzlePiece = ${puzzlePiece.text}" }
+        val frameBuffer = getFrameBufferByPuzzlePiece(puzzlePiece)
+
+        frameBuffer.use {
+            Gdx.gl.glClearColor(0f, 0f, 0f, 0f)
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
+
+            // Set up the camera for this FrameBuffer
+            frameBufferCamera.setToOrtho(false, puzzlePiece.boundingBoxSize, puzzlePiece.boundingBoxSize)
+            frameBufferCamera.update()
+            batch.projectionMatrix = frameBufferCamera.combined
+
+            puzzlePieceDrawer.render(puzzlePiece)
+        }
+
+        batch.projectionMatrix = gameCamera.combined
+
+        return frameBuffer.colorBufferTexture
     }
 
     private fun renderHud() {
@@ -280,23 +289,48 @@ class GameScreen(
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
     }
 
+    private fun getTextureByPuzzlePiece(puzzlePiece: PuzzlePiece): Texture {
+        logger.misc { "getFrameBufferByPuzzlePiece puzzle=$puzzlePiece" }
+
+        return if (!puzzlePiece.hasChangedAppearance) {
+            val texture: Texture? = puzzlePieceTextureMap[puzzlePiece, null]
+            if (texture != null) {
+                texture
+            }
+            else {
+                logger.debug { "getTextureByPuzzlePiece texture cache miss. puzzlePiece = ${puzzlePiece.text}" }
+                puzzlePiece.hasChangedAppearance = true
+                val newTexture = renderPuzzle(puzzlePiece)
+                puzzlePieceTextureMap[puzzlePiece] = newTexture
+                newTexture
+            }
+        }
+        else {
+            logger.debug { "getTextureByPuzzlePiece puzzle appearance changed, rerendering. puzzlePiece = ${puzzlePiece.text}" }
+            puzzlePiece.hasChangedAppearance = true
+            val newTexture = renderPuzzle(puzzlePiece)
+            puzzlePieceTextureMap[puzzlePiece] = newTexture
+            newTexture
+        }
+    }
+
     private fun getFrameBufferByPuzzlePiece(puzzle: PuzzlePiece): FrameBuffer {
         logger.misc { "getFrameBufferByPuzzlePiece puzzle=$puzzle" }
 
-        return if (frameBufferMap.containsKey(puzzle) && !puzzle.hasChangedSizeSinceLastRender) {
-            frameBufferMap[puzzle]
+        return if (puzzlePieceFrameBufferMap.containsKey(puzzle) && !puzzle.hasChangedAppearance) {
+            puzzlePieceFrameBufferMap[puzzle]
         }
         else {
-            frameBufferMap[puzzle]?.dispose()   // Dispose of the old FrameBuffer
+            puzzlePieceFrameBufferMap[puzzle]?.dispose()   // Dispose of the old FrameBuffer
             val newFrameBuffer = FrameBuffer(
                 Pixmap.Format.RGBA8888,
                 puzzle.boundingBoxSize.toInt(),
                 puzzle.boundingBoxSize.toInt(),
                 false
             )
-            frameBufferMap.put(puzzle, newFrameBuffer)
-            puzzle.hasChangedSizeSinceLastRender = false
-            frameBufferMap[puzzle]
+            puzzlePieceFrameBufferMap.put(puzzle, newFrameBuffer)
+            puzzle.hasChangedAppearance = false
+            puzzlePieceFrameBufferMap[puzzle]
         }
     }
 
@@ -323,20 +357,38 @@ class GameScreen(
         return shaderProgram
     }
 
-    private fun saveFrameBufferToPNG(frameBuffer: FrameBuffer) {
-        val pixmap: Pixmap
-        val fbWidth = frameBuffer.width
-        val fbHeight = frameBuffer.height
-        frameBuffer.use {
-            pixmap = Pixmap.createFromFrameBuffer(0, 0, fbWidth, fbHeight)
+    private fun saveTextureToPNG(texture: Texture, suffix: String = "0") {
+        logger.misc { "saveTextureToPNG suffix=$suffix" }
+        val dest = Gdx.files.local("screenshots/frameBufferScreenshot_$suffix.png")
+        val textureData = texture.textureData
+
+        if (!textureData.isPrepared) {
+            textureData.prepare()
         }
-        val flippedPixmap: Pixmap = Pixmap(fbWidth, fbHeight, pixmap.format)
-        for (y in 0 until fbHeight) {
-            flippedPixmap.drawPixmap(pixmap, 0, y, 0, fbHeight - y - 1, fbWidth, 1)
+        val pixmap: Pixmap? = textureData.consumePixmap()
+
+        if (pixmap != null) {
+            try {
+                // Write the pixmap to the destination file as PNG
+                val width = texture.width
+                val height = texture.height
+                val flippedPixmap = Pixmap(width, height, pixmap.format)
+                for (y in 0 until height) {
+                    flippedPixmap.drawPixmap(pixmap, 0, y, 0, height - y - 1, width, 1)
+                }
+                PixmapIO.writePNG(dest, flippedPixmap)
+                flippedPixmap.dispose()
+                logger.misc { "Screenshot saved to ${dest.path()}" }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                logger.info { "Failed to save screenshot: ${e.message}" }
+            } finally {
+                pixmap.dispose()
+            }
         }
-        pixmap.dispose() // Dispose the original pixmap
-        PixmapIO.writePNG(Gdx.files.local("frameBufferScreenshot.png"), flippedPixmap)
-        flippedPixmap.dispose()
+        else {
+            logger.info { "Failed to obtain Pixmap from TextureData." }
+        }
     }
 
     private fun setCursor(cursor: Cursor?) {
@@ -498,8 +550,8 @@ class GameScreen(
         uiSkin.dispose()
         puzzlePieceDrawer.dispose()
 
-        frameBufferMap.forEach { it.value.dispose() }
-        frameBufferMap.clear()
+        puzzlePieceFrameBufferMap.forEach { it.value.dispose() }
+        puzzlePieceFrameBufferMap.clear()
         handOpenCursor?.dispose()
         handClosedCursor?.dispose()
 
@@ -602,12 +654,16 @@ class GameScreen(
                                 logger.debug { "touchDown puzzlePiece=$puzzlePiece" }
                                 lastClickTime = currentTime
 
-                                draggedPuzzlePiece = puzzlePiece
-                                draggedPuzzlePiece!!.getAllFeatures().forEach { puzzleSnapHelper.updatePuzzleFeatureCompatibilityMap(it) }
+                                val isPuzzleConnectedToTwoOrMore = puzzlePiece.getConnectionSize() >= 2
+                                if (!isPuzzleConnectedToTwoOrMore) {
+                                    draggedPuzzlePiece = puzzlePiece
+                                    draggedPuzzlePiece!!.getAllFeatures()
+                                        .forEach { puzzleSnapHelper.updatePuzzleFeatureCompatibilityMap(it) }
 
-                                lastMouseWorldPos.set(mousePos)
-                                if (!environment.isMobile) {
-                                    setCursor(handClosedCursor)
+                                    lastMouseWorldPos.set(mousePos)
+                                    if (!environment.isMobile) {
+                                        setCursor(handClosedCursor)
+                                    }
                                 }
                             }
                             return true
