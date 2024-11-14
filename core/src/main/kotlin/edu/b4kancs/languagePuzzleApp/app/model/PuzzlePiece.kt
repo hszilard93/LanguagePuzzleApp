@@ -8,9 +8,13 @@ import edu.b4kancs.languagePuzzleApp.app.model.CustomColors.OBJECT_YELLOW
 import edu.b4kancs.languagePuzzleApp.app.model.CustomColors.OFF_WHITE
 import edu.b4kancs.languagePuzzleApp.app.model.CustomColors.SUBJECT_GREEN
 import edu.b4kancs.languagePuzzleApp.app.serialization.GdxSetSerializer
+import edu.b4kancs.languagePuzzleApp.app.serialization.PuzzleBlankSerializer
+import edu.b4kancs.languagePuzzleApp.app.serialization.PuzzlePieceSerializer
+import edu.b4kancs.languagePuzzleApp.app.serialization.PuzzleTabSerializer
 import kotlinx.serialization.Polymorphic
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import ktx.collections.GdxSet
 import ktx.collections.isNotEmpty
 import ktx.collections.toGdxSet
@@ -38,7 +42,7 @@ enum class GrammaticalRole(val color: Color) {
     UNDEFINED(OFF_WHITE.value)
 }
 
-//@Serializable
+@Serializable
 data class Connection(
     val puzzlesConnected: Set<PuzzlePiece>,
     val via: PuzzleTab,
@@ -54,8 +58,9 @@ data class Connection(
 @Serializable
 @Polymorphic
 sealed interface PuzzlePieceFeature {
-    val owner: PuzzlePiece
+    var owner: PuzzlePiece?
     val side: Side
+    @Transient
     var isGlowing: Boolean
 
     fun getType(): String {
@@ -70,38 +75,44 @@ sealed interface PuzzlePieceFeature {
             else -> throw IllegalArgumentException("Unknown feature type")
         }
 
-        return when (this.side) {
-            Side.TOP -> Vector2(
-                owner.pos.x + owner.size / 2,
-                owner.pos.y + owner.size + featureHeight / 2
-            )
-            Side.BOTTOM -> Vector2(
-                owner.pos.x + owner.size / 2,
-                owner.pos.y - featureHeight / 2
-            )
-            Side.LEFT -> Vector2(
-                owner.pos.x - featureHeight / 2,
-                owner.pos.y + owner.size / 2
-            )
-            Side.RIGHT -> Vector2(
-                owner.pos.x + owner.size + featureHeight / 2,
-                owner.pos.y + owner.size / 2
-            )
-        }
+        return owner?.let { o ->
+            when (this.side) {
+                Side.TOP -> Vector2(
+                    o.pos.x + o.size / 2,
+                    o.pos.y + o.size + featureHeight / 2
+                )
+
+                Side.BOTTOM -> Vector2(
+                    o.pos.x + o.size / 2,
+                    o.pos.y - featureHeight / 2
+                )
+
+                Side.LEFT -> Vector2(
+                    o.pos.x - featureHeight / 2,
+                    o.pos.y + o.size / 2
+                )
+
+                Side.RIGHT -> Vector2(
+                    o.pos.x + o.size + featureHeight / 2,
+                    o.pos.y + o.size / 2
+                )
+            }
+        } ?: Vector2(0f, 0f)
     }
 }
 
-//@Serializable
+@Serializable(with = PuzzleTabSerializer::class)
 data class PuzzleTab(
-    override val owner: PuzzlePiece,
+    override var owner: PuzzlePiece? = null,
     override val side: Side,
     val grammaticalRole: GrammaticalRole,
     val text: String = ""
 ) : PuzzlePieceFeature {
+    @Transient
     override var isGlowing: Boolean = false
     set(value) {
         field = value
-        owner.hasChangedAppearance = true
+        owner?.hasChangedAppearance = true
     }
 
     companion object {
@@ -117,9 +128,9 @@ data class PuzzleTab(
 //    }
 }
 
-//@Serializable
+@Serializable(with = PuzzleBlankSerializer::class)
 data class PuzzleBlank( // An indentation on a puzzle piece is called a 'blank'
-    override val owner: PuzzlePiece,
+    override var owner: PuzzlePiece? = null,
     override val side: Side
 ) : PuzzlePieceFeature {
     override var isGlowing: Boolean = false
@@ -130,7 +141,7 @@ data class PuzzleBlank( // An indentation on a puzzle piece is called a 'blank'
     }
 }
 
-//@Serializable
+@Serializable(with = PuzzlePieceSerializer::class)
 class PuzzlePiece(
     text: String,
     grammaticalRole: GrammaticalRole,
@@ -140,19 +151,21 @@ class PuzzlePiece(
     val tabs: MutableList<PuzzleTab> = mutableListOf()
     val blanks: MutableList<PuzzleBlank> = mutableListOf()
 
-    @Serializable(with=GdxSetSerializer::class)
-    private val _connections = GdxSet<Connection>()
-    @Serializable(with=GdxSetSerializer::class)
-    var copyOfConnections: GdxSet<Connection> = GdxSet()
-        get(): GdxSet<Connection> = _connections.toGdxSet()
+    @Transient
+    private val _connections = mutableSetOf<Connection>()
+    @Transient
+    var copyOfConnections: Set<Connection> = emptySet()
+        get(): Set<Connection> = _connections.toSet()
         private set
+    @Transient
     var connectionSize = _connections.size
         get() = _connections.size
         private set
+    @Transient
     var isConnected = _connections.isNotEmpty()
         get() = _connections.isNotEmpty()
         private set
-
+    @Transient
     var hasChangedAppearance = true
 
     var text: String = text
@@ -169,6 +182,7 @@ class PuzzlePiece(
 
     // Automatically update the renderPos every time the position of the puzzle changes
     // Clear existing connections as well
+    @Transient
     var pos: Vector2 = Vector2(0f, 0f)
         set(value) {
             field = value
@@ -177,6 +191,7 @@ class PuzzlePiece(
             hasChangedAppearance = true
         }
 
+    @Transient
     var size: Float = MIN_SIZE
         private set(value) {
             val adjustedVal = value.coerceAtLeast(MIN_SIZE)
@@ -186,14 +201,16 @@ class PuzzlePiece(
             boundingBoxPos = calculateRenderPosition()
             hasChangedAppearance = true
         }
-
+    @Transient
     var targetSize: Float = size
         private set
 
     // Properties of the bounding box drawn around the puzzle base and it's possible tabs
+    @Transient
     lateinit var boundingBoxPos: Vector2
         private set
 
+    @Transient
     var boundingBoxSize: Float = calculateRenderSize()
         private set
         get() = calculateRenderSize()
@@ -206,6 +223,7 @@ class PuzzlePiece(
     // Validate the PuzzlePiece on initialization
     init {
         this.pos = pos
+        // Check if any tabs or blanks overlap
         if (tabs.map { it.side }.intersect(blanks.map { it.side }.toSet()).isNotEmpty()) {
             throw InvalidPuzzlePieceException(
                 "PuzzlePiece has overlapping tabs and blanks!" +
@@ -213,6 +231,9 @@ class PuzzlePiece(
                     "\nblanks = $blanks"
             )
         }
+
+        tabs.forEach { it.owner = this }
+        blanks.forEach { it.owner = this }
 
         logger.info { "PuzzlePiece initialized\t text=$text grammaticalRole=$grammaticalRole pos=$pos" }
     }
@@ -230,7 +251,7 @@ class PuzzlePiece(
                 Side.LEFT -> Side.BOTTOM
                 Side.RIGHT -> Side.TOP
             }
-            PuzzleTab(it.owner, newSide, it.grammaticalRole, it.text)
+            PuzzleTab(this, newSide, it.grammaticalRole, it.text)
         }
         tabs.clear()
         tabs.addAll(newTabs)
@@ -274,7 +295,7 @@ class PuzzlePiece(
                 Side.LEFT -> Side.TOP
                 Side.RIGHT -> Side.BOTTOM
             }
-            PuzzleBlank(it.owner, newSide)
+            PuzzleBlank(this, newSide)
         }
         blanks.clear()
         blanks.addAll(newBlanks)

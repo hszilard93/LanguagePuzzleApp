@@ -30,13 +30,13 @@ class PuzzleSnapHelper(private val gameModel: GameModel) {
 //                if (snapFeature is PuzzleTab) (snapFeature as PuzzleTab) to (targetFeature as PuzzleBlank)
 //                else (targetFeature as PuzzleTab) to (snapFeature as PuzzleBlank)
 //
-        val snapPiece = snapFeature!!.owner
-        val targetPiece = targetFeature!!.owner
+        val snapPiece = snapFeature!!.owner!!
+        val targetPiece = targetFeature!!.owner!!
 
         adjustSizeIfNecessary(snapPiece, targetPiece, snapFeature!!, targetFeature!!)
 
         val delta = snapFeature!!.getFeatureMidpoint().sub(targetFeature!!.getFeatureMidpoint())
-        val puzzleToSnap = snapFeature!!.owner
+        val puzzleToSnap = snapFeature!!.owner!!
         puzzleToSnap.pos = puzzleToSnap.pos.sub(delta)
 
         val newConnection =
@@ -118,7 +118,7 @@ class PuzzleSnapHelper(private val gameModel: GameModel) {
 
             for (target in compatibles) {
                 val distance = feature.getFeatureMidpoint().dst(target.getFeatureMidpoint())
-                val isTargetConnected = target in target.owner.copyOfConnections.map { it.via }
+                val isTargetConnected = target in target.owner!!.copyOfConnections.map { it.via }
 
                 if (distance < minDistance && !isTargetConnected) {
                     minDistance = distance

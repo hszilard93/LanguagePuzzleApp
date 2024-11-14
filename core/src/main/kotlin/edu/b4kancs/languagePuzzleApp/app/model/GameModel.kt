@@ -1,8 +1,10 @@
 package edu.b4kancs.languagePuzzleApp.app.model
 
+import com.badlogic.gdx.files.FileHandle
 import com.badlogic.gdx.math.Vector2
 import edu.b4kancs.languagePuzzleApp.app.model.exercise.Exercise
 import edu.b4kancs.languagePuzzleApp.app.model.exercise.TaskType
+import kotlinx.serialization.json.Json
 import ktx.log.logger
 
 const val LOG_LEVEL_MISC = 4
@@ -23,9 +25,17 @@ class GameModel {
     init {
         logger.debug { "Initializing GameModel with example exercise." }
 
-        currentExercise = loadExampleExercise1()
+//        currentExercise = loadExampleExercise1()
+
+        val task1File = FileHandle("assets/tasks/puzzle_demo_task_1.json")
+
+//        val serializedExercise = serializeExercise(currentExercise)
+
+        val deserializedExcercise = deserializeExerciseFromFile(task1File)
+        currentExercise = deserializedExcercise
 
         // Initialize puzzlePieces based on the predefinedPieces of the exercise
+//        initializePuzzlePieces(currentExercise.predefinedPieces)
         initializePuzzlePieces(currentExercise.predefinedPieces)
     }
 
@@ -38,6 +48,30 @@ class GameModel {
 
         return isSolved
     }
+
+
+    private fun serializeExercise(exercise: Exercise): String {
+        val jsonSerializer = Json {
+            prettyPrint = true
+        }
+        val serializedExercise = jsonSerializer.encodeToString(Exercise.serializer(), exercise)
+        logger.info { "serializedExercise = $serializedExercise" }
+
+        return serializedExercise
+    }
+
+    private fun deserializeExerciseFromFile(jsonFile: FileHandle): Exercise {
+        val jsonContents = jsonFile.readString()
+
+        val jsonSerializer = Json {
+            prettyPrint = true
+        }
+        val deserializedExercise = jsonSerializer.decodeFromString(Exercise.serializer(), jsonContents)
+        logger.info { "deserializedExercise = $deserializedExercise" }
+
+        return deserializedExercise
+    }
+
 
     private fun calculateNextPuzzlePosition(): Vector2 {
         var nextX = if (lastPuzzlePosition == basePosition) 2 * 340f * -1 else lastPuzzlePosition.x + 450f
@@ -186,6 +220,16 @@ class GameModel {
     private fun initializePuzzlePieces(predefinedPieces: Set<PuzzlePiece>) {
         puzzlePieces.clear()
         puzzlePieces.addAll(predefinedPieces)
+
+        // Test serialization
+//        val jsonSerializer = Json {
+//            prettyPrint = true
+//        }
+//        val serializedPieces = jsonSerializer.encodeToString(SetSerializer(PuzzlePiece.serializer()), predefinedPieces)
+//        logger.info { "serializedPieces = $serializedPieces" }
+//
+//        val deserializedPieces = jsonSerializer.decodeFromString(SetSerializer(PuzzlePiece.serializer()), serializedPieces)
+//        logger.info { "deserializedPieces = $deserializedPieces" }
     }
 
     /**

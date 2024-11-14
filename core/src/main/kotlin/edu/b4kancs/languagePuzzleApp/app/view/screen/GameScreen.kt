@@ -156,21 +156,21 @@ class GameScreen(
 
 //        filePicker.openFileChooser { fh -> logger.info { fh.path() + fh.name() } }
 
-        val testSerializableGdxSet = GdxSet<TestSerializableClass>().apply {
-            addAll(
-                TestSerializableClass("test1", 1),
-                TestSerializableClass("test2", 2),
-                TestSerializableClass("test3", 3)
-            )
-        }
-        val jsonSerializer = Json {
-            prettyPrint = true
-        }
-        val serializedGdxSet = jsonSerializer.encodeToString(GdxSetSerializer.serializer(), testSerializableGdxSet)
-        logger.info { "serializedGdxSet = $serializedGdxSet" }
-
-        val deserializedGdxSet = Json.decodeFromString<GdxSet<TestSerializableClass>>(GdxSetSerializer.serializer(), serializedGdxSet)
-        logger.info { "deserializedGdxSet = ${deserializedGdxSet.toSet()}" }
+//        val testSerializableGdxSet = GdxSet<TestSerializableClass>().apply {
+//            addAll(
+//                TestSerializableClass("test1", 1),
+//                TestSerializableClass("test2", 2),
+//                TestSerializableClass("test3", 3)
+//            )
+//        }
+//        val jsonSerializer = Json {
+//            prettyPrint = true
+//        }
+//        val serializedGdxSet = jsonSerializer.encodeToString(GdxSetSerializer.serializer(), testSerializableGdxSet)
+//        logger.info { "serializedGdxSet = $serializedGdxSet" }
+//
+//        val deserializedGdxSet = Json.decodeFromString<GdxSet<TestSerializableClass>>(GdxSetSerializer.serializer(), serializedGdxSet)
+//        logger.info { "deserializedGdxSet = ${deserializedGdxSet.toSet()}" }
 
         super.show()
     }
