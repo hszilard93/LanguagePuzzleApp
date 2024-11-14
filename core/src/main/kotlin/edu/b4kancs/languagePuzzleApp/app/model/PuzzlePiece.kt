@@ -7,12 +7,17 @@ import edu.b4kancs.languagePuzzleApp.app.model.CustomColors.ADVERB_PURPLE
 import edu.b4kancs.languagePuzzleApp.app.model.CustomColors.OBJECT_YELLOW
 import edu.b4kancs.languagePuzzleApp.app.model.CustomColors.OFF_WHITE
 import edu.b4kancs.languagePuzzleApp.app.model.CustomColors.SUBJECT_GREEN
+import edu.b4kancs.languagePuzzleApp.app.serialization.GdxSetSerializer
+import kotlinx.serialization.Polymorphic
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import ktx.collections.GdxSet
 import ktx.collections.isNotEmpty
 import ktx.collections.toGdxSet
 import ktx.log.logger
 import kotlin.math.sign
 
+@Serializable
 enum class Side {
     TOP, BOTTOM, LEFT, RIGHT;
 
@@ -24,6 +29,7 @@ enum class Side {
     }
 }
 
+@Serializable
 enum class GrammaticalRole(val color: Color) {
     VERB(Color.WHITE),
     SUBJECT(SUBJECT_GREEN.value),
@@ -32,6 +38,7 @@ enum class GrammaticalRole(val color: Color) {
     UNDEFINED(OFF_WHITE.value)
 }
 
+//@Serializable
 data class Connection(
     val puzzlesConnected: Set<PuzzlePiece>,
     val via: PuzzleTab,
@@ -44,7 +51,9 @@ data class Connection(
     }
 }
 
-interface PuzzlePieceFeature {
+@Serializable
+@Polymorphic
+sealed interface PuzzlePieceFeature {
     val owner: PuzzlePiece
     val side: Side
     var isGlowing: Boolean
@@ -82,6 +91,7 @@ interface PuzzlePieceFeature {
     }
 }
 
+//@Serializable
 data class PuzzleTab(
     override val owner: PuzzlePiece,
     override val side: Side,
@@ -107,6 +117,7 @@ data class PuzzleTab(
 //    }
 }
 
+//@Serializable
 data class PuzzleBlank( // An indentation on a puzzle piece is called a 'blank'
     override val owner: PuzzlePiece,
     override val side: Side
@@ -119,6 +130,7 @@ data class PuzzleBlank( // An indentation on a puzzle piece is called a 'blank'
     }
 }
 
+//@Serializable
 class PuzzlePiece(
     text: String,
     grammaticalRole: GrammaticalRole,
@@ -128,7 +140,9 @@ class PuzzlePiece(
     val tabs: MutableList<PuzzleTab> = mutableListOf()
     val blanks: MutableList<PuzzleBlank> = mutableListOf()
 
+    @Serializable(with=GdxSetSerializer::class)
     private val _connections = GdxSet<Connection>()
+    @Serializable(with=GdxSetSerializer::class)
     var copyOfConnections: GdxSet<Connection> = GdxSet()
         get(): GdxSet<Connection> = _connections.toGdxSet()
         private set

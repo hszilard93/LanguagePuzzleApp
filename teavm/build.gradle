@@ -4,6 +4,7 @@ plugins {
   id 'java'
   id 'org.gretty' version '3.1.0'
   id 'org.teavm' version "$teaVMVersion"
+  id 'org.jetbrains.kotlin.plugin.serialization' version "$kotlinVersion"
 }
 
 repositories {
@@ -36,6 +37,8 @@ dependencies {
 
   implementation project(':core')
   implementation "com.github.raeleus.TenPatch:tenpatch:$tenpatchVersion:sources"
+
+  implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3"
 }
 
 teavm {

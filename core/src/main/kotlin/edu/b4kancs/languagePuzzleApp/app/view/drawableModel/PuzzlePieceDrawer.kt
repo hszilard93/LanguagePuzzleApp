@@ -176,7 +176,7 @@ class PuzzlePieceDrawer(
 
         // Draw the text
         font.draw(batch, layout, layoutX, layoutY)
-        drawGlyphLayoutDebugBounds(layout, Vector2(layoutX, layoutY))
+//        drawGlyphLayoutDebugBounds(layout, Vector2(layoutX, layoutY))
 
         logger.debug { "Cached layout for key: $key" }
 //        }
