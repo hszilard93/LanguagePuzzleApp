@@ -50,13 +50,13 @@ class PuzzlePieceDrawer(
     private val base9Patch: NinePatch
     private val blankTexture: Texture
     private val tabTexture: Texture
-//    private val shapeRenderer = ShapeRenderer()
+    private var shapeRenderer: ShapeRenderer? = null
 
-//    private val glowBlankShader: ShaderProgram
+    //    private val glowBlankShader: ShaderProgram
     private val glowTabShader: ShaderProgram
 
     // Caches for GlyphLayouts and their positions
-    private val textLayoutCache = mutableMapOf<BaseTextLayoutKey, TextLayoutData>()
+//    private val textLayoutCache = mutableMapOf<BaseTextLayoutKey, TextLayoutData>()
     private val tabTextLayoutCache = mutableMapOf<TabTextLayoutKey, TextLayoutData>()
 
 
@@ -91,21 +91,12 @@ class PuzzlePieceDrawer(
             logger.error { "glowTabShader compilation failed: ${glowTabShader.log}" }
             throw RuntimeException("Shader compilation failed: ${glowTabShader.log}")
         }
-
-//        glowBlankShader = ShaderProgram(
-//            Gdx.files.internal("shaders/glow.vert"),
-//            Gdx.files.internal("shaders/glow_blank.frag")
-//        )
-//        if (!glowBlankShader.isCompiled) {
-//            logger.error { "glowBlankShader compilation failed: ${glowBlankShader.log}" }
-//            throw RuntimeException("Shader compilation failed: ${glowBlankShader.log}")
-//        }
     }
 
     fun render(puzzlePiece: PuzzlePiece) {
         logger.misc { "render puzzlePiece.text=\"${puzzlePiece.text}\"" }
 
-//        shapeRenderer.flush()
+        shapeRenderer?.flush()
 
         batch.use {
             batch.color = calculatePuzzleColor(puzzlePiece)
@@ -116,79 +107,79 @@ class PuzzlePieceDrawer(
 
             drawTabs(puzzlePiece)
 
-//            drawTextOnPuzzle(puzzlePiece)
+            drawTextOnPuzzle(puzzlePiece)
         }
     }
 
     private fun drawTextOnPuzzle(puzzlePiece: PuzzlePiece) {
         logger.misc { "drawText" }
 
-        val text = puzzlePiece.text + " (${puzzlePiece.getConnectionSize()})"
+        val text = puzzlePiece.text + " (${puzzlePiece.connectionSize})"
         if (text.isEmpty()) return
 
         val blanks = puzzlePiece.blanks.map { it.side }.toSet()
         val key = BaseTextLayoutKey(text, blanks)
         // Attempt to retrieve cached layout data
-        val cachedData = textLayoutCache[key]
+//        val cachedData = textLayoutCache[key]
 
-        if (cachedData != null) {
-            logger.misc { "Reusing layout data for key: $key" }
-            // Use cached layout and positions
-            font.draw(batch, cachedData.layout, cachedData.layoutX, cachedData.layoutY)
-        } else {
-            logger.debug { "Creating new layout data for key: $key" }
-            // Calculate offsets based on blanks
-            val leftBlankOffset = if (puzzlePiece.blanks.any { it.side == Side.LEFT }) PuzzleBlank.WIDTH * 0.5f else 0f
-            val rightBlankOffset = if (puzzlePiece.blanks.any { it.side == Side.RIGHT }) PuzzleBlank.WIDTH * 0.5f else 0f
-            val topBlankOffset = if (puzzlePiece.blanks.any { it.side == Side.TOP }) PuzzleBlank.HEIGHT * 0.5f else 0f
-            val bottomBlankOffset = if (puzzlePiece.blanks.any { it.side == Side.BOTTOM }) PuzzleBlank.HEIGHT * 0.5f else 0f
+//        if (cachedData != null) {
+//            logger.misc { "Reusing layout data for key: $key" }
+//            // Use cached layout and positions
+//            font.draw(batch, cachedData.layout, cachedData.layoutX, cachedData.layoutY)
+//        } else {
+        logger.debug { "Creating new layout data for key: $key" }
+        // Calculate offsets based on blanks
+        val leftBlankOffset = if (puzzlePiece.blanks.any { it.side == Side.LEFT }) PuzzleBlank.WIDTH * 0.5f else 0f
+        val rightBlankOffset = if (puzzlePiece.blanks.any { it.side == Side.RIGHT }) PuzzleBlank.WIDTH * 0.5f else 0f
+        val topBlankOffset = if (puzzlePiece.blanks.any { it.side == Side.TOP }) PuzzleBlank.HEIGHT * 0.5f else 0f
+        val bottomBlankOffset = if (puzzlePiece.blanks.any { it.side == Side.BOTTOM }) PuzzleBlank.HEIGHT * 0.5f else 0f
 
-            val maxLayoutWidth = puzzlePiece.size - leftBlankOffset - rightBlankOffset - 20f
-            val maxLayoutHeight = puzzlePiece.size - topBlankOffset - bottomBlankOffset - 20f
+        val maxLayoutWidth = puzzlePiece.size - leftBlankOffset - rightBlankOffset - 20f
+        val maxLayoutHeight = puzzlePiece.size - topBlankOffset - bottomBlankOffset - 20f
 
-            // Create a new GlyphLayout
-            val layout = GlyphLayout().apply {
-                setText(font, text, Color.BLACK, maxLayoutWidth, Align.left, true)
-            }
-
-            // Adjust puzzle piece size if necessary (Consider moving this logic outside the render loop)
-            if (layout.height > maxLayoutHeight) {
-                puzzlePiece.size += 4f
-                puzzlePiece.pos.x -= 2f
-                puzzlePiece.pos.y -= 2f
-            } else if (
-                puzzlePiece.size > PuzzlePiece.MIN_SIZE
-                && maxLayoutHeight - layout.height > 40f
-                && !puzzlePiece.isConnected()
-            ) {
-                puzzlePiece.size -= 4f
-                puzzlePiece.pos.x += 2f
-                puzzlePiece.pos.y += 2f
-            }
-
-            val verticalPaddingForSmallText =
-                if (maxLayoutHeight - layout.height > 80f) {
-                    if (topBlankOffset != 0f && bottomBlankOffset == 0f) -20f
-                    else if (topBlankOffset == 0f && bottomBlankOffset != 0f) 20f
-                    else 0f
-                } else 0f
-
-            // Calculate positions to center the text
-            val layoutX = BASE_OFFSET + (puzzlePiece.size - leftBlankOffset - rightBlankOffset) / 2 -
-                layout.width / 2 + leftBlankOffset
-            val layoutY = BASE_OFFSET + (puzzlePiece.size - topBlankOffset - bottomBlankOffset) / 2 -
-                layout.height / 2 + topBlankOffset + verticalPaddingForSmallText
-
-            // Cache the layout and positions
-            val layoutData = TextLayoutData(layout, layoutX, layoutY)
-            textLayoutCache[key] = layoutData
-
-            // Draw the text
-            font.draw(batch, layout, layoutX, layoutY)
-
-            // Optional: Log caching action
-            logger.debug { "Cached layout for key: $key" }
+        // Create a new GlyphLayout
+        val layout = GlyphLayout().apply {
+            setText(font, text, Color.BLACK, maxLayoutWidth, Align.left, true)
         }
+
+        // Adjust puzzle piece size if necessary (Consider moving this logic outside the render loop)
+        if (layout.height > maxLayoutHeight && puzzlePiece.targetSize <= puzzlePiece.size) {
+            val newSize = puzzlePiece.size + (layout.height - maxLayoutHeight) / 2
+            puzzlePiece.changeSize(newSize)
+        }
+        else if (
+            puzzlePiece.size > PuzzlePiece.MIN_SIZE
+            && (maxLayoutHeight - layout.height) > 60f
+            && !puzzlePiece.isConnected
+        ) {
+            val newSize = puzzlePiece.size - (maxLayoutHeight - layout.height) / 2
+            puzzlePiece.changeSize(newSize)
+        }
+
+        val verticalPaddingForSmallText =
+            if (maxLayoutHeight - layout.height > 80f) {
+                if (topBlankOffset != 0f && bottomBlankOffset == 0f) -20f
+                else if (topBlankOffset == 0f && bottomBlankOffset != 0f) 20f
+                else 0f
+            }
+            else 0f
+
+        // Calculate positions to center the text
+        val layoutX = BASE_OFFSET + (puzzlePiece.size - leftBlankOffset - rightBlankOffset) / 2 -
+            layout.width / 2 + leftBlankOffset
+        val layoutY = BASE_OFFSET + (puzzlePiece.size - topBlankOffset - bottomBlankOffset) / 2 -
+            layout.height / 2 + topBlankOffset + verticalPaddingForSmallText
+
+        // Cache the layout and positions
+//            val layoutData = TextLayoutData(layout, layoutX, layoutY)
+//            textLayoutCache[key] = layoutData
+
+        // Draw the text
+        font.draw(batch, layout, layoutX, layoutY)
+        drawGlyphLayoutDebugBounds(layout, Vector2(layoutX, layoutY))
+
+        logger.debug { "Cached layout for key: $key" }
+//        }
     }
 
     private fun drawBlanks(puzzlePiece: PuzzlePiece) {
@@ -341,9 +332,9 @@ class PuzzlePieceDrawer(
                 /* flipY = */ false
             )
 
-//            if (tab.text.isNotEmpty()) {
-//                drawTextOnTab(tab.text, Vector2(tabX, tabY), tab.side)
-//            }
+            if (tab.text.isNotEmpty()) {
+                drawTextOnTab(tab.text, Vector2(tabX, tabY), tab.side)
+            }
 
             batch.color = Color.WHITE
             batch.shader = null
@@ -370,7 +361,8 @@ class PuzzlePieceDrawer(
             // Use cached layout and positions
             logger.misc { "Using cached layout data for tab $key" }
             font.draw(batch, cachedData.layout, cachedData.layoutX, cachedData.layoutY)
-        } else {
+        }
+        else {
             logger.debug { "Creating new layout data for tab $key" }
 
             // Create a new GlyphLayout
@@ -426,29 +418,33 @@ class PuzzlePieceDrawer(
                 it.grammaticalRole.color
             }
             else {
-                it.getAllConnections().firstOrNull { c -> c.puzzlesConnected.any { p -> p.grammaticalRole == VERB } }?.via?.grammaticalRole?.color
+                it.copyOfConnections.firstOrNull { c -> c.puzzlesConnected.any { p -> p.grammaticalRole == VERB } }?.via?.grammaticalRole?.color
                     ?: UNDEFINED.color
             }
         }
     }
 
     // For debugging only
-//    private fun drawGlyphLayoutDebugBounds(layout: GlyphLayout, pos: Vector2) {
-//        batch.end()
-//
-//        shapeRenderer.projectionMatrix = batch.projectionMatrix  // Match the projection matrix
-//        shapeRenderer.transformMatrix = batch.transformMatrix    // Match the transform matrix
-//
-//        shapeRenderer.begin(ShapeRenderer.ShapeType.Line)
-//        shapeRenderer.color = Color.RED  // Choose a color for the border
-//
-//        // Calculate the rectangle around the text
-//        // Note: In LibGDX, y increases upwards, and BitmapFont.draw uses the baseline for y
-//        shapeRenderer.rect(pos.x, pos.y, layout.width, layout.height)
-//        shapeRenderer.end()
-//
-//        batch.begin()
-//    }
+    private fun drawGlyphLayoutDebugBounds(layout: GlyphLayout, pos: Vector2) {
+        if (shapeRenderer == null) shapeRenderer = ShapeRenderer()
+
+        batch.end()
+
+        shapeRenderer!!.let { sr ->
+            sr.projectionMatrix = batch.projectionMatrix  // Match the projection matrix
+            sr.transformMatrix = batch.transformMatrix    // Match the transform matrix
+
+            sr.begin(ShapeRenderer.ShapeType.Line)
+            sr.color = Color.RED  // Choose a color for the border
+
+            // Calculate the rectangle around the text
+            // Note: In LibGDX, y increases upwards, and BitmapFont.draw uses the baseline for y
+            sr.rect(pos.x, pos.y, layout.width, layout.height)
+            sr.end()
+        }
+
+        batch.begin()
+    }
 
     // For debugging only
     private fun drawCrosshair(batch: Batch, center: Vector2, color: Color = Color.WHITE) {

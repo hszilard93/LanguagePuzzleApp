@@ -2,6 +2,7 @@ package edu.b4kancs.languagePuzzleApp.app.model
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Vector2
+import edu.b4kancs.languagePuzzleApp.app.misc
 import edu.b4kancs.languagePuzzleApp.app.model.CustomColors.ADVERB_PURPLE
 import edu.b4kancs.languagePuzzleApp.app.model.CustomColors.OBJECT_YELLOW
 import edu.b4kancs.languagePuzzleApp.app.model.CustomColors.OFF_WHITE
@@ -10,6 +11,7 @@ import ktx.collections.GdxSet
 import ktx.collections.isNotEmpty
 import ktx.collections.toGdxSet
 import ktx.log.logger
+import kotlin.math.sign
 
 enum class Side {
     TOP, BOTTOM, LEFT, RIGHT;
@@ -118,14 +120,32 @@ data class PuzzleBlank( // An indentation on a puzzle piece is called a 'blank'
 }
 
 class PuzzlePiece(
-    var text: String,
+    text: String,
     grammaticalRole: GrammaticalRole,
     pos: Vector2,
     var depth: Int = 0
 ) {
     val tabs: MutableList<PuzzleTab> = mutableListOf()
     val blanks: MutableList<PuzzleBlank> = mutableListOf()
-    private val connections = GdxSet<Connection>()
+
+    private val _connections = GdxSet<Connection>()
+    var copyOfConnections: GdxSet<Connection> = GdxSet()
+        get(): GdxSet<Connection> = _connections.toGdxSet()
+        private set
+    var connectionSize = _connections.size
+        get() = _connections.size
+        private set
+    var isConnected = _connections.isNotEmpty()
+        get() = _connections.isNotEmpty()
+        private set
+
+    var hasChangedAppearance = true
+
+    var text: String = text
+        set(value) {
+            field = value
+            hasChangedAppearance = true
+        }
 
     var grammaticalRole: GrammaticalRole = grammaticalRole
         set(value) {
@@ -139,18 +159,22 @@ class PuzzlePiece(
         set(value) {
             field = value
             boundingBoxPos = calculateRenderPosition()
-            connections.forEach(Connection::removeConnection)
+            _connections.forEach(Connection::removeConnection)
+            hasChangedAppearance = true
         }
+
     var size: Float = MIN_SIZE
-        set(value) {
+        private set(value) {
             val adjustedVal = value.coerceAtLeast(MIN_SIZE)
             val diff = adjustedVal - field
             field = adjustedVal
             pos = pos.add(Vector2(diff / 2, diff / 2))
             boundingBoxPos = calculateRenderPosition()
+            hasChangedAppearance = true
         }
 
-    var hasChangedAppearance = true
+    var targetSize: Float = size
+        private set
 
     // Properties of the bounding box drawn around the puzzle base and it's possible tabs
     lateinit var boundingBoxPos: Vector2
@@ -245,27 +269,39 @@ class PuzzlePiece(
         hasChangedAppearance = true
     }
 
-    fun isConnected(): Boolean = connections.isNotEmpty()
-
-    fun getConnectionSize(): Int = connections.size
-
-    fun getAllConnections(): GdxSet<Connection> {
-        return connections.toGdxSet()  // Return a copy
-    }
-
     fun addConnection(connection: Connection) {
-        connections.add(connection)
+        _connections.add(connection)
         hasChangedAppearance = true
     }
 
     fun removeConnection(connection: Connection) {
-        connections.remove(connection)
+        _connections.remove(connection)
         hasChangedAppearance = true
     }
 
     private fun calculateRenderPosition(): Vector2 = Vector2(pos.x - PuzzleTab.HEIGHT, pos.y - PuzzleTab.HEIGHT)
 
     private fun calculateRenderSize(): Float = size + 2f * PuzzleTab.HEIGHT
+
+    // Method to initiate animation
+    fun changeSize(newTargetSize: Float, doAnimate: Boolean = true) {
+        logger.debug { "animateSize newTargetSize=$newTargetSize doAnimate=$doAnimate" }
+        targetSize = newTargetSize.coerceAtLeast(MIN_SIZE)
+        if (!doAnimate) {
+            size = targetSize
+        }
+    }
+
+    // Method to update current size towards target size
+    fun animateSize(delta: Float, speed: Float = 400f) {      // speed: larger value - faster speed
+        logger.misc { "updateSize delta=$delta" }
+        if (size != targetSize) {
+            val sizeDifference = targetSize - size
+            val sizeChange = speed * delta * sizeDifference.sign
+            pos.sub(sizeChange / 2, sizeChange)
+            size = (size + sizeChange).coerceIn(minOf(size, targetSize), maxOf(size, targetSize))
+        }
+    }
 
 //    override fun equals(other: Any?): Boolean {
 //        if (other is PuzzlePiece)

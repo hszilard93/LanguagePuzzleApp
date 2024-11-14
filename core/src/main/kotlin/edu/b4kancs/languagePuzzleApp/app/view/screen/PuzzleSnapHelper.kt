@@ -8,7 +8,6 @@ import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePieceFeature
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzleTab
 import ktx.collections.GdxMap
-import ktx.collections.flatMap
 import ktx.log.logger
 
 class PuzzleSnapHelper(private val gameModel: GameModel) {
@@ -22,46 +21,33 @@ class PuzzleSnapHelper(private val gameModel: GameModel) {
     private var snapFeature: PuzzlePieceFeature? = null
     private var targetFeature: PuzzlePieceFeature? = null
 
-    fun performSnap() {
+    fun performSnapIfAny() {
         logger.info { "performSnap snapFeature=$snapFeature snapTarget=$targetFeature" }
 
-        if (snapFeature != null && targetFeature != null) {
-            val (maleFeature: PuzzleTab, femaleFeature: PuzzleBlank) =
-                if (snapFeature is PuzzleTab) (snapFeature as PuzzleTab) to (targetFeature as PuzzleBlank)
-                else (targetFeature as PuzzleTab) to (snapFeature as PuzzleBlank)
+        if (snapFeature == null || targetFeature == null) return
 
-            val snapPiece = snapFeature!!.owner
-            val targetPiece = targetFeature!!.owner
+//            val (maleFeature: PuzzleTab, femaleFeature: PuzzleBlank) =
+//                if (snapFeature is PuzzleTab) (snapFeature as PuzzleTab) to (targetFeature as PuzzleBlank)
+//                else (targetFeature as PuzzleTab) to (snapFeature as PuzzleBlank)
+//
+        val snapPiece = snapFeature!!.owner
+        val targetPiece = targetFeature!!.owner
 
-            // Make the smaller puzzle grow to the matching size
-            if (targetPiece.size < snapPiece.size) {
-                val preMidpoint = targetFeature!!.getFeatureMidpoint()
-                targetPiece.size = snapPiece.size
-                val postGrowthDelta = targetFeature!!.getFeatureMidpoint().sub(preMidpoint)
-                logger.debug { "snapPiece = \"${snapPiece.text}\" targetPiece = \"${targetPiece.text}\" \npostGrowthDelta = $postGrowthDelta" }
-                targetPiece.pos = targetPiece.pos.sub(postGrowthDelta)
-            }
-            else if (snapPiece.size < targetPiece.size) {
-                val preMidpoint = snapFeature!!.getFeatureMidpoint()
-                snapPiece.size = targetPiece.size
-                val postGrowthDelta = snapFeature!!.getFeatureMidpoint().sub(preMidpoint)
-                snapPiece.pos.add(postGrowthDelta)
-            }
+        adjustSizeIfNecessary(snapPiece, targetPiece, snapFeature!!, targetFeature!!)
 
-            val delta = snapFeature!!.getFeatureMidpoint().sub(targetFeature!!.getFeatureMidpoint())
-            val puzzleToSnap = snapFeature!!.owner
-            puzzleToSnap.pos = puzzleToSnap.pos.sub(delta)
+        val delta = snapFeature!!.getFeatureMidpoint().sub(targetFeature!!.getFeatureMidpoint())
+        val puzzleToSnap = snapFeature!!.owner
+        puzzleToSnap.pos = puzzleToSnap.pos.sub(delta)
 
-            val newConnection =
-                Connection(
-                    setOf(snapPiece, targetPiece),
-                    (if (snapFeature is PuzzleTab) snapFeature else targetFeature) as PuzzleTab,
-                    GrammaticalRole.ADVERBIAL
-                )
+        val newConnection =
+            Connection(
+                setOf(snapPiece, targetPiece),
+                (if (snapFeature is PuzzleTab) snapFeature else targetFeature) as PuzzleTab,
+                GrammaticalRole.ADVERBIAL
+            )
 
-            snapPiece.addConnection(newConnection)
-            targetPiece.addConnection(newConnection)
-        }
+        snapPiece.addConnection(newConnection)
+        targetPiece.addConnection(newConnection)
     }
 
     fun updatePuzzleFeatureCompatibilityMap(feature: PuzzlePieceFeature) {
@@ -84,6 +70,41 @@ class PuzzleSnapHelper(private val gameModel: GameModel) {
 //        puzzleFeatureCompatibilityMap.put(feature, emptyList())
     }
 
+    // Make the smaller puzzle grow to the matching size
+    private fun adjustSizeIfNecessary(
+        puzzle1: PuzzlePiece,
+        puzzle2: PuzzlePiece,
+        feature1: PuzzlePieceFeature,
+        feature2: PuzzlePieceFeature
+    ) {
+        logger.debug { "adjustSizeIfNecessary snapPiece=$puzzle1 targetPiece=$puzzle2" }
+
+        if (puzzle2.size == puzzle1.size) return
+
+        val smallerPuzzle: PuzzlePiece
+        val largerPuzzle: PuzzlePiece
+        val smallerFeature: PuzzlePieceFeature
+
+        if (puzzle1.size < puzzle2.size) {
+            smallerPuzzle = puzzle1
+            largerPuzzle = puzzle2
+            smallerFeature = feature1
+        }
+        else {
+            smallerPuzzle = puzzle2
+            largerPuzzle = puzzle1
+            smallerFeature = feature2
+        }
+
+        if (smallerPuzzle.isConnected) return
+
+        val preMidpoint = smallerFeature.getFeatureMidpoint()
+        smallerPuzzle.changeSize(largerPuzzle.size, false)
+        val postGrowthDelta = smallerFeature.getFeatureMidpoint().sub(preMidpoint)
+        smallerPuzzle.pos = smallerPuzzle.pos.sub(postGrowthDelta)
+        logger.debug { "smallerPuzzle = \"${smallerPuzzle.text}\" largerPuzzle = \"${largerPuzzle.text}\" \n\t\tpostGrowthDelta = $postGrowthDelta" }
+    }
+
     fun updatePuzzleFeaturesByProximity() {
         logger.debug { "updatePuzzleFeaturesByProximity" }
 
@@ -97,7 +118,7 @@ class PuzzleSnapHelper(private val gameModel: GameModel) {
 
             for (target in compatibles) {
                 val distance = feature.getFeatureMidpoint().dst(target.getFeatureMidpoint())
-                val isTargetConnected = target in target.owner.getAllConnections().map { it.via }
+                val isTargetConnected = target in target.owner.copyOfConnections.map { it.via }
 
                 if (distance < minDistance && !isTargetConnected) {
                     minDistance = distance

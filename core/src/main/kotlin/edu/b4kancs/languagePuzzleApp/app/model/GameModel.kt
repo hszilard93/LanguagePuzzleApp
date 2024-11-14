@@ -31,7 +31,7 @@ class GameModel {
 
     fun isSolved(): Boolean {
         // Collect all unique current connections in the game
-        val currentConnections = puzzlePieces.flatMap { it.getAllConnections() }.toSet()
+        val currentConnections = puzzlePieces.flatMap { it.copyOfConnections }.toSet()
 
         val isSolved = ConnectionUtils.areSetsOfConnectionsLogicallyEqual(currentConnections, currentExercise.solutionConfiguration)
         logger.info { "isSolved = $isSolved" }

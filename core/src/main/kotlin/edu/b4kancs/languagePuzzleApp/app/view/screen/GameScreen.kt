@@ -182,6 +182,9 @@ class GameScreen(
         // Render the game world
         gameViewport.apply()
         batch.projectionMatrix = gameCamera.combined
+
+        updatePuzzlePieceAnimations(delta)
+
         renderGameWorld(delta)
 
         // Render the HUD
@@ -244,6 +247,14 @@ class GameScreen(
         batch.projectionMatrix = gameCamera.combined
 
         return frameBuffer.colorBufferTexture
+    }
+
+    private fun updatePuzzlePieceAnimations(delta: Float) {
+        for (puzzlePiece in gameModel.puzzlePieces) {
+            if (puzzlePiece.size != puzzlePiece.targetSize) {
+                puzzlePiece.animateSize(delta)
+            }
+        }
     }
 
     private fun renderHud() {
@@ -392,7 +403,7 @@ class GameScreen(
     }
 
     private fun setCursor(cursor: Cursor?) {
-        logger.debug { "setCursor cursor=$cursor" }
+        logger.misc { "setCursor cursor=$cursor" }
         if (cursor != null) {
             Gdx.graphics.setCursor(cursor)
             currentCursor = cursor
@@ -422,7 +433,7 @@ class GameScreen(
             skin = uiSkin,
             puzzlePiece = puzzlePiece,
             onSave = { newText ->
-                if (!puzzlePiece.isConnected()) puzzlePiece.text = newText
+                if (!puzzlePiece.isConnected) puzzlePiece.text = newText
                 editingPuzzlePiece = null
             },
             onCancel = {
@@ -595,7 +606,7 @@ class GameScreen(
                     return true
                 }
                 else {
-                    for (puzzlePiece in gameModel.puzzlePieces.filter { !it.isConnected() }) {
+                    for (puzzlePiece in gameModel.puzzlePieces.filter { !it.isConnected }) {
                         val (ptr, corner) = isPointerNearCorner(mousePos, puzzlePiece) ?: (null to null)
                         puzzlePieceToRotate = ptr
                         if (puzzlePieceToRotate != null) {
@@ -645,7 +656,7 @@ class GameScreen(
                             // Detect double click
                             if (currentTime - lastClickTime < doubleClickThreshold) {
                                 logger.debug { "doubleClick puzzlePiece=$puzzlePiece" }
-                                if (!puzzlePiece.isConnected()) openTextEditor(puzzlePiece)
+                                if (!puzzlePiece.isConnected) openTextEditor(puzzlePiece)
 
                                 lastClickTime = 0
                                 longPressTimer?.cancel()
@@ -654,7 +665,7 @@ class GameScreen(
                                 logger.debug { "touchDown puzzlePiece=$puzzlePiece" }
                                 lastClickTime = currentTime
 
-                                val isPuzzleConnectedToTwoOrMore = puzzlePiece.getConnectionSize() >= 2
+                                val isPuzzleConnectedToTwoOrMore = puzzlePiece.connectionSize >= 2
                                 if (!isPuzzleConnectedToTwoOrMore) {
                                     draggedPuzzlePiece = puzzlePiece
                                     draggedPuzzlePiece!!.getAllFeatures()
@@ -723,7 +734,8 @@ class GameScreen(
                 draggedPuzzlePiece?.getAllFeatures()?.forEach { puzzleSnapHelper.clearPuzzleFeatureCompatibilityMap(it) }
                 draggedPuzzlePiece = null
 
-                puzzleSnapHelper.performSnap()
+                puzzleSnapHelper.performSnapIfAny()
+
                 puzzleSnapHelper.clearPuzzleFeaturesByProximity()
                 if (gameModel.isSolved()) {
                     displayCheckMark()
