@@ -86,7 +86,7 @@ class GameModel {
         // Define the Exercise instance
         return Exercise(
             type = TaskType.PLACE_PUZZLES_IN_ORDER,
-            task = "Helyezd el a puzzle darabokat úgy, hogy a következő mondatot alkossák:\n\"Peti virágot ad Annának névnapjára.\"",
+            taskDescription = "Helyezd el a puzzle darabokat úgy, hogy a következő mondatot alkossák:\n\"Peti virágot ad Annának névnapjára.\"",
             predefinedPieces = setOf(
                 verbPuzzle,
                 subjectPuzzle,

@@ -37,12 +37,14 @@ import edu.b4kancs.languagePuzzleApp.app.model.Environment
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
 import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
+import edu.b4kancs.languagePuzzleApp.app.model.PuzzleTab
 import edu.b4kancs.languagePuzzleApp.app.view.drawableModel.PuzzlePieceDrawer
 import edu.b4kancs.languagePuzzleApp.app.view.screen.CustomCursorLoader.CustomCursor.CLOSED_HAND_CURSOR
 import edu.b4kancs.languagePuzzleApp.app.view.screen.CustomCursorLoader.CustomCursor.OPEN_HAND_CURSOR
 import edu.b4kancs.languagePuzzleApp.app.view.screen.CustomCursorLoader.CustomCursor.ROTATE_LEFT_CURSOR
 import edu.b4kancs.languagePuzzleApp.app.view.screen.CustomCursorLoader.CustomCursor.ROTATE_RIGHT_CURSOR
 import edu.b4kancs.languagePuzzleApp.app.view.screen.CustomCursorLoader.loadCustomCursor
+import edu.b4kancs.languagePuzzleApp.app.view.ui.FilePickerInterface
 import edu.b4kancs.languagePuzzleApp.app.view.ui.TextEditorPopup
 import edu.b4kancs.languagePuzzleApp.app.view.utils.toRGBFloat
 import edu.b4kancs.languagePuzzleApp.app.view.utils.toVector2
@@ -77,6 +79,8 @@ class GameScreen(
     private val uiSkin = Skin(Gdx.files.internal("skin/holo/uiskin.json"))
 
     private val hudFont: HudFont = context.inject()
+
+    private val filePicker: FilePickerInterface = context.inject()
 
     // private val puzzleFont: BitmapFont = context.inject()
     private val puzzlePieceFrameBufferMap: GdxMap<PuzzlePiece, FrameBuffer>
@@ -126,8 +130,8 @@ class GameScreen(
 
         puzzlePieceFrameBufferMap = gdxMapOf()
 
-//        initializeExerciseDescriptionUI()
-//        initializeCheckMarkUI()
+        initializeExerciseDescriptionUI()
+        initializeCheckMarkUI()
     }
 
     override fun show() {
@@ -145,6 +149,7 @@ class GameScreen(
         }
         recenterCamera()
 
+        filePicker.openFileChooser { fh -> logger.info { fh.path() + fh.name() } }
         super.show()
     }
 
@@ -198,12 +203,12 @@ class GameScreen(
     }
 
     private fun renderGameWorld(delta: Float) {
-        val puzzles = gameModel.puzzlePieces
+        logger.misc { "renderGameWorld delta=$delta" }
 
         val puzzlesByLayers = gameModel.puzzlePieces.groupBy { it.depth }
         puzzlesByLayers.keys.sorted().forEach { layerI ->
-            puzzlesByLayers[layerI]?.forEach { puzzlePiece ->
-                if (!isPuzzleVisible(puzzlePiece)) return@forEach
+            puzzlesByLayers[layerI]?.forEach inner@ { puzzlePiece ->
+                if (!isPuzzleVisible(puzzlePiece)) return@inner
 
                 val texture = getTextureByPuzzlePiece(puzzlePiece)
 
@@ -283,7 +288,7 @@ class GameScreen(
                 if (hudViewport.screenWidth >= 200) {  // Ensure viewport is large enough
                     val renderX = (renderVector.x + 10f).coerceIn(10f, hudViewport.worldWidth - 100f)
                     val renderY = (renderVector.y + 10f).coerceIn(10f, hudViewport.worldHeight - 10f)
-                    val message =
+                    message =
                         """$mouseX, $mouseY
                            |${worldVector.x}, ${worldVector.y}
                            |$realToVirtualResolutionRatio"""
@@ -490,9 +495,9 @@ class GameScreen(
 
     private fun updateExerciseDescription() {
         val currentExercise = gameModel.currentExercise
-        if (currentExercise != null && currentExercise.task.isNotBlank()) {
+        if (currentExercise.taskDescription.isNotBlank()) {
             // Set the description text
-            exerciseDescriptionLabel.setText(currentExercise.task)
+            exerciseDescriptionLabel.setText(currentExercise.taskDescription)
 
             // Adjust the window size based on the content
             exerciseDescriptionFrame.pack()
@@ -598,7 +603,7 @@ class GameScreen(
             val worldCoordinates = gameCamera.unprojectScreenCoords(screenX, screenY)
             val mousePos = Vector2(worldCoordinates.x, worldCoordinates.y)
 
-            var overPuzzlePiece = gameModel.puzzlePieces.any { isPointOverPuzzlePiece(mousePos, it) }
+            val overPuzzlePiece = gameModel.puzzlePieces.any { isPointOverPuzzlePiece(mousePos, it) }
 
             if (!environment.isMobile) {
                 if (overPuzzlePiece && draggedPuzzlePiece == null) {
@@ -792,6 +797,16 @@ class GameScreen(
             val height = puzzlePiece.size
 
             return mousePos.x >= x && mousePos.x <= x + width && mousePos.y >= y && mousePos.y <= y + height
+        }
+
+        // TODO
+        private fun isPointOverPuzzleTab(mousePos: Vector2, tab: PuzzleTab): Boolean {
+//            val x = tab.
+//            val y = puzzlePiece.pos.y
+//            val width = puzzlePiece.size
+//            val height = puzzlePiece.size
+
+            return false
         }
 
         private fun isPointerNearCorner(mousePos: Vector2, puzzlePiece: PuzzlePiece): Pair<PuzzlePiece, Corner>? {

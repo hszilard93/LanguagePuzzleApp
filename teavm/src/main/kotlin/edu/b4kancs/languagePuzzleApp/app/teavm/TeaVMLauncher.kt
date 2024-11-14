@@ -7,7 +7,9 @@ import com.github.xpenatan.gdx.backends.teavm.TeaApplication
 import com.github.xpenatan.gdx.backends.teavm.TeaApplicationConfiguration
 import edu.b4kancs.languagePuzzleApp.app.Game
 import edu.b4kancs.languagePuzzleApp.app.model.Environment
+import edu.b4kancs.languagePuzzleApp.app.model.EnvironmentalImplementations
 import edu.b4kancs.languagePuzzleApp.app.model.Platform
+import edu.b4kancs.languagePuzzleApp.app.teavm.screen.ui.FilePickerJsImpl
 
 
 /** Launches the TeaVM/HTML application. */
@@ -20,8 +22,11 @@ class TeaVMLauncher {
         config.height = 0
 
         val environment = getEnvironment(config)
+        val environmentalImplementations = EnvironmentalImplementations(
+            filePickerImpl = FilePickerJsImpl(),
+        )
 
-        TeaApplication(Game(environment), config)
+        TeaApplication(Game(environment, environmentalImplementations), config)
     }
 
     private fun getEnvironment(config: TeaApplicationConfiguration): Environment {

@@ -12,10 +12,12 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter
 import com.badlogic.gdx.utils.viewport.ExtendViewport
 import edu.b4kancs.languagePuzzleApp.app.model.Environment
+import edu.b4kancs.languagePuzzleApp.app.model.EnvironmentalImplementations
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
 import edu.b4kancs.languagePuzzleApp.app.other.gdxSmartFontMaster.SmartFontGenerator
 import edu.b4kancs.languagePuzzleApp.app.view.screen.Constants
 import edu.b4kancs.languagePuzzleApp.app.view.screen.GameScreen
+import edu.b4kancs.languagePuzzleApp.app.view.ui.FilePickerInterface
 import ktx.app.KtxGame
 import ktx.app.KtxScreen
 import ktx.assets.DisposableContainer
@@ -25,8 +27,11 @@ import ktx.inject.register
 import ktx.log.logger
 
 
-/** [com.badlogic.gdx.ApplicationListener] implementation shared by all platforms. */
-class Game(private val environment: Environment) : KtxGame<KtxScreen>() {
+class Game(
+    private val environment: Environment,
+    private val environmentalImplementations: EnvironmentalImplementations
+) : KtxGame<KtxScreen>() {
+
     private val context = Context()
     private val hudCamera = HudCamera()
     private val gameCamera = GameCamera()
@@ -79,6 +84,7 @@ class Game(private val environment: Environment) : KtxGame<KtxScreen>() {
             bindSingleton<Batch>(SpriteBatch())
             bindSingleton(AssetManager())
             bindSingleton(environment)
+            bindSingleton<FilePickerInterface>(environmentalImplementations.filePickerImpl)
 
             bindSingleton(gameCamera.apply {
                 setToOrtho(false, gameVirtualWidth, gameVirtualHeight)
