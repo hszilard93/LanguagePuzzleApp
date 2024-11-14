@@ -57,7 +57,10 @@ class MainMenuScreen(
                 logger.info { "Load Exercise from Disk button clicked" }
                 filePicker.openFileChooser { fileHandle ->
                     logger.info { "Selected file: ${fileHandle.path()}" }
-                    game.loadExerciseFromDisk(fileHandle)
+                    // Ensure that loadExerciseFromDisk runs on the LibGDX rendering thread
+                    Gdx.app.postRunnable {
+                        game.loadExerciseFromDisk(fileHandle)
+                    }
                 }
             }
         })
@@ -104,6 +107,7 @@ class MainMenuScreen(
     }
 
     override fun dispose() {
+        uiSkin.dispose()
         stage.dispose()
     }
 }

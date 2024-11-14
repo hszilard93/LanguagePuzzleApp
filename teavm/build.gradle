@@ -14,6 +14,8 @@ repositories {
 gretty {
   contextPath = '/'
   extraResourceBase 'build/dist/webapp'
+  httpPort = 9090
+  managedClassReload = false
 }
 
 sourceSets.main.resources.srcDirs += [rootProject.file('assets').path]

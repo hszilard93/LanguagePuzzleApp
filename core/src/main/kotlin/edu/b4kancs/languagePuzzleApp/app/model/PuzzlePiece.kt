@@ -145,7 +145,7 @@ data class PuzzleBlank( // An indentation on a puzzle piece is called a 'blank'
 class PuzzlePiece(
     text: String,
     grammaticalRole: GrammaticalRole,
-    pos: Vector2,
+    pos: Vector2 = Vector2(0f, 0f),
     var depth: Int = 0
 ) {
     val tabs: MutableList<PuzzleTab> = mutableListOf()

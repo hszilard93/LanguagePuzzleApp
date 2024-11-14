@@ -11,12 +11,21 @@ const val LOG_LEVEL_MISC = 4
 
 class GameModel {
 
-    val puzzlePieces: MutableList<PuzzlePiece> = ArrayList()
+    var currentExercise: Exercise? = null
+        private set(value) {
+            field = value
+            if (value != null) {
+                initializePuzzlePieces(value.predefinedPieces)
+            }
+        }
 
-    //    val basePosition = Vector2(WORLD_WIDTH / 2f, WORLD_HEIGHT / 2f)
+    val puzzlePieces: MutableList<PuzzlePiece> = ArrayList()
     private val basePosition = Vector2(0f, -100f)
     private var lastPuzzlePosition = basePosition
-    var currentExercise: Exercise
+
+    private val jsonSerializer = Json {
+        prettyPrint = true
+    }
 
     companion object {
         val logger = logger<GameModel>()
@@ -25,25 +34,16 @@ class GameModel {
     init {
         logger.debug { "Initializing GameModel with example exercise." }
 
-//        currentExercise = loadExampleExercise1()
+        currentExercise = loadExampleExercise1()
 
-        val task1File = FileHandle("assets/tasks/puzzle_demo_task_1.json")
-
-//        val serializedExercise = serializeExercise(currentExercise)
-
-        val deserializedExcercise = deserializeExerciseFromFile(task1File)
-        currentExercise = deserializedExcercise
-
-        // Initialize puzzlePieces based on the predefinedPieces of the exercise
-//        initializePuzzlePieces(currentExercise.predefinedPieces)
-        initializePuzzlePieces(currentExercise.predefinedPieces)
+        initializePuzzlePieces(currentExercise!!.predefinedPieces)
     }
 
     fun isSolved(): Boolean {
         // Collect all unique current connections in the game
         val currentConnections = puzzlePieces.flatMap { it.copyOfConnections }.toSet()
 
-        val isSolved = ConnectionUtils.areSetsOfConnectionsLogicallyEqual(currentConnections, currentExercise.solutionConfiguration)
+        val isSolved = ConnectionUtils.areSetsOfConnectionsLogicallyEqual(currentConnections, currentExercise!!.solutionConfiguration)
         logger.info { "isSolved = $isSolved" }
 
         return isSolved
@@ -60,6 +60,11 @@ class GameModel {
         return serializedExercise
     }
 
+    fun loadExerciseFromDisk(fileHandle: FileHandle) {
+        logger.info { "Loading exercise from file: ${fileHandle.path()}" }
+        currentExercise = deserializeExerciseFromFile(fileHandle)
+    }
+
     private fun deserializeExerciseFromFile(jsonFile: FileHandle): Exercise {
         val jsonContents = jsonFile.readString()
 
@@ -72,9 +77,22 @@ class GameModel {
         return deserializedExercise
     }
 
+    private fun repositionPuzzlePieces() {
+        puzzlePieces.forEach { it.pos = calculateNextPuzzlePosition(it.grammaticalRole) }
+    }
 
-    private fun calculateNextPuzzlePosition(): Vector2 {
-        var nextX = if (lastPuzzlePosition == basePosition) 2 * 340f * -1 else lastPuzzlePosition.x + 450f
+    private fun calculateNextPuzzlePosition(role: GrammaticalRole): Vector2 {
+        if (role == GrammaticalRole.VERB) {
+            lastPuzzlePosition = basePosition
+            return basePosition
+        }
+
+        var nextX: Float = if (lastPuzzlePosition == basePosition) {
+                (puzzlePieces.size - 1) * 350f / 2 * -1
+            }
+            else {
+                lastPuzzlePosition.x + 450f
+            }
         var nextY = 350f
 
         lastPuzzlePosition = Vector2(nextX, nextY)
@@ -139,7 +157,6 @@ class GameModel {
         return PuzzlePiece(
             text = "ad",
             grammaticalRole = GrammaticalRole.VERB,
-            pos = Vector2(basePosition.x, basePosition.y),
             depth = 1
         ).apply {
             // Add tabs: Subject, Object, and two Adverbial tabs
@@ -160,8 +177,7 @@ class GameModel {
     private fun createExampleSubjectPuzzle(): PuzzlePiece {
         return PuzzlePiece(
             text = "Peti",
-            grammaticalRole = GrammaticalRole.UNDEFINED,
-            pos = calculateNextPuzzlePosition()
+            grammaticalRole = GrammaticalRole.UNDEFINED
         ).apply {
             // Add a blank on the bottom
             blanks.add(PuzzleBlank(this, Side.BOTTOM))
@@ -174,8 +190,7 @@ class GameModel {
     private fun createExampleObjectPuzzle(): PuzzlePiece {
         return PuzzlePiece(
             text = "virág",
-            grammaticalRole = GrammaticalRole.UNDEFINED,
-            pos = calculateNextPuzzlePosition()
+            grammaticalRole = GrammaticalRole.UNDEFINED
         ).apply {
             // Add a blank on the bottom
             blanks.add(PuzzleBlank(this, Side.BOTTOM))
@@ -191,8 +206,7 @@ class GameModel {
     private fun createExampleAdverbial1Puzzle(): PuzzlePiece {
         return PuzzlePiece(
             text = "névnap",
-            grammaticalRole = GrammaticalRole.UNDEFINED,
-            pos = calculateNextPuzzlePosition()
+            grammaticalRole = GrammaticalRole.UNDEFINED
         ).apply {
             // Add a blank on the bottom
             blanks.add(PuzzleBlank(this, Side.BOTTOM))
@@ -205,8 +219,7 @@ class GameModel {
     private fun createExampleAdverbial2Puzzle(): PuzzlePiece {
         return PuzzlePiece(
             text = "Anna",
-            grammaticalRole = GrammaticalRole.UNDEFINED,
-            pos = calculateNextPuzzlePosition()
+            grammaticalRole = GrammaticalRole.UNDEFINED
         ).apply {
             // Add a blank on the bottom
             blanks.add(PuzzleBlank(this, Side.BOTTOM))
@@ -220,16 +233,7 @@ class GameModel {
     private fun initializePuzzlePieces(predefinedPieces: Set<PuzzlePiece>) {
         puzzlePieces.clear()
         puzzlePieces.addAll(predefinedPieces)
-
-        // Test serialization
-//        val jsonSerializer = Json {
-//            prettyPrint = true
-//        }
-//        val serializedPieces = jsonSerializer.encodeToString(SetSerializer(PuzzlePiece.serializer()), predefinedPieces)
-//        logger.info { "serializedPieces = $serializedPieces" }
-//
-//        val deserializedPieces = jsonSerializer.decodeFromString(SetSerializer(PuzzlePiece.serializer()), serializedPieces)
-//        logger.info { "deserializedPieces = $deserializedPieces" }
+        repositionPuzzlePieces()
     }
 
     /**

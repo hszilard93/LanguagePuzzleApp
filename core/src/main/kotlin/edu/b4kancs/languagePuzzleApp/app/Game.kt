@@ -153,7 +153,15 @@ class Game(
                     filePicker = inject()
                 )
             )
+        }
 
+        setScreen<MainMenuScreen>() // Set MainMenuScreen as the initial screen
+        super.create()
+    }
+
+    private fun loadGameScreen() {
+        logger.info { "loadGameScreen" }
+        with(context) {
             addScreen(
                 GameScreen(
                     context = inject(),
@@ -168,30 +176,24 @@ class Game(
                 )
             )
         }
-
-        setScreen<MainMenuScreen>() // Set MainMenuScreen as the initial screen
-        super.create()
+        this.removeScreen<MainMenuScreen>()
+        setScreen<GameScreen>()
     }
 
     fun startDemo() {
         logger.info { "Starting demo exercise" }
         // Initialize a demo exercise in gameModel
         // gameModel.loadDemoExercise()
-
-        // Switch to GameScreen
-        setScreen<GameScreen>()
+        loadGameScreen()
     }
 
     fun loadExerciseFromDisk(fileHandle: FileHandle) {
         logger.info { "Loading exercise from file: ${fileHandle.path()}" }
-        // Deserialize the exercise from the file and load it into gameModel
-        // Example:
-        // val json = Json { serializersModule = ... }
-        // val exercise = json.decodeFromString<Exercise>(fileHandle.readString())
-        // gameModel.loadExercise(exercise)
+
+        gameModel.loadExerciseFromDisk(fileHandle)
 
         // Switch to GameScreen
-        setScreen<GameScreen>()
+        loadGameScreen()
     }
 
     override fun dispose() {

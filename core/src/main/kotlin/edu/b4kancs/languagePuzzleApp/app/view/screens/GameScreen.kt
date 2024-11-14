@@ -512,7 +512,7 @@ class GameScreen(
 
     private fun updateExerciseDescription() {
         val currentExercise = gameModel.currentExercise
-        if (currentExercise.taskDescription.isNotBlank()) {
+        if (currentExercise!!.taskDescription.isNotBlank()) {
             // Set the description text
             exerciseDescriptionLabel.setText(currentExercise.taskDescription)
 
