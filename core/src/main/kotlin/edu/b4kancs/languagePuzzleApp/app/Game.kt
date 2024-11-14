@@ -15,8 +15,9 @@ import edu.b4kancs.languagePuzzleApp.app.model.Environment
 import edu.b4kancs.languagePuzzleApp.app.model.EnvironmentalImplementations
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
 import edu.b4kancs.languagePuzzleApp.app.other.gdxSmartFontMaster.SmartFontGenerator
-import edu.b4kancs.languagePuzzleApp.app.view.screen.Constants
-import edu.b4kancs.languagePuzzleApp.app.view.screen.GameScreen
+import edu.b4kancs.languagePuzzleApp.app.view.screens.Constants
+import edu.b4kancs.languagePuzzleApp.app.view.screens.GameScreen
+import edu.b4kancs.languagePuzzleApp.app.view.screens.MainMenuScreen
 import edu.b4kancs.languagePuzzleApp.app.view.ui.FilePickerInterface
 import ktx.app.KtxGame
 import ktx.app.KtxScreen
@@ -145,6 +146,14 @@ class Game(
         }
 
         with(context) {
+            // Register Screens
+            addScreen(
+                MainMenuScreen(
+                    game = this@Game,
+                    filePicker = inject()
+                )
+            )
+
             addScreen(
                 GameScreen(
                     context = inject(),
@@ -159,8 +168,30 @@ class Game(
                 )
             )
         }
-        setScreen<GameScreen>()
+
+        setScreen<MainMenuScreen>() // Set MainMenuScreen as the initial screen
         super.create()
+    }
+
+    fun startDemo() {
+        logger.info { "Starting demo exercise" }
+        // Initialize a demo exercise in gameModel
+        // gameModel.loadDemoExercise()
+
+        // Switch to GameScreen
+        setScreen<GameScreen>()
+    }
+
+    fun loadExerciseFromDisk(fileHandle: FileHandle) {
+        logger.info { "Loading exercise from file: ${fileHandle.path()}" }
+        // Deserialize the exercise from the file and load it into gameModel
+        // Example:
+        // val json = Json { serializersModule = ... }
+        // val exercise = json.decodeFromString<Exercise>(fileHandle.readString())
+        // gameModel.loadExercise(exercise)
+
+        // Switch to GameScreen
+        setScreen<GameScreen>()
     }
 
     override fun dispose() {

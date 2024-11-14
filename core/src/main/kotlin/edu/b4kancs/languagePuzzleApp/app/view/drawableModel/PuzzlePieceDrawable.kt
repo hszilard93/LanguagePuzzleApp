@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2
 import edu.b4kancs.languagePuzzleApp.app.misc
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 import edu.b4kancs.languagePuzzleApp.app.model.Side
-import edu.b4kancs.languagePuzzleApp.app.view.screen.GameScreen.Companion.logger
+import edu.b4kancs.languagePuzzleApp.app.view.screens.GameScreen.Companion.logger
 import edu.b4kancs.languagePuzzleApp.app.view.utils.plus
 import edu.b4kancs.languagePuzzleApp.app.view.utils.toRadians
 import ktx.inject.Context

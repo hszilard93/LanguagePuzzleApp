@@ -1,4 +1,4 @@
-package edu.b4kancs.languagePuzzleApp.app.view.screen
+package edu.b4kancs.languagePuzzleApp.app.view.screens
 
 import edu.b4kancs.languagePuzzleApp.app.model.Connection
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel

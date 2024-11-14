@@ -1,4 +1,4 @@
-package edu.b4kancs.languagePuzzleApp.app.view.screen
+package edu.b4kancs.languagePuzzleApp.app.view.screens
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
@@ -38,25 +38,20 @@ import edu.b4kancs.languagePuzzleApp.app.model.GameModel
 import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzleTab
-import edu.b4kancs.languagePuzzleApp.app.serialization.GdxSetSerializer
-import edu.b4kancs.languagePuzzleApp.app.serialization.TestSerializableClass
 import edu.b4kancs.languagePuzzleApp.app.view.drawableModel.PuzzlePieceDrawer
-import edu.b4kancs.languagePuzzleApp.app.view.screen.CustomCursorLoader.CustomCursor.CLOSED_HAND_CURSOR
-import edu.b4kancs.languagePuzzleApp.app.view.screen.CustomCursorLoader.CustomCursor.OPEN_HAND_CURSOR
-import edu.b4kancs.languagePuzzleApp.app.view.screen.CustomCursorLoader.CustomCursor.ROTATE_LEFT_CURSOR
-import edu.b4kancs.languagePuzzleApp.app.view.screen.CustomCursorLoader.CustomCursor.ROTATE_RIGHT_CURSOR
-import edu.b4kancs.languagePuzzleApp.app.view.screen.CustomCursorLoader.loadCustomCursor
+import edu.b4kancs.languagePuzzleApp.app.view.screens.CustomCursorLoader.CustomCursor.CLOSED_HAND_CURSOR
+import edu.b4kancs.languagePuzzleApp.app.view.screens.CustomCursorLoader.CustomCursor.OPEN_HAND_CURSOR
+import edu.b4kancs.languagePuzzleApp.app.view.screens.CustomCursorLoader.CustomCursor.ROTATE_LEFT_CURSOR
+import edu.b4kancs.languagePuzzleApp.app.view.screens.CustomCursorLoader.CustomCursor.ROTATE_RIGHT_CURSOR
+import edu.b4kancs.languagePuzzleApp.app.view.screens.CustomCursorLoader.loadCustomCursor
 import edu.b4kancs.languagePuzzleApp.app.view.ui.FilePickerInterface
 import edu.b4kancs.languagePuzzleApp.app.view.ui.TextEditorPopup
 import edu.b4kancs.languagePuzzleApp.app.view.utils.toRGBFloat
 import edu.b4kancs.languagePuzzleApp.app.view.utils.toVector2
 import edu.b4kancs.languagePuzzleApp.app.view.utils.toVector3
 import edu.b4kancs.languagePuzzleApp.app.view.utils.unprojectScreenCoords
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import ktx.app.KtxScreen
 import ktx.collections.GdxMap
-import ktx.collections.GdxSet
 import ktx.collections.gdxMapOf
 import ktx.collections.set
 import ktx.graphics.use

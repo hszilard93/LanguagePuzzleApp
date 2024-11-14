@@ -1,4 +1,4 @@
-package edu.b4kancs.languagePuzzleApp.app.view.screen
+package edu.b4kancs.languagePuzzleApp.app.view.screens
 
 import com.badlogic.gdx.input.GestureDetector
 import com.badlogic.gdx.math.Vector2

@@ -24,7 +24,7 @@ class FilePickerDesktopImpl : FilePickerInterface {
                 // AWT's FileDialog does not support setting filters directly like JFileChooser
                 // To implement filtering, you might need to handle it manually after selection
                 // For simplicity, we'll proceed without filters
-                directory = System.getProperty("user.home") // Optional: Set default directory
+                directory = System.getProperty("user.dir") // Optional: Set default directory
                 isVisible = true
             }
 
