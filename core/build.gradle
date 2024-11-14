@@ -1,8 +1,14 @@
+plugins {
+  id 'org.jetbrains.kotlin.plugin.serialization' version "$kotlinVersion"
+}
+
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 eclipse.project.name = appName + '-core'
 
 dependencies {
   api "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+
+  implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3"
 
   api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
   api "com.badlogicgames.gdx:gdx:$gdxVersion"
@@ -15,6 +21,7 @@ dependencies {
   api "io.github.libktx:ktx-inject:$ktxVersion"
   api "io.github.libktx:ktx-log:$ktxVersion"
   api "io.github.libktx:ktx-preferences:$ktxVersion"
+  api "io.github.libktx:ktx-scene2d:$ktxVersion"
 
   implementation "space.earlygrey:shapedrawer:$shapedrawerVersion"
 //  implementation "com.github.raeleus.TenPatch:tenpatch:$tenpatchVersion"

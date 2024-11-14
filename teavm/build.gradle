@@ -1,6 +1,14 @@
+import org.teavm.gradle.api.OptimizationLevel
+
 plugins {
   id 'java'
   id 'org.gretty' version '3.1.0'
+  id 'org.teavm' version "$teaVMVersion"
+  id 'org.jetbrains.kotlin.plugin.serialization' version "$kotlinVersion"
+}
+
+repositories {
+  mavenCentral()
 }
 
 gretty {
@@ -8,7 +16,7 @@ gretty {
   extraResourceBase 'build/dist/webapp'
 }
 
-sourceSets.main.resources.srcDirs += [ rootProject.file('assets').path ]
+sourceSets.main.resources.srcDirs += [rootProject.file('assets').path]
 project.ext.mainClassName = 'edu.b4kancs.languagePuzzleApp.app.teavm.TeaVMBuilder'
 eclipse.project.name = appName + '-teavm'
 
@@ -29,6 +37,62 @@ dependencies {
 
   implementation project(':core')
   implementation "com.github.raeleus.TenPatch:tenpatch:$tenpatchVersion:sources"
+
+  implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3"
+}
+
+teavm {
+  // Common configuration for all TeaVM targets (if needed)
+  all {
+    // Example: fastGlobalAnalysis = true
+  }
+
+  js {
+    // Application Entry Point
+    mainClass = project.mainClassName
+
+    // Optimization Settings
+    optimization = OptimizationLevel.BALANCED // Options: NONE, BALANCED, AGGRESSIVE
+    obfuscated = true               // Enable obfuscation for production
+    fastGlobalAnalysis = true        // Improve compilation time
+
+    // Debugging and Source Maps
+    sourceMap = true                // Enable source maps for easier debugging
+    debugInformation = true         // Enable debug information for production
+
+    // Strict Mode
+    strict = false                   // Set to true if your app relies on strict checks
+
+    // Output Configuration
+    relativePathInOutputDir = 'js'  // Directory within outputDir for JS files
+    targetFileName = "${project.name}.js" // Name of the generated JS file
+
+    // Entry Point Naming
+    entryPointName = 'main'          // Name of the JavaScript function to start the app
+
+    // Memory Settings (if targeting WebAssembly or similar)
+    // minHeapSize = 1
+    // maxHeapSize = 16
+
+    // Preserved Classes (if needed)
+    // preservedClasses = ['com.example.SomeClass']
+
+    // Additional Configuration (as needed)
+    // maxTopLevelNames = 1000 // Adjust based on your app's needs
+  }
+
+  // Configure other targets if necessary (wasm, wasi, c)
+  /*
+  wasm {
+      // Configuration for WebAssembly target
+  }
+  wasi {
+      // Configuration for WASI target
+  }
+  c {
+      // Configuration for C (native) target
+  }
+  */
 }
 
 tasks.register('buildJavaScript', JavaExec) {
@@ -37,6 +101,7 @@ tasks.register('buildJavaScript', JavaExec) {
   mainClass.set(project.mainClassName)
   setClasspath(sourceSets.main.runtimeClasspath)
 }
+
 build.dependsOn buildJavaScript
 
 tasks.register("run") {

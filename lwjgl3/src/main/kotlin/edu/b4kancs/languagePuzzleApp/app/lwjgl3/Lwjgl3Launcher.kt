@@ -5,7 +5,9 @@ package edu.b4kancs.languagePuzzleApp.app.lwjgl3
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration
 import edu.b4kancs.languagePuzzleApp.app.Game
+import edu.b4kancs.languagePuzzleApp.app.lwjgl3.view.ui.FilePickerDesktopImpl
 import edu.b4kancs.languagePuzzleApp.app.model.Environment
+import edu.b4kancs.languagePuzzleApp.app.model.EnvironmentalImplementations
 import edu.b4kancs.languagePuzzleApp.app.model.Platform
 import org.lwjgl.glfw.GLFW
 import org.lwjgl.glfw.GLFW.GLFW_DECORATED
@@ -16,7 +18,7 @@ import org.lwjgl.glfw.GLFW.GLFW_SAMPLES
 fun main() {
     // This handles macOS support and helps on Windows.
     if (StartupHelper.startNewJvmIfRequired())
-      return
+        return
 
     GLFW.glfwWindowHint(GLFW_SAMPLES, 4)
     GLFW.glfwWindowHint(GLFW_DECORATED, GLFW_FALSE)
@@ -24,10 +26,15 @@ fun main() {
     val defaultWidth = 1200
     val defaultHeight = 800
     val environment = Environment(Platform.DESKTOP, null, defaultWidth, defaultHeight)
-    val game = Game(environment)
+    val environmentalImplementations = EnvironmentalImplementations(
+        filePickerImpl = FilePickerDesktopImpl()
+    )
+
+    val game = Game(environment, environmentalImplementations)
     val config = Lwjgl3ApplicationConfiguration().apply {
-        setTitle("PuzliApp")
+        setTitle("PuzzliApp")
         setWindowedMode(defaultWidth, defaultHeight)
+        setResizable(false)
         setWindowIcon(*(arrayOf(128, 64, 32, 16).map { "libgdx$it.png" }.toTypedArray()))
         setForegroundFPS(90)
         setIdleFPS(10)

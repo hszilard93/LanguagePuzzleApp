@@ -6,7 +6,7 @@ import edu.b4kancs.languagePuzzleApp.app.view.utils.calculateEndPosGivenRotation
 import edu.b4kancs.languagePuzzleApp.app.view.utils.toRadians
 import kotlin.math.sqrt
 
-// For some reason, 0 degrees points right, not up.
+// 0 degrees points right, not up.
 const val RIGHT_DIR = 0f
 const val DOWN_DIR = 270f
 const val LEFT_DIR = 180f

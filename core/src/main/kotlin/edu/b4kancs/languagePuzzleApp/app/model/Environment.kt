@@ -1,5 +1,7 @@
 package edu.b4kancs.languagePuzzleApp.app.model
 
+import edu.b4kancs.languagePuzzleApp.app.view.ui.FilePickerInterface
+
 
 enum class Platform() {
     DESKTOP,
@@ -18,3 +20,7 @@ data class Environment(
 ) {
     val isMobile: Boolean = platform in setOf(Platform.WEB_ANDROID, Platform.WEB_IOS)
 }
+
+data class EnvironmentalImplementations(
+    val filePickerImpl: FilePickerInterface
+)

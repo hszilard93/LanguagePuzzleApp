@@ -1,0 +1,263 @@
+{
+    "type": "PLACE_PUZZLES_IN_ORDER",
+    "taskDescription": "Helyezd el a puzzle darabokat úgy, hogy a következő mondatot alkossák:\n\"Peti virágot ad Annának névnapjára.\"",
+    "predefinedPieces": [
+        {
+            "text": "ad",
+            "grammaticalRole": "VERB",
+            "tabs": [
+                {
+                    "side": "LEFT",
+                    "grammaticalRole": "SUBJECT",
+                    "text": ""
+                },
+                {
+                    "side": "TOP",
+                    "grammaticalRole": "OBJECT",
+                    "text": "-t"
+                },
+                {
+                    "side": "RIGHT",
+                    "grammaticalRole": "ADVERBIAL",
+                    "text": "-ra\n/re"
+                },
+                {
+                    "side": "BOTTOM",
+                    "grammaticalRole": "ADVERBIAL",
+                    "text": "-nak\n/nek"
+                }
+            ],
+            "blanks": []
+        },
+        {
+            "text": "Peti",
+            "grammaticalRole": "UNDEFINED",
+            "tabs": [],
+            "blanks": [
+                {
+                    "side": "BOTTOM"
+                }
+            ]
+        },
+        {
+            "text": "virág",
+            "grammaticalRole": "UNDEFINED",
+            "tabs": [],
+            "blanks": [
+                {
+                    "side": "BOTTOM"
+                }
+            ]
+        },
+        {
+            "text": "névnap",
+            "grammaticalRole": "UNDEFINED",
+            "tabs": [],
+            "blanks": [
+                {
+                    "side": "BOTTOM"
+                }
+            ]
+        },
+        {
+            "text": "Anna",
+            "grammaticalRole": "UNDEFINED",
+            "tabs": [],
+            "blanks": [
+                {
+                    "side": "BOTTOM"
+                }
+            ]
+        }
+    ],
+    "solutionConfiguration": [
+        {
+            "puzzlesConnected": [
+                {
+                    "text": "ad",
+                    "grammaticalRole": "VERB",
+                    "tabs": [
+                        {
+                            "side": "LEFT",
+                            "grammaticalRole": "SUBJECT",
+                            "text": ""
+                        },
+                        {
+                            "side": "TOP",
+                            "grammaticalRole": "OBJECT",
+                            "text": "-t"
+                        },
+                        {
+                            "side": "RIGHT",
+                            "grammaticalRole": "ADVERBIAL",
+                            "text": "-ra\n/re"
+                        },
+                        {
+                            "side": "BOTTOM",
+                            "grammaticalRole": "ADVERBIAL",
+                            "text": "-nak\n/nek"
+                        }
+                    ],
+                    "blanks": []
+                },
+                {
+                    "text": "Peti",
+                    "grammaticalRole": "UNDEFINED",
+                    "tabs": [],
+                    "blanks": [
+                        {
+                            "side": "BOTTOM"
+                        }
+                    ]
+                }
+            ],
+            "via": {
+                "side": "LEFT",
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+            },
+            "roleOfConnection": "SUBJECT"
+        },
+        {
+            "puzzlesConnected": [
+                {
+                    "text": "ad",
+                    "grammaticalRole": "VERB",
+                    "tabs": [
+                        {
+                            "side": "LEFT",
+                            "grammaticalRole": "SUBJECT",
+                            "text": ""
+                        },
+                        {
+                            "side": "TOP",
+                            "grammaticalRole": "OBJECT",
+                            "text": "-t"
+                        },
+                        {
+                            "side": "RIGHT",
+                            "grammaticalRole": "ADVERBIAL",
+                            "text": "-ra\n/re"
+                        },
+                        {
+                            "side": "BOTTOM",
+                            "grammaticalRole": "ADVERBIAL",
+                            "text": "-nak\n/nek"
+                        }
+                    ],
+                    "blanks": []
+                },
+                {
+                    "text": "virág",
+                    "grammaticalRole": "UNDEFINED",
+                    "tabs": [],
+                    "blanks": [
+                        {
+                            "side": "BOTTOM"
+                        }
+                    ]
+                }
+            ],
+            "via": {
+                "side": "TOP",
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+            },
+            "roleOfConnection": "OBJECT"
+        },
+        {
+            "puzzlesConnected": [
+                {
+                    "text": "ad",
+                    "grammaticalRole": "VERB",
+                    "tabs": [
+                        {
+                            "side": "LEFT",
+                            "grammaticalRole": "SUBJECT",
+                            "text": ""
+                        },
+                        {
+                            "side": "TOP",
+                            "grammaticalRole": "OBJECT",
+                            "text": "-t"
+                        },
+                        {
+                            "side": "RIGHT",
+                            "grammaticalRole": "ADVERBIAL",
+                            "text": "-ra\n/re"
+                        },
+                        {
+                            "side": "BOTTOM",
+                            "grammaticalRole": "ADVERBIAL",
+                            "text": "-nak\n/nek"
+                        }
+                    ],
+                    "blanks": []
+                },
+                {
+                    "text": "Anna",
+                    "grammaticalRole": "UNDEFINED",
+                    "tabs": [],
+                    "blanks": [
+                        {
+                            "side": "BOTTOM"
+                        }
+                    ]
+                }
+            ],
+            "via": {
+                "side": "BOTTOM",
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-nak\n/nek"
+            },
+            "roleOfConnection": "ADVERBIAL"
+        },
+        {
+            "puzzlesConnected": [
+                {
+                    "text": "ad",
+                    "grammaticalRole": "VERB",
+                    "tabs": [
+                        {
+                            "side": "LEFT",
+                            "grammaticalRole": "SUBJECT",
+                            "text": ""
+                        },
+                        {
+                            "side": "TOP",
+                            "grammaticalRole": "OBJECT",
+                            "text": "-t"
+                        },
+                        {
+                            "side": "RIGHT",
+                            "grammaticalRole": "ADVERBIAL",
+                            "text": "-ra\n/re"
+                        },
+                        {
+                            "side": "BOTTOM",
+                            "grammaticalRole": "ADVERBIAL",
+                            "text": "-nak\n/nek"
+                        }
+                    ],
+                    "blanks": []
+                },
+                {
+                    "text": "névnap",
+                    "grammaticalRole": "UNDEFINED",
+                    "tabs": [],
+                    "blanks": [
+                        {
+                            "side": "BOTTOM"
+                        }
+                    ]
+                }
+            ],
+            "via": {
+                "side": "RIGHT",
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ra\n/re"
+            },
+            "roleOfConnection": "ADVERBIAL"
+        }
+    ]
+}
