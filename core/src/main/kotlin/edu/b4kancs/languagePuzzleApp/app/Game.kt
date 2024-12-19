@@ -15,9 +15,9 @@ import edu.b4kancs.languagePuzzleApp.app.model.Environment
 import edu.b4kancs.languagePuzzleApp.app.model.EnvironmentalImplementations
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
 import edu.b4kancs.languagePuzzleApp.app.other.gdxSmartFontMaster.SmartFontGenerator
-import edu.b4kancs.languagePuzzleApp.app.view.screens.Constants
-import edu.b4kancs.languagePuzzleApp.app.view.screens.GameScreen
-import edu.b4kancs.languagePuzzleApp.app.view.screens.MainMenuScreen
+import edu.b4kancs.languagePuzzleApp.app.view.screens.game.Constants
+import edu.b4kancs.languagePuzzleApp.app.view.screens.game.GameScreen
+import edu.b4kancs.languagePuzzleApp.app.view.screens.menu.MainMenuScreen
 import edu.b4kancs.languagePuzzleApp.app.view.ui.FilePickerInterface
 import ktx.app.KtxGame
 import ktx.app.KtxScreen

@@ -1,4 +1,4 @@
-package edu.b4kancs.languagePuzzleApp.app.view.screens
+package edu.b4kancs.languagePuzzleApp.app.view.screens.game
 
 import com.badlogic.gdx.InputProcessor
 

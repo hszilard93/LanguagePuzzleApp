@@ -1,4 +1,4 @@
-package edu.b4kancs.languagePuzzleApp.app.view.screens
+package edu.b4kancs.languagePuzzleApp.app.view.screens.menu
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import edu.b4kancs.languagePuzzleApp.app.Game
 import edu.b4kancs.languagePuzzleApp.app.misc
-import edu.b4kancs.languagePuzzleApp.app.view.screens.GameScreen.Companion
+import edu.b4kancs.languagePuzzleApp.app.view.screens.game.GameScreen
 import edu.b4kancs.languagePuzzleApp.app.view.ui.FilePickerInterface
 import edu.b4kancs.languagePuzzleApp.app.view.utils.toRGBFloat
 import ktx.app.KtxScreen

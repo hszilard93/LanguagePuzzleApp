@@ -1,4 +1,4 @@
-package edu.b4kancs.languagePuzzleApp.app.view.screens
+package edu.b4kancs.languagePuzzleApp.app.view.screens.game
 
 object Constants {
     const val GAME_VIRTUAL_WIDTH = 1200f

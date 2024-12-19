@@ -1,4 +1,4 @@
-package edu.b4kancs.languagePuzzleApp.app.view.screens
+package edu.b4kancs.languagePuzzleApp.app.view.screens.game
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
@@ -39,11 +39,11 @@ import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzleTab
 import edu.b4kancs.languagePuzzleApp.app.view.drawableModel.PuzzlePieceDrawer
-import edu.b4kancs.languagePuzzleApp.app.view.screens.CustomCursorLoader.CustomCursor.CLOSED_HAND_CURSOR
-import edu.b4kancs.languagePuzzleApp.app.view.screens.CustomCursorLoader.CustomCursor.OPEN_HAND_CURSOR
-import edu.b4kancs.languagePuzzleApp.app.view.screens.CustomCursorLoader.CustomCursor.ROTATE_LEFT_CURSOR
-import edu.b4kancs.languagePuzzleApp.app.view.screens.CustomCursorLoader.CustomCursor.ROTATE_RIGHT_CURSOR
-import edu.b4kancs.languagePuzzleApp.app.view.screens.CustomCursorLoader.loadCustomCursor
+import edu.b4kancs.languagePuzzleApp.app.view.screens.game.CustomCursorLoader.CustomCursor.CLOSED_HAND_CURSOR
+import edu.b4kancs.languagePuzzleApp.app.view.screens.game.CustomCursorLoader.CustomCursor.OPEN_HAND_CURSOR
+import edu.b4kancs.languagePuzzleApp.app.view.screens.game.CustomCursorLoader.CustomCursor.ROTATE_LEFT_CURSOR
+import edu.b4kancs.languagePuzzleApp.app.view.screens.game.CustomCursorLoader.CustomCursor.ROTATE_RIGHT_CURSOR
+import edu.b4kancs.languagePuzzleApp.app.view.screens.game.CustomCursorLoader.loadCustomCursor
 import edu.b4kancs.languagePuzzleApp.app.view.ui.FilePickerInterface
 import edu.b4kancs.languagePuzzleApp.app.view.ui.TextEditorPopup
 import edu.b4kancs.languagePuzzleApp.app.view.utils.toRGBFloat
@@ -323,48 +323,39 @@ class GameScreen(
     }
 
     private fun getTextureByPuzzlePiece(puzzlePiece: PuzzlePiece): Texture {
-        logger.misc { "getFrameBufferByPuzzlePiece puzzle=$puzzlePiece" }
+        logger.misc { "getTextureByPuzzlePiece puzzle=$puzzlePiece" }
 
-        return if (!puzzlePiece.hasChangedAppearance) {
+        if (!puzzlePiece.hasChangedAppearance) {
             val texture: Texture? = puzzlePieceTextureMap[puzzlePiece, null]
             if (texture != null) {
-                texture
-            }
-            else {
-                logger.debug { "getTextureByPuzzlePiece texture cache miss. puzzlePiece = ${puzzlePiece.text}" }
-                puzzlePiece.hasChangedAppearance = true
-                val newTexture = renderPuzzle(puzzlePiece)
-                puzzlePieceTextureMap[puzzlePiece] = newTexture
-                newTexture
+                return texture
             }
         }
-        else {
-            logger.debug { "getTextureByPuzzlePiece puzzle appearance changed, rerendering. puzzlePiece = ${puzzlePiece.text}" }
-            puzzlePiece.hasChangedAppearance = true
-            val newTexture = renderPuzzle(puzzlePiece)
-            puzzlePieceTextureMap[puzzlePiece] = newTexture
-            newTexture
-        }
+
+        logger.debug { "getTextureByPuzzlePiece texture cache miss. puzzlePiece = ${puzzlePiece.text}" }
+        puzzlePiece.hasChangedAppearance = true
+        val newTexture = renderPuzzle(puzzlePiece)
+        puzzlePieceTextureMap[puzzlePiece] = newTexture
+        return newTexture
     }
 
     private fun getFrameBufferByPuzzlePiece(puzzle: PuzzlePiece): FrameBuffer {
         logger.misc { "getFrameBufferByPuzzlePiece puzzle=$puzzle" }
 
-        return if (puzzlePieceFrameBufferMap.containsKey(puzzle) && !puzzle.hasChangedAppearance) {
-            puzzlePieceFrameBufferMap[puzzle]
+        if (puzzlePieceFrameBufferMap.containsKey(puzzle) && !puzzle.hasChangedAppearance) {
+            return puzzlePieceFrameBufferMap[puzzle]
         }
-        else {
-            puzzlePieceFrameBufferMap[puzzle]?.dispose()   // Dispose of the old FrameBuffer
-            val newFrameBuffer = FrameBuffer(
-                Pixmap.Format.RGBA8888,
-                puzzle.boundingBoxSize.toInt(),
-                puzzle.boundingBoxSize.toInt(),
-                false
-            )
-            puzzlePieceFrameBufferMap.put(puzzle, newFrameBuffer)
-            puzzle.hasChangedAppearance = false
-            puzzlePieceFrameBufferMap[puzzle]
-        }
+
+        puzzlePieceFrameBufferMap[puzzle]?.dispose()   // Dispose of the old FrameBuffer
+        val newFrameBuffer = FrameBuffer(
+            Pixmap.Format.RGBA8888,
+            puzzle.boundingBoxSize.toInt(),
+            puzzle.boundingBoxSize.toInt(),
+            false
+        )
+        puzzlePieceFrameBufferMap.put(puzzle, newFrameBuffer)
+        puzzle.hasChangedAppearance = false
+        return puzzlePieceFrameBufferMap[puzzle]
     }
 
     private fun isPuzzleVisible(puzzle: PuzzlePiece): Boolean {
