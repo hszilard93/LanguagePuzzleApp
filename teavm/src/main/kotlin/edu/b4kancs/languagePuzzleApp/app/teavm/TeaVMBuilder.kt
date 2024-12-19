@@ -35,7 +35,7 @@ object TeaVMBuilder {
     @JvmStatic
     fun main(args: Array<String>) {
         val teaBuildConfiguration = TeaBuildConfiguration()
-        val assetFileHandle = AssetFileHandle.createCopyHandle(File("../assets"), FileType.Classpath)
+        val assetFileHandle = AssetFileHandle.createCopyHandle("../assets", FileType.Classpath, "")
         teaBuildConfiguration.assetsPath.add(assetFileHandle)
         teaBuildConfiguration.webappPath = File("build/dist").canonicalPath
 
