@@ -186,8 +186,9 @@ class GameScreen(
 
         // Update the position and size of the exercise description frame if visible
         if (::exerciseDescriptionFrame.isInitialized && exerciseDescriptionFrame.isVisible) {
-            exerciseDescriptionFrame.setSize(newWidth.toFloat(), 100f) // Height can be adjusted
-            exerciseDescriptionFrame.setPosition(0f, newHeight - exerciseDescriptionFrame.height)
+//            exerciseDescriptionFrame.setSize(newWidth.toFloat(), 130f)
+//            exerciseDescriptionFrame.setPosition(0f, newHeight - exerciseDescriptionFrame.height)
+            updateExerciseDescription()
         }
     }
 
@@ -464,7 +465,7 @@ class GameScreen(
 
             // Set semi-transparent background color (e.g., black with 50% opacity)
             background.minWidth = 300f
-            background.minHeight = 50f
+            background.minHeight = 100f
             color.a = 0.75f // Semi-transparent
             isMovable = false
             isResizable = false
@@ -516,6 +517,9 @@ class GameScreen(
                 hudViewport.worldHeight - exerciseDescriptionFrame.height - 10f
             )
 
+            exerciseDescriptionFrame.setSize(hudViewport.screenWidth.toFloat(), 130f)
+            exerciseDescriptionFrame.setPosition(0f, hudViewport.screenHeight.toFloat() - exerciseDescriptionFrame.height)
+
             // Make the window visible
             exerciseDescriptionFrame.isVisible = true
         }
@@ -549,12 +553,12 @@ class GameScreen(
         uiStage.addActor(checkMarkImage)
     }
 
-    private fun displayCheckMark() {
+    private fun displayCheckMark(shouldDisplay: Boolean = true) {
         logger.debug { "displayCheckMark" }
 
         if (::checkMarkImage.isInitialized) {
             // Make the checkmark visible
-            checkMarkImage.isVisible = true
+            checkMarkImage.isVisible = shouldDisplay
 
             // Optionally, reset the alpha to 0 before fading in
             checkMarkImage.color.a = 0.5f
@@ -750,9 +754,8 @@ class GameScreen(
                 puzzleSnapHelper.performSnapIfAny()
 
                 puzzleSnapHelper.clearPuzzleFeaturesByProximity()
-                if (gameModel.isSolved()) {
-                    displayCheckMark()
-                }
+
+                displayCheckMark(gameModel.isSolved())
 
                 isDraggingGame = false
                 if (!environment.isMobile) {

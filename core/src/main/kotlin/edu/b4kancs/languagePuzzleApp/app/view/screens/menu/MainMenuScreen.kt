@@ -40,15 +40,23 @@ class MainMenuScreen(
         }
 
         // Create buttons
-        val startDemoButton = TextButton("Indítás a kezdőfeladattal", uiSkin) // Use appropriate style
+        val startExercise1Button = TextButton("Indítás az 1. példafeladattal", uiSkin)
+        val startExercise2Button = TextButton("Indítás a 2. példafeladattal", uiSkin)
         val loadExerciseButton = TextButton("Feladat betöltése fájlból", uiSkin)
         val settingsButton = TextButton("Beallítások", uiSkin)
         val exitButton = TextButton("Kilepés", uiSkin)
 
-        startDemoButton.addListener(object : ClickListener() {
+        startExercise1Button.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
-                logger.info { "Start with the Demo button clicked" }
-                game.startDemo()
+                logger.info { "Start with exercise 1 button clicked" }
+                game.startDemo1()
+            }
+        })
+
+        startExercise2Button.addListener(object : ClickListener() {
+            override fun clicked(event: InputEvent?, x: Float, y: Float) {
+                logger.info { "Start with exercise 2 button clicked" }
+                game.startDemo2()
             }
         })
 
@@ -80,10 +88,11 @@ class MainMenuScreen(
         })
 
         // Add buttons to the table with spacing
-        table.add(startDemoButton).width(400f).height(100f).pad(10f).row()
-        table.add(loadExerciseButton).width(400f).height(100f).pad(10f).row()
+        table.add(startExercise1Button).width(400f).height(100f).pad(10f).row()
+        table.add(startExercise2Button).width(400f).height(100f).pad(10f).row()
+//        table.add(loadExerciseButton).width(400f).height(100f).pad(10f).row()
         table.add(settingsButton).width(400f).height(100f).pad(10f).row()
-        table.add(exitButton).width(400f).height(100f).pad(10f).row()
+//        table.add(exitButton).width(400f).height(100f).pad(10f).row()
 
         // Add the table to the stage
         stage.addActor(table)
