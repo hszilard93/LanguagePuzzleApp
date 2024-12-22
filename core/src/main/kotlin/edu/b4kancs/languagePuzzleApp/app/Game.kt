@@ -15,6 +15,7 @@ import edu.b4kancs.languagePuzzleApp.app.model.Environment
 import edu.b4kancs.languagePuzzleApp.app.model.EnvironmentalImplementations
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
 import edu.b4kancs.languagePuzzleApp.app.other.gdxSmartFontMaster.SmartFontGenerator
+import edu.b4kancs.languagePuzzleApp.app.view.screens.OldGameScreen
 import edu.b4kancs.languagePuzzleApp.app.view.screens.game.Constants
 import edu.b4kancs.languagePuzzleApp.app.view.screens.game.GameScreen
 import edu.b4kancs.languagePuzzleApp.app.view.screens.menu.MainMenuScreen
@@ -163,6 +164,7 @@ class Game(
         logger.info { "loadGameScreen" }
         with(context) {
             addScreen(
+//                OldGameScreen(
                 GameScreen(
                     context = inject(),
                     batch = inject(),
@@ -177,6 +179,7 @@ class Game(
             )
         }
         this.removeScreen<MainMenuScreen>()
+//        setScreen<OldGameScreen>()
         setScreen<GameScreen>()
     }
 

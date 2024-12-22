@@ -11,11 +11,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField
 import com.badlogic.gdx.scenes.scene2d.ui.Window
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.Align
+import edu.b4kancs.languagePuzzleApp.app.GameViewport
+import edu.b4kancs.languagePuzzleApp.app.HudViewport
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 
 class TextEditorPopup(
     private val stage: Stage,
     private val skin: Skin,
+    private val hudViewport: HudViewport,
+    private val gameViewport: GameViewport,
     private val puzzlePiece: PuzzlePiece,
     private val onSave: (String) -> Unit,
     private val onCancel: () -> Unit
@@ -26,14 +30,8 @@ class TextEditorPopup(
     private val cancelButton: TextButton
 
     init {
-        // Initialize Window without a title
         window = Window("", skin).apply {
             setSize(250f, 100f)
-            setPosition(
-                puzzlePiece.pos.x + puzzlePiece.size / 2 - width / 2,
-                puzzlePiece.pos.y + puzzlePiece.size / 2 - height / 2,
-                Align.center
-            )
             isMovable = true
             isResizable = true
 
@@ -77,6 +75,13 @@ class TextEditorPopup(
                     moveBy(deltaX, deltaY)
                 }
             })
+
+            val stagePosition = gameViewport.project(puzzlePiece.pos.cpy())
+            setPosition(
+                stagePosition.x + 100f,
+                stagePosition.y + 20f,
+                Align.center
+            )
         }
 
         saveButton.addListener(object : ClickListener() {

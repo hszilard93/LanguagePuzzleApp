@@ -7,17 +7,12 @@ import edu.b4kancs.languagePuzzleApp.app.model.CustomColors.ADVERB_PURPLE
 import edu.b4kancs.languagePuzzleApp.app.model.CustomColors.OBJECT_YELLOW
 import edu.b4kancs.languagePuzzleApp.app.model.CustomColors.OFF_WHITE
 import edu.b4kancs.languagePuzzleApp.app.model.CustomColors.SUBJECT_GREEN
-import edu.b4kancs.languagePuzzleApp.app.serialization.GdxSetSerializer
 import edu.b4kancs.languagePuzzleApp.app.serialization.PuzzleBlankSerializer
 import edu.b4kancs.languagePuzzleApp.app.serialization.PuzzlePieceSerializer
 import edu.b4kancs.languagePuzzleApp.app.serialization.PuzzleTabSerializer
 import kotlinx.serialization.Polymorphic
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
-import ktx.collections.GdxSet
-import ktx.collections.isNotEmpty
-import ktx.collections.toGdxSet
 import ktx.log.logger
 import kotlin.math.sign
 
@@ -60,6 +55,7 @@ data class Connection(
 sealed interface PuzzlePieceFeature {
     var owner: PuzzlePiece?
     val side: Side
+
     @Transient
     var isGlowing: Boolean
 
@@ -110,10 +106,10 @@ data class PuzzleTab(
 ) : PuzzlePieceFeature {
     @Transient
     override var isGlowing: Boolean = false
-    set(value) {
-        field = value
-        owner?.hasChangedAppearance = true
-    }
+        set(value) {
+            field = value
+            owner?.hasChangedAppearance = true
+        }
 
     companion object {
         const val WIDTH = 150f
@@ -146,25 +142,29 @@ class PuzzlePiece(
     text: String,
     grammaticalRole: GrammaticalRole,
     pos: Vector2 = Vector2(0f, 0f),
-    var depth: Int = 0
+    var depth: Int = 0  // The larger the value, the more on top the piece is
 ) {
     val tabs: MutableList<PuzzleTab> = mutableListOf()
     val blanks: MutableList<PuzzleBlank> = mutableListOf()
 
     @Transient
     private val _connections = mutableSetOf<Connection>()
+
     @Transient
     var copyOfConnections: Set<Connection> = emptySet()
         get(): Set<Connection> = _connections.toSet()
         private set
+
     @Transient
     var connectionSize = _connections.size
         get() = _connections.size
         private set
+
     @Transient
     var isConnected = _connections.isNotEmpty()
         get() = _connections.isNotEmpty()
         private set
+
     @Transient
     var hasChangedAppearance = true
 
@@ -201,6 +201,7 @@ class PuzzlePiece(
             boundingBoxPos = calculateRenderPosition()
             hasChangedAppearance = true
         }
+
     @Transient
     var targetSize: Float = size
         private set

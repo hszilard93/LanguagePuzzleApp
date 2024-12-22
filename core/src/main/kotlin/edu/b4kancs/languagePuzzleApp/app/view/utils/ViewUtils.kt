@@ -27,3 +27,4 @@ fun Camera.unprojectScreenCoords(screenX: Int, screenY: Int): Vector2 {
 fun Vector2.toVector3(): Vector3 = Vector3(this.x, this.y, 0f)
 
 fun Vector3.toVector2(): Vector2 = Vector2(this.x, this.y)
+
