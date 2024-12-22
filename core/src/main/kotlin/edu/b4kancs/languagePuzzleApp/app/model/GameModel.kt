@@ -3,6 +3,7 @@ package edu.b4kancs.languagePuzzleApp.app.model
 import com.badlogic.gdx.files.FileHandle
 import com.badlogic.gdx.math.Vector2
 import edu.b4kancs.languagePuzzleApp.app.model.exercise.Exercise
+import edu.b4kancs.languagePuzzleApp.app.model.exercise.SolutionConfiguration
 import edu.b4kancs.languagePuzzleApp.app.model.exercise.TaskType
 import kotlinx.serialization.json.Json
 import ktx.log.logger
@@ -21,6 +22,7 @@ class GameModel {
 
     val puzzlePieces: MutableList<PuzzlePiece> = ArrayList()
     private val basePosition = Vector2(0f, -100f)
+
     private var lastPuzzlePosition = basePosition
 
     private val jsonSerializer = Json {
@@ -43,7 +45,7 @@ class GameModel {
         // Collect all unique current connections in the game
         val currentConnections = puzzlePieces.flatMap { it.copyOfConnections }.toSet()
 
-        val isSolved = ConnectionUtils.areSetsOfConnectionsLogicallyEqual(currentConnections, currentExercise!!.solutionConfiguration)
+        val isSolved = currentExercise?.solutionConfiguration?.doesGameStateMatchSolution(puzzlePieces) ?: false
         logger.info { "isSolved = $isSolved" }
 
         return isSolved
@@ -108,7 +110,7 @@ class GameModel {
         val adverbial2Puzzle = createExampleAdverbial2Puzzle()
 
         // Define the solutionConfiguration by specifying the correct connections
-        val solutionConfiguration = setOf(
+        val solutionSet = setOf(
             // Connection between verbPuzzle and subjectPuzzle via the LEFT tab of verbPuzzle
             Connection(
                 puzzlesConnected = setOf(verbPuzzle, subjectPuzzle),
@@ -146,7 +148,7 @@ class GameModel {
                 adverbial1Puzzle,
                 adverbial2Puzzle
             ),
-            solutionConfiguration = solutionConfiguration
+            solutionConfiguration = SolutionConfiguration(solutionSet)
         )
     }
 

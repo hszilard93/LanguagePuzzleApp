@@ -36,5 +36,7 @@ class CameraController(
     fun resize(newWidth: Int, newHeight: Int) {
         gameViewport.update(newWidth, newHeight, false)
         hudViewport.update(newWidth, newHeight, true)
+
+
     }
 }

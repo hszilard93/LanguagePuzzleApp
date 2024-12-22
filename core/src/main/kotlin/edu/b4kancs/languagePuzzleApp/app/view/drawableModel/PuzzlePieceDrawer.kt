@@ -114,7 +114,9 @@ class PuzzlePieceDrawer(
     private fun drawTextOnPuzzle(puzzlePiece: PuzzlePiece) {
         logger.misc { "drawText" }
 
-        val text = puzzlePiece.text + " (${puzzlePiece.connectionSize})"
+        val text =
+            puzzlePiece.text + if (puzzlePiece.grammaticalRole == VERB) " (${puzzlePiece.connectionSize})" else ""
+
         if (text.isEmpty()) return
 
         val blanks = puzzlePiece.blanks.map { it.side }.toSet()

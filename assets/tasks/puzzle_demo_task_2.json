@@ -1,248 +1,128 @@
 {
-    "type": "PLACE_PUZZLES_IN_ORDER",
-    "taskDescription": "Alakítsd a puzzle darabokat úgy, hogy a következő mondatot alkossák:\n\"A tanítónéni megszidta Pistát a tegnap délelőtt.\"",
-    "predefinedPieces": [
+  "type": "PLACE_PUZZLES_IN_ORDER",
+  "taskDescription": "Alakítsd a puzzle darabokat úgy, hogy a következő mondatot alkossák:\n\"A tanítónéni megszidta Pistát a tegnap délelőtt.\"",
+  "predefinedPieces": [
+    {
+      "text": "szid",
+      "grammaticalRole": "VERB",
+      "tabs": [
         {
+          "side": "LEFT",
+          "grammaticalRole": "SUBJECT",
+          "text": ""
+        },
+        {
+          "side": "TOP",
+          "grammaticalRole": "OBJECT",
+          "text": "-t"
+        },
+        {
+          "side": "RIGHT",
+          "grammaticalRole": "ADVERBIAL",
+          "text": ""
+        }
+      ],
+      "blanks": []
+    },
+    {
+      "text": "",
+      "grammaticalRole": "UNDEFINED",
+      "tabs": [],
+      "blanks": [
+        {
+          "side": "BOTTOM"
+        }
+      ]
+    },
+    {
+      "text": "",
+      "grammaticalRole": "UNDEFINED",
+      "tabs": [],
+      "blanks": [
+        {
+          "side": "BOTTOM"
+        }
+      ]
+    },
+    {
+      "text": "",
+      "grammaticalRole": "UNDEFINED",
+      "tabs": [],
+      "blanks": [
+        {
+          "side": "BOTTOM"
+        }
+      ]
+    }
+  ],
+  "solutionConfiguration": {
+    "solutions": [
+      {
+        "puzzlesConnected": [
+          {
             "text": "szid",
             "grammaticalRole": "VERB",
-            "tabs": [
-                {
-                    "side": "LEFT",
-                    "grammaticalRole": "SUBJECT",
-                    "text": ""
-                },
-                {
-                    "side": "TOP",
-                    "grammaticalRole": "OBJECT",
-                    "text": "-t"
-                },
-                {
-                    "side": "RIGHT",
-                    "grammaticalRole": "ADVERBIAL",
-                    "text": ""
-                }
-            ],
+            "tabs": [],
             "blanks": []
-        },
-        {
-            "text": "",
-            "grammaticalRole": "UNDEFINED",
+          },
+          {
+            "text": "tanítónéni",
+            "grammaticalRole": "SUBJECT",
             "tabs": [],
-            "blanks": [
-                {
-                    "side": "BOTTOM"
-                }
-            ]
+            "blanks": []
+          }
+        ],
+        "via": {
+          "side": "LEFT",
+          "grammaticalRole": "SUBJECT",
+          "text": ""
         },
-        {
-            "text": "",
-            "grammaticalRole": "UNDEFINED",
+        "roleOfConnection": "SUBJECT"
+      },
+      {
+        "puzzlesConnected": [
+          {
+            "text": "szid",
+            "grammaticalRole": "VERB",
             "tabs": [],
-            "blanks": [
-                {
-                    "side": "BOTTOM"
-                }
-            ]
-        },
-        {
-            "text": "",
-            "grammaticalRole": "UNDEFINED",
+            "blanks": []
+          },
+          {
+            "text": "Pista",
+            "grammaticalRole": "OBJECT",
             "tabs": [],
-            "blanks": [
-                {
-                    "side": "BOTTOM"
-                }
-            ]
-        }
-    ],
-    "solutionConfiguration": [
-        {
-            "puzzlesConnected": [
-                {
-                    "text": "ad",
-                    "grammaticalRole": "VERB",
-                    "tabs": [
-                        {
-                            "side": "LEFT",
-                            "grammaticalRole": "SUBJECT",
-                            "text": ""
-                        },
-                        {
-                            "side": "TOP",
-                            "grammaticalRole": "OBJECT",
-                            "text": "-t"
-                        },
-                        {
-                            "side": "RIGHT",
-                            "grammaticalRole": "ADVERBIAL",
-                            "text": "-ra\n/re"
-                        },
-                        {
-                            "side": "BOTTOM",
-                            "grammaticalRole": "ADVERBIAL",
-                            "text": "-nak\n/nek"
-                        }
-                    ],
-                    "blanks": []
-                },
-                {
-                    "text": "Peti",
-                    "grammaticalRole": "UNDEFINED",
-                    "tabs": [],
-                    "blanks": [
-                        {
-                            "side": "BOTTOM"
-                        }
-                    ]
-                }
-            ],
-            "via": {
-                "side": "LEFT",
-                "grammaticalRole": "SUBJECT",
-                "text": ""
-            },
-            "roleOfConnection": "SUBJECT"
+            "blanks": []
+          }
+        ],
+        "via": {
+          "side": "TOP",
+          "grammaticalRole": "OBJECT",
+          "text": ""
         },
-        {
-            "puzzlesConnected": [
-                {
-                    "text": "ad",
-                    "grammaticalRole": "VERB",
-                    "tabs": [
-                        {
-                            "side": "LEFT",
-                            "grammaticalRole": "SUBJECT",
-                            "text": ""
-                        },
-                        {
-                            "side": "TOP",
-                            "grammaticalRole": "OBJECT",
-                            "text": "-t"
-                        },
-                        {
-                            "side": "RIGHT",
-                            "grammaticalRole": "ADVERBIAL",
-                            "text": "-ra\n/re"
-                        },
-                        {
-                            "side": "BOTTOM",
-                            "grammaticalRole": "ADVERBIAL",
-                            "text": "-nak\n/nek"
-                        }
-                    ],
-                    "blanks": []
-                },
-                {
-                    "text": "virág",
-                    "grammaticalRole": "UNDEFINED",
-                    "tabs": [],
-                    "blanks": [
-                        {
-                            "side": "BOTTOM"
-                        }
-                    ]
-                }
-            ],
-            "via": {
-                "side": "TOP",
-                "grammaticalRole": "OBJECT",
-                "text": "-t"
-            },
-            "roleOfConnection": "OBJECT"
+        "roleOfConnection": "OBJECT"
+      },
+      {
+        "puzzlesConnected": [
+          {
+            "text": "szid",
+            "grammaticalRole": "VERB",
+            "tabs": [],
+            "blanks": []
+          },
+          {
+            "text": "tegnap délelőtt",
+            "grammaticalRole": "ADVERBIAL",
+            "tabs": [],
+            "blanks": []
+          }
+        ],
+        "via": {
+          "side": "RIGHT",
+          "grammaticalRole": "ADVERBIAL",
+          "text": ""
         },
-        {
-            "puzzlesConnected": [
-                {
-                    "text": "ad",
-                    "grammaticalRole": "VERB",
-                    "tabs": [
-                        {
-                            "side": "LEFT",
-                            "grammaticalRole": "SUBJECT",
-                            "text": ""
-                        },
-                        {
-                            "side": "TOP",
-                            "grammaticalRole": "OBJECT",
-                            "text": "-t"
-                        },
-                        {
-                            "side": "RIGHT",
-                            "grammaticalRole": "ADVERBIAL",
-                            "text": "-ra\n/re"
-                        },
-                        {
-                            "side": "BOTTOM",
-                            "grammaticalRole": "ADVERBIAL",
-                            "text": "-nak\n/nek"
-                        }
-                    ],
-                    "blanks": []
-                },
-                {
-                    "text": "Anna",
-                    "grammaticalRole": "UNDEFINED",
-                    "tabs": [],
-                    "blanks": [
-                        {
-                            "side": "BOTTOM"
-                        }
-                    ]
-                }
-            ],
-            "via": {
-                "side": "BOTTOM",
-                "grammaticalRole": "ADVERBIAL",
-                "text": "-nak\n/nek"
-            },
-            "roleOfConnection": "ADVERBIAL"
-        },
-        {
-            "puzzlesConnected": [
-                {
-                    "text": "ad",
-                    "grammaticalRole": "VERB",
-                    "tabs": [
-                        {
-                            "side": "LEFT",
-                            "grammaticalRole": "SUBJECT",
-                            "text": ""
-                        },
-                        {
-                            "side": "TOP",
-                            "grammaticalRole": "OBJECT",
-                            "text": "-t"
-                        },
-                        {
-                            "side": "RIGHT",
-                            "grammaticalRole": "ADVERBIAL",
-                            "text": "-ra\n/re"
-                        },
-                        {
-                            "side": "BOTTOM",
-                            "grammaticalRole": "ADVERBIAL",
-                            "text": "-nak\n/nek"
-                        }
-                    ],
-                    "blanks": []
-                },
-                {
-                    "text": "névnap",
-                    "grammaticalRole": "UNDEFINED",
-                    "tabs": [],
-                    "blanks": [
-                        {
-                            "side": "BOTTOM"
-                        }
-                    ]
-                }
-            ],
-            "via": {
-                "side": "RIGHT",
-                "grammaticalRole": "ADVERBIAL",
-                "text": "-ra\n/re"
-            },
-            "roleOfConnection": "ADVERBIAL"
-        }
+        "roleOfConnection": "ADVERBIAL"
+      }
     ]
+  }
 }

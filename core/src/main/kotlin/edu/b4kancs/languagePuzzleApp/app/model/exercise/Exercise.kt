@@ -1,6 +1,5 @@
 package edu.b4kancs.languagePuzzleApp.app.model.exercise
 
-import edu.b4kancs.languagePuzzleApp.app.model.Connection
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 import kotlinx.serialization.Serializable
 
@@ -17,5 +16,5 @@ data class Exercise(
     val type: TaskType,
     val taskDescription: String,
     val predefinedPieces: Set<PuzzlePiece>,
-    val solutionConfiguration: Set<Connection>
+    val solutionConfiguration: SolutionConfiguration
 )

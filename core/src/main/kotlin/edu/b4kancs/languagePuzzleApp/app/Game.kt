@@ -190,6 +190,20 @@ class Game(
         loadGameScreen()
     }
 
+    fun startDemo1() {
+        logger.info { "Starting demo exercise #1" }
+        // Initialize a demo exercise in gameModel
+        gameModel.loadExerciseFromDisk(Gdx.files.internal("tasks/puzzle_demo_task_1.json/"))
+        loadGameScreen()
+    }
+
+    fun startDemo2() {
+        logger.info { "Starting demo exercise #2" }
+        // Initialize a demo exercise in gameModel
+        gameModel.loadExerciseFromDisk(Gdx.files.internal("tasks/puzzle_demo_task_2.json/"))
+        loadGameScreen()
+    }
+
     fun loadExerciseFromDisk(fileHandle: FileHandle) {
         logger.info { "Loading exercise from file: ${fileHandle.path()}" }
 
