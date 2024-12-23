@@ -155,13 +155,14 @@ class UIManager(
         }
     }
 
-    fun displayTextEditorPopup(puzzlePiece: PuzzlePiece, onSave: (String) -> Unit, onCancel: () -> Unit) {
-        logger.debug { "displayTextEditorPopup puzzlePiece=${puzzlePiece.text}" }
-        
+    fun displayTextEditorPopup(text: String, pos: Vector2, onSave: (String) -> Unit, onCancel: () -> Unit) {
+        logger.debug { "displayTextEditorPopup puzzlePiece=$text" }
+
         TextEditorPopup(
             stage = uiStage,
             skin = uiSkin,
-            puzzlePiece = puzzlePiece,
+            text = text,
+            pos = pos,
             onSave = onSave,
             onCancel = onCancel,
             hudViewport = hudViewport,

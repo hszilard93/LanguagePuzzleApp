@@ -1,6 +1,7 @@
 package edu.b4kancs.languagePuzzleApp.app.model
 
 import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
 import edu.b4kancs.languagePuzzleApp.app.misc
 import edu.b4kancs.languagePuzzleApp.app.model.CustomColors.ADVERB_PURPLE
@@ -135,12 +136,20 @@ sealed interface PuzzlePieceFeature {
 }
 
 @Serializable(with = PuzzleTabSerializer::class)
-data class PuzzleTab(
+class PuzzleTab(
     override var owner: PuzzlePiece? = null,
     override val side: Side,
     val grammaticalRole: GrammaticalRole,
-    val text: String = ""
+    text: String = ""
 ) : PuzzlePieceFeature {
+    val textLayoutBounds = Rectangle(0f, 0f, 0f, 0f)
+
+    var text: String = text
+        set(value) {
+            field = value
+            owner?.hasChangedAppearance = true
+        }
+
     @Transient
     override var isGlowing: Boolean = false
         set(value) {
@@ -151,6 +160,10 @@ data class PuzzleTab(
     companion object {
         const val WIDTH = 150f
         const val HEIGHT = WIDTH * 1f
+    }
+
+    fun isPointerOverTextLayout(mousePos: Vector2): Boolean {
+        return textLayoutBounds.contains(mousePos.x, mousePos.y)
     }
 }
 
@@ -245,6 +258,9 @@ class PuzzlePiece(
     var boundingBoxSize: Float = calculateRenderSize()
         private set
         get() = calculateRenderSize()
+
+    @Transient
+    var textLayoutBounds: Rectangle = Rectangle(0f, 0f, 0f, 0f)
 
     companion object {
         val logger = logger<PuzzlePiece>()
@@ -353,6 +369,7 @@ class PuzzlePiece(
                 tabs.add(PuzzleTab(this, side, role, ""))
                 return tabs.last()
             }
+
             PuzzlePieceFeature.Type.BLANK -> {
                 blanks.add(PuzzleBlank(this, side))
                 return blanks.last()
@@ -393,7 +410,11 @@ class PuzzlePiece(
         }
     }
 
-    fun findFeatureUnderPointer(mousePos: Vector2): Optional<Pair<PuzzlePieceFeature.Type, Side>> {
+    fun isPointerOverTextLayout(mousePos: Vector2): Boolean {
+        return textLayoutBounds.contains(mousePos.x, mousePos.y)
+    }
+
+    fun findPotentialFeatureUnderPointer(mousePos: Vector2): Optional<Pair<PuzzlePieceFeature.Type, Side>> {
         setOf(Side.TOP, Side.BOTTOM, Side.LEFT, Side.RIGHT)
             .filter { side -> this.getAllFeatures().map { it.side }.contains(side).not() }
             .forEach { side ->
@@ -401,6 +422,7 @@ class PuzzlePiece(
                 val featureHeight = 40f
                 val featureWidth = 50f
 
+                var result: Optional<Pair<PuzzlePieceFeature.Type, Side>>? = null
                 when (side) {
                     Side.TOP -> {
                         val zoneYStart = pos.y + size
@@ -412,11 +434,13 @@ class PuzzlePiece(
                         if (isInVerticalSlice) {
                             val isTab = mousePos.y >= zoneYStart && mousePos.y <= zoneYStart + featureHeight
                             if (isTab) {
-                                return Optional.of(PuzzlePieceFeature.Type.TAB to side)
+                                result = Optional.of(PuzzlePieceFeature.Type.TAB to side)
                             }
-                            val isBlank = mousePos.y < zoneYStart && mousePos.y > zoneYStart - featureHeight
-                            if (isBlank) {
-                                return Optional.of(PuzzlePieceFeature.Type.BLANK to side)
+                            else {
+                                val isBlank = mousePos.y < zoneYStart && mousePos.y > zoneYStart - featureHeight
+                                if (isBlank) {  // We may only add one blank to a puzzle piece
+                                    result = Optional.of(PuzzlePieceFeature.Type.BLANK to side)
+                                }
                             }
                         }
                     }
@@ -431,11 +455,13 @@ class PuzzlePiece(
                         if (isInVerticalSlice) {
                             val isTab = zoneYStart >= mousePos.y && mousePos.y >= zoneYStart - featureHeight
                             if (isTab) {
-                                return Optional.of(PuzzlePieceFeature.Type.TAB to side)
+                                result = Optional.of(PuzzlePieceFeature.Type.TAB to side)
                             }
-                            val isBlank = mousePos.y > zoneYStart && mousePos.y <= zoneYStart + featureHeight
-                            if (isBlank) {
-                                return Optional.of(PuzzlePieceFeature.Type.BLANK to side)
+                            else {
+                                val isBlank = mousePos.y > zoneYStart && mousePos.y <= zoneYStart + featureHeight
+                                if (isBlank) {
+                                    result = Optional.of(PuzzlePieceFeature.Type.BLANK to side)
+                                }
                             }
                         }
                     }
@@ -450,11 +476,13 @@ class PuzzlePiece(
                         if (isInVerticalSlice) {
                             val isTab = zoneXStart >= mousePos.x && mousePos.x >= zoneXStart - featureHeight
                             if (isTab) {
-                                return Optional.of(PuzzlePieceFeature.Type.TAB to side)
+                                result = Optional.of(PuzzlePieceFeature.Type.TAB to side)
                             }
-                            val isBlank = mousePos.x > zoneXStart && mousePos.x <= zoneXStart + featureWidth
-                            if (isBlank) {
-                                return Optional.of(PuzzlePieceFeature.Type.BLANK to side)
+                            else {
+                                val isBlank = mousePos.x > zoneXStart && mousePos.x <= zoneXStart + featureWidth
+                                if (isBlank) {
+                                    result = Optional.of(PuzzlePieceFeature.Type.BLANK to side)
+                                }
                             }
                         }
                     }
@@ -469,14 +497,23 @@ class PuzzlePiece(
                         if (isInVerticalSlice) {
                             val isTab = mousePos.x >= zoneXStart && mousePos.x <= zoneXStart + featureHeight
                             if (isTab) {
-                                return Optional.of(PuzzlePieceFeature.Type.TAB to side)
+                                result = Optional.of(PuzzlePieceFeature.Type.TAB to side)
                             }
-                            val isBlank = mousePos.x < zoneXStart && mousePos.x > zoneXStart - featureWidth
-                            if (isBlank) {
-                                return Optional.of(PuzzlePieceFeature.Type.BLANK to side)
+                            else {
+                                val isBlank = mousePos.x < zoneXStart && mousePos.x > zoneXStart - featureWidth
+                                if (isBlank) {
+                                    result = Optional.of(PuzzlePieceFeature.Type.BLANK to side)
+                                }
                             }
                         }
                     }
+                }
+
+                if (result != null) {
+                    if (result.get().first == PuzzlePieceFeature.Type.BLANK && blanks.size > 0) {
+                        return Optional.empty()
+                    }
+                    return result
                 }
             }
         return Optional.empty()

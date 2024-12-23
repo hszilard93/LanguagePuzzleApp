@@ -1,6 +1,7 @@
 package edu.b4kancs.languagePuzzleApp.app.view.ui
 
 import com.badlogic.gdx.Input
+import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.InputListener
 import com.badlogic.gdx.scenes.scene2d.Stage
@@ -20,7 +21,8 @@ class TextEditorPopup(
     private val skin: Skin,
     private val hudViewport: HudViewport,
     private val gameViewport: GameViewport,
-    private val puzzlePiece: PuzzlePiece,
+    private val text: String,
+    private val pos: Vector2,
     private val onSave: (String) -> Unit,
     private val onCancel: () -> Unit
 ) {
@@ -39,7 +41,7 @@ class TextEditorPopup(
             titleTable.isVisible = false
             background = skin.getDrawable("white")
 
-            textField = TextField(puzzlePiece.text, skin)
+            textField = TextField(text, skin)
             saveButton = TextButton("Mentés", skin)
             cancelButton = TextButton("Mégse", skin)
 
@@ -76,7 +78,7 @@ class TextEditorPopup(
                 }
             })
 
-            val stagePosition = gameViewport.project(puzzlePiece.pos.cpy())
+            val stagePosition = gameViewport.project(pos.cpy())
             setPosition(
                 stagePosition.x + 100f,
                 stagePosition.y + 20f,

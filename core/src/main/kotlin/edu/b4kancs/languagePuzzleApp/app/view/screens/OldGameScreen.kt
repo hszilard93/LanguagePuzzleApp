@@ -456,7 +456,8 @@ class OldGameScreen(
         TextEditorPopup(
             stage = uiStage,
             skin = uiSkin,
-            puzzlePiece = puzzlePiece,
+            text = puzzlePiece.text,
+            pos = puzzlePiece.pos,
             onSave = { newText ->
                 if (!puzzlePiece.isConnected) puzzlePiece.text = newText
                 editingPuzzlePiece = null

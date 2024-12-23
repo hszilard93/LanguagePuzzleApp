@@ -21,6 +21,7 @@ class CursorManager(private val environment: Environment) {
     val rotateRightCursor = if (!environment.isMobile) loadCustomCursor(ROTATE_RIGHT_CURSOR) else null
     val removeFeatureCursor = if (!environment.isMobile) loadCustomCursor(REMOVE_FEATURE_CURSOR) else null
     val addFeatureCursor = if (!environment.isMobile) loadCustomCursor(ADD_FEATURE_CURSOR) else null
+    val editTextCursor = if (!environment.isMobile) loadCustomCursor(EDIT_TEXT_CURSOR) else null
 
     fun setCursor(cursor: Cursor?) {
         logger.debug { "setCursor cursor=$cursor" }

@@ -117,7 +117,18 @@ class PuzzlePieceDrawer(
         val text =
             puzzlePiece.text // + if (puzzlePiece.grammaticalRole == VERB) " (${puzzlePiece.connectionSize})" else ""
 
-        if (text.isEmpty()) return
+        if (text.isEmpty()) {
+            val firstBlank = puzzlePiece.getAllFeatures().filterIsInstance<PuzzleBlank>().firstOrNull()
+            val yOffset = when (firstBlank?.side) {
+                Side.TOP -> -40f
+                Side.BOTTOM -> 40f
+                else -> 0f
+            }
+            val layoutX = puzzlePiece.boundingBoxPos.x + puzzlePiece.boundingBoxSize / 2 - 25f
+            val layoutY = puzzlePiece.boundingBoxPos.y + puzzlePiece.boundingBoxSize / 2 - 25f + yOffset
+            puzzlePiece.textLayoutBounds.set(layoutX, layoutY, 50f, 50f)
+            return
+        }
 
         val blanks = puzzlePiece.blanks.map { it.side }.toSet()
         val key = BaseTextLayoutKey(text, blanks)
@@ -179,6 +190,24 @@ class PuzzlePieceDrawer(
         // Draw the text
         font.draw(batch, layout, layoutX, layoutY)
 //        drawGlyphLayoutDebugBounds(layout, Vector2(layoutX, layoutY))
+
+        val firstBlank = puzzlePiece.getAllFeatures().filterIsInstance<PuzzleBlank>().firstOrNull()
+        val yOffset = when (firstBlank?.side) {
+            Side.TOP -> -40f
+            Side.BOTTOM -> 40f
+            else -> 0f
+        }
+        val worldLayoutX = layoutX + puzzlePiece.boundingBoxPos.x
+        val worldLayoutY = layoutY + puzzlePiece.boundingBoxPos.y + yOffset
+
+        logger.info { "text = ${puzzlePiece.text} layout: $worldLayoutX, $worldLayoutY" }
+
+        puzzlePiece.textLayoutBounds.set(
+            worldLayoutX - 10f,
+            worldLayoutY - 10f,
+            layout.width + 20f,
+            layout.height + 20f
+        )
 
         logger.debug { "Cached layout for key: $key" }
 //        }
@@ -335,8 +364,34 @@ class PuzzlePieceDrawer(
             )
 
             if (tab.text.isNotEmpty()) {
-                drawTextOnTab(tab.text, Vector2(tabX, tabY), tab.side)
+                drawTextOnTab(tab, Vector2(tabX, tabY))
             }
+
+            val worldLayoutXOffset =
+                when (tab.side) {
+                    Side.LEFT -> PuzzleTab.WIDTH / 8f
+                    Side.RIGHT -> PuzzleTab.WIDTH / 4f * -1
+                    else -> PuzzleTab.WIDTH / 8f * -1
+                }
+
+            val worldLayoutYOffset =
+                when (tab.side) {
+                    Side.TOP -> PuzzleTab.HEIGHT / 2f * -1
+                    Side.BOTTOM -> PuzzleTab.HEIGHT / 5f * -1
+                    else -> PuzzleTab.HEIGHT / 2f * -1
+                }
+
+            val worldLayoutX = tabX + tab.owner!!.boundingBoxPos.x + PuzzleTab.HEIGHT / 2 + worldLayoutXOffset
+            val worldLayoutY = (tabY + tab.owner!!.boundingBoxPos.y) * -1 + PuzzleTab.WIDTH / 2 + worldLayoutYOffset
+
+            logger.info { "tabText = ${tab.text} layout: $worldLayoutX, $worldLayoutY" }
+
+            tab.textLayoutBounds.set(
+                worldLayoutX - 20f,
+                worldLayoutY - 20f,
+                75f,
+                75f
+            )
 
             batch.color = Color.WHITE
             batch.shader = null
@@ -345,7 +400,7 @@ class PuzzlePieceDrawer(
         batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA)
     }
 
-    private fun drawTextOnTab(text: String, tabPos: Vector2, side: Side) {
+    private fun drawTextOnTab(tab: PuzzleTab, tabPos: Vector2) {
         logger.misc { "drawTextOnTab" }
 
         font.color = Color.BLACK
@@ -354,7 +409,7 @@ class PuzzlePieceDrawer(
         val roundedY = tabPos.y
 
         // Create cache key
-        val key = TabTextLayoutKey(text, roundedX, roundedY)
+        val key = TabTextLayoutKey(tab.text, roundedX, roundedY)
 
         // Check if the layout data is already cached
         val cachedData = tabTextLayoutCache[key]
@@ -369,14 +424,14 @@ class PuzzlePieceDrawer(
 
             // Create a new GlyphLayout
             val layout = GlyphLayout().apply {
-                setText(font, text, Color.BLACK, PuzzleTab.WIDTH, Align.left, false)
+                setText(font, tab.text, Color.BLACK, PuzzleTab.WIDTH, Align.left, false)
             }
 
             // Calculate offsets based on the tab's side
             val xOffset: Float
             val yOffset: Float
 
-            when (side) {
+            when (tab.side) {
                 Side.TOP -> {
                     xOffset = PuzzleTab.WIDTH / 2 - layout.width / 2
                     yOffset = (PuzzleTab.HEIGHT * 0.75f) - layout.height / 2 - 16f

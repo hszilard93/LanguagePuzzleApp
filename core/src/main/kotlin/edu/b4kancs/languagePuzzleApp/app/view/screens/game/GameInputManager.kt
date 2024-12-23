@@ -10,6 +10,7 @@ import edu.b4kancs.languagePuzzleApp.app.model.Environment
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePieceFeature
+import edu.b4kancs.languagePuzzleApp.app.model.PuzzleTab
 import edu.b4kancs.languagePuzzleApp.app.model.Side
 import edu.b4kancs.languagePuzzleApp.app.view.screens.OldGameScreen
 import edu.b4kancs.languagePuzzleApp.app.view.utils.unprojectScreenCoords
@@ -57,7 +58,8 @@ class GameInputManager(
 
         if (!environment.isMobile) {
             // *First* first, If there is a popup active, we don't change cursors
-            if (uiManager.currentPopupWindow != null) {
+            if (uiManager.currentPopupWindow != null || puzzleManager.editingPuzzlePiece != null || puzzleManager.editingPuzzleFeature != null) {
+                cursorM.setCursor(null)
                 return false
             }
 
@@ -66,11 +68,10 @@ class GameInputManager(
             val puzzleUnderPointer = gameModel.puzzlePieces.find { isPointerOverPuzzlePiece(mousePos, it, true) }
 
             if (puzzleUnderPointer != null && puzzleManager.draggedPuzzlePiece == null) {
-
                 // We check if it's over a missing feature (TAB or BLANK)
                 var potentialFeatureType: Pair<PuzzlePieceFeature.Type, Side>? = null
 
-                val typeAndSideOrNull = puzzleUnderPointer.findFeatureUnderPointer(mousePos)
+                val typeAndSideOrNull = puzzleUnderPointer.findPotentialFeatureUnderPointer(mousePos)
                 if (!typeAndSideOrNull.isEmpty) {
                     logger.debug { "mouseMoved potentialFeatureType=${typeAndSideOrNull.get()}" }
                     potentialFeatureType = typeAndSideOrNull.get()
@@ -88,20 +89,41 @@ class GameInputManager(
                 // We check if it's over an existing feature
                 val featureUnderPointer = isPointOverPuzzleFeature(mousePos, puzzleUnderPointer)
                 if (!featureUnderPointer.isEmpty) {
+                    val feature = featureUnderPointer.get()
+                    if (feature is PuzzleTab) {
+                        val isPointerOverText = feature.isPointerOverTextLayout(mousePos)
+                        if (isPointerOverText) {
+                            cursorM.setCursor(cursorM.editTextCursor)
+                            puzzleManager.puzzleFeatureToEdit = feature
+                            return true
+                        }
+                    }
+                    puzzleManager.puzzleFeatureToEdit = null
+
                     cursorM.setCursor(cursorM.removeFeatureCursor)
-                    puzzleManager.featureToRemove = Pair(puzzleUnderPointer, featureUnderPointer.get())
+                    puzzleManager.featureToRemove = Pair(puzzleUnderPointer, feature)
                     return true
                 }
                 else {
                     puzzleManager.featureToRemove = null
                 }
 
+                // We check if it's over a puzzle piece's text
+                val isTextUnderPointer = puzzleUnderPointer.isPointerOverTextLayout(mousePos)
+                if (isTextUnderPointer) {
+                    cursorM.setCursor(cursorM.editTextCursor)
+                    puzzleManager.puzzlePieceToEdit = puzzleUnderPointer
+                    return true
+                }
+                puzzleManager.puzzlePieceToEdit = null
 
                 // We recheck if it's over the puzzle piece's exact area
                 if (isPointerOverPuzzlePiece(mousePos, puzzleUnderPointer, false)) {
                     cursorM.setCursor(cursorM.handOpenCursor)
+                    puzzleManager.puzzlePieceToDrag = puzzleUnderPointer
                     return true
                 }
+                puzzleManager.puzzlePieceToDrag = null
             }
 
             gameModel.puzzlePieces.filter { !it.isConnected }.forEach { puzzlePiece ->
@@ -144,6 +166,48 @@ class GameInputManager(
             return
         }
 
+        val worldCoordinates = cameraController.gameCamera.unprojectScreenCoords(screenX, screenY)
+        val mousePos = Vector2(worldCoordinates.x, worldCoordinates.y)
+
+        val currentTime = System.currentTimeMillis()
+        val isDoubleClick = currentTime - lastClickTime < doubleClickThreshold
+
+        if (isDoubleClick) {
+            puzzleManager.puzzlePieceToEdit?.let { puzzlePiece ->
+                if (puzzleManager.puzzlePieceToEdit!!.isPointerOverTextLayout(mousePos)) {
+                    logger.debug { "doubleClick puzzlePiece=$puzzlePiece" }
+                    if (!puzzlePiece.isConnected) {
+                        puzzleManager.openTextEditor(puzzlePiece)
+                        cursorM.setCursor(null)
+                    }
+                    return
+                }
+            }
+
+            puzzleManager.puzzleFeatureToEdit?.let { feature ->
+                feature as PuzzleTab
+                if (feature.isPointerOverTextLayout(mousePos)) {
+                    logger.debug { "doubleClick puzzleFeature=$feature" }
+                    puzzleManager.openTextEditor(feature)
+                    cursorM.setCursor(null)
+                }
+                return
+            }
+        }
+
+        lastClickTime = currentTime
+
+        if (uiManager.currentPopupWindow != null || puzzleManager.puzzleFeatureToEdit != null || puzzleManager.puzzlePieceToEdit != null) {
+            return
+        }
+
+        if (puzzleManager.puzzlePieceToDrag != null) {
+            puzzleManager.startDragging(puzzleManager.puzzlePieceToDrag!!, mousePos)
+            cursorM.setCursor(cursorM.handClosedCursor)
+            lastMouseWorldPos.set(mousePos)
+            return
+        }
+
         if (puzzleManager.featureTripleToAdd != null) {
             puzzleManager.addFeature()
             cursorM.setCursor(null)
@@ -165,37 +229,6 @@ class GameInputManager(
             logger.debug { "rotateRight" }
             puzzleManager.puzzlePieceToRotate!!.rotateRight()
             return
-        }
-
-        val worldCoordinates = cameraController.gameCamera.unprojectScreenCoords(screenX, screenY)
-        val mousePos = Vector2(worldCoordinates.x, worldCoordinates.y)
-
-        val currentTime = System.currentTimeMillis()
-
-        for (puzzlePiece in gameModel.puzzlePieces) {
-            if (isPointerOverPuzzlePiece(mousePos, puzzlePiece)) {
-                // Detect double click
-                if (currentTime - lastClickTime < doubleClickThreshold) {
-                    logger.debug { "doubleClick puzzlePiece=$puzzlePiece" }
-                    if (!puzzlePiece.isConnected) {
-                        puzzleManager.openTextEditor(puzzlePiece)
-                    }
-                    lastClickTime = 0
-                }
-                else {
-                    logger.debug { "touchDown puzzlePiece=$puzzlePiece" }
-                    lastClickTime = currentTime
-
-                    if (puzzlePiece.connectionSize < 2) {
-                        puzzleManager.startDragging(puzzlePiece, mousePos)
-
-                        cursorM.setCursor(cursorM.handClosedCursor)
-                        lastMouseWorldPos.set(mousePos)
-                        cursorM.setCursor(cursorM.handClosedCursor)
-                    }
-                }
-                return
-            }
         }
 
         // Start dragging the game

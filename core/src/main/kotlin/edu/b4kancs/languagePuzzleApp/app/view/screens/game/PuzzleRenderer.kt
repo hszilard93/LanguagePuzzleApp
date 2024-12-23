@@ -50,6 +50,7 @@ class PuzzleRenderer(
                     Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0)
                     texture.bind()
                     batch.use {
+                        gameViewport.apply()
                         batch.draw(
                             texture,
                             puzzlePiece.boundingBoxPos.x,

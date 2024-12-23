@@ -22,6 +22,7 @@ class PuzzleManager(
         val logger = logger<PuzzleManager>()
     }
 
+    var puzzlePieceToDrag: PuzzlePiece? = null
     var draggedPuzzlePiece: PuzzlePiece? = null
         private set
     var puzzlePieceToRotate: PuzzlePiece? = null
@@ -29,12 +30,17 @@ class PuzzleManager(
     var featureTripleToAdd: Triple<PuzzlePiece, Side, PuzzlePieceFeature.Type>? = null
     var featureToRemove: Pair<PuzzlePiece,PuzzlePieceFeature>? = null
 
-    private var editingPuzzlePiece: PuzzlePiece? = null
+    var puzzlePieceToEdit: PuzzlePiece? = null
+    var puzzleFeatureToEdit: PuzzlePieceFeature? = null
+    var editingPuzzlePiece: PuzzlePiece? = null
+        private set
+    var editingPuzzleFeature: PuzzlePieceFeature? = null
         private set
 
     fun startDragging(puzzlePiece: PuzzlePiece, mousePos: Vector2) {
         logger.debug { "startDragging puzzlePiece = $puzzlePiece mousePos = $mousePos" }
         draggedPuzzlePiece = puzzlePiece
+        puzzlePieceToDrag = null
 
         puzzlePiece.depth = gameModel.puzzlePieces.maxOfOrNull { it.depth }?.plus(1) ?: 0
 
@@ -80,12 +86,30 @@ class PuzzleManager(
 
         editingPuzzlePiece = puzzlePiece
         uiManager.displayTextEditorPopup(
-            puzzlePiece,
+            puzzlePiece.text,
+            puzzlePiece.pos,
             onSave = { newText ->
                 puzzlePiece.text = newText
                 editingPuzzlePiece = null
             },
             onCancel = { editingPuzzlePiece = null }
+        )
+    }
+
+    fun openTextEditor(puzzleFeature: PuzzleTab) {
+        logger.debug { "openTextEditor puzzleFeature = $puzzleFeature" }
+
+        if (editingPuzzleFeature != null) return
+
+        editingPuzzleFeature = puzzleFeature
+        uiManager.displayTextEditorPopup(
+            puzzleFeature.text,
+            puzzleFeature.getFeatureMidpoint(),
+            onSave = { newText ->
+                puzzleFeature.text = newText
+                editingPuzzleFeature = null
+            },
+            onCancel = { editingPuzzleFeature = null }
         )
     }
 

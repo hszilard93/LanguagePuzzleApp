@@ -84,10 +84,10 @@ class GameScreen(
         hudRenderer = HudRenderer(
             batch,
             hudCamera,
+            hudViewport,
             hudFont,
             gameCamera,
-            realToVirtualResolutionRatio = calculateResolutionRatio(),
-            getMousePositions = { getMousePositions() }
+            realToVirtualResolutionRatio = calculateResolutionRatio()
         )
 
         // Initialize Input Manager
@@ -127,9 +127,11 @@ class GameScreen(
         setBackgroundColor(180, 255, 180, 1f)
 
         // Render the game world
+        gameViewport.apply()
         puzzleRenderer.render(delta)
 
         // Render the HUD
+        hudViewport.apply()
         hudRenderer.render()
 
         // Update and draw the UI Stage

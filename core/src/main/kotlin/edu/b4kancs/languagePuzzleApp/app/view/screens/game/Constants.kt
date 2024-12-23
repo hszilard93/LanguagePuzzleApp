@@ -19,6 +19,8 @@ object Constants {
     const val GAME_MOBILE_MAX_WORLD_WIDTH = 2160f
     const val GAME_MOBILE_MAX_WORLD_HEIGHT = 3840f
 
+    const val ROTATE_BY_CORNERS = false
+
 //    const val HUD_VIRTUAL_WIDTH = 1200f
 //    const val HUD_VIRTUAL_HEIGHT = 800f
 //
