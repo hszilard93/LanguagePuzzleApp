@@ -118,9 +118,9 @@ class PuzzleSnapHelper(private val gameModel: GameModel) {
 
             for (target in compatibles) {
                 val distance = feature.getFeatureMidpoint().dst(target.getFeatureMidpoint())
-                val isTargetConnected = target in target.owner!!.copyOfConnections.map { it.via }
+                val isFeatureConnected = feature in target.owner!!.copyOfConnections.map { it.via }
 
-                if (distance < minDistance && !isTargetConnected) {
+                if (distance < minDistance && !isFeatureConnected) {
                     minDistance = distance
                     closestPair = Pair(feature, target)
                 }

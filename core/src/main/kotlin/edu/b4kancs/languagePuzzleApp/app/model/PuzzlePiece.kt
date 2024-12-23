@@ -230,7 +230,7 @@ class PuzzlePiece(
         set(value) {
             field = value
             boundingBoxPos = calculateRenderPosition()
-            _connections.forEach(Connection::removeConnection)
+//            _connections.forEach(Connection::removeConnection)
             hasChangedAppearance = true
         }
 
@@ -358,6 +358,9 @@ class PuzzlePiece(
 
     fun removeConnection(connection: Connection) {
         _connections.remove(connection)
+        connection.puzzlesConnected.filter { it != this }.forEach { other ->
+            if (other.copyOfConnections.contains(connection)) other.removeConnection(connection)
+        }
         hasChangedAppearance = true
     }
 

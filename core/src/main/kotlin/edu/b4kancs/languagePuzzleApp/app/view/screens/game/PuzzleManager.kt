@@ -2,6 +2,7 @@ package edu.b4kancs.languagePuzzleApp.app.view.screens.game
 
 import com.badlogic.gdx.math.Vector2
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
+import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePieceFeature
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzleTab
@@ -22,7 +23,7 @@ class PuzzleManager(
         val logger = logger<PuzzleManager>()
     }
 
-    var puzzlePieceToDrag: PuzzlePiece? = null
+    var puzzlePieceToDragOrRotate: PuzzlePiece? = null
     var draggedPuzzlePiece: PuzzlePiece? = null
         private set
     var puzzlePieceToRotate: PuzzlePiece? = null
@@ -40,7 +41,7 @@ class PuzzleManager(
     fun startDragging(puzzlePiece: PuzzlePiece, mousePos: Vector2) {
         logger.debug { "startDragging puzzlePiece = $puzzlePiece mousePos = $mousePos" }
         draggedPuzzlePiece = puzzlePiece
-        puzzlePieceToDrag = null
+        puzzlePieceToDragOrRotate = null
 
         puzzlePiece.depth = gameModel.puzzlePieces.maxOfOrNull { it.depth }?.plus(1) ?: 0
 
@@ -55,7 +56,18 @@ class PuzzleManager(
         val delta = mousePos.cpy().sub(lastPos)
         draggedPuzzlePiece!!.apply {
             pos = pos.add(delta)
+            if (this.grammaticalRole == GrammaticalRole.VERB) {
+                copyOfConnections
+                    .flatMap { it.puzzlesConnected.minus(this) }
+                    .forEach { otherPiece ->
+                        otherPiece.pos = otherPiece.pos.add(delta)
+                    }
+            }
+            else {
+                this.copyOfConnections.forEach(::removeConnection)
+            }
         }
+
         puzzleSnapHelper.updatePuzzleFeaturesByProximity()
     }
 

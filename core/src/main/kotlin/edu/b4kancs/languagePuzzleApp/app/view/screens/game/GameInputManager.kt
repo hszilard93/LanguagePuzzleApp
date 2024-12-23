@@ -45,6 +45,10 @@ class GameInputManager(
     private val doubleClickThreshold = 300
     private val longPressDuration = 500
 
+    private var isPotentialClick = false
+    private var initialTouchPos = Vector2()
+    private val dragThreshold = 5f
+
     init {
         logger.debug { "GameInputManager.init" }
     }
@@ -120,25 +124,25 @@ class GameInputManager(
                 // We recheck if it's over the puzzle piece's exact area
                 if (isPointerOverPuzzlePiece(mousePos, puzzleUnderPointer, false)) {
                     cursorM.setCursor(cursorM.handOpenCursor)
-                    puzzleManager.puzzlePieceToDrag = puzzleUnderPointer
+                    puzzleManager.puzzlePieceToDragOrRotate = puzzleUnderPointer
                     return true
                 }
-                puzzleManager.puzzlePieceToDrag = null
+                puzzleManager.puzzlePieceToDragOrRotate = null
             }
 
-            gameModel.puzzlePieces.filter { !it.isConnected }.forEach { puzzlePiece ->
-                val corner = isPointerNearCorner(mousePos, puzzlePiece)
-                if (corner != null) {
-                    puzzleManager.puzzlePieceToRotate = puzzlePiece
-                    cursorM.setCursor(
-                        when (corner) {
-                            Corner.TOP_LEFT -> cursorM.rotateLeftCursor
-                            Corner.TOP_RIGHT -> cursorM.rotateRightCursor
-                        }
-                    )
-                    return true
-                }
-            }
+//            gameModel.puzzlePieces.filter { !it.isConnected }.forEach { puzzlePiece ->
+//                val corner = isPointerNearCorner(mousePos, puzzlePiece)
+//                if (corner != null) {
+//                    puzzleManager.puzzlePieceToRotate = puzzlePiece
+//                    cursorM.setCursor(
+//                        when (corner) {
+//                            Corner.TOP_LEFT -> cursorM.rotateLeftCursor
+//                            Corner.TOP_RIGHT -> cursorM.rotateRightCursor
+//                        }
+//                    )
+//                    return true
+//                }
+//            }
 
             if (cursorM.currentCursor != null) {
                 cursorM.setCursor(null)
@@ -149,11 +153,16 @@ class GameInputManager(
 
     override fun touchDown(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
         when (button) {
-            Input.Buttons.LEFT -> handleLeftClick(screenX, screenY)
-            Input.Buttons.RIGHT -> handleRightClick()
+            Input.Buttons.LEFT -> {
+                handleLeftClick(screenX, screenY)
+                return true
+            }
+            Input.Buttons.RIGHT -> {
+                handleRightClick()
+                return true
+            }
             else -> return false
         }
-        return true
     }
 
     private fun handleLeftClick(screenX: Int, screenY: Int) {
@@ -201,13 +210,6 @@ class GameInputManager(
             return
         }
 
-        if (puzzleManager.puzzlePieceToDrag != null) {
-            puzzleManager.startDragging(puzzleManager.puzzlePieceToDrag!!, mousePos)
-            cursorM.setCursor(cursorM.handClosedCursor)
-            lastMouseWorldPos.set(mousePos)
-            return
-        }
-
         if (puzzleManager.featureTripleToAdd != null) {
             puzzleManager.addFeature()
             cursorM.setCursor(null)
@@ -217,6 +219,13 @@ class GameInputManager(
         if (puzzleManager.featureToRemove != null) {
             puzzleManager.removeFeature()
             cursorM.setCursor(cursorM.addFeatureCursor)
+            return
+        }
+
+        if (puzzleManager.puzzlePieceToDragOrRotate != null) {
+            isPotentialClick = true
+            initialTouchPos.set(mousePos)
+            lastMouseWorldPos.set(mousePos)
             return
         }
 
@@ -248,12 +257,21 @@ class GameInputManager(
         val worldCoordinates = cameraController.gameCamera.unprojectScreenCoords(screenX, screenY)
         val mousePos = Vector2(worldCoordinates.x, worldCoordinates.y)
 
-        if (puzzleManager.draggedPuzzlePiece != null) {
+        if (isPotentialClick && puzzleManager.puzzlePieceToDragOrRotate != null) {
+            val distanceMoved = mousePos.dst(initialTouchPos)
+            if (distanceMoved > dragThreshold) {
+                // Initiate drag
+                isPotentialClick = false
+                puzzleManager.startDragging(puzzleManager.puzzlePieceToDragOrRotate!!, initialTouchPos) // Use initialTouchPos for start
+                cursorM.setCursor(cursorM.handClosedCursor)
+                lastMouseWorldPos.set(mousePos)
+                return true
+            }
+        } else if (puzzleManager.draggedPuzzlePiece != null) {
             puzzleManager.dragPuzzle(mousePos, lastMouseWorldPos)
             lastMouseWorldPos.set(mousePos)
             return true
-        }
-        else if (isDraggingGame) {
+        } else if (isDraggingGame) {
             val deltaX = Gdx.input.deltaX.toFloat() * (1 / realToVirtualResolutionRatio) * cameraController.gameCamera.zoom
             val deltaY = Gdx.input.deltaY.toFloat() * (1 / realToVirtualResolutionRatio) * cameraController.gameCamera.zoom
             cameraController.gameCamera.translate(-deltaX, deltaY, 0f)
@@ -267,15 +285,22 @@ class GameInputManager(
         logger.debug { "touchUp button = $button" }
 
         if (button == Input.Buttons.LEFT) {
-//            if (isDraggingGame) {
+            if (isPotentialClick && puzzleManager.puzzlePieceToDragOrRotate != null) {
+                logger.debug { "Single click: Rotating puzzle piece" }
+                if (!puzzleManager.puzzlePieceToDragOrRotate!!.isConnected) {
+                    puzzleManager.puzzlePieceToDragOrRotate?.rotateRight()
+                }
+            }
+
             puzzleManager.stopDragging()
             isDraggingGame = false
-//            }
+            isPotentialClick = false // Reset the flag
 
             if (!environment.isMobile) {
                 if (cursorM.currentCursor == cursorM.handClosedCursor) {
                     cursorM.setCursor(cursorM.handOpenCursor)
                     gameModel.rebasePuzzleDepths()
+                    mouseMoved(screenX, screenY)
                 }
             }
             if (gameModel.isSolved()) {

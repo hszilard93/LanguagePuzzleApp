@@ -120,13 +120,13 @@ class PuzzlePieceDrawer(
         if (text.isEmpty()) {
             val firstBlank = puzzlePiece.getAllFeatures().filterIsInstance<PuzzleBlank>().firstOrNull()
             val yOffset = when (firstBlank?.side) {
-                Side.TOP -> -40f
-                Side.BOTTOM -> 40f
+                Side.TOP -> -50f
+                Side.BOTTOM -> 50f
                 else -> 0f
             }
-            val layoutX = puzzlePiece.boundingBoxPos.x + puzzlePiece.boundingBoxSize / 2 - 25f
-            val layoutY = puzzlePiece.boundingBoxPos.y + puzzlePiece.boundingBoxSize / 2 - 25f + yOffset
-            puzzlePiece.textLayoutBounds.set(layoutX, layoutY, 50f, 50f)
+            val layoutX = puzzlePiece.boundingBoxPos.x + puzzlePiece.boundingBoxSize / 2 - 50f
+            val layoutY = puzzlePiece.boundingBoxPos.y + puzzlePiece.boundingBoxSize / 2 - 50f + yOffset
+            puzzlePiece.textLayoutBounds.set(layoutX, layoutY, 100f, 100f)
             return
         }
 
@@ -193,20 +193,22 @@ class PuzzlePieceDrawer(
 
         val firstBlank = puzzlePiece.getAllFeatures().filterIsInstance<PuzzleBlank>().firstOrNull()
         val yOffset = when (firstBlank?.side) {
-            Side.TOP -> -40f
-            Side.BOTTOM -> 40f
+            Side.TOP -> -30f
+            Side.BOTTOM -> 30f
             else -> 0f
         }
-        val worldLayoutX = layoutX + puzzlePiece.boundingBoxPos.x
-        val worldLayoutY = layoutY + puzzlePiece.boundingBoxPos.y + yOffset
+//        val worldLayoutX = layoutX + puzzlePiece.boundingBoxPos.x
+//        val worldLayoutY = layoutY + puzzlePiece.boundingBoxPos.y + yOffset
+        val worldLayoutX = puzzlePiece.boundingBoxPos.x + puzzlePiece.boundingBoxSize / 2
+        val worldLayoutY = puzzlePiece.boundingBoxPos.y + puzzlePiece.boundingBoxSize / 2 + yOffset
 
         logger.info { "text = ${puzzlePiece.text} layout: $worldLayoutX, $worldLayoutY" }
 
         puzzlePiece.textLayoutBounds.set(
-            worldLayoutX - 10f,
-            worldLayoutY - 10f,
-            layout.width + 20f,
-            layout.height + 20f
+            worldLayoutX - 75f,
+            worldLayoutY - 50f,
+            150f,
+            100f
         )
 
         logger.debug { "Cached layout for key: $key" }
