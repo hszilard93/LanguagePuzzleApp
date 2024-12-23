@@ -91,9 +91,20 @@ class PuzzleManager(
 
     fun addFeature() {
         val (puzzle, side, type) = featureTripleToAdd!!
-        val addedFeature = puzzle.addFeature(type, side)
-        featureToRemove = puzzle to addedFeature
-        featureTripleToAdd = null
+
+        if (type == PuzzlePieceFeature.Type.TAB) {
+            uiManager.displayGrammaticalRolePopup(puzzle, side) { selectedRole ->
+                // Add the tab with the selected role
+                val addedFeature = puzzle.addFeature(type, side, selectedRole) // Modify addFeature to accept role
+                featureToRemove = puzzle to addedFeature
+                featureTripleToAdd = null
+            }
+        } else {
+            // Directly add the blank
+            val addedFeature = puzzle.addFeature(type, side) // Assuming blanks don't need role selection
+            featureToRemove = puzzle to addedFeature
+            featureTripleToAdd = null
+        }
     }
 
     fun removeFeature() {

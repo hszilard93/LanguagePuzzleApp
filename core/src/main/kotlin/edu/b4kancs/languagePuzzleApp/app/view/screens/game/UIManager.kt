@@ -3,18 +3,26 @@ package edu.b4kancs.languagePuzzleApp.app.view.screens.game
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.Texture
-import com.badlogic.gdx.scenes.scene2d.Actor
+import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Image
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.Window
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.Align
 import edu.b4kancs.languagePuzzleApp.app.GameViewport
 import edu.b4kancs.languagePuzzleApp.app.HudViewport
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
+import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
+import edu.b4kancs.languagePuzzleApp.app.model.Side
 import edu.b4kancs.languagePuzzleApp.app.view.ui.TextEditorPopup
 
 class UIManager(
@@ -29,6 +37,8 @@ class UIManager(
         val logger = ktx.log.logger<UIManager>()
     }
 
+    var currentPopupWindow: Window? = null
+
     lateinit var exerciseDescriptionFrame: Window
         private set
     lateinit var exerciseDescriptionLabel: Label
@@ -36,7 +46,7 @@ class UIManager(
     lateinit var checkMarkImage: Image
         private set
 
-    private var additionalActors = ArrayList<Actor>()
+    private var tabIcon = Texture(Gdx.files.internal("puzzle_tab_general_1.png"), Pixmap.Format.RGBA8888, true)
 
     fun initializeUI() {
         logger.debug { "initializeUI" }
@@ -147,7 +157,7 @@ class UIManager(
 
     fun displayTextEditorPopup(puzzlePiece: PuzzlePiece, onSave: (String) -> Unit, onCancel: () -> Unit) {
         logger.debug { "displayTextEditorPopup puzzlePiece=${puzzlePiece.text}" }
-
+        
         TextEditorPopup(
             stage = uiStage,
             skin = uiSkin,
@@ -157,6 +167,94 @@ class UIManager(
             hudViewport = hudViewport,
             gameViewport = gameViewport
         )
+
+//        currentPopupWindow = TextEditorPopup(
+//            stage = uiStage,
+//            skin = uiSkin,
+//            puzzlePiece = puzzlePiece,
+//            onSave = {
+//                onSave(it)
+//                currentPopupWindow = null
+//            },
+//            onCancel = {
+//                onCancel()
+//                currentPopupWindow = null
+//            },
+//            hudViewport = hudViewport,
+//            gameViewport = gameViewport
+//        ).window
+    }
+
+    fun displayGrammaticalRolePopup(puzzlePiece: PuzzlePiece, side: Side, onRoleSelected: (GrammaticalRole) -> Unit) {
+        logger.debug { "displayGrammaticalRolePopup for puzzlePiece=${puzzlePiece.text}" }
+
+        val popupWindow = Window("", uiSkin).also { popup ->
+            popup.isMovable = true
+            popup.isResizable = false
+
+            // Layout group for the buttons
+            val buttonTable = Table()
+
+            // Define the grammatical roles you want to offer
+            val roles = listOf(GrammaticalRole.SUBJECT, GrammaticalRole.OBJECT, GrammaticalRole.ADVERBIAL)
+
+            roles.forEach { role ->
+                val buttonStyle = ImageButton.ImageButtonStyle().apply {
+                    this.up = TextureRegionDrawable(TextureRegion(tabIcon)).tint(role.color)
+                }
+                val roleButton = ImageButton(buttonStyle).apply {
+                    addListener(object : ClickListener() {
+                        override fun clicked(event: InputEvent?, x: Float, y: Float) {
+                            logger.info { "ImageButton grammaticalRole = $role clicked" }
+                            onRoleSelected(role)
+                            currentPopupWindow = null
+                            popup.remove()
+                            true
+                        }
+                    })
+                }
+                buttonTable.add(roleButton).size(40f).pad(5f)
+                if (side == Side.LEFT || side == Side.RIGHT) {
+                    buttonTable.row()
+                }
+            }
+            popup.add(buttonTable).row()
+
+            popup.pack() // Adjust size to fit content
+
+            // Position the popup near the puzzle piece
+            val popupX: Float
+            val popupY: Float
+            with(puzzlePiece) {
+                when (side) {
+                    Side.TOP -> {
+                        popupX = pos.x + size / 2f
+                        popupY = pos.y + size + 50f
+                    }
+
+                    Side.BOTTOM -> {
+                        popupX = pos.x + size / 2f
+                        popupY = pos.y - 150f
+                    }
+
+                    Side.LEFT -> {
+                        popupX = pos.x - popup.width - 50f
+                        popupY = pos.y + size / 4f
+                    }
+
+                    Side.RIGHT -> {
+                        popupX = pos.x + size + popup.width + 50f
+                        popupY = pos.y + size / 4f
+                    }
+                }
+            }
+
+            val projectedCoords = gameViewport.project(Vector2(popupX, popupY))
+            popup.setPosition(projectedCoords.x, projectedCoords.y)
+        }
+
+        uiStage.addActor(popupWindow)
+        currentPopupWindow = popupWindow
     }
 
     fun dispose() {

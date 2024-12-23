@@ -345,12 +345,12 @@ class PuzzlePiece(
         hasChangedAppearance = true
     }
 
-    fun addFeature(type: PuzzlePieceFeature.Type, side: Side): PuzzlePieceFeature {
+    fun addFeature(type: PuzzlePieceFeature.Type, side: Side, role: GrammaticalRole = GrammaticalRole.UNDEFINED): PuzzlePieceFeature {
         logger.debug { "addFeature type=$type side=$side" }
         hasChangedAppearance = true
         when (type) {
             PuzzlePieceFeature.Type.TAB -> {
-                tabs.add(PuzzleTab(this, side, GrammaticalRole.UNDEFINED, ""))
+                tabs.add(PuzzleTab(this, side, role, ""))
                 return tabs.last()
             }
             PuzzlePieceFeature.Type.BLANK -> {

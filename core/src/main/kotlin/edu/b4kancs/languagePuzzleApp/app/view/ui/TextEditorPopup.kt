@@ -24,7 +24,7 @@ class TextEditorPopup(
     private val onSave: (String) -> Unit,
     private val onCancel: () -> Unit
 ) {
-    private val window: Window
+    val window: Window
     private val textField: TextField
     private val saveButton: TextButton
     private val cancelButton: TextButton

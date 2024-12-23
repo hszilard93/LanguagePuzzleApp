@@ -24,7 +24,7 @@ class GameInputManager(
     private val cameraController: CameraController,
     private val puzzleManager: PuzzleManager,
     private val cursorM: CursorManager,
-    private val puzzleSnapHelper: PuzzleSnapHelper,
+    private val uiManager: UIManager,
     private val environment: Environment,
     private val gameModel: GameModel,
     private val realToVirtualResolutionRatio: Float,
@@ -56,6 +56,11 @@ class GameInputManager(
         val mousePos = Vector2(worldCoordinates.x, worldCoordinates.y)
 
         if (!environment.isMobile) {
+            // *First* first, If there is a popup active, we don't change cursors
+            if (uiManager.currentPopupWindow != null) {
+                return false
+            }
+
             // First, we check if the pointer is over a puzzle piece's approximate area
             gameModel.puzzlePieces.sortByDescending { it.depth }
             val puzzleUnderPointer = gameModel.puzzlePieces.find { isPointerOverPuzzlePiece(mousePos, it, true) }
@@ -132,9 +137,16 @@ class GameInputManager(
     private fun handleLeftClick(screenX: Int, screenY: Int) {
         logger.debug { "handleLeftClick" }
 
+        if (uiManager.currentPopupWindow != null) {
+            logger.info { "Click besides popup, removing window." }
+            uiManager.currentPopupWindow!!.remove()
+            uiManager.currentPopupWindow = null
+            return
+        }
+
         if (puzzleManager.featureTripleToAdd != null) {
             puzzleManager.addFeature()
-            cursorM.setCursor(cursorM.removeFeatureCursor)
+            cursorM.setCursor(null)
             return
         }
 

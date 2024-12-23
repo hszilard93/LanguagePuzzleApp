@@ -95,7 +95,7 @@ class GameScreen(
             cameraController,
             puzzleManager,
             cursorManager,
-            puzzleSnapHelper,
+            uiManager,
             environment,
             gameModel,
             realToVirtualResolutionRatio = calculateResolutionRatio(),
