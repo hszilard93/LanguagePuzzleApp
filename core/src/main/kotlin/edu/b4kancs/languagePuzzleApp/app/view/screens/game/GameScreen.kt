@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector3
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.utils.viewport.ScreenViewport
+import edu.b4kancs.languagePuzzleApp.app.Game
 import edu.b4kancs.languagePuzzleApp.app.GameCamera
 import edu.b4kancs.languagePuzzleApp.app.GameViewport
 import edu.b4kancs.languagePuzzleApp.app.HudCamera
@@ -26,6 +27,7 @@ import ktx.log.logger
 
 class GameScreen(
     private val context: Context,
+    private val game: Game,
     private val batch: Batch,
     private val assetManager: AssetManager,
     private val gameViewport: GameViewport,
@@ -72,7 +74,9 @@ class GameScreen(
         cameraController = CameraController(gameCamera, hudCamera, gameViewport, hudViewport, gameModel)
         cameraController.setupCameras()
 
-        uiManager = UIManager(uiStage, uiSkin, hudViewport, gameViewport, gameModel)
+        uiManager = UIManager(uiStage, uiSkin, hudViewport, gameViewport, gameModel) {
+            game.backToMenu()
+        }
         uiManager.initializeUI()
 
         cursorManager = CursorManager(environment)

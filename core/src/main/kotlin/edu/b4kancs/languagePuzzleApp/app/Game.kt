@@ -167,6 +167,7 @@ class Game(
 //                OldGameScreen(
                 GameScreen(
                     context = inject(),
+                    game = this@Game,
                     batch = inject(),
                     assetManager = inject(),
                     gameViewport = inject(),
@@ -181,6 +182,15 @@ class Game(
         this.removeScreen<MainMenuScreen>()
 //        setScreen<OldGameScreen>()
         setScreen<GameScreen>()
+    }
+
+    fun backToMenu() {
+        logger.info { "backToMenu" }
+        this.removeScreen<GameScreen>()
+        with(context) {
+            addScreen(MainMenuScreen(game = this@Game, filePicker = inject()))
+        }
+        setScreen<MainMenuScreen>()
     }
 
     fun startDemo() {
