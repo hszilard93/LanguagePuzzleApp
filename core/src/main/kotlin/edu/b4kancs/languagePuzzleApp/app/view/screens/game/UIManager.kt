@@ -45,27 +45,33 @@ class UIManager(
     }
 
     private fun initializeExerciseDescriptionUI() {
-        logger.debug { "initializeExerciseDescriptionUI" }
+        logger.debug { "Initializing Exercise Description UI." }
 
         // Create the window with no title
         exerciseDescriptionFrame = Window("", uiSkin).apply {
             background = skin.getDrawable("white")
+
+            // Set semi-transparent background color (e.g., black with 50% opacity)
             background.minWidth = 300f
-            background.minHeight = 50f
+            background.minHeight = 100f
             color.a = 0.75f // Semi-transparent
             isMovable = false
             isResizable = false
+
+            // Set specific padding: 20px top, 40px left and right, and 10px bottom
             padTop(20f)
             padLeft(40f)
             padRight(40f)
             padBottom(10f)
+
+            // Initially invisible; visibility will be handled in updateExerciseDescription()
             isVisible = false
         }
 
         // Create the label for the description text
         exerciseDescriptionLabel = Label("", uiSkin).apply {
-            setWrap(true)
-            setAlignment(Align.center)
+            setWrap(true) // Enable text wrapping
+            setAlignment(Align.center) // Center-align the text
         }
 
         // Add the label to the window
@@ -85,21 +91,23 @@ class UIManager(
     }
 
     fun updateExerciseDescription() {
-        logger.debug { "updateExerciseDescription" }
-
         val currentExercise = gameModel.currentExercise
-        if (currentExercise?.taskDescription.isNullOrBlank().not()) {
+        if (currentExercise!!.taskDescription.isNotBlank()) {
             // Set the description text
-            exerciseDescriptionLabel.setText(currentExercise?.taskDescription)
+            exerciseDescriptionLabel.setText(currentExercise.taskDescription)
+
             // Adjust the window size based on the content
             exerciseDescriptionFrame.pack()
-            // Reposition the window to stay at the top center after packing
-            exerciseDescriptionFrame.setSize(hudViewport.screenWidth.toFloat(), 130f)
 
+            // Reposition the window to stay at the top center after packing
             exerciseDescriptionFrame.setPosition(
-                (hudViewport.screenWidth - exerciseDescriptionFrame.width) / 2,
-                hudViewport.screenHeight - exerciseDescriptionFrame.height
+                (hudViewport.worldWidth - exerciseDescriptionFrame.width) / 2,
+                hudViewport.worldHeight - exerciseDescriptionFrame.height - 10f
             )
+
+            exerciseDescriptionFrame.setSize(hudViewport.screenWidth.toFloat(), 130f)
+            exerciseDescriptionFrame.setPosition(0f, hudViewport.screenHeight.toFloat() - exerciseDescriptionFrame.height)
+
             // Make the window visible
             exerciseDescriptionFrame.isVisible = true
         }

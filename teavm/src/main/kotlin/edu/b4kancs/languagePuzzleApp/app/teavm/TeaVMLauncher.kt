@@ -10,6 +10,7 @@ import edu.b4kancs.languagePuzzleApp.app.model.Environment
 import edu.b4kancs.languagePuzzleApp.app.model.EnvironmentalImplementations
 import edu.b4kancs.languagePuzzleApp.app.model.Platform
 import edu.b4kancs.languagePuzzleApp.app.teavm.screen.ui.FilePickerJsImpl
+import org.teavm.jso.dom.xml.Document
 
 
 /** Launches the TeaVM/HTML application. */
@@ -53,6 +54,12 @@ class TeaVMLauncher {
         }
         val canvasSize = JsInterop.getCanvasSize().split(";").map(String::toInt)
         JsInterop.log("platform: $platform, canvasSize: ${canvasSize.first()}, ${canvasSize.last()}")
+
+        if (platform == Platform.WEB) {
+            JsInterop.log("disableBrowserScroll")
+            JsInterop.disableBrowserScroll()
+        }
+
         return Environment(platform, null, canvasSize.first(), canvasSize.last())
     }
 }

@@ -190,11 +190,14 @@ class GameInputManager(
     }
 
     override fun scrolled(amountX: Float, amountY: Float): Boolean {
+        logger.debug { "scrolled amountX=$amountX amountY=$amountY zoom=${cameraController.gameCamera.zoom}" }
+
         val mouseWorldPosBefore = Vector3(Gdx.input.x.toFloat(), Gdx.input.y.toFloat(), 0f)
         cameraController.gameCamera.unproject(mouseWorldPosBefore)
-        val newZoom = (cameraController.gameCamera.zoom + amountY * 0.1f).coerceIn(0.1f, 5f)
+        val newZoom = (cameraController.gameCamera.zoom + amountY * 0.05f).coerceIn(1f, 3.5f)
         cameraController.gameCamera.zoom = newZoom
         cameraController.gameCamera.update()
+
         val mouseWorldPosAfter = Vector3(Gdx.input.x.toFloat(), Gdx.input.y.toFloat(), 0f)
         cameraController.gameCamera.unproject(mouseWorldPosAfter)
         val offsetX = mouseWorldPosAfter.x - mouseWorldPosBefore.x

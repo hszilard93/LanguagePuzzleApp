@@ -115,13 +115,6 @@ data class PuzzleTab(
         const val WIDTH = 150f
         const val HEIGHT = WIDTH * 1f
     }
-
-//    override fun equals(other: Any?): Boolean {
-//        if (other is PuzzleTab) {
-//            return owner == other.owner && grammaticalRole == other.grammaticalRole && text == other.text
-//        }
-//        return false
-//    }
 }
 
 @Serializable(with = PuzzleBlankSerializer::class)
@@ -338,18 +331,6 @@ class PuzzlePiece(
             size = (size + sizeChange).coerceIn(minOf(size, targetSize), maxOf(size, targetSize))
         }
     }
-
-//    override fun equals(other: Any?): Boolean {
-//        if (other is PuzzlePiece)
-//            return other.text == text
-//                && other.grammaticalRole == grammaticalRole
-//                && tabs.containsAll(other.tabs)
-//                && tabs.size == other.tabs.size
-//                && blanks.containsAll(other.blanks)
-//                && blanks.size == other.blanks.size
-//
-//        return false
-//    }
 }
 
 class InvalidPuzzlePieceException(message: String) : IllegalArgumentException(message)

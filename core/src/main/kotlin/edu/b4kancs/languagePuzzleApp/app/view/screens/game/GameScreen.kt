@@ -148,8 +148,6 @@ class GameScreen(
         super.dispose()
     }
 
-    // Utility Methods
-
     private fun calculateResolutionRatio(): Float {
         val screenSize = Gdx.graphics.width.toFloat() to Gdx.graphics.height.toFloat()
         val viewPortSize = gameCamera.viewportWidth to gameCamera.viewportHeight

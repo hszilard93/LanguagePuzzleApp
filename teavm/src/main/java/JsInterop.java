@@ -14,4 +14,16 @@ public class JsInterop {
         return "" + width + ";" + height;
         """ )
     public static native String getCanvasSize();
+
+    @JSBody(params = { }, script = "return document;" )
+    public static native Object getDocument();
+
+    @JSBody(params = { }, script = """
+        window.addEventListener("wheel", function(e) {
+          if (e.ctrlKey || e.metaKey || e.shiftKey) { // Optionally check for modifier keys
+            e.preventDefault();
+          }
+        }, { passive: false });
+        """ )
+    public static native void disableBrowserScroll();
 }
