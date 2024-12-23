@@ -3,6 +3,9 @@ package edu.b4kancs.languagePuzzleApp.app.view.screens.game
 import com.badlogic.gdx.math.Vector2
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
+import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePieceFeature
+import edu.b4kancs.languagePuzzleApp.app.model.PuzzleTab
+import edu.b4kancs.languagePuzzleApp.app.model.Side
 import ktx.log.logger
 
 enum class RotationDirection {
@@ -22,6 +25,10 @@ class PuzzleManager(
     var draggedPuzzlePiece: PuzzlePiece? = null
         private set
     var puzzlePieceToRotate: PuzzlePiece? = null
+
+    var featureTripleToAdd: Triple<PuzzlePiece, Side, PuzzlePieceFeature.Type>? = null
+    var featureToRemove: Pair<PuzzlePiece,PuzzlePieceFeature>? = null
+
     private var editingPuzzlePiece: PuzzlePiece? = null
         private set
 
@@ -80,5 +87,19 @@ class PuzzleManager(
             },
             onCancel = { editingPuzzlePiece = null }
         )
+    }
+
+    fun addFeature() {
+        val (puzzle, side, type) = featureTripleToAdd!!
+        val addedFeature = puzzle.addFeature(type, side)
+        featureToRemove = puzzle to addedFeature
+        featureTripleToAdd = null
+    }
+
+    fun removeFeature() {
+        val (puzzle, feature) = featureToRemove!!
+        puzzle.removeFeature(feature)
+        featureTripleToAdd = Triple(puzzle, feature.side, if (feature is PuzzleTab) PuzzlePieceFeature.Type.TAB else PuzzlePieceFeature.Type.BLANK)
+        featureToRemove = null
     }
 }

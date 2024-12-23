@@ -9,8 +9,11 @@ import edu.b4kancs.languagePuzzleApp.app.misc
 import edu.b4kancs.languagePuzzleApp.app.model.Environment
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
+import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePieceFeature
+import edu.b4kancs.languagePuzzleApp.app.model.Side
 import edu.b4kancs.languagePuzzleApp.app.view.screens.OldGameScreen
 import edu.b4kancs.languagePuzzleApp.app.view.utils.unprojectScreenCoords
+import java.util.Optional
 
 
 enum class Corner {
@@ -51,35 +54,67 @@ class GameInputManager(
 
         val worldCoordinates = cameraController.gameCamera.unprojectScreenCoords(screenX, screenY)
         val mousePos = Vector2(worldCoordinates.x, worldCoordinates.y)
-        val isOverPuzzlePiece = gameModel.puzzlePieces.any { isPointOverPuzzlePiece(mousePos, it) }
-        val isOverPuzzleFeature = gameModel.puzzlePieces.any { isPointOverPuzzleFeature(mousePos, it) }
 
         if (!environment.isMobile) {
-            if (isOverPuzzleFeature) {
-                cursorM.setCursor(cursorM.removeFeatureCursor)
-                return true
-            }
-            if (isOverPuzzlePiece && puzzleManager.draggedPuzzlePiece == null) {
-                cursorM.setCursor(cursorM.handOpenCursor)
-                return true
-            }
-            else {
-                gameModel.puzzlePieces.filter { !it.isConnected }.forEach { puzzlePiece ->
-                    val corner = isPointerNearCorner(mousePos, puzzlePiece)
-                    if (corner != null) {
-                        puzzleManager.puzzlePieceToRotate = puzzlePiece
-                        cursorM.setCursor(
-                            when (corner) {
-                                Corner.TOP_LEFT -> cursorM.rotateLeftCursor
-                                Corner.TOP_RIGHT -> cursorM.rotateRightCursor
-                            }
-                        )
-                        return true
-                    }
+            // First, we check if the pointer is over a puzzle piece's approximate area
+            gameModel.puzzlePieces.sortByDescending { it.depth }
+            val puzzleUnderPointer = gameModel.puzzlePieces.find { isPointerOverPuzzlePiece(mousePos, it, true) }
+
+            if (puzzleUnderPointer != null && puzzleManager.draggedPuzzlePiece == null) {
+
+                // We check if it's over a missing feature (TAB or BLANK)
+                var potentialFeatureType: Pair<PuzzlePieceFeature.Type, Side>? = null
+
+                val typeAndSideOrNull = puzzleUnderPointer.findFeatureUnderPointer(mousePos)
+                if (!typeAndSideOrNull.isEmpty) {
+                    logger.debug { "mouseMoved potentialFeatureType=${typeAndSideOrNull.get()}" }
+                    potentialFeatureType = typeAndSideOrNull.get()
                 }
-                if (cursorM.currentCursor != null) {
-                    cursorM.setCursor(null)
+
+                if (potentialFeatureType != null) {
+                    cursorM.setCursor(cursorM.addFeatureCursor)
+                    puzzleManager.featureTripleToAdd = Triple(puzzleUnderPointer, potentialFeatureType.second, potentialFeatureType.first)
+                    return true
                 }
+                else {
+                    puzzleManager.featureTripleToAdd = null
+                }
+
+                // We check if it's over an existing feature
+                val featureUnderPointer = isPointOverPuzzleFeature(mousePos, puzzleUnderPointer)
+                if (!featureUnderPointer.isEmpty) {
+                    cursorM.setCursor(cursorM.removeFeatureCursor)
+                    puzzleManager.featureToRemove = Pair(puzzleUnderPointer, featureUnderPointer.get())
+                    return true
+                }
+                else {
+                    puzzleManager.featureToRemove = null
+                }
+
+
+                // We recheck if it's over the puzzle piece's exact area
+                if (isPointerOverPuzzlePiece(mousePos, puzzleUnderPointer, false)) {
+                    cursorM.setCursor(cursorM.handOpenCursor)
+                    return true
+                }
+            }
+
+            gameModel.puzzlePieces.filter { !it.isConnected }.forEach { puzzlePiece ->
+                val corner = isPointerNearCorner(mousePos, puzzlePiece)
+                if (corner != null) {
+                    puzzleManager.puzzlePieceToRotate = puzzlePiece
+                    cursorM.setCursor(
+                        when (corner) {
+                            Corner.TOP_LEFT -> cursorM.rotateLeftCursor
+                            Corner.TOP_RIGHT -> cursorM.rotateRightCursor
+                        }
+                    )
+                    return true
+                }
+            }
+
+            if (cursorM.currentCursor != null) {
+                cursorM.setCursor(null)
             }
         }
         return false
@@ -96,6 +131,18 @@ class GameInputManager(
 
     private fun handleLeftClick(screenX: Int, screenY: Int) {
         logger.debug { "handleLeftClick" }
+
+        if (puzzleManager.featureTripleToAdd != null) {
+            puzzleManager.addFeature()
+            cursorM.setCursor(cursorM.removeFeatureCursor)
+            return
+        }
+
+        if (puzzleManager.featureToRemove != null) {
+            puzzleManager.removeFeature()
+            cursorM.setCursor(cursorM.addFeatureCursor)
+            return
+        }
 
         if (cursorM.currentCursor == cursorM.rotateLeftCursor) {
             logger.debug { "rotateLeft" }
@@ -114,7 +161,7 @@ class GameInputManager(
         val currentTime = System.currentTimeMillis()
 
         for (puzzlePiece in gameModel.puzzlePieces) {
-            if (isPointOverPuzzlePiece(mousePos, puzzlePiece)) {
+            if (isPointerOverPuzzlePiece(mousePos, puzzlePiece)) {
                 // Detect double click
                 if (currentTime - lastClickTime < doubleClickThreshold) {
                     logger.debug { "doubleClick puzzlePiece=$puzzlePiece" }
@@ -176,8 +223,8 @@ class GameInputManager(
 
         if (button == Input.Buttons.LEFT) {
 //            if (isDraggingGame) {
-                puzzleManager.stopDragging()
-                isDraggingGame = false
+            puzzleManager.stopDragging()
+            isDraggingGame = false
 //            }
 
             if (!environment.isMobile) {
@@ -212,33 +259,30 @@ class GameInputManager(
         return true
     }
 
-    private fun isPointOverPuzzlePiece(mousePos: Vector2, puzzlePiece: PuzzlePiece): Boolean {
-        return mousePos.x in puzzlePiece.pos.x..(puzzlePiece.pos.x + puzzlePiece.size) &&
-            mousePos.y in puzzlePiece.pos.y..(puzzlePiece.pos.y + puzzlePiece.size)
+    private fun isPointerOverPuzzlePiece(mousePos: Vector2, puzzlePiece: PuzzlePiece, approximate: Boolean = false): Boolean {
+        val offset = if (approximate) 50f else 0f
+
+        return mousePos.x in (puzzlePiece.pos.x - offset)..(puzzlePiece.pos.x + puzzlePiece.size + offset) &&
+            mousePos.y in (puzzlePiece.pos.y - offset)..(puzzlePiece.pos.y + puzzlePiece.size + offset)
     }
 
-    private fun isPointOverPuzzleFeature(mousePos: Vector2, puzzlePiece: PuzzlePiece): Boolean {
-        // First, check if the point is over the main body of the puzzle piece
-//        if (mousePos.x in puzzlePiece.pos.x..(puzzlePiece.pos.x + puzzlePiece.size) &&
-//            mousePos.y in puzzlePiece.pos.y..(puzzlePiece.pos.y + puzzlePiece.size)) {
-//            return true
-//        }
+    private fun isPointOverPuzzleFeature(mousePos: Vector2, puzzlePiece: PuzzlePiece): Optional<PuzzlePieceFeature> {
 
         puzzlePiece.tabs.forEach { tab ->
             if (tab.isPointOverFeature(mousePos)) {
                 logger.info { "Pointer is over tab." }
-                return true
+                return Optional.of(tab)
             }
         }
 
         puzzlePiece.blanks.forEach { blank ->
             if (blank.isPointOverFeature(mousePos)) {
                 logger.info { "Pointer is over blank." }
-                return true
+                return Optional.of(blank)
             }
         }
 
-        return false
+        return Optional.empty()
     }
 
     private fun isPointerNearCorner(mousePos: Vector2, puzzlePiece: PuzzlePiece): Corner? {

@@ -14,6 +14,7 @@ import kotlinx.serialization.Polymorphic
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import ktx.log.logger
+import java.util.Optional
 import kotlin.math.sign
 
 @Serializable
@@ -59,8 +60,12 @@ sealed interface PuzzlePieceFeature {
     @Transient
     var isGlowing: Boolean
 
-    fun getType(): String {
-        return if (this is PuzzleTab) "Tab" else "Blank"
+    enum class Type {
+        TAB, BLANK
+    }
+
+    fun getType(): Type {
+        return if (this is PuzzleTab) Type.TAB else Type.BLANK
     }
 
     // Method to calculate the midpoint of the feature
@@ -340,6 +345,30 @@ class PuzzlePiece(
         hasChangedAppearance = true
     }
 
+    fun addFeature(type: PuzzlePieceFeature.Type, side: Side): PuzzlePieceFeature {
+        logger.debug { "addFeature type=$type side=$side" }
+        hasChangedAppearance = true
+        when (type) {
+            PuzzlePieceFeature.Type.TAB -> {
+                tabs.add(PuzzleTab(this, side, GrammaticalRole.UNDEFINED, ""))
+                return tabs.last()
+            }
+            PuzzlePieceFeature.Type.BLANK -> {
+                blanks.add(PuzzleBlank(this, side))
+                return blanks.last()
+            }
+        }
+    }
+
+    fun removeFeature(feature: PuzzlePieceFeature) {
+        logger.debug { "removeFeature feature=$feature" }
+        when (feature) {
+            is PuzzleTab -> tabs.remove(feature)
+            is PuzzleBlank -> blanks.remove(feature)
+        }
+        hasChangedAppearance = true
+    }
+
     private fun calculateRenderPosition(): Vector2 = Vector2(pos.x - PuzzleTab.HEIGHT, pos.y - PuzzleTab.HEIGHT)
 
     private fun calculateRenderSize(): Float = size + 2f * PuzzleTab.HEIGHT
@@ -363,6 +392,96 @@ class PuzzlePiece(
             size = (size + sizeChange).coerceIn(minOf(size, targetSize), maxOf(size, targetSize))
         }
     }
+
+    fun findFeatureUnderPointer(mousePos: Vector2): Optional<Pair<PuzzlePieceFeature.Type, Side>> {
+        setOf(Side.TOP, Side.BOTTOM, Side.LEFT, Side.RIGHT)
+            .filter { side -> this.getAllFeatures().map { it.side }.contains(side).not() }
+            .forEach { side ->
+                val isTab = true
+                val featureHeight = 40f
+                val featureWidth = 50f
+
+                when (side) {
+                    Side.TOP -> {
+                        val zoneYStart = pos.y + size
+
+                        val zoneXStart = pos.x + (size - featureWidth) / 2f
+                        val zoneXEnd = zoneXStart + featureWidth
+
+                        val isInVerticalSlice = mousePos.x in zoneXStart..zoneXEnd
+                        if (isInVerticalSlice) {
+                            val isTab = mousePos.y >= zoneYStart && mousePos.y <= zoneYStart + featureHeight
+                            if (isTab) {
+                                return Optional.of(PuzzlePieceFeature.Type.TAB to side)
+                            }
+                            val isBlank = mousePos.y < zoneYStart && mousePos.y > zoneYStart - featureHeight
+                            if (isBlank) {
+                                return Optional.of(PuzzlePieceFeature.Type.BLANK to side)
+                            }
+                        }
+                    }
+
+                    Side.BOTTOM -> {
+                        val zoneYStart = pos.y
+
+                        val zoneXStart = pos.x + (size - featureWidth) / 2f
+                        val zoneXEnd = zoneXStart + featureWidth
+
+                        val isInVerticalSlice = mousePos.x in zoneXStart..zoneXEnd
+                        if (isInVerticalSlice) {
+                            val isTab = zoneYStart >= mousePos.y && mousePos.y >= zoneYStart - featureHeight
+                            if (isTab) {
+                                return Optional.of(PuzzlePieceFeature.Type.TAB to side)
+                            }
+                            val isBlank = mousePos.y > zoneYStart && mousePos.y <= zoneYStart + featureHeight
+                            if (isBlank) {
+                                return Optional.of(PuzzlePieceFeature.Type.BLANK to side)
+                            }
+                        }
+                    }
+
+                    Side.LEFT -> {
+                        val zoneXStart = pos.x
+
+                        val zoneYStart = pos.y + (size - featureWidth) / 2f
+                        val zoneYEnd = zoneYStart + featureWidth
+
+                        val isInVerticalSlice = mousePos.y in zoneYStart..zoneYEnd
+                        if (isInVerticalSlice) {
+                            val isTab = zoneXStart >= mousePos.x && mousePos.x >= zoneXStart - featureHeight
+                            if (isTab) {
+                                return Optional.of(PuzzlePieceFeature.Type.TAB to side)
+                            }
+                            val isBlank = mousePos.x > zoneXStart && mousePos.x <= zoneXStart + featureWidth
+                            if (isBlank) {
+                                return Optional.of(PuzzlePieceFeature.Type.BLANK to side)
+                            }
+                        }
+                    }
+
+                    Side.RIGHT -> {
+                        val zoneXStart = pos.x + size
+
+                        val zoneYStart = pos.y + (size - featureWidth) / 2f
+                        val zoneYEnd = zoneYStart + featureWidth
+
+                        val isInVerticalSlice = mousePos.y in zoneYStart..zoneYEnd
+                        if (isInVerticalSlice) {
+                            val isTab = mousePos.x >= zoneXStart && mousePos.x <= zoneXStart + featureHeight
+                            if (isTab) {
+                                return Optional.of(PuzzlePieceFeature.Type.TAB to side)
+                            }
+                            val isBlank = mousePos.x < zoneXStart && mousePos.x > zoneXStart - featureWidth
+                            if (isBlank) {
+                                return Optional.of(PuzzlePieceFeature.Type.BLANK to side)
+                            }
+                        }
+                    }
+                }
+            }
+        return Optional.empty()
+    }
 }
+
 
 class InvalidPuzzlePieceException(message: String) : IllegalArgumentException(message)
