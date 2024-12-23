@@ -51,10 +51,15 @@ class GameInputManager(
 
         val worldCoordinates = cameraController.gameCamera.unprojectScreenCoords(screenX, screenY)
         val mousePos = Vector2(worldCoordinates.x, worldCoordinates.y)
-        val overPuzzlePiece = gameModel.puzzlePieces.any { isPointOverPuzzlePiece(mousePos, it) }
+        val isOverPuzzlePiece = gameModel.puzzlePieces.any { isPointOverPuzzlePiece(mousePos, it) }
+        val isOverPuzzleFeature = gameModel.puzzlePieces.any { isPointOverPuzzleFeature(mousePos, it) }
 
         if (!environment.isMobile) {
-            if (overPuzzlePiece && puzzleManager.draggedPuzzlePiece == null) {
+            if (isOverPuzzleFeature) {
+                cursorM.setCursor(cursorM.removeFeatureCursor)
+                return true
+            }
+            if (isOverPuzzlePiece && puzzleManager.draggedPuzzlePiece == null) {
                 cursorM.setCursor(cursorM.handOpenCursor)
                 return true
             }
@@ -210,6 +215,30 @@ class GameInputManager(
     private fun isPointOverPuzzlePiece(mousePos: Vector2, puzzlePiece: PuzzlePiece): Boolean {
         return mousePos.x in puzzlePiece.pos.x..(puzzlePiece.pos.x + puzzlePiece.size) &&
             mousePos.y in puzzlePiece.pos.y..(puzzlePiece.pos.y + puzzlePiece.size)
+    }
+
+    private fun isPointOverPuzzleFeature(mousePos: Vector2, puzzlePiece: PuzzlePiece): Boolean {
+        // First, check if the point is over the main body of the puzzle piece
+//        if (mousePos.x in puzzlePiece.pos.x..(puzzlePiece.pos.x + puzzlePiece.size) &&
+//            mousePos.y in puzzlePiece.pos.y..(puzzlePiece.pos.y + puzzlePiece.size)) {
+//            return true
+//        }
+
+        puzzlePiece.tabs.forEach { tab ->
+            if (tab.isPointOverFeature(mousePos)) {
+                logger.info { "Pointer is over tab." }
+                return true
+            }
+        }
+
+        puzzlePiece.blanks.forEach { blank ->
+            if (blank.isPointOverFeature(mousePos)) {
+                logger.info { "Pointer is over blank." }
+                return true
+            }
+        }
+
+        return false
     }
 
     private fun isPointerNearCorner(mousePos: Vector2, puzzlePiece: PuzzlePiece): Corner? {

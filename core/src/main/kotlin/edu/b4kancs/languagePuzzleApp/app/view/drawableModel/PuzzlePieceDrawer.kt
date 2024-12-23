@@ -115,7 +115,7 @@ class PuzzlePieceDrawer(
         logger.misc { "drawText" }
 
         val text =
-            puzzlePiece.text + if (puzzlePiece.grammaticalRole == VERB) " (${puzzlePiece.connectionSize})" else ""
+            puzzlePiece.text // + if (puzzlePiece.grammaticalRole == VERB) " (${puzzlePiece.connectionSize})" else ""
 
         if (text.isEmpty()) return
 

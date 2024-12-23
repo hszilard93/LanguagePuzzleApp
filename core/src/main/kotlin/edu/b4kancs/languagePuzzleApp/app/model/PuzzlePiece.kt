@@ -95,6 +95,38 @@ sealed interface PuzzlePieceFeature {
             }
         } ?: Vector2(0f, 0f)
     }
+
+    fun isPointOverFeature(mousePos: Vector2): Boolean {
+        val midpoint = getFeatureMidpoint()
+        val width = when (this) {
+            is PuzzleTab -> PuzzleTab.WIDTH
+            is PuzzleBlank -> PuzzleBlank.WIDTH
+        }
+        val height = when (this) {
+            is PuzzleTab -> PuzzleTab.HEIGHT / 1.5f
+            is PuzzleBlank -> PuzzleBlank.HEIGHT / 1.75f
+        }
+
+        val heightOffset = when (this) {
+            is PuzzleTab -> 40f
+            is PuzzleBlank -> -30f
+        }
+
+        // Adjust the bounding box calculation based on the side
+        return when (this.side) {
+            Side.TOP -> mousePos.x in (midpoint.x - width / 2f)..(midpoint.x + width / 2f) &&
+                mousePos.y in (midpoint.y - height / 2f) - heightOffset..(midpoint.y + height / 2f) - heightOffset
+
+            Side.BOTTOM -> mousePos.x in (midpoint.x - width / 2f)..(midpoint.x + width / 2f) &&
+                mousePos.y in (midpoint.y - height / 2f) + heightOffset..(midpoint.y + height / 2f) + heightOffset
+
+            Side.LEFT -> mousePos.x in (midpoint.x - height / 2f) + heightOffset..(midpoint.x + height / 2f) + heightOffset &&
+                mousePos.y in (midpoint.y - width / 2f)..(midpoint.y + width / 2f)
+
+            Side.RIGHT -> mousePos.x in (midpoint.x - height / 2f) - heightOffset..(midpoint.x + height / 2f) - heightOffset &&
+                mousePos.y in (midpoint.y - width / 2f)..(midpoint.y + width / 2f)
+        }
+    }
 }
 
 @Serializable(with = PuzzleTabSerializer::class)

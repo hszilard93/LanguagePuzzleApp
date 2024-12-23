@@ -3,10 +3,7 @@ package edu.b4kancs.languagePuzzleApp.app.view.screens.game
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Cursor
 import edu.b4kancs.languagePuzzleApp.app.model.Environment
-import edu.b4kancs.languagePuzzleApp.app.view.screens.game.CustomCursorLoader.CustomCursor.CLOSED_HAND_CURSOR
-import edu.b4kancs.languagePuzzleApp.app.view.screens.game.CustomCursorLoader.CustomCursor.OPEN_HAND_CURSOR
-import edu.b4kancs.languagePuzzleApp.app.view.screens.game.CustomCursorLoader.CustomCursor.ROTATE_LEFT_CURSOR
-import edu.b4kancs.languagePuzzleApp.app.view.screens.game.CustomCursorLoader.CustomCursor.ROTATE_RIGHT_CURSOR
+import edu.b4kancs.languagePuzzleApp.app.view.screens.game.CustomCursorLoader.CustomCursor.*
 import edu.b4kancs.languagePuzzleApp.app.view.screens.game.CustomCursorLoader.loadCustomCursor
 
 class CursorManager(private val environment: Environment) {
@@ -22,6 +19,8 @@ class CursorManager(private val environment: Environment) {
     val handClosedCursor = if (!environment.isMobile) loadCustomCursor(CLOSED_HAND_CURSOR) else null
     val rotateLeftCursor = if (!environment.isMobile) loadCustomCursor(ROTATE_LEFT_CURSOR) else null
     val rotateRightCursor = if (!environment.isMobile) loadCustomCursor(ROTATE_RIGHT_CURSOR) else null
+    val removeFeatureCursor = if (!environment.isMobile) loadCustomCursor(REMOVE_FEATURE_CURSOR) else null
+    val addFeatureCursor = if (!environment.isMobile) loadCustomCursor(ADD_FEATURE_CURSOR) else null
 
     fun setCursor(cursor: Cursor?) {
         logger.debug { "setCursor cursor=$cursor" }
