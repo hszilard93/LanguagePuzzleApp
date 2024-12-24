@@ -91,7 +91,7 @@ class GameInputManager(
                 }
 
                 // We check if it's over an existing feature
-                val featureUnderPointer = isPointOverPuzzleFeature(mousePos, puzzleUnderPointer)
+                val featureUnderPointer = isPointOverEditablePuzzleFeature(mousePos, puzzleUnderPointer)
                 if (!featureUnderPointer.isEmpty) {
                     val feature = featureUnderPointer.get()
                     if (feature is PuzzleTab) {
@@ -151,6 +151,17 @@ class GameInputManager(
         return false
     }
 
+    override fun keyDown(keycode: Int): Boolean {
+        logger.debug { "keyDown keycode=$keycode" }
+        when (keycode) {
+            Input.Keys.W -> {
+                handleWClick(Gdx.input.x, Gdx.input.y)
+                return true
+            }
+            else -> return false
+        }
+    }
+
     override fun touchDown(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
         when (button) {
             Input.Buttons.LEFT -> {
@@ -206,7 +217,7 @@ class GameInputManager(
 
         lastClickTime = currentTime
 
-        if (uiManager.currentPopupWindow != null || puzzleManager.puzzleFeatureToEdit != null || puzzleManager.puzzlePieceToEdit != null) {
+        if (puzzleManager.puzzleFeatureToEdit != null || puzzleManager.puzzlePieceToEdit != null) {
             return
         }
 
@@ -249,6 +260,14 @@ class GameInputManager(
         logger.debug { "handleRightClick" }
         // Toggle logic should be handled externally or via a callback
         toggleDebugInfo()
+    }
+
+    private fun handleWClick(screenX: Int, screenY: Int) {
+        logger.debug { "handleWClick" }
+
+        val worldCoordinates = cameraController.gameCamera.unprojectScreenCoords(screenX, screenY)
+        val mousePos = Vector2(worldCoordinates.x, worldCoordinates.y)
+        puzzleManager.addNewPuzzlePiece(mousePos.cpy().sub(Vector2(PuzzlePiece.MIN_SIZE / 2, PuzzlePiece.MIN_SIZE / 2)))
     }
 
     override fun touchDragged(screenX: Int, screenY: Int, pointer: Int): Boolean {
@@ -336,19 +355,23 @@ class GameInputManager(
             mousePos.y in (puzzlePiece.pos.y - offset)..(puzzlePiece.pos.y + puzzlePiece.size + offset)
     }
 
-    private fun isPointOverPuzzleFeature(mousePos: Vector2, puzzlePiece: PuzzlePiece): Optional<PuzzlePieceFeature> {
+    private fun isPointOverEditablePuzzleFeature(mousePos: Vector2, puzzlePiece: PuzzlePiece): Optional<PuzzlePieceFeature> {
 
         puzzlePiece.tabs.forEach { tab ->
             if (tab.isPointOverFeature(mousePos)) {
                 logger.info { "Pointer is over tab." }
-                return Optional.of(tab)
+                if (!tab.owner!!.copyOfConnections.map { it.via }.contains(tab)) {
+                    return Optional.of(tab)
+                }
             }
         }
 
         puzzlePiece.blanks.forEach { blank ->
             if (blank.isPointOverFeature(mousePos)) {
                 logger.info { "Pointer is over blank." }
-                return Optional.of(blank)
+                if (blank.owner!!.copyOfConnections.map { it.via.side }.none { side -> side.opposite() == blank.side }) {
+                    return Optional.of(blank)
+                }
             }
         }
 

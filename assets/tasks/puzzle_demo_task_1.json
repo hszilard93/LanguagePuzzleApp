@@ -1,6 +1,6 @@
 {
   "type": "PLACE_PUZZLES_IN_ORDER",
-  "taskDescription": "Helyezd el a puzzle darabokat úgy, hogy a következő mondatot alkossák:\n\"Peti virágot ad Annának névnapjára.\"",
+  "taskDescription": "Helyezd el a puzzle darabokat úgy, hogy a következő mondatot alkossák:\n\"Bence virágot ad Anitának.\"",
   "predefinedPieces": [
     {
       "text": "ad",
@@ -19,18 +19,13 @@
         {
           "side": "RIGHT",
           "grammaticalRole": "ADVERBIAL",
-          "text": "-ra\n/re"
-        },
-        {
-          "side": "BOTTOM",
-          "grammaticalRole": "ADVERBIAL",
           "text": "-nak\n/nek"
         }
       ],
       "blanks": []
     },
     {
-      "text": "Peti",
+      "text": "Bence",
       "grammaticalRole": "UNDEFINED",
       "tabs": [],
       "blanks": [
@@ -50,17 +45,7 @@
       ]
     },
     {
-      "text": "névnap",
-      "grammaticalRole": "UNDEFINED",
-      "tabs": [],
-      "blanks": [
-        {
-          "side": "BOTTOM"
-        }
-      ]
-    },
-    {
-      "text": "Anna",
+      "text": "Anita",
       "grammaticalRole": "UNDEFINED",
       "tabs": [],
       "blanks": [
@@ -77,43 +62,17 @@
           {
             "text": "ad",
             "grammaticalRole": "VERB",
-            "tabs": [
-              {
-                "side": "LEFT",
-                "grammaticalRole": "SUBJECT",
-                "text": ""
-              },
-              {
-                "side": "TOP",
-                "grammaticalRole": "OBJECT",
-                "text": "-t"
-              },
-              {
-                "side": "RIGHT",
-                "grammaticalRole": "ADVERBIAL",
-                "text": "-ra\n/re"
-              },
-              {
-                "side": "BOTTOM",
-                "grammaticalRole": "ADVERBIAL",
-                "text": "-nak\n/nek"
-              }
-            ],
+            "tabs": [],
             "blanks": []
           },
           {
-            "text": "Peti",
-            "grammaticalRole": "UNDEFINED",
+            "text": "Bence",
+            "grammaticalRole": "SUBJECT",
             "tabs": [],
-            "blanks": [
-              {
-                "side": "BOTTOM"
-              }
-            ]
+            "blanks": []
           }
         ],
         "via": {
-          "side": "LEFT",
           "grammaticalRole": "SUBJECT",
           "text": ""
         },
@@ -124,43 +83,17 @@
           {
             "text": "ad",
             "grammaticalRole": "VERB",
-            "tabs": [
-              {
-                "side": "LEFT",
-                "grammaticalRole": "SUBJECT",
-                "text": ""
-              },
-              {
-                "side": "TOP",
-                "grammaticalRole": "OBJECT",
-                "text": "-t"
-              },
-              {
-                "side": "RIGHT",
-                "grammaticalRole": "ADVERBIAL",
-                "text": "-ra\n/re"
-              },
-              {
-                "side": "BOTTOM",
-                "grammaticalRole": "ADVERBIAL",
-                "text": "-nak\n/nek"
-              }
-            ],
+            "tabs": [],
             "blanks": []
           },
           {
             "text": "virág",
-            "grammaticalRole": "UNDEFINED",
+            "grammaticalRole": "OBJECT",
             "tabs": [],
-            "blanks": [
-              {
-                "side": "BOTTOM"
-              }
-            ]
+            "blanks": []
           }
         ],
         "via": {
-          "side": "TOP",
           "grammaticalRole": "OBJECT",
           "text": "-t"
         },
@@ -171,92 +104,19 @@
           {
             "text": "ad",
             "grammaticalRole": "VERB",
-            "tabs": [
-              {
-                "side": "LEFT",
-                "grammaticalRole": "SUBJECT",
-                "text": ""
-              },
-              {
-                "side": "TOP",
-                "grammaticalRole": "OBJECT",
-                "text": "-t"
-              },
-              {
-                "side": "RIGHT",
-                "grammaticalRole": "ADVERBIAL",
-                "text": "-ra\n/re"
-              },
-              {
-                "side": "BOTTOM",
-                "grammaticalRole": "ADVERBIAL",
-                "text": "-nak\n/nek"
-              }
-            ],
+            "tabs": [],
             "blanks": []
           },
           {
-            "text": "Anna",
-            "grammaticalRole": "UNDEFINED",
+            "text": "Anita",
+            "grammaticalRole": "ADVERBIAL",
             "tabs": [],
-            "blanks": [
-              {
-                "side": "BOTTOM"
-              }
-            ]
-          }
-        ],
-        "via": {
-          "side": "BOTTOM",
-          "grammaticalRole": "ADVERBIAL",
-          "text": "-nak\n/nek"
-        },
-        "roleOfConnection": "ADVERBIAL"
-      },
-      {
-        "puzzlesConnected": [
-          {
-            "text": "ad",
-            "grammaticalRole": "VERB",
-            "tabs": [
-              {
-                "side": "LEFT",
-                "grammaticalRole": "SUBJECT",
-                "text": ""
-              },
-              {
-                "side": "TOP",
-                "grammaticalRole": "OBJECT",
-                "text": "-t"
-              },
-              {
-                "side": "RIGHT",
-                "grammaticalRole": "ADVERBIAL",
-                "text": "-ra\n/re"
-              },
-              {
-                "side": "BOTTOM",
-                "grammaticalRole": "ADVERBIAL",
-                "text": "-nak\n/nek"
-              }
-            ],
             "blanks": []
-          },
-          {
-            "text": "névnap",
-            "grammaticalRole": "UNDEFINED",
-            "tabs": [],
-            "blanks": [
-              {
-                "side": "BOTTOM"
-              }
-            ]
           }
         ],
         "via": {
-          "side": "RIGHT",
           "grammaticalRole": "ADVERBIAL",
-          "text": "-ra\n/re"
+          "text": "-nak/nek"
         },
         "roleOfConnection": "ADVERBIAL"
       }

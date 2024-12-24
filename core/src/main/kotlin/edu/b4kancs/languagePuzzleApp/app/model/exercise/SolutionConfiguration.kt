@@ -10,6 +10,7 @@ import kotlinx.serialization.Serializable
 class SolutionConfiguration(private val solutions: Set<Connection>) {
 
     fun doesGameStateMatchSolution(puzzles: List<PuzzlePiece>): Boolean {
+        if (solutions.isEmpty()) return false
 
         val verbConnections = puzzles.find { it.grammaticalRole == GrammaticalRole.VERB }?.copyOfConnections
 
@@ -17,6 +18,7 @@ class SolutionConfiguration(private val solutions: Set<Connection>) {
         if (verbConnections.size != solutions.size) return false
 
         verbConnections.forEach { c1 ->
+            // If the connection is not matched by any connection solution, return false
             if (!solutions.any { c2 -> c2.matches(c1) }) return false
         }
 
@@ -25,13 +27,13 @@ class SolutionConfiguration(private val solutions: Set<Connection>) {
 
     private fun Connection.matches(other: Connection): Boolean {
         val theseTexts = this.puzzlesConnected.map { it.text }.toSet()
-        val thoseTexts = other.puzzlesConnected.map { it.text }.toSet()
+        val thoseTexts = other.puzzlesConnected.map { it.text}.toSet()
 
-        if (theseTexts != thoseTexts) return false
+        if (this.via.grammaticalRole != other.via.grammaticalRole) return false
+
+        return theseTexts == thoseTexts
 
         // TODO: Fix incorrect role of connection
 //        if (this.roleOfConnection != other.roleOfConnection) return false
-
-        return true
     }
 }

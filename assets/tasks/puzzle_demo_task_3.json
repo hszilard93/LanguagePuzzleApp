@@ -1,0 +1,15 @@
+{
+  "type": "COMPLETE_ARGUMENTS",
+  "taskDescription": "FB. 93.\n Rajzold le a megadott szövegben aláhúzott igék puzzle-jét! Színezd ki a különböző füleket, és írd a fülekre az oda találó végződéseket!\n (jelenleg a W gomb lenyomására lehet új puzzlet elhelyezni)",
+  "predefinedPieces": [
+    {
+      "text": "történik",
+      "grammaticalRole": "VERB",
+      "tabs": [],
+      "blanks": []
+    }
+  ],
+  "solutionConfiguration": {
+    "solutions": []
+  }
+}

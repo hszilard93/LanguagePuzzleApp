@@ -103,8 +103,12 @@ class PuzzleManager(
             onSave = { newText ->
                 puzzlePiece.text = newText
                 editingPuzzlePiece = null
+                puzzlePieceToEdit = null
             },
-            onCancel = { editingPuzzlePiece = null }
+            onCancel = {
+                editingPuzzlePiece = null
+                puzzlePieceToEdit = null
+            }
         )
     }
 
@@ -120,8 +124,12 @@ class PuzzleManager(
             onSave = { newText ->
                 puzzleFeature.text = newText
                 editingPuzzleFeature = null
+                puzzleFeatureToEdit = null
             },
-            onCancel = { editingPuzzleFeature = null }
+            onCancel = {
+                editingPuzzleFeature = null
+                puzzleFeatureToEdit = null
+            }
         )
     }
 
@@ -148,5 +156,17 @@ class PuzzleManager(
         puzzle.removeFeature(feature)
         featureTripleToAdd = Triple(puzzle, feature.side, if (feature is PuzzleTab) PuzzlePieceFeature.Type.TAB else PuzzlePieceFeature.Type.BLANK)
         featureToRemove = null
+    }
+
+    fun addNewPuzzlePiece(mousePos: Vector2, grammaticalRole: GrammaticalRole = GrammaticalRole.VERB) {
+        logger.info { "addNewPuzzlePiece grammaticalRole = $grammaticalRole" }
+
+        val newPuzzlePiece = PuzzlePiece(
+            text = "",
+            grammaticalRole = grammaticalRole,
+            depth = gameModel.puzzlePieces.maxOfOrNull { it.depth }?.plus(1) ?: 0,
+            pos = mousePos
+        )
+        gameModel.puzzlePieces.add(newPuzzlePiece)
     }
 }

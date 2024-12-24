@@ -214,6 +214,13 @@ class Game(
         loadGameScreen()
     }
 
+    fun startDemo3() {
+        logger.info { "Starting demo exercise #3" }
+        // Initialize a demo exercise in gameModel
+        gameModel.loadExerciseFromDisk(Gdx.files.internal("tasks/puzzle_demo_task_3.json/"))
+        loadGameScreen()
+    }
+
     fun loadExerciseFromDisk(fileHandle: FileHandle) {
         logger.info { "Loading exercise from file: ${fileHandle.path()}" }
 

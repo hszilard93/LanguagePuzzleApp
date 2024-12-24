@@ -1,58 +1,30 @@
 {
   "type": "PLACE_PUZZLES_IN_ORDER",
-  "taskDescription": "Alakítsd a puzzle darabokat úgy, hogy a következő mondatot alkossák:\n\"A tanítónéni megszidta Pistát a tegnap délelőtt.\"",
+  "taskDescription": "Alakítsd ki a következő mondathoz tartozó puzzle-szerkezetet! Írd be az igefülekbe a megfelelő toldalékokat!\n\"Terka elárulta a titkot Tibinek\"",
   "predefinedPieces": [
     {
-      "text": "szid",
+      "text": "",
       "grammaticalRole": "VERB",
-      "tabs": [
-        {
-          "side": "LEFT",
-          "grammaticalRole": "SUBJECT",
-          "text": ""
-        },
-        {
-          "side": "TOP",
-          "grammaticalRole": "OBJECT",
-          "text": "-t"
-        },
-        {
-          "side": "RIGHT",
-          "grammaticalRole": "ADVERBIAL",
-          "text": ""
-        }
-      ],
+      "tabs": [],
       "blanks": []
     },
     {
       "text": "",
       "grammaticalRole": "UNDEFINED",
       "tabs": [],
-      "blanks": [
-        {
-          "side": "BOTTOM"
-        }
-      ]
+      "blanks": []
     },
     {
       "text": "",
       "grammaticalRole": "UNDEFINED",
       "tabs": [],
-      "blanks": [
-        {
-          "side": "BOTTOM"
-        }
-      ]
+      "blanks": []
     },
     {
       "text": "",
       "grammaticalRole": "UNDEFINED",
       "tabs": [],
-      "blanks": [
-        {
-          "side": "BOTTOM"
-        }
-      ]
+      "blanks": []
     }
   ],
   "solutionConfiguration": {
@@ -60,20 +32,19 @@
       {
         "puzzlesConnected": [
           {
-            "text": "szid",
+            "text": "elárul",
             "grammaticalRole": "VERB",
             "tabs": [],
             "blanks": []
           },
           {
-            "text": "tanítónéni",
+            "text": "Terka",
             "grammaticalRole": "SUBJECT",
             "tabs": [],
             "blanks": []
           }
         ],
         "via": {
-          "side": "LEFT",
           "grammaticalRole": "SUBJECT",
           "text": ""
         },
@@ -82,20 +53,19 @@
       {
         "puzzlesConnected": [
           {
-            "text": "szid",
+            "text": "elárul",
             "grammaticalRole": "VERB",
             "tabs": [],
             "blanks": []
           },
           {
-            "text": "Pista",
+            "text": "titok",
             "grammaticalRole": "OBJECT",
             "tabs": [],
             "blanks": []
           }
         ],
         "via": {
-          "side": "TOP",
           "grammaticalRole": "OBJECT",
           "text": ""
         },
@@ -104,22 +74,21 @@
       {
         "puzzlesConnected": [
           {
-            "text": "szid",
+            "text": "elárul",
             "grammaticalRole": "VERB",
             "tabs": [],
             "blanks": []
           },
           {
-            "text": "tegnap délelőtt",
+            "text": "Tibi",
             "grammaticalRole": "ADVERBIAL",
             "tabs": [],
             "blanks": []
           }
         ],
         "via": {
-          "side": "RIGHT",
           "grammaticalRole": "ADVERBIAL",
-          "text": ""
+          "text": "-nek"
         },
         "roleOfConnection": "ADVERBIAL"
       }

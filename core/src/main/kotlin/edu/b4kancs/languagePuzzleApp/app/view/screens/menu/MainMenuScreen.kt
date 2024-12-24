@@ -42,6 +42,7 @@ class MainMenuScreen(
         // Create buttons
         val startExercise1Button = TextButton("Indítás az 1. példafeladattal", uiSkin)
         val startExercise2Button = TextButton("Indítás a 2. példafeladattal", uiSkin)
+        val startExercise3Button = TextButton("Indítás a 3. példafeladattal", uiSkin)
         val loadExerciseButton = TextButton("Feladat betöltése fájlból", uiSkin)
         val settingsButton = TextButton("Beallítások", uiSkin)
         val exitButton = TextButton("Kilepés", uiSkin)
@@ -59,6 +60,15 @@ class MainMenuScreen(
                 game.startDemo2()
             }
         })
+
+        startExercise3Button.addListener(object : ClickListener() {
+            override fun clicked(event: InputEvent?, x: Float, y: Float) {
+                logger.info { "Start with exercise 3 button clicked" }
+                game.startDemo3()
+            }
+        })
+
+
 
         loadExerciseButton.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
@@ -90,8 +100,8 @@ class MainMenuScreen(
         // Add buttons to the table with spacing
         table.add(startExercise1Button).width(400f).height(100f).pad(10f).row()
         table.add(startExercise2Button).width(400f).height(100f).pad(10f).row()
-//        table.add(loadExerciseButton).width(400f).height(100f).pad(10f).row()
-        table.add(settingsButton).width(400f).height(100f).pad(10f).row()
+        table.add(startExercise3Button).width(400f).height(100f).pad(10f).row()
+//        table.add(settingsButton).width(400f).height(100f).pad(10f).row()
 //        table.add(exitButton).width(400f).height(100f).pad(10f).row()
 
         // Add the table to the stage
