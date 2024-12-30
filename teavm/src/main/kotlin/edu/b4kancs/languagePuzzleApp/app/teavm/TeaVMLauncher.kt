@@ -5,12 +5,13 @@ package edu.b4kancs.languagePuzzleApp.app.teavm
 import JsInterop
 import com.github.xpenatan.gdx.backends.teavm.TeaApplication
 import com.github.xpenatan.gdx.backends.teavm.TeaApplicationConfiguration
+import com.github.xpenatan.gdx.backends.teavm.TeaAssetPreloadListener
+import com.github.xpenatan.gdx.backends.teavm.assetloader.AssetLoader
 import edu.b4kancs.languagePuzzleApp.app.Game
 import edu.b4kancs.languagePuzzleApp.app.model.Environment
 import edu.b4kancs.languagePuzzleApp.app.model.EnvironmentalImplementations
 import edu.b4kancs.languagePuzzleApp.app.model.Platform
 import edu.b4kancs.languagePuzzleApp.app.teavm.screen.ui.FilePickerJsImpl
-import org.teavm.jso.dom.xml.Document
 
 
 /** Launches the TeaVM/HTML application. */
@@ -21,6 +22,10 @@ class TeaVMLauncher {
         // change these to both 0 to use all available space, or both -1 for the canvas size.
         config.width = 0
         config.height = 0
+        config.showDownloadLogs = true
+        config.preloadListener = TeaAssetPreloadListener { assetLoader: AssetLoader ->
+            assetLoader.loadScript("freetype.js")
+        }
 
         val environment = getEnvironment(config)
         val environmentalImplementations = EnvironmentalImplementations(
@@ -52,6 +57,7 @@ class TeaVMLauncher {
             config.antialiasing = true
             platform = Platform.WEB
         }
+
         val canvasSize = JsInterop.getCanvasSize().split(";").map(String::toInt)
         JsInterop.log("platform: $platform, canvasSize: ${canvasSize.first()}, ${canvasSize.last()}")
 

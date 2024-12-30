@@ -21,6 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.Align
 import edu.b4kancs.languagePuzzleApp.app.GameViewport
 import edu.b4kancs.languagePuzzleApp.app.HudViewport
+import edu.b4kancs.languagePuzzleApp.app.TaskFontHolder
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
 import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
@@ -28,13 +29,12 @@ import edu.b4kancs.languagePuzzleApp.app.model.Side
 import edu.b4kancs.languagePuzzleApp.app.view.screens.setBackgroundColor
 import edu.b4kancs.languagePuzzleApp.app.view.ui.TextEditorPopup
 import ktx.graphics.color
+import ktx.inject.Context
 
 class UIManager(
+    private val context: Context,
     private val uiStage: Stage,
     private val uiSkin: Skin,
-    private val hudViewport: HudViewport,
-    private val gameViewport: GameViewport,
-    private val gameModel: GameModel,
     private val onBack: () -> Unit
 ) {
 
@@ -43,6 +43,11 @@ class UIManager(
     }
 
     var currentPopupWindow: Window? = null
+
+    private val hudViewport: HudViewport = context.inject()
+    private val gameViewport: GameViewport = context.inject()
+    private val gameModel: GameModel = context.inject()
+    private val taskFont = context.inject<TaskFontHolder>().font
 
     lateinit var exerciseDescriptionLabel: Label
         private set
@@ -82,6 +87,9 @@ class UIManager(
         }
         exerciseDescriptionLabel.style.background = uiSkin.getDrawable("white")
         exerciseDescriptionLabel.color.a = 0.75f
+        exerciseDescriptionLabel.style.font = taskFont
+        // ↓ This needs to be done or it wont work ↓
+        exerciseDescriptionLabel.style = exerciseDescriptionLabel.style
 
         val buttonStyle = ImageButton.ImageButtonStyle().apply {
             this.up = TextureRegionDrawable(TextureRegion(backIcon)).tint(Color(120f, 120f, 255f, 0.6f))
@@ -112,7 +120,6 @@ class UIManager(
         if (currentExercise!!.taskDescription.isNotBlank()) {
             // Set the description text
             exerciseDescriptionLabel.setText(currentExercise.taskDescription)
-            // topBarTable.pack() // No need to pack if setFillParent is true
 
             // Make sure the table is visible
             topBarTable.isVisible = true

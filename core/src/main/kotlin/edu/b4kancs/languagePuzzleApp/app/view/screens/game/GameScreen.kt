@@ -13,7 +13,7 @@ import edu.b4kancs.languagePuzzleApp.app.Game
 import edu.b4kancs.languagePuzzleApp.app.GameCamera
 import edu.b4kancs.languagePuzzleApp.app.GameViewport
 import edu.b4kancs.languagePuzzleApp.app.HudCamera
-import edu.b4kancs.languagePuzzleApp.app.HudFont
+import edu.b4kancs.languagePuzzleApp.app.HudFontHolder
 import edu.b4kancs.languagePuzzleApp.app.HudViewport
 import edu.b4kancs.languagePuzzleApp.app.model.Environment
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
@@ -44,7 +44,7 @@ class GameScreen(
 
     private val uiStage = Stage(ScreenViewport())
     private val uiSkin = Skin(Gdx.files.internal("skin/holo/uiskin.json"))
-    private val hudFont: HudFont = context.inject()
+    private val hudFont = context.inject<HudFontHolder>().font
     private val filePicker: FilePickerInterface = context.inject()
     private val puzzlePieceDrawer: PuzzlePieceDrawer = PuzzlePieceDrawer(context)
 
@@ -74,7 +74,7 @@ class GameScreen(
         cameraController = CameraController(gameCamera, hudCamera, gameViewport, hudViewport, gameModel)
         cameraController.setupCameras()
 
-        uiManager = UIManager(uiStage, uiSkin, hudViewport, gameViewport, gameModel) {
+        uiManager = UIManager(context, uiStage, uiSkin) {
             game.backToMenu()
         }
         uiManager.initializeUI()

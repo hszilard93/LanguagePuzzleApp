@@ -9,19 +9,23 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import edu.b4kancs.languagePuzzleApp.app.Game
+import edu.b4kancs.languagePuzzleApp.app.HudFontHolder
 import edu.b4kancs.languagePuzzleApp.app.misc
 import edu.b4kancs.languagePuzzleApp.app.view.screens.game.GameScreen
 import edu.b4kancs.languagePuzzleApp.app.view.ui.FilePickerInterface
 import edu.b4kancs.languagePuzzleApp.app.view.utils.toRGBFloat
 import ktx.app.KtxScreen
+import ktx.inject.Context
 import ktx.log.logger
 
 class MainMenuScreen(
-    private val game: Game, // Reference to the main Game class to switch screens
-    private val filePicker: FilePickerInterface // For loading exercises
+    private val context: Context,
+    private val game: Game,
+    private val filePicker: FilePickerInterface
 ) : KtxScreen {
 
     private val uiSkin = Skin(Gdx.files.internal("skin/holo/uiskin.json"))
+    private val hudFont = context.inject<HudFontHolder>().font
 
     companion object {
         val logger = logger<MainMenuScreen>()
@@ -40,12 +44,18 @@ class MainMenuScreen(
         }
 
         // Create buttons
-        val startExercise1Button = TextButton("Indítás az 1. példafeladattal", uiSkin)
-        val startExercise2Button = TextButton("Indítás a 2. példafeladattal", uiSkin)
-        val startExercise3Button = TextButton("Indítás a 3. példafeladattal", uiSkin)
-        val loadExerciseButton = TextButton("Feladat betöltése fájlból", uiSkin)
-        val settingsButton = TextButton("Beallítások", uiSkin)
-        val exitButton = TextButton("Kilepés", uiSkin)
+        val buttons = mutableSetOf<TextButton>()
+        val startExercise1Button = TextButton("Indítás az 1. példafeladattal", uiSkin).apply { buttons.add(this) }
+        val startExercise2Button = TextButton("Indítás a 2. példafeladattal", uiSkin).apply { buttons.add(this) }
+        val startExercise3Button = TextButton("Indítás a 3. példafeladattal", uiSkin).apply { buttons.add(this) }
+        val loadExerciseButton = TextButton("Feladat betöltése fájlból", uiSkin).apply { buttons.add(this) }
+        val settingsButton = TextButton("Beallítások", uiSkin).apply { buttons.add(this) }
+        val exitButton = TextButton("Kilepés", uiSkin).apply { buttons.add(this) }
+
+        val buttonStyle = startExercise1Button.style.apply {
+            font = hudFont
+        }
+        buttons.forEach { it.style = buttonStyle }
 
         startExercise1Button.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {

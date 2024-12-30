@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Batch
-import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.GlyphLayout
 import com.badlogic.gdx.graphics.g2d.NinePatch
 import com.badlogic.gdx.graphics.glutils.ShaderProgram
@@ -14,6 +13,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Disposable
+import edu.b4kancs.languagePuzzleApp.app.PuzzleFontHolder
 import edu.b4kancs.languagePuzzleApp.app.misc
 import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole.UNDEFINED
 import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole.VERB
@@ -46,7 +46,8 @@ class PuzzlePieceDrawer(
     context: Context
 ) : Disposable {
     private val batch = context.inject<Batch>()
-    private val font: BitmapFont = context.inject()
+    private val baseFont = context.inject<PuzzleFontHolder>().baseFont
+    private val tabFont = context.inject<PuzzleFontHolder>().tabFont
     private val base9Patch: NinePatch
     private val blankTexture: Texture
     private val tabTexture: Texture
@@ -152,7 +153,7 @@ class PuzzlePieceDrawer(
 
         // Create a new GlyphLayout
         val layout = GlyphLayout().apply {
-            setText(font, text, Color.BLACK, maxLayoutWidth, Align.left, true)
+            setText(baseFont, text, Color.BLACK, maxLayoutWidth, Align.left, true)
         }
 
         // Adjust puzzle piece size if necessary (Consider moving this logic outside the render loop)
@@ -188,7 +189,7 @@ class PuzzlePieceDrawer(
 //            textLayoutCache[key] = layoutData
 
         // Draw the text
-        font.draw(batch, layout, layoutX, layoutY)
+        baseFont.draw(batch, layout, layoutX, layoutY)
 //        drawGlyphLayoutDebugBounds(layout, Vector2(layoutX, layoutY))
 
         val firstBlank = puzzlePiece.getAllFeatures().filterIsInstance<PuzzleBlank>().firstOrNull()
@@ -405,7 +406,7 @@ class PuzzlePieceDrawer(
     private fun drawTextOnTab(tab: PuzzleTab, tabPos: Vector2) {
         logger.misc { "drawTextOnTab" }
 
-        font.color = Color.BLACK
+        tabFont.color = Color.BLACK
 
         val roundedX = tabPos.x
         val roundedY = tabPos.y
@@ -419,14 +420,14 @@ class PuzzlePieceDrawer(
         if (cachedData != null) {
             // Use cached layout and positions
             logger.misc { "Using cached layout data for tab $key" }
-            font.draw(batch, cachedData.layout, cachedData.layoutX, cachedData.layoutY)
+            tabFont.draw(batch, cachedData.layout, cachedData.layoutX, cachedData.layoutY)
         }
         else {
             logger.debug { "Creating new layout data for tab $key" }
 
             // Create a new GlyphLayout
             val layout = GlyphLayout().apply {
-                setText(font, tab.text, Color.BLACK, PuzzleTab.WIDTH, Align.left, false)
+                setText(tabFont, tab.text, Color.BLACK, PuzzleTab.WIDTH, Align.left, false)
             }
 
             // Calculate offsets based on the tab's side
@@ -464,7 +465,7 @@ class PuzzlePieceDrawer(
             tabTextLayoutCache[key] = layoutData
 
             // Draw the text
-            font.draw(batch, layout, layoutX, layoutY)
+            tabFont.draw(batch, layout, layoutX, layoutY)
 
             // Optional: Log caching action
             logger.debug { "Cached layout for key: $key" }
