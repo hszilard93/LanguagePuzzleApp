@@ -30,7 +30,6 @@ import edu.b4kancs.languagePuzzleApp.app.Game
 import edu.b4kancs.languagePuzzleApp.app.GameCamera
 import edu.b4kancs.languagePuzzleApp.app.GameViewport
 import edu.b4kancs.languagePuzzleApp.app.HudCamera
-import edu.b4kancs.languagePuzzleApp.app.HudFontHolder
 import edu.b4kancs.languagePuzzleApp.app.HudViewport
 import edu.b4kancs.languagePuzzleApp.app.misc
 import edu.b4kancs.languagePuzzleApp.app.model.Environment
@@ -49,6 +48,7 @@ import edu.b4kancs.languagePuzzleApp.app.view.screens.game.CustomCursorLoader.lo
 import edu.b4kancs.languagePuzzleApp.app.view.screens.game.PuzzleSnapHelper
 import edu.b4kancs.languagePuzzleApp.app.view.ui.FilePickerInterface
 import edu.b4kancs.languagePuzzleApp.app.view.ui.TextEditorPopup
+import edu.b4kancs.languagePuzzleApp.app.view.utils.HudFontHolder
 import edu.b4kancs.languagePuzzleApp.app.view.utils.toRGBFloat
 import edu.b4kancs.languagePuzzleApp.app.view.utils.toVector2
 import edu.b4kancs.languagePuzzleApp.app.view.utils.toVector3

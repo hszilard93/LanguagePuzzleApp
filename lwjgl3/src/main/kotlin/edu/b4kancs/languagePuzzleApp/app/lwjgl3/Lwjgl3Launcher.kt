@@ -34,7 +34,7 @@ fun main() {
     val config = Lwjgl3ApplicationConfiguration().apply {
         setTitle("PuzzliApp")
         setWindowedMode(defaultWidth, defaultHeight)
-        setResizable(false)
+        setResizable(true)
         setWindowIcon(*(arrayOf(128, 64, 32, 16).map { "libgdx$it.png" }.toTypedArray()))
         setForegroundFPS(90)
         setIdleFPS(10)

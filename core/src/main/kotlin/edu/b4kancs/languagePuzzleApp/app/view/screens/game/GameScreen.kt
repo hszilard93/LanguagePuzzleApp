@@ -2,51 +2,52 @@ package edu.b4kancs.languagePuzzleApp.app.view.screens.game
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.InputMultiplexer
-import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.math.Vector3
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
-import com.badlogic.gdx.utils.viewport.ScreenViewport
+import com.badlogic.gdx.utils.viewport.ExtendViewport
 import edu.b4kancs.languagePuzzleApp.app.Game
 import edu.b4kancs.languagePuzzleApp.app.GameCamera
 import edu.b4kancs.languagePuzzleApp.app.GameViewport
 import edu.b4kancs.languagePuzzleApp.app.HudCamera
-import edu.b4kancs.languagePuzzleApp.app.HudFontHolder
 import edu.b4kancs.languagePuzzleApp.app.HudViewport
 import edu.b4kancs.languagePuzzleApp.app.model.Environment
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
 import edu.b4kancs.languagePuzzleApp.app.view.drawableModel.PuzzlePieceDrawer
 import edu.b4kancs.languagePuzzleApp.app.view.screens.setBackgroundColor
 import edu.b4kancs.languagePuzzleApp.app.view.ui.FilePickerInterface
+import edu.b4kancs.languagePuzzleApp.app.view.utils.HudFontHolder
 import edu.b4kancs.languagePuzzleApp.app.view.utils.toVector2
 import ktx.app.KtxScreen
 import ktx.inject.Context
 import ktx.log.logger
 
 class GameScreen(
-    private val context: Context,
-    private val game: Game,
-    private val batch: Batch,
-    private val assetManager: AssetManager,
-    private val gameViewport: GameViewport,
-    private val hudViewport: HudViewport,
-    private val gameCamera: GameCamera,
-    private val hudCamera: HudCamera,
-    private val gameModel: GameModel,
-    private val environment: Environment
+    context: Context,
+    private val game: Game
 ) : KtxScreen {
 
     companion object {
         val logger = logger<GameScreen>()
     }
 
-    private val uiStage = Stage(ScreenViewport())
-    private val uiSkin = Skin(Gdx.files.internal("skin/holo/uiskin.json"))
+    private val batch: Batch = context.inject()
+    private val gameViewport: GameViewport = context.inject()
+    private val hudViewport: HudViewport = context.inject()
+    private val gameCamera: GameCamera = context.inject()
+    private val hudCamera: HudCamera = context.inject()
+    private val gameModel: GameModel = context.inject()
+    private val environment: Environment = context.inject()
     private val hudFont = context.inject<HudFontHolder>().font
     private val filePicker: FilePickerInterface = context.inject()
+
     private val puzzlePieceDrawer: PuzzlePieceDrawer = PuzzlePieceDrawer(context)
+
+    private val uiViewPortDimensions = Vector2(1200f, 800f)
+    private val uiStage = Stage(ExtendViewport(uiViewPortDimensions.x, uiViewPortDimensions.y))
+    private val uiSkin = Skin(Gdx.files.internal("skin/holo/uiskin.json"))
 
     private val inputMultiplexer = InputMultiplexer()
 
@@ -75,7 +76,7 @@ class GameScreen(
         cameraController.setupCameras()
 
         uiManager = UIManager(context, uiStage, uiSkin) {
-            game.backToMenu()
+            game.backToMenuScreen()
         }
         uiManager.initializeUI()
 
@@ -120,6 +121,10 @@ class GameScreen(
     override fun resize(newWidth: Int, newHeight: Int) {
         logger.debug { "resize newWidth=$newWidth newHeight=$newHeight" }
         cameraController.resize(newWidth, newHeight)
+//        (uiStage.viewport as ExtendViewport).
+        uiStage.viewport.update(newWidth, newHeight, true)
+
+        uiManager.updateFonts()
         uiManager.updateExerciseDescription()
     }
 

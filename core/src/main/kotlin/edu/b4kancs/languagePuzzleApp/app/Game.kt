@@ -19,6 +19,13 @@ import edu.b4kancs.languagePuzzleApp.app.view.screens.game.Constants
 import edu.b4kancs.languagePuzzleApp.app.view.screens.game.GameScreen
 import edu.b4kancs.languagePuzzleApp.app.view.screens.menu.MainMenuScreen
 import edu.b4kancs.languagePuzzleApp.app.view.ui.FilePickerInterface
+import edu.b4kancs.languagePuzzleApp.app.view.utils.HudFontHolder
+import edu.b4kancs.languagePuzzleApp.app.view.utils.PuzzleFontHolder
+import edu.b4kancs.languagePuzzleApp.app.view.utils.TaskFontHolder
+import edu.b4kancs.languagePuzzleApp.app.view.utils.loadFreeTypeFont
+import edu.b4kancs.languagePuzzleApp.app.view.utils.loadPuzzleBaseFont
+import edu.b4kancs.languagePuzzleApp.app.view.utils.loadPuzzleTabFont
+import edu.b4kancs.languagePuzzleApp.app.view.utils.loadTaskFont
 import ktx.app.KtxGame
 import ktx.app.KtxScreen
 import ktx.assets.DisposableContainer
@@ -49,11 +56,10 @@ class Game(
         Gdx.app.logLevel = LOG_LEVEL
         logger.debug { "create" }
 
-        /* Run this if you need to prerender font .ttf font files. */
+        /* Used to be needed to prerender font .ttf font files. */
 //        generateAndExportBitmapFont("fonts/Roboto-Regular.ttf", 24)
         /* */
 
-//        disposables.register(context)
         disposables.register(context)
         val screenWidth = Gdx.graphics.width.toFloat()
         val screenHeight = Gdx.graphics.height.toFloat()
@@ -96,68 +102,27 @@ class Game(
                 setToOrtho(false, gameVirtualWidth, gameVirtualHeight)
             })
 
-//            bindSingleton<HudFontHolder> {
-//                HudFontHolder(
-//                    BitmapFont(Gdx.files.internal("fonts/hud_font.fnt"), false)
-//                )
-//            }
-
             bindSingleton<HudFontHolder> {
-                val typeFontGenerator = FreeTypeFontGenerator(Gdx.files.internal("fonts/Roboto-Regular.ttf"))
-                val typeFontParameter = FreeTypeFontParameter().apply {
-                    size = 24
-                    characters = FreeTypeFontGenerator.DEFAULT_CHARS + "őŐűŰ"
-                    flip = false
-                }
-                val font = typeFontGenerator.generateFont(typeFontParameter)
-                    .apply {
-                        disposables.register(this)
-//                        disposables.add(this)
-                    }
-
+                val font = loadFreeTypeFont("Roboto-Regular.ttf", 12)
+                disposables.register(font)
                 HudFontHolder(font)
             }
 
             bindSingleton<TaskFontHolder> {
-                val typeFontGenerator = FreeTypeFontGenerator(Gdx.files.internal("fonts/PlaywriteGBS.ttf"))
-                val typeFontParameter = FreeTypeFontParameter().apply {
-                    size = 24
-                    characters = FreeTypeFontGenerator.DEFAULT_CHARS + "őŐűŰ"
-                    flip = false
-                }
-                val font = typeFontGenerator.generateFont(typeFontParameter)
-                    .apply {
-                        disposables.register(this)
-//                        disposables.add(this)
-                    }
-
+                val font = loadTaskFont()
+                disposables.register(font)
                 TaskFontHolder(font)
             }
 
             bindSingleton<PuzzleFontHolder> {
-                val typeFontGenerator = FreeTypeFontGenerator(Gdx.files.internal("fonts/libre-baskerville.regular.ttf"))
-                val typeFontParameter = FreeTypeFontParameter().apply {
-                    size = 40
-                    characters = FreeTypeFontGenerator.DEFAULT_CHARS + "őŐűŰ"
-                    flip = true
-                }
-                val baseFont = typeFontGenerator.generateFont(typeFontParameter)
-                    .apply {
-                        disposables.register(this)
-//                        disposables.add(this)
-                    }
 
-                typeFontParameter.size = (typeFontParameter.size * 0.8f).toInt()
-                val tabFont = typeFontGenerator.generateFont(typeFontParameter)
+                val baseFont = loadPuzzleBaseFont()
+                disposables.register(baseFont)
+
+                val tabFont = loadPuzzleTabFont()
+                disposables.register(tabFont)
 
                 PuzzleFontHolder(baseFont, tabFont)
-
-//                BitmapFont(Gdx.files.internal("fonts/exp/libre-baskerville.fnt"), true).apply {
-//                    data.setScale(0.11f * Gdx.graphics.density)
-//                    disposables.register(this)
-//                }
-
-//                BitmapFont(Gdx.files.internal("fonts/pregen/35_libre-baskerville.regular.ttf.fnt"), true)
             }
 
             bindSingleton<GameViewport>(
@@ -184,52 +149,43 @@ class Game(
             bindSingleton(gameModel)
         }
 
-        with(context) {
-            // Register Screens
-            addScreen(
-                MainMenuScreen(
-                    context,
-                    game = this@Game,
-                    filePicker = inject()
-                )
+        loadMainMenuScreen()
+        super.create()
+    }
+
+    private fun loadMainMenuScreen() {
+        logger.info { "loadMainMenuScreen" }
+
+        addScreen(
+            MainMenuScreen(
+                context,
+                this@Game
             )
-        }
+        )
 
         setScreen<MainMenuScreen>() // Set MainMenuScreen as the initial screen
-        super.create()
     }
 
     private fun loadGameScreen() {
         logger.info { "loadGameScreen" }
-        with(context) {
-            addScreen(
-//                OldGameScreen(
-                GameScreen(
-                    context = inject(),
-                    game = this@Game,
-                    batch = inject(),
-                    assetManager = inject(),
-                    gameViewport = inject(),
-                    hudViewport = inject(),
-                    gameCamera = inject(),
-                    hudCamera = inject(),
-                    gameModel = inject(),
-                    environment = inject()
-                )
-            )
-        }
+
         this.removeScreen<MainMenuScreen>()
+        addScreen(
+//                OldGameScreen(
+            GameScreen(
+                context,
+                this@Game
+            )
+        )
+
 //        setScreen<OldGameScreen>()
         setScreen<GameScreen>()
     }
 
-    fun backToMenu() {
+    fun backToMenuScreen() {
         logger.info { "backToMenu" }
         this.removeScreen<GameScreen>()
-        with(context) {
-            addScreen(MainMenuScreen(context, game = this@Game, filePicker = inject()))
-        }
-        setScreen<MainMenuScreen>()
+        loadMainMenuScreen()
     }
 
     fun startDemo() {
@@ -316,8 +272,3 @@ class GameViewport(minWorldWidth: Float, minWorldHeight: Float, maxWorldWidth: F
 class HudViewport(minWorldWidth: Float, minWorldHeight: Float, maxWorldWidth: Float, maxWorldHeight: Float, camera: Camera) :
     ExtendViewport(minWorldWidth, minWorldHeight, maxWorldWidth, maxWorldHeight, camera)
 
-data class PuzzleFontHolder(val baseFont: BitmapFont, val tabFont: BitmapFont)
-
-data class TaskFontHolder(val font: BitmapFont)
-
-data class HudFontHolder(val font: BitmapFont)

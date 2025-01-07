@@ -14,21 +14,19 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.Table
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.ui.Window
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.Align
 import edu.b4kancs.languagePuzzleApp.app.GameViewport
 import edu.b4kancs.languagePuzzleApp.app.HudViewport
-import edu.b4kancs.languagePuzzleApp.app.TaskFontHolder
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
 import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 import edu.b4kancs.languagePuzzleApp.app.model.Side
-import edu.b4kancs.languagePuzzleApp.app.view.screens.setBackgroundColor
 import edu.b4kancs.languagePuzzleApp.app.view.ui.TextEditorPopup
-import ktx.graphics.color
+import edu.b4kancs.languagePuzzleApp.app.view.utils.TaskFontHolder
+import edu.b4kancs.languagePuzzleApp.app.view.utils.loadTaskFont
 import ktx.inject.Context
 
 class UIManager(
@@ -88,6 +86,8 @@ class UIManager(
         exerciseDescriptionLabel.style.background = uiSkin.getDrawable("white")
         exerciseDescriptionLabel.color.a = 0.75f
         exerciseDescriptionLabel.style.font = taskFont
+//        exerciseDescriptionLabel.fontScaleX = 0.2f
+//        exerciseDescriptionLabel.fontScaleY = 0.2f
         // ↓ This needs to be done or it wont work ↓
         exerciseDescriptionLabel.style = exerciseDescriptionLabel.style
 
@@ -171,22 +171,6 @@ class UIManager(
             hudViewport = hudViewport,
             gameViewport = gameViewport
         )
-
-//        currentPopupWindow = TextEditorPopup(
-//            stage = uiStage,
-//            skin = uiSkin,
-//            puzzlePiece = puzzlePiece,
-//            onSave = {
-//                onSave(it)
-//                currentPopupWindow = null
-//            },
-//            onCancel = {
-//                onCancel()
-//                currentPopupWindow = null
-//            },
-//            hudViewport = hudViewport,
-//            gameViewport = gameViewport
-//        ).window
     }
 
     fun displayGrammaticalRolePopup(puzzlePiece: PuzzlePiece, side: Side, onRoleSelected: (GrammaticalRole) -> Unit) {
@@ -259,6 +243,13 @@ class UIManager(
 
         uiStage.addActor(popupWindow)
         currentPopupWindow = popupWindow
+    }
+
+    fun updateFonts() {
+        val font = loadTaskFont()
+        font.region.texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
+        exerciseDescriptionLabel.style.font = font
+        exerciseDescriptionLabel.style = exerciseDescriptionLabel.style
     }
 
     fun dispose() {

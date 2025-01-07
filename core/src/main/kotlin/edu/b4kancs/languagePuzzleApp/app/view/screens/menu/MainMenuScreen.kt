@@ -2,28 +2,35 @@ package edu.b4kancs.languagePuzzleApp.app.view.screens.menu
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
+import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
+import com.badlogic.gdx.utils.viewport.ExtendViewport
 import edu.b4kancs.languagePuzzleApp.app.Game
-import edu.b4kancs.languagePuzzleApp.app.HudFontHolder
 import edu.b4kancs.languagePuzzleApp.app.misc
 import edu.b4kancs.languagePuzzleApp.app.view.screens.game.GameScreen
 import edu.b4kancs.languagePuzzleApp.app.view.ui.FilePickerInterface
+import edu.b4kancs.languagePuzzleApp.app.view.utils.HudFontHolder
+import edu.b4kancs.languagePuzzleApp.app.view.utils.loadMenuFont
 import edu.b4kancs.languagePuzzleApp.app.view.utils.toRGBFloat
 import ktx.app.KtxScreen
 import ktx.inject.Context
 import ktx.log.logger
 
 class MainMenuScreen(
-    private val context: Context,
-    private val game: Game,
-    private val filePicker: FilePickerInterface
+    context: Context,
+    private val game: Game
 ) : KtxScreen {
 
+    private val viewPortDimensions = Vector2(1200f, 800f)
+    private val viewport = ExtendViewport(viewPortDimensions.x, viewPortDimensions.y)
+
+    private val filePicker: FilePickerInterface = context.inject()
     private val uiSkin = Skin(Gdx.files.internal("skin/holo/uiskin.json"))
     private val hudFont = context.inject<HudFontHolder>().font
 
@@ -31,7 +38,9 @@ class MainMenuScreen(
         val logger = logger<MainMenuScreen>()
     }
 
-    private val stage = Stage()
+    private val stage = Stage(viewport)
+
+    private val menuButtons = mutableSetOf<TextButton>()
 
     override fun show() {
         logger.debug { "MainMenuScreen: show" }
@@ -44,18 +53,17 @@ class MainMenuScreen(
         }
 
         // Create buttons
-        val buttons = mutableSetOf<TextButton>()
-        val startExercise1Button = TextButton("Indítás az 1. példafeladattal", uiSkin).apply { buttons.add(this) }
-        val startExercise2Button = TextButton("Indítás a 2. példafeladattal", uiSkin).apply { buttons.add(this) }
-        val startExercise3Button = TextButton("Indítás a 3. példafeladattal", uiSkin).apply { buttons.add(this) }
-        val loadExerciseButton = TextButton("Feladat betöltése fájlból", uiSkin).apply { buttons.add(this) }
-        val settingsButton = TextButton("Beallítások", uiSkin).apply { buttons.add(this) }
-        val exitButton = TextButton("Kilepés", uiSkin).apply { buttons.add(this) }
+        val startExercise1Button = TextButton("Indítás az 1. példafeladattal", uiSkin).apply { menuButtons.add(this) }
+        val startExercise2Button = TextButton("Indítás a 2. példafeladattal", uiSkin).apply { menuButtons.add(this) }
+        val startExercise3Button = TextButton("Indítás a 3. példafeladattal", uiSkin).apply { menuButtons.add(this) }
+        val loadExerciseButton = TextButton("Feladat betöltése fájlból", uiSkin).apply { menuButtons.add(this) }
+        val settingsButton = TextButton("Beallítások", uiSkin).apply { menuButtons.add(this) }
+        val exitButton = TextButton("Kilepés", uiSkin).apply { menuButtons.add(this) }
 
         val buttonStyle = startExercise1Button.style.apply {
-            font = hudFont
+            font = loadMenuFont()
         }
-        buttons.forEach { it.style = buttonStyle }
+        menuButtons.forEach { it.style = buttonStyle }
 
         startExercise1Button.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
@@ -77,8 +85,6 @@ class MainMenuScreen(
                 game.startDemo3()
             }
         })
-
-
 
         loadExerciseButton.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
@@ -123,6 +129,18 @@ class MainMenuScreen(
         setBackgroundColor(180, 255, 180, 1f)
         stage.act(delta)
         stage.draw()
+    }
+
+    override fun resize(newWidth: Int, newHeight: Int) {
+        logger.debug { "resize newWidth=$newWidth newHeight=$newHeight" }
+
+        val buttonStyle = menuButtons.firstOrNull()?.style?.apply {
+            font = loadMenuFont()
+            font.region.texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
+        }
+        menuButtons.forEach { it.style = buttonStyle }
+
+        stage.viewport.update(newWidth, newHeight, true)
     }
 
     private fun setBackgroundColor(red: Int, green: Int, blue: Int, alpha: Float) {
