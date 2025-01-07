@@ -61,6 +61,12 @@ class GameInputManager(
         val mousePos = Vector2(worldCoordinates.x, worldCoordinates.y)
 
         if (!environment.isMobile) {
+            // First, if the mouse is above a button, change the cursor
+            if (uiManager.isPointerOverButton(mousePos)) {
+                cursorM.setCursor(cursorM.handPointingCursor)
+                return false
+            }
+
             // *First* first, If there is a popup active, we don't change cursors
             if (uiManager.currentPopupWindow != null || puzzleManager.editingPuzzlePiece != null || puzzleManager.editingPuzzleFeature != null) {
                 cursorM.setCursor(null)

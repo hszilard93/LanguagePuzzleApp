@@ -20,10 +20,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.Align
 import edu.b4kancs.languagePuzzleApp.app.GameViewport
 import edu.b4kancs.languagePuzzleApp.app.HudViewport
+import edu.b4kancs.languagePuzzleApp.app.misc
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
 import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 import edu.b4kancs.languagePuzzleApp.app.model.Side
+import edu.b4kancs.languagePuzzleApp.app.view.ui.AddPuzzlePopup
+import edu.b4kancs.languagePuzzleApp.app.view.ui.GrammaticalRolePopup
 import edu.b4kancs.languagePuzzleApp.app.view.ui.TextEditorPopup
 import edu.b4kancs.languagePuzzleApp.app.view.utils.TaskFontHolder
 import edu.b4kancs.languagePuzzleApp.app.view.utils.loadTaskFont
@@ -53,42 +56,45 @@ class UIManager(
         private set
     lateinit var checkMarkImage: Image
         private set
+    lateinit var addPuzzleButton: ImageButton
+        private set
+
     private lateinit var topBarTable: Table
 
 
-    private var tabIcon = Texture(Gdx.files.internal("puzzle_tab_general_1.png"), Pixmap.Format.RGBA8888, true)
     private var backIcon = Texture(Gdx.files.internal("back_button_1.png"), Pixmap.Format.RGBA8888, true)
+        .apply { setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear) }
+    private var addPuzzleIcon = Texture(Gdx.files.internal("add_puzzle_button_7.png"), Pixmap.Format.RGBA8888, true)
+        .apply { setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear) }
 
     fun initializeUI() {
         logger.debug { "initializeUI" }
         initializeTopBar()
         initializeCheckMarkUI()
+        initializeAddPuzzleButton()
     }
 
     private fun initializeTopBar() {
         logger.debug { "Initializing Top Bar UI." }
 
         topBarTable = Table().apply {
-            setFillParent(true) // Make the table occupy the entire stage
+            setFillParent(true)
             padTop(4f)
             padLeft(4f)
             padRight(24f)
-            top().left() // Align content to the top-left
-
+            top().left()
             //debug = true // Uncomment for debugging table layout
         }
 
-        // Create the label for the description text
         exerciseDescriptionLabel = Label("", uiSkin).apply {
-            setWrap(true) // Enable text wrapping
-            setAlignment(Align.center) // Center-align the text
+            setWrap(true)
+            setAlignment(Align.center)
         }
         exerciseDescriptionLabel.style.background = uiSkin.getDrawable("white")
         exerciseDescriptionLabel.color.a = 0.75f
         exerciseDescriptionLabel.style.font = taskFont
-//        exerciseDescriptionLabel.fontScaleX = 0.2f
-//        exerciseDescriptionLabel.fontScaleY = 0.2f
-        // ↓ This needs to be done or it wont work ↓
+
+        // ↓ This needs to be done or the style wont update ↓
         exerciseDescriptionLabel.style = exerciseDescriptionLabel.style
 
         val buttonStyle = ImageButton.ImageButtonStyle().apply {
@@ -176,70 +182,61 @@ class UIManager(
     fun displayGrammaticalRolePopup(puzzlePiece: PuzzlePiece, side: Side, onRoleSelected: (GrammaticalRole) -> Unit) {
         logger.debug { "displayGrammaticalRolePopup for puzzlePiece=${puzzlePiece.text}" }
 
-        val popupWindow = Window("", uiSkin).also { popup ->
-            popup.isMovable = true
-            popup.isResizable = false
-
-            // Layout group for the buttons
-            val buttonTable = Table()
-
-            // Define the grammatical roles you want to offer
-            val roles = listOf(GrammaticalRole.SUBJECT, GrammaticalRole.OBJECT, GrammaticalRole.ADVERBIAL)
-
-            roles.forEach { role ->
-                val buttonStyle = ImageButton.ImageButtonStyle().apply {
-                    this.up = TextureRegionDrawable(TextureRegion(tabIcon)).tint(role.color)
-                }
-                val roleButton = ImageButton(buttonStyle).apply {
-                    addListener(object : ClickListener() {
-                        override fun clicked(event: InputEvent?, x: Float, y: Float) {
-                            logger.info { "ImageButton grammaticalRole = $role clicked" }
-                            onRoleSelected(role)
-                            currentPopupWindow = null
-                            popup.remove()
-                            true
-                        }
-                    })
-                }
-                buttonTable.add(roleButton).size(40f).pad(5f)
-                if (side == Side.LEFT || side == Side.RIGHT) {
-                    buttonTable.row()
-                }
+        val popupWindow = GrammaticalRolePopup(
+            title = "",
+            skin = uiSkin,
+            gameViewport = gameViewport,
+            puzzlePiece = puzzlePiece,
+            side = side,
+            onRoleSelected = onRoleSelected,
+            onClose = {
+                currentPopupWindow?.remove()
+                currentPopupWindow = null
             }
-            popup.add(buttonTable).row()
+        )
 
-            popup.pack() // Adjust size to fit content
+        uiStage.addActor(popupWindow)
+        currentPopupWindow = popupWindow
+    }
 
-            // Position the popup near the puzzle piece
-            val popupX: Float
-            val popupY: Float
-            with(puzzlePiece) {
-                when (side) {
-                    Side.TOP -> {
-                        popupX = pos.x + size / 2f
-                        popupY = pos.y + size + 50f
-                    }
+    private fun initializeAddPuzzleButton() {
+        logger.debug { "initializeAddPuzzleButton" }
 
-                    Side.BOTTOM -> {
-                        popupX = pos.x + size / 2f
-                        popupY = pos.y - 150f
-                    }
-
-                    Side.LEFT -> {
-                        popupX = pos.x - popup.width - 50f
-                        popupY = pos.y + size / 4f
-                    }
-
-                    Side.RIGHT -> {
-                        popupX = pos.x + size + popup.width + 50f
-                        popupY = pos.y + size / 4f
-                    }
-                }
-            }
-
-            val projectedCoords = gameViewport.project(Vector2(popupX, popupY))
-            popup.setPosition(projectedCoords.x, projectedCoords.y)
+        val style = ImageButton.ImageButtonStyle().apply {
+            this.up = TextureRegionDrawable(TextureRegion(addPuzzleIcon)).tint(Color(120f, 120f, 255f, 0.8f))
+            this.down = TextureRegionDrawable(TextureRegion(addPuzzleIcon)).tint(Color(120f, 120f, 255f, 1f))
         }
+
+        addPuzzleButton = ImageButton(style).apply {
+            addListener(object : ClickListener() {
+                override fun clicked(event: InputEvent?, x: Float, y: Float) {
+                    logger.info { "Add puzzle button clicked" }
+                    displayAddPuzzlePopup(
+                        onAddBlankPuzzle = {},
+                        onAddBasePuzzle = {}
+                    )
+                }
+            })
+        }
+
+        topBarTable.row()
+        topBarTable.add(addPuzzleButton).width(100f).height(100f).padLeft(10f).align(Align.topLeft)
+    }
+
+    fun displayAddPuzzlePopup(onAddBasePuzzle: () -> Unit, onAddBlankPuzzle: () -> Unit) {
+        logger.debug { "displayAddPuzzlePopup" }
+
+        val popupWindow = AddPuzzlePopup(
+            title = "",
+            skin = uiSkin,
+            position = Vector2(addPuzzleButton.x + 50, addPuzzleButton.y - 250),
+            onAddBasePuzzle = onAddBasePuzzle,
+            onAddBlankPuzzle = onAddBlankPuzzle,
+            onClose = {
+                currentPopupWindow?.remove()
+                currentPopupWindow = null
+            }
+        )
 
         uiStage.addActor(popupWindow)
         currentPopupWindow = popupWindow
@@ -250,6 +247,28 @@ class UIManager(
         font.region.texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
         exerciseDescriptionLabel.style.font = font
         exerciseDescriptionLabel.style = exerciseDescriptionLabel.style
+    }
+
+    fun isPointerOverButton(mousePos: Vector2): Boolean {
+        logger.misc { "isPointerOverButton mousePos = $mousePos" }
+
+        val realMousePos = gameViewport.project(mousePos.cpy())
+
+        if (this::returnButton.isInitialized) {
+            returnButton.let {
+                if (it.isOver) {
+                    return true
+                }
+            }
+        }
+        if (this::addPuzzleButton.isInitialized) {
+            addPuzzleButton.let {
+                if (addPuzzleButton.isOver) {
+                    return true
+                }
+            }
+        }
+        return false
     }
 
     fun dispose() {

@@ -31,7 +31,7 @@ class HudRenderer(
 
         if (Game.IS_DEBUG_MODE_ON) {
 
-            hudFont.setColor(50f, 50f, 50f, 1f)
+            hudFont.setColor(0f, 0f, 0f, 1f)
 
             batch.projectionMatrix = hudCamera.combined
             batch.use {

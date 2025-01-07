@@ -21,6 +21,7 @@ import edu.b4kancs.languagePuzzleApp.app.view.ui.FilePickerInterface
 import edu.b4kancs.languagePuzzleApp.app.view.utils.HudFontHolder
 import edu.b4kancs.languagePuzzleApp.app.view.utils.toVector2
 import ktx.app.KtxScreen
+import ktx.graphics.moveTo
 import ktx.inject.Context
 import ktx.log.logger
 
@@ -42,6 +43,7 @@ class GameScreen(
     private val environment: Environment = context.inject()
     private val hudFont = context.inject<HudFontHolder>().font
     private val filePicker: FilePickerInterface = context.inject()
+    private val cursorManager: CursorManager = context.inject()
 
     private val puzzlePieceDrawer: PuzzlePieceDrawer = PuzzlePieceDrawer(context)
 
@@ -54,7 +56,6 @@ class GameScreen(
     // Managers
     private var cameraController: CameraController
     private var uiManager: UIManager
-    private var cursorManager: CursorManager
     private var puzzleManager: PuzzleManager
     private var puzzleRenderer: PuzzleRenderer
     private var hudRenderer: HudRenderer
@@ -79,8 +80,6 @@ class GameScreen(
             game.backToMenuScreen()
         }
         uiManager.initializeUI()
-
-        cursorManager = CursorManager(environment)
 
         puzzleManager = PuzzleManager(gameModel, puzzleSnapHelper, uiManager)
 
@@ -115,6 +114,8 @@ class GameScreen(
 
     override fun show() {
         logger.debug { "show" }
+        gameCamera.moveTo(gameCamera.position.toVector2().add(-100f, 100f))
+        gameCamera.update()
         super.show()
     }
 

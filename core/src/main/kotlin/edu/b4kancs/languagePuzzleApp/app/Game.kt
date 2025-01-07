@@ -16,6 +16,7 @@ import edu.b4kancs.languagePuzzleApp.app.model.EnvironmentalImplementations
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
 import edu.b4kancs.languagePuzzleApp.app.other.gdxSmartFontMaster.SmartFontGenerator
 import edu.b4kancs.languagePuzzleApp.app.view.screens.game.Constants
+import edu.b4kancs.languagePuzzleApp.app.view.screens.game.CursorManager
 import edu.b4kancs.languagePuzzleApp.app.view.screens.game.GameScreen
 import edu.b4kancs.languagePuzzleApp.app.view.screens.menu.MainMenuScreen
 import edu.b4kancs.languagePuzzleApp.app.view.ui.FilePickerInterface
@@ -144,6 +145,8 @@ class Game(
                     hudCamera
                 )
             )
+            bindSingleton<CursorManager>(CursorManager(environment))
+
             // It is important to initialize the gameModel late!
             gameModel = GameModel()
             bindSingleton(gameModel)

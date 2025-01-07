@@ -13,10 +13,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.viewport.ExtendViewport
 import edu.b4kancs.languagePuzzleApp.app.Game
 import edu.b4kancs.languagePuzzleApp.app.misc
+import edu.b4kancs.languagePuzzleApp.app.view.screens.game.CursorManager
+import edu.b4kancs.languagePuzzleApp.app.view.screens.game.CustomCursorLoader
 import edu.b4kancs.languagePuzzleApp.app.view.screens.game.GameScreen
 import edu.b4kancs.languagePuzzleApp.app.view.ui.FilePickerInterface
 import edu.b4kancs.languagePuzzleApp.app.view.utils.HudFontHolder
 import edu.b4kancs.languagePuzzleApp.app.view.utils.loadMenuFont
+import edu.b4kancs.languagePuzzleApp.app.view.utils.loadTaskFont
 import edu.b4kancs.languagePuzzleApp.app.view.utils.toRGBFloat
 import ktx.app.KtxScreen
 import ktx.inject.Context
@@ -33,6 +36,7 @@ class MainMenuScreen(
     private val filePicker: FilePickerInterface = context.inject()
     private val uiSkin = Skin(Gdx.files.internal("skin/holo/uiskin.json"))
     private val hudFont = context.inject<HudFontHolder>().font
+    private val cursorManager: CursorManager = context.inject()
 
     companion object {
         val logger = logger<MainMenuScreen>()
@@ -122,6 +126,8 @@ class MainMenuScreen(
 
         // Add the table to the stage
         stage.addActor(table)
+
+        cursorManager.setCursor(null)
     }
 
     override fun render(delta: Float) {
@@ -134,12 +140,7 @@ class MainMenuScreen(
     override fun resize(newWidth: Int, newHeight: Int) {
         logger.debug { "resize newWidth=$newWidth newHeight=$newHeight" }
 
-        val buttonStyle = menuButtons.firstOrNull()?.style?.apply {
-            font = loadMenuFont()
-            font.region.texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
-        }
-        menuButtons.forEach { it.style = buttonStyle }
-
+        updateFonts()
         stage.viewport.update(newWidth, newHeight, true)
     }
 
@@ -147,6 +148,16 @@ class MainMenuScreen(
         GameScreen.logger.misc { "setBackgroundColor red=$red, green=$green, blue=$blue, alpha=$alpha" }
         Gdx.gl.glClearColor(red.toRGBFloat(), green.toRGBFloat(), blue.toRGBFloat(), alpha)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
+    }
+
+    private fun updateFonts() {
+        val font = loadMenuFont()
+        font.region.texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
+
+        menuButtons.forEach { button ->
+            button.style.font
+            button.style = button.style
+        }
     }
 
     override fun hide() {
