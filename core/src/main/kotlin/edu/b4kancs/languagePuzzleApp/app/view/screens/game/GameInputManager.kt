@@ -38,14 +38,18 @@ class GameInputManager(
         val logger = ktx.log.logger<GameInputManager>()
     }
 
+    private var isEmulatedDragOn: Boolean = false
     private var isDraggingGame = false
     private var lastTouch = Vector2()
     private var lastMouseWorldPos = Vector2()
     private var lastClickTime: Long = 0
     private val doubleClickThreshold = 300
     private val longPressDuration = 500
-
     private var isPotentialClick = false
+
+    var lastPublicMouseWorldPos = Vector2()
+        private set
+
     private var initialTouchPos = Vector2()
     private val dragThreshold = 5f
 
@@ -59,21 +63,30 @@ class GameInputManager(
 
         val worldCoordinates = cameraController.gameCamera.unprojectScreenCoords(screenX, screenY)
         val mousePos = Vector2(worldCoordinates.x, worldCoordinates.y)
+        lastPublicMouseWorldPos.set(mousePos)
 
         if (!environment.isMobile) {
+
+            if (isEmulatedDragOn) {
+                if (cursorM.currentCursor == null) cursorM.setCursor(cursorM.handClosedCursor)
+
+                touchDragged(screenX, screenY, 0)
+                return true
+            }
+
             // First, if the mouse is above a button, change the cursor
             if (uiManager.isPointerOverButton(mousePos)) {
                 cursorM.setCursor(cursorM.handPointingCursor)
                 return false
             }
 
-            // *First* first, If there is a popup active, we don't change cursors
+            // Second, If there is a popup active, we don't change cursors
             if (uiManager.currentPopupWindow != null || puzzleManager.editingPuzzlePiece != null || puzzleManager.editingPuzzleFeature != null) {
                 cursorM.setCursor(null)
                 return false
             }
 
-            // First, we check if the pointer is over a puzzle piece's approximate area
+            // Then we check if the pointer is over a puzzle piece's approximate area
             gameModel.puzzlePieces.sortByDescending { it.depth }
             val puzzleUnderPointer = gameModel.puzzlePieces.find { isPointerOverPuzzlePiece(mousePos, it, true) }
 
@@ -160,10 +173,10 @@ class GameInputManager(
     override fun keyDown(keycode: Int): Boolean {
         logger.debug { "keyDown keycode=$keycode" }
         when (keycode) {
-            Input.Keys.W -> {
-                handleWClick(Gdx.input.x, Gdx.input.y)
-                return true
-            }
+//            Input.Keys.W -> {
+//                handleWPressed(Gdx.input.x, Gdx.input.y)
+//                return true
+//            }
             else -> return false
         }
     }
@@ -184,6 +197,12 @@ class GameInputManager(
 
     private fun handleLeftClick(screenX: Int, screenY: Int) {
         logger.debug { "handleLeftClick" }
+
+        if (isEmulatedDragOn) {
+            isEmulatedDragOn = false
+            cursorM.setCursor(null)
+            return
+        }
 
         if (uiManager.currentPopupWindow != null) {
             logger.info { "Click besides popup, removing window." }
@@ -268,7 +287,7 @@ class GameInputManager(
         toggleDebugInfo()
     }
 
-    private fun handleWClick(screenX: Int, screenY: Int) {
+    private fun handleWPressed(screenX: Int, screenY: Int) {
         logger.debug { "handleWClick" }
 
         val worldCoordinates = cameraController.gameCamera.unprojectScreenCoords(screenX, screenY)
@@ -287,7 +306,7 @@ class GameInputManager(
             if (distanceMoved > dragThreshold) {
                 // Initiate drag
                 isPotentialClick = false
-                puzzleManager.startDragging(puzzleManager.puzzlePieceToDragOrRotate!!, initialTouchPos) // Use initialTouchPos for start
+                puzzleManager.startDragging(puzzleManager.puzzlePieceToDragOrRotate!!) // Use initialTouchPos for start
                 cursorM.setCursor(cursorM.handClosedCursor)
                 lastMouseWorldPos.set(mousePos)
                 return true
@@ -352,6 +371,11 @@ class GameInputManager(
         cameraController.gameCamera.translate(-offsetX, -offsetY, 0f)
         cameraController.gameCamera.update()
         return true
+    }
+
+    fun emulateDragging() {
+        logger.debug { "emulateDragging" }
+        isEmulatedDragOn = true
     }
 
     private fun isPointerOverPuzzlePiece(mousePos: Vector2, puzzlePiece: PuzzlePiece, approximate: Boolean = false): Boolean {

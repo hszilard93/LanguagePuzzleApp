@@ -59,6 +59,7 @@ class GameScreen(
     private var puzzleManager: PuzzleManager
     private var puzzleRenderer: PuzzleRenderer
     private var hudRenderer: HudRenderer
+    private var gameInputManager: GameInputManager
 
     private var shouldDisplayDebugInfo = false
         private set(value) {
@@ -79,9 +80,11 @@ class GameScreen(
         uiManager = UIManager(context, uiStage, uiSkin) {
             game.backToMenuScreen()
         }
-        uiManager.initializeUI()
 
         puzzleManager = PuzzleManager(gameModel, puzzleSnapHelper, uiManager)
+
+        uiManager.registerPuzzleManager(puzzleManager)
+        uiManager.initializeUI()
 
         puzzleRenderer = PuzzleRenderer(batch, gameCamera, gameViewport, gameModel, puzzlePieceDrawer)
 
@@ -95,7 +98,7 @@ class GameScreen(
         )
 
         // Initialize Input Manager
-        val gameInputManager = GameInputManager(
+        gameInputManager = GameInputManager(
             cameraController,
             puzzleManager,
             cursorManager,
@@ -105,8 +108,11 @@ class GameScreen(
             realToVirtualResolutionRatio = calculateResolutionRatio(),
             setBackgroundColor = ::setBackgroundColor,
             toggleDebugInfo = { shouldDisplayDebugInfo = !shouldDisplayDebugInfo },
-            displayCheckMark = { uiManager.displayCheckMark() }
+            displayCheckMark = { uiManager.showCheckMark() }
         )
+
+        puzzleManager.registerGameInputManager(gameInputManager)
+
         inputMultiplexer.addProcessor(uiStage)
         inputMultiplexer.addProcessor(gameInputManager)
         Gdx.input.inputProcessor = inputMultiplexer

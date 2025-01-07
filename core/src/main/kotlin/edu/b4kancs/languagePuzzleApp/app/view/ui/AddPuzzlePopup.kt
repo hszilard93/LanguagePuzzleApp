@@ -77,7 +77,7 @@ class AddPuzzlePopup(
                     val hitTopY = button.height - hitBottomY
                     if (relativeY in hitBottomY + offset..hitTopY + offset) {
                         logger.info { "addBlankPuzzleButton clicked x = $x\ty = $y" }
-                        onAddBasePuzzle()
+                        onAddBlankPuzzle()
                         onClose()
                     }
                     else {

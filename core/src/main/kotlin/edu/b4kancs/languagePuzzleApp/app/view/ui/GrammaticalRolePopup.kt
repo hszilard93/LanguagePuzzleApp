@@ -88,7 +88,7 @@ class GrammaticalRolePopup(
                 }
 
                 Side.RIGHT -> {
-                    popupX = pp.pos.x + pp.size + this.width + 50f
+                    popupX = pp.pos.x + pp.size
                     popupY = pp.pos.y + pp.size / 4f
                 }
             }

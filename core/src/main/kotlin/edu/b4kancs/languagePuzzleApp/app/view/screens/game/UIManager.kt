@@ -45,6 +45,7 @@ class UIManager(
 
     var currentPopupWindow: Window? = null
 
+    private lateinit var puzzleManager: PuzzleManager
     private val hudViewport: HudViewport = context.inject()
     private val gameViewport: GameViewport = context.inject()
     private val gameModel: GameModel = context.inject()
@@ -58,20 +59,29 @@ class UIManager(
         private set
     lateinit var addPuzzleButton: ImageButton
         private set
+    lateinit var garbageBinImage: Image
 
     private lateinit var topBarTable: Table
 
+    private var backButtonTexture = Texture(Gdx.files.internal("back_button_1.png"), Pixmap.Format.RGBA8888, true)
+        .apply { setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear) }
+    private var addPuzzleTexture = Texture(Gdx.files.internal("add_puzzle_button_7.png"), Pixmap.Format.RGBA8888, true)
+        .apply { setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear) }
+    private var garbageBinClosedTexture = Texture(Gdx.files.internal("garbage_bin_closed_1.png"), Pixmap.Format.RGBA8888, true)
+        .apply { setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear) }
+    private var garbageBinOpenTexture = Texture(Gdx.files.internal("garbage_bin_open_1.png"), Pixmap.Format.RGBA8888, true)
+        .apply { setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear) }
 
-    private var backIcon = Texture(Gdx.files.internal("back_button_1.png"), Pixmap.Format.RGBA8888, true)
-        .apply { setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear) }
-    private var addPuzzleIcon = Texture(Gdx.files.internal("add_puzzle_button_7.png"), Pixmap.Format.RGBA8888, true)
-        .apply { setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear) }
+    fun registerPuzzleManager(puzzleManager: PuzzleManager) {
+        this.puzzleManager = puzzleManager
+    }
 
     fun initializeUI() {
         logger.debug { "initializeUI" }
         initializeTopBar()
         initializeCheckMarkUI()
         initializeAddPuzzleButton()
+        initializeGarbageBin()
     }
 
     private fun initializeTopBar() {
@@ -98,8 +108,8 @@ class UIManager(
         exerciseDescriptionLabel.style = exerciseDescriptionLabel.style
 
         val buttonStyle = ImageButton.ImageButtonStyle().apply {
-            this.up = TextureRegionDrawable(TextureRegion(backIcon)).tint(Color(120f, 120f, 255f, 0.6f))
-            this.down = TextureRegionDrawable(TextureRegion(backIcon)).tint(Color(120f, 120f, 255f, 1f))
+            this.up = TextureRegionDrawable(TextureRegion(backButtonTexture)).tint(Color(120f, 120f, 255f, 0.6f))
+            this.down = TextureRegionDrawable(TextureRegion(backButtonTexture)).tint(Color(120f, 120f, 255f, 1f))
         }
         returnButton = ImageButton(buttonStyle).apply {
             addListener(object : ClickListener() {
@@ -154,7 +164,7 @@ class UIManager(
         uiStage.addActor(checkMarkImage)
     }
 
-    fun displayCheckMark() {
+    fun showCheckMark() {
         logger.debug { "displayCheckMark" }
 
         if (::checkMarkImage.isInitialized) {
@@ -162,6 +172,10 @@ class UIManager(
             checkMarkImage.color.a = 0.5f
             checkMarkImage.addAction(Actions.fadeIn(1f))
         }
+    }
+
+    fun hideCheckMark() {
+
     }
 
     fun displayTextEditorPopup(text: String, pos: Vector2, onSave: (String) -> Unit, onCancel: () -> Unit) {
@@ -203,8 +217,8 @@ class UIManager(
         logger.debug { "initializeAddPuzzleButton" }
 
         val style = ImageButton.ImageButtonStyle().apply {
-            this.up = TextureRegionDrawable(TextureRegion(addPuzzleIcon)).tint(Color(120f, 120f, 255f, 0.8f))
-            this.down = TextureRegionDrawable(TextureRegion(addPuzzleIcon)).tint(Color(120f, 120f, 255f, 1f))
+            this.up = TextureRegionDrawable(TextureRegion(addPuzzleTexture)).tint(Color(120f, 120f, 255f, 0.8f))
+            this.down = TextureRegionDrawable(TextureRegion(addPuzzleTexture)).tint(Color(120f, 120f, 255f, 1f))
         }
 
         addPuzzleButton = ImageButton(style).apply {
@@ -212,8 +226,12 @@ class UIManager(
                 override fun clicked(event: InputEvent?, x: Float, y: Float) {
                     logger.info { "Add puzzle button clicked" }
                     displayAddPuzzlePopup(
-                        onAddBlankPuzzle = {},
-                        onAddBasePuzzle = {}
+                        onAddBasePuzzle = {
+                            puzzleManager.addNewPuzzlePieceViaDrag(isBlank = false)
+                        },
+                        onAddBlankPuzzle = {
+                            puzzleManager.addNewPuzzlePieceViaDrag(isBlank = true)
+                        }
                     )
                 }
             })
@@ -240,6 +258,24 @@ class UIManager(
 
         uiStage.addActor(popupWindow)
         currentPopupWindow = popupWindow
+    }
+
+    private fun initializeGarbageBin() {
+        logger.debug { "initializeGarbageBin" }
+
+        garbageBinImage = Image(garbageBinClosedTexture).apply {
+            setSize(125f, 125f)
+            setPosition(10f, 20f)
+            isVisible = true
+            setColor(200f, 50f, 50f, 0.8f)
+        }
+        uiStage.addActor(garbageBinImage)
+    }
+
+    fun isPuzzlePieceOverGarbageBin(puzzlePiece: PuzzlePiece): Boolean {
+        logger.debug { "isPuzzlePieceOverGarbageBin" }
+
+        return false
     }
 
     fun updateFonts() {

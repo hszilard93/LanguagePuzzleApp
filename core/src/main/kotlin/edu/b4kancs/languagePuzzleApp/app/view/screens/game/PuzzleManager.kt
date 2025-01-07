@@ -1,5 +1,6 @@
 package edu.b4kancs.languagePuzzleApp.app.view.screens.game
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.math.Vector2
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
 import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole
@@ -23,6 +24,8 @@ class PuzzleManager(
         val logger = logger<PuzzleManager>()
     }
 
+    private lateinit var gameInputManager: GameInputManager
+
     var puzzlePieceToDragOrRotate: PuzzlePiece? = null
     var draggedPuzzlePiece: PuzzlePiece? = null
         private set
@@ -38,16 +41,25 @@ class PuzzleManager(
     var editingPuzzleFeature: PuzzlePieceFeature? = null
         private set
 
-    fun startDragging(puzzlePiece: PuzzlePiece, mousePos: Vector2) {
-        logger.debug { "startDragging puzzlePiece = $puzzlePiece mousePos = $mousePos" }
+    fun registerGameInputManager(gameInputManager: GameInputManager) {
+        this.gameInputManager = gameInputManager
+    }
+
+    fun startDragging(puzzlePiece: PuzzlePiece, toSnap: Boolean = true) {
+        logger.debug { "startDragging puzzlePiece = $puzzlePiece" }
         draggedPuzzlePiece = puzzlePiece
         puzzlePieceToDragOrRotate = null
 
-        puzzlePiece.depth = gameModel.puzzlePieces.maxOfOrNull { it.depth }?.plus(1) ?: 0
+        val maxDepth = gameModel.puzzlePieces.maxOfOrNull { it.depth } ?: 0
+        if (puzzlePiece.depth != maxDepth) {
+            puzzlePiece.depth = maxDepth + 1
+        }
 
-        puzzleSnapHelper.updatePuzzleFeaturesByProximity()
-        draggedPuzzlePiece!!.getAllFeatures()
-            .forEach { puzzleSnapHelper.updatePuzzleFeatureCompatibilityMap(it) }
+        if (toSnap) {
+            puzzleSnapHelper.updatePuzzleFeaturesByProximity()
+            draggedPuzzlePiece!!.getAllFeatures()
+                .forEach { puzzleSnapHelper.updatePuzzleFeatureCompatibilityMap(it) }
+        }
     }
 
     fun dragPuzzle(mousePos: Vector2, lastPos: Vector2) {
@@ -158,15 +170,33 @@ class PuzzleManager(
         featureToRemove = null
     }
 
-    fun addNewPuzzlePiece(mousePos: Vector2, grammaticalRole: GrammaticalRole = GrammaticalRole.VERB) {
-        logger.info { "addNewPuzzlePiece grammaticalRole = $grammaticalRole" }
+    fun addNewPuzzlePiece(mousePos: Vector2, isBlank: Boolean = false): PuzzlePiece {
+        logger.info { "addNewPuzzlePiece mousePos = $mousePos \tisBlank = $isBlank" }
 
         val newPuzzlePiece = PuzzlePiece(
             text = "",
-            grammaticalRole = grammaticalRole,
+            grammaticalRole = if (!isBlank) GrammaticalRole.VERB else GrammaticalRole.UNDEFINED,
             depth = gameModel.puzzlePieces.maxOfOrNull { it.depth }?.plus(1) ?: 0,
             pos = mousePos
         )
+
+        if (!isBlank) {
+            newPuzzlePiece.addFeature(PuzzlePieceFeature.Type.TAB, Side.TOP, GrammaticalRole.SUBJECT)
+        }
+        else {
+            newPuzzlePiece.addFeature(PuzzlePieceFeature.Type.BLANK, Side.BOTTOM)
+        }
+
         gameModel.puzzlePieces.add(newPuzzlePiece)
+        return newPuzzlePiece
+    }
+
+    fun addNewPuzzlePieceViaDrag(isBlank: Boolean = false) {
+        logger.info { "addNewPuzzlePieceViaDrag isBlank = $isBlank" }
+
+        val newPiece = addNewPuzzlePiece(gameInputManager.lastPublicMouseWorldPos, isBlank)
+
+        startDragging(newPiece, false)
+        gameInputManager.emulateDragging()
     }
 }
