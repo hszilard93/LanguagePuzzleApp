@@ -3,6 +3,9 @@ package edu.b4kancs.languagePuzzleApp.app.view.utils
 import com.badlogic.gdx.graphics.Camera
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.math.Vector3
+import com.badlogic.gdx.scenes.scene2d.Actor
+import com.badlogic.gdx.scenes.scene2d.actions.Actions
+import com.badlogic.gdx.scenes.scene2d.actions.AlphaAction
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -27,4 +30,8 @@ fun Camera.unprojectScreenCoords(screenX: Int, screenY: Int): Vector2 {
 fun Vector2.toVector3(): Vector3 = Vector3(this.x, this.y, 0f)
 
 fun Vector3.toVector2(): Vector2 = Vector2(this.x, this.y)
+
+fun partialFadeIn(targetA: Float, duration: Float): AlphaAction {
+    return Actions.alpha(targetA, duration, null)
+}
 

@@ -30,6 +30,7 @@ import edu.b4kancs.languagePuzzleApp.app.view.ui.GrammaticalRolePopup
 import edu.b4kancs.languagePuzzleApp.app.view.ui.TextEditorPopup
 import edu.b4kancs.languagePuzzleApp.app.view.utils.TaskFontHolder
 import edu.b4kancs.languagePuzzleApp.app.view.utils.loadTaskFont
+import edu.b4kancs.languagePuzzleApp.app.view.utils.partialFadeIn
 import ktx.inject.Context
 
 class UIManager(
@@ -71,6 +72,9 @@ class UIManager(
         .apply { setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear) }
     private var garbageBinOpenTexture = Texture(Gdx.files.internal("garbage_bin_open_1.png"), Pixmap.Format.RGBA8888, true)
         .apply { setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear) }
+
+    var isGarbageBinLifted = false
+        private set
 
     fun registerPuzzleManager(puzzleManager: PuzzleManager) {
         this.puzzleManager = puzzleManager
@@ -266,16 +270,52 @@ class UIManager(
         garbageBinImage = Image(garbageBinClosedTexture).apply {
             setSize(125f, 125f)
             setPosition(10f, 20f)
-            isVisible = true
-            setColor(200f, 50f, 50f, 0.8f)
+            isVisible = false
+            setColor(200f, 50f, 50f, 0.1f)
         }
         uiStage.addActor(garbageBinImage)
+        isGarbageBinLifted = false
+    }
+
+    fun showClosedGarbageBin() {
+        logger.debug { "showClosedGarbageBin" }
+        garbageBinImage.drawable = TextureRegionDrawable(garbageBinClosedTexture)
+        garbageBinImage.isVisible = true
+        garbageBinImage.addAction(partialFadeIn(0.8f, 0.2f))
+        isGarbageBinLifted = false
+    }
+
+    fun showLiftedGarbageBin() {
+        logger.debug { "showOpenGarbageBin" }
+        garbageBinImage.drawable = TextureRegionDrawable(garbageBinOpenTexture)
+        garbageBinImage.isVisible = true
+        garbageBinImage.addAction(partialFadeIn(0.8f, 0.2f))
+        isGarbageBinLifted = true
+    }
+
+    fun hideGarbageBin() {
+        logger.debug { "hideGarbageBin" }
+        garbageBinImage.addAction(Actions.fadeOut(0.1f))
+//        garbageBinImage.isVisible = false
     }
 
     fun isPuzzlePieceOverGarbageBin(puzzlePiece: PuzzlePiece): Boolean {
         logger.debug { "isPuzzlePieceOverGarbageBin" }
 
-        return false
+        val puzzleBoundingBoxPos = gameViewport.project(puzzlePiece.boundingBoxPos.cpy())
+
+        val puzzleStartX = puzzleBoundingBoxPos.x + 50f
+        val puzzleEndX = puzzleStartX + puzzlePiece.boundingBoxSize - 50f
+        val puzzleStartY = puzzleBoundingBoxPos.y + 50f
+        val puzzleEndY = puzzleStartY + puzzlePiece.boundingBoxSize + 50f
+
+        val binMiddleX = garbageBinImage.x + garbageBinImage.width / 2f
+        val binMiddleY = garbageBinImage.y + garbageBinImage.height / 2f
+        val binMiddleProjected = hudViewport.unproject(Vector2(binMiddleX, binMiddleY))
+
+        logger.info { "puzzleStartX = $puzzleStartX puzzleEndX = $puzzleEndX puzzleStartY = $puzzleStartY puzzleEndY = $puzzleEndY binMiddleX = $binMiddleX binMiddleY = $binMiddleY projectedX = ${binMiddleProjected.x} projectedY = ${binMiddleProjected.y}" }
+
+        return ((binMiddleX in puzzleStartX..puzzleEndX) && (binMiddleY in puzzleStartY..puzzleEndY))
     }
 
     fun updateFonts() {

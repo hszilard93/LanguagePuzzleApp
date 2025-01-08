@@ -1,6 +1,5 @@
 package edu.b4kancs.languagePuzzleApp.app.view.screens.game
 
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.math.Vector2
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
 import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole
@@ -60,6 +59,8 @@ class PuzzleManager(
             draggedPuzzlePiece!!.getAllFeatures()
                 .forEach { puzzleSnapHelper.updatePuzzleFeatureCompatibilityMap(it) }
         }
+
+        uiManager.showClosedGarbageBin()
     }
 
     fun dragPuzzle(mousePos: Vector2, lastPos: Vector2) {
@@ -80,16 +81,33 @@ class PuzzleManager(
             }
         }
 
+        if (!draggedPuzzlePiece!!.isConnected && uiManager.isPuzzlePieceOverGarbageBin(draggedPuzzlePiece!!)) {
+            if (!uiManager.isGarbageBinLifted) {
+                uiManager.showLiftedGarbageBin()
+            }
+        }
+        else if (uiManager.isGarbageBinLifted) {
+            uiManager.showClosedGarbageBin()
+        }
+
         puzzleSnapHelper.updatePuzzleFeaturesByProximity()
     }
 
     fun stopDragging() {
         logger.debug { "stopDragging" }
 
+        draggedPuzzlePiece?.let {
+            if (!draggedPuzzlePiece!!.isConnected && uiManager.isPuzzlePieceOverGarbageBin(it)) {
+                gameModel.puzzlePieces.remove(it)
+            }
+        }
+
         draggedPuzzlePiece?.getAllFeatures()?.forEach { puzzleSnapHelper.clearPuzzleFeatureCompatibilityMap(it) }
         draggedPuzzlePiece = null
         puzzleSnapHelper.performSnapIfAny()
         puzzleSnapHelper.clearPuzzleFeaturesByProximity()
+
+        uiManager.hideGarbageBin()
     }
 
     fun rotatePuzzlePiece(direction: RotationDirection) {
@@ -177,7 +195,7 @@ class PuzzleManager(
             text = "",
             grammaticalRole = if (!isBlank) GrammaticalRole.VERB else GrammaticalRole.UNDEFINED,
             depth = gameModel.puzzlePieces.maxOfOrNull { it.depth }?.plus(1) ?: 0,
-            pos = mousePos
+            pos = mousePos.cpy()
         )
 
         if (!isBlank) {

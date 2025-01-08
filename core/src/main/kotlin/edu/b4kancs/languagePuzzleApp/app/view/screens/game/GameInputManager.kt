@@ -59,7 +59,7 @@ class GameInputManager(
 
     // Inner InputProcessor class logic moved to here
     override fun mouseMoved(screenX: Int, screenY: Int): Boolean {
-        OldGameScreen.logger.misc { "mouseMoved screenX=$screenX screenY=$screenY" }
+        logger.misc { "mouseMoved screenX=$screenX screenY=$screenY" }
 
         val worldCoordinates = cameraController.gameCamera.unprojectScreenCoords(screenX, screenY)
         val mousePos = Vector2(worldCoordinates.x, worldCoordinates.y)
@@ -68,7 +68,10 @@ class GameInputManager(
         if (!environment.isMobile) {
 
             if (isEmulatedDragOn) {
-                if (cursorM.currentCursor == null) cursorM.setCursor(cursorM.handClosedCursor)
+                if (cursorM.currentCursor == null) {
+                    cursorM.setCursor(cursorM.handClosedCursor)
+                    lastMouseWorldPos.set(mousePos)
+                }
 
                 touchDragged(screenX, screenY, 0)
                 return true
@@ -198,9 +201,14 @@ class GameInputManager(
     private fun handleLeftClick(screenX: Int, screenY: Int) {
         logger.debug { "handleLeftClick" }
 
+        val worldCoordinates = cameraController.gameCamera.unprojectScreenCoords(screenX, screenY)
+        val mousePos = Vector2(worldCoordinates.x, worldCoordinates.y)
+
         if (isEmulatedDragOn) {
             isEmulatedDragOn = false
             cursorM.setCursor(null)
+            puzzleManager.stopDragging()
+            isDraggingGame = false
             return
         }
 
@@ -210,9 +218,6 @@ class GameInputManager(
             uiManager.currentPopupWindow = null
             return
         }
-
-        val worldCoordinates = cameraController.gameCamera.unprojectScreenCoords(screenX, screenY)
-        val mousePos = Vector2(worldCoordinates.x, worldCoordinates.y)
 
         val currentTime = System.currentTimeMillis()
         val isDoubleClick = currentTime - lastClickTime < doubleClickThreshold
