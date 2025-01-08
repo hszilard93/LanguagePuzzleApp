@@ -30,8 +30,7 @@ class GameInputManager(
     private val gameModel: GameModel,
     private val realToVirtualResolutionRatio: Float,
     private val setBackgroundColor: (Int, Int, Int, Float) -> Unit,
-    private val toggleDebugInfo: () -> Unit,
-    private val displayCheckMark: () -> Unit
+    private val toggleDebugInfo: () -> Unit
 ) : InputAdapter() {
 
     companion object {
@@ -83,7 +82,7 @@ class GameInputManager(
                 return false
             }
 
-            // Second, If there is a popup active, we don't change cursors
+            // Second, if there is a popup active, we don't change cursors
             if (uiManager.currentPopupWindow != null || puzzleManager.editingPuzzlePiece != null || puzzleManager.editingPuzzleFeature != null) {
                 cursorM.setCursor(null)
                 return false
@@ -94,49 +93,70 @@ class GameInputManager(
             val puzzleUnderPointer = gameModel.puzzlePieces.find { isPointerOverPuzzlePiece(mousePos, it, true) }
 
             if (puzzleUnderPointer != null && puzzleManager.draggedPuzzlePiece == null) {
-                // We check if it's over a missing feature (TAB or BLANK)
-                var potentialFeatureType: Pair<PuzzlePieceFeature.Type, Side>? = null
 
-                val typeAndSideOrNull = puzzleUnderPointer.findPotentialFeatureUnderPointer(mousePos)
-                if (!typeAndSideOrNull.isEmpty) {
-                    logger.debug { "mouseMoved potentialFeatureType=${typeAndSideOrNull.get()}" }
-                    potentialFeatureType = typeAndSideOrNull.get()
-                }
+                val rules = gameModel.currentExercise?.type?.ruleset
 
-                if (potentialFeatureType != null) {
-                    cursorM.setCursor(cursorM.addFeatureCursor)
-                    puzzleManager.featureTripleToAdd = Triple(puzzleUnderPointer, potentialFeatureType.second, potentialFeatureType.first)
-                    return true
-                }
-                else {
-                    puzzleManager.featureTripleToAdd = null
+                // 1. Feature addition/removal
+
+                // We check if the pointer is over a missing feature (TAB or BLANK)
+                // But only if we are allowed to add/remove features
+                if (rules?.canAddRemoveTabs == true) {
+                    var potentialFeatureType: Pair<PuzzlePieceFeature.Type, Side>? = null
+
+                    val typeAndSideOrNull = puzzleUnderPointer.findPotentialFeatureUnderPointer(mousePos)
+                    if (!typeAndSideOrNull.isEmpty) {
+                        logger.debug { "mouseMoved potentialFeatureType=${typeAndSideOrNull.get()}" }
+                        potentialFeatureType = typeAndSideOrNull.get()
+                    }
+
+                    if (potentialFeatureType != null) {
+                        cursorM.setCursor(cursorM.addFeatureCursor)
+                        puzzleManager.featureTripleToAdd = Triple(
+                            puzzleUnderPointer,
+                            potentialFeatureType.second,
+                            potentialFeatureType.first
+                        )
+                        return true
+                    }
+                    else {
+                        puzzleManager.featureTripleToAdd = null
+                    }
                 }
 
                 // We check if it's over an existing feature
-                val featureUnderPointer = isPointOverEditablePuzzleFeature(mousePos, puzzleUnderPointer)
-                if (!featureUnderPointer.isEmpty) {
-                    val feature = featureUnderPointer.get()
-                    if (feature is PuzzleTab) {
-                        val isPointerOverText = feature.isPointerOverTextLayout(mousePos)
-                        if (isPointerOverText) {
-                            cursorM.setCursor(cursorM.editTextCursor)
-                            puzzleManager.puzzleFeatureToEdit = feature
-                            return true
+                // But only if we are allowed to add/remove features
+                if (rules?.canAddRemoveTabs == true || rules?.canEditTabText == true) {
+                    val featureUnderPointer = isPointOverEditablePuzzleFeature(mousePos, puzzleUnderPointer)
+                    if (!featureUnderPointer.isEmpty) {
+                        val feature = featureUnderPointer.get()
+                        if (feature is PuzzleTab) {
+                            val isPointerOverText = feature.isPointerOverTextLayout(mousePos)
+                            if (isPointerOverText && rules.canEditTabText) {
+                                cursorM.setCursor(cursorM.editTextCursor)
+                                puzzleManager.puzzleFeatureToEdit = feature
+                                return true
+                            }
                         }
-                    }
-                    puzzleManager.puzzleFeatureToEdit = null
+                        puzzleManager.puzzleFeatureToEdit = null
 
-                    cursorM.setCursor(cursorM.removeFeatureCursor)
-                    puzzleManager.featureToRemove = Pair(puzzleUnderPointer, feature)
-                    return true
+                        if (rules.canAddRemoveTabs) {
+                            cursorM.setCursor(cursorM.removeFeatureCursor)
+                            puzzleManager.featureToRemove = Pair(puzzleUnderPointer, feature)
+                        }
+                        return true
+                    }
+                    else {
+                        puzzleManager.featureToRemove = null
+                    }
                 }
-                else {
-                    puzzleManager.featureToRemove = null
-                }
+
+                // 2. Puzzle text editing and detection of draggable piece
+
+                // Check if we are allowed to edit puzzle text
 
                 // We check if it's over a puzzle piece's text
                 val isTextUnderPointer = puzzleUnderPointer.isPointerOverTextLayout(mousePos)
-                if (isTextUnderPointer) {
+                if (isTextUnderPointer && rules?.canEditBaseText == true) {
                     cursorM.setCursor(cursorM.editTextCursor)
                     puzzleManager.puzzlePieceToEdit = puzzleUnderPointer
                     return true
@@ -190,10 +210,12 @@ class GameInputManager(
                 handleLeftClick(screenX, screenY)
                 return true
             }
+
             Input.Buttons.RIGHT -> {
                 handleRightClick()
                 return true
             }
+
             else -> return false
         }
     }
@@ -316,11 +338,13 @@ class GameInputManager(
                 lastMouseWorldPos.set(mousePos)
                 return true
             }
-        } else if (puzzleManager.draggedPuzzlePiece != null) {
+        }
+        else if (puzzleManager.draggedPuzzlePiece != null) {
             puzzleManager.dragPuzzle(mousePos, lastMouseWorldPos)
             lastMouseWorldPos.set(mousePos)
             return true
-        } else if (isDraggingGame) {
+        }
+        else if (isDraggingGame) {
             val deltaX = Gdx.input.deltaX.toFloat() * (1 / realToVirtualResolutionRatio) * cameraController.gameCamera.zoom
             val deltaY = Gdx.input.deltaY.toFloat() * (1 / realToVirtualResolutionRatio) * cameraController.gameCamera.zoom
             cameraController.gameCamera.translate(-deltaX, deltaY, 0f)
@@ -352,9 +376,7 @@ class GameInputManager(
                     mouseMoved(screenX, screenY)
                 }
             }
-            if (gameModel.isSolved()) {
-                displayCheckMark()
-            }
+            gameModel.isSolved()
             return true
         }
         return false
@@ -401,14 +423,15 @@ class GameInputManager(
             }
         }
 
-        puzzlePiece.blanks.forEach { blank ->
-            if (blank.isPointOverFeature(mousePos)) {
-                logger.info { "Pointer is over blank." }
-                if (blank.owner!!.copyOfConnections.map { it.via.side }.none { side -> side.opposite() == blank.side }) {
-                    return Optional.of(blank)
-                }
-            }
-        }
+        // We don't need the blanks after all
+//        puzzlePiece.blanks.forEach { blank ->
+//            if (blank.isPointOverFeature(mousePos)) {
+//                logger.info { "Pointer is over blank." }
+//                if (blank.owner!!.copyOfConnections.map { it.via.side }.none { side -> side.opposite() == blank.side }) {
+//                    return Optional.of(blank)
+//                }
+//            }
+//        }
 
         return Optional.empty()
     }

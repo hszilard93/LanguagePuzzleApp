@@ -421,7 +421,6 @@ class PuzzlePiece(
         setOf(Side.TOP, Side.BOTTOM, Side.LEFT, Side.RIGHT)
             .filter { side -> this.getAllFeatures().map { it.side }.contains(side).not() }
             .forEach { side ->
-                val isTab = true
                 val featureHeight = 40f
                 val featureWidth = 50f
 
@@ -439,12 +438,13 @@ class PuzzlePiece(
                             if (isTab) {
                                 result = Optional.of(PuzzlePieceFeature.Type.TAB to side)
                             }
-                            else {
-                                val isBlank = mousePos.y < zoneYStart && mousePos.y > zoneYStart - featureHeight
-                                if (isBlank) {  // We may only add one blank to a puzzle piece
-                                    result = Optional.of(PuzzlePieceFeature.Type.BLANK to side)
-                                }
-                            }
+                            // We don't need to do blanks
+//                            else {
+//                                val isBlank = mousePos.y < zoneYStart && mousePos.y > zoneYStart - featureHeight
+//                                if (isBlank) {  // We may only add one blank to a puzzle piece
+//                                    result = Optional.of(PuzzlePieceFeature.Type.BLANK to side)
+//                                }
+//                            }
                         }
                     }
 
@@ -460,12 +460,12 @@ class PuzzlePiece(
                             if (isTab) {
                                 result = Optional.of(PuzzlePieceFeature.Type.TAB to side)
                             }
-                            else {
-                                val isBlank = mousePos.y > zoneYStart && mousePos.y <= zoneYStart + featureHeight
-                                if (isBlank) {
-                                    result = Optional.of(PuzzlePieceFeature.Type.BLANK to side)
-                                }
-                            }
+//                            else {
+//                                val isBlank = mousePos.y > zoneYStart && mousePos.y <= zoneYStart + featureHeight
+//                                if (isBlank) {
+//                                    result = Optional.of(PuzzlePieceFeature.Type.BLANK to side)
+//                                }
+//                            }
                         }
                     }
 
@@ -481,12 +481,12 @@ class PuzzlePiece(
                             if (isTab) {
                                 result = Optional.of(PuzzlePieceFeature.Type.TAB to side)
                             }
-                            else {
-                                val isBlank = mousePos.x > zoneXStart && mousePos.x <= zoneXStart + featureWidth
-                                if (isBlank) {
-                                    result = Optional.of(PuzzlePieceFeature.Type.BLANK to side)
-                                }
-                            }
+//                            else {
+//                                val isBlank = mousePos.x > zoneXStart && mousePos.x <= zoneXStart + featureWidth
+//                                if (isBlank) {
+//                                    result = Optional.of(PuzzlePieceFeature.Type.BLANK to side)
+//                                }
+//                            }
                         }
                     }
 
@@ -502,12 +502,12 @@ class PuzzlePiece(
                             if (isTab) {
                                 result = Optional.of(PuzzlePieceFeature.Type.TAB to side)
                             }
-                            else {
-                                val isBlank = mousePos.x < zoneXStart && mousePos.x > zoneXStart - featureWidth
-                                if (isBlank) {
-                                    result = Optional.of(PuzzlePieceFeature.Type.BLANK to side)
-                                }
-                            }
+//                            else {
+//                                val isBlank = mousePos.x < zoneXStart && mousePos.x > zoneXStart - featureWidth
+//                                if (isBlank) {
+//                                    result = Optional.of(PuzzlePieceFeature.Type.BLANK to side)
+//                                }
+//                            }
                         }
                     }
                 }

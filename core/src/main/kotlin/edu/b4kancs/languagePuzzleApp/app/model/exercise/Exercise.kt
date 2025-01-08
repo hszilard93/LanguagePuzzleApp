@@ -4,7 +4,7 @@ import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 import kotlinx.serialization.Serializable
 
 @Serializable
-enum class TaskType(ruleset: Ruleset) {
+enum class TaskType(val ruleset: Ruleset) {
     PLACE_PUZZLES_IN_ORDER(Ruleset()),     // Készítsd el az előre megadott mondat puzzle-szerkezetét.
     CREATE_PUZZLE(Ruleset()),              // Add hozzá a puzzle darabokat, majd rakd őket sorrendbe.
     MATCH_PUZZLE(Ruleset()),               // Mondat társítása a puzzle-szerkezethez.
@@ -16,7 +16,9 @@ enum class TaskType(ruleset: Ruleset) {
 data class Ruleset(
     val canAddMainPieces: Boolean = false,
     val canAddBlankPieces: Boolean = false,
-    val canModifyTabs: Boolean = false
+    val canAddRemoveTabs: Boolean = false,
+    val canEditBaseText: Boolean = false,
+    val canEditTabText: Boolean = false,
 )
 
 @Serializable

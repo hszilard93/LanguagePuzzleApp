@@ -3,8 +3,10 @@ package edu.b4kancs.languagePuzzleApp.app.model
 import com.badlogic.gdx.files.FileHandle
 import com.badlogic.gdx.math.Vector2
 import edu.b4kancs.languagePuzzleApp.app.model.exercise.Exercise
+import edu.b4kancs.languagePuzzleApp.app.model.exercise.Result
 import edu.b4kancs.languagePuzzleApp.app.model.exercise.SolutionConfiguration
 import edu.b4kancs.languagePuzzleApp.app.model.exercise.TaskType
+import edu.b4kancs.languagePuzzleApp.app.view.screens.game.UIManager
 import kotlinx.serialization.json.Json
 import ktx.log.logger
 
@@ -29,6 +31,8 @@ class GameModel {
         prettyPrint = true
     }
 
+    private lateinit var uiManager: UIManager
+
     companion object {
         val logger = logger<GameModel>()
     }
@@ -41,14 +45,34 @@ class GameModel {
         initializePuzzlePieces(currentExercise!!.predefinedPieces)
     }
 
+    fun registerUIManager(uiManager: UIManager) {
+        this.uiManager = uiManager
+    }
+
     fun isSolved(): Boolean {
         // Collect all unique current connections in the game
         val currentConnections = puzzlePieces.flatMap { it.copyOfConnections }.toSet()
 
-        val isSolved = currentExercise?.solutionConfiguration?.doesGameStateMatchSolution(puzzlePieces) ?: false
-        logger.info { "isSolved = $isSolved" }
+        val solutionResult = currentExercise?.solutionConfiguration?.doesGameStateMatchSolution(puzzlePieces) ?: false
 
-        return isSolved
+        logger.info { "solutionResult = $solutionResult" }
+
+        when (solutionResult) {
+            Result.CORRECT -> {
+                uiManager.showCheckMark(isCorrect = true)
+                return true
+            }
+            Result.INCORRECT -> {
+                uiManager.showCheckMark(isCorrect = false)
+                return false
+            }
+            Result.INELIGIBLE -> {
+                uiManager.hideCheckMark()
+                return false
+            }
+        }
+
+        return (solutionResult == Result.CORRECT)
     }
 
 

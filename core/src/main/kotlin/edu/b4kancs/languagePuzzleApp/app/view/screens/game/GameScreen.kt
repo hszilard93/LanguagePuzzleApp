@@ -80,6 +80,7 @@ class GameScreen(
         uiManager = UIManager(context, uiStage, uiSkin) {
             game.backToMenuScreen()
         }
+        gameModel.registerUIManager(uiManager)
 
         puzzleManager = PuzzleManager(gameModel, puzzleSnapHelper, uiManager)
 
@@ -107,8 +108,7 @@ class GameScreen(
             gameModel,
             realToVirtualResolutionRatio = calculateResolutionRatio(),
             setBackgroundColor = ::setBackgroundColor,
-            toggleDebugInfo = { shouldDisplayDebugInfo = !shouldDisplayDebugInfo },
-            displayCheckMark = { uiManager.showCheckMark() }
+            toggleDebugInfo = { shouldDisplayDebugInfo = !shouldDisplayDebugInfo }
         )
 
         puzzleManager.registerGameInputManager(gameInputManager)

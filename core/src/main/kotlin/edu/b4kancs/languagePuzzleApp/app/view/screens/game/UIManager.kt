@@ -52,15 +52,11 @@ class UIManager(
     private val gameModel: GameModel = context.inject()
     private val taskFont = context.inject<TaskFontHolder>().font
 
-    lateinit var exerciseDescriptionLabel: Label
-        private set
-    lateinit var returnButton: ImageButton
-        private set
-    lateinit var checkMarkImage: Image
-        private set
-    lateinit var addPuzzleButton: ImageButton
-        private set
-    lateinit var garbageBinImage: Image
+    private lateinit var exerciseDescriptionLabel: Label
+    private lateinit var returnButton: ImageButton
+    private lateinit var checkMarkImage: Image
+    private var addPuzzleButton: ImageButton? = null
+    private var garbageBinImage: Image? = null
 
     private lateinit var topBarTable: Table
 
@@ -71,6 +67,10 @@ class UIManager(
     private var garbageBinClosedTexture = Texture(Gdx.files.internal("garbage_bin_closed_1.png"), Pixmap.Format.RGBA8888, true)
         .apply { setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear) }
     private var garbageBinOpenTexture = Texture(Gdx.files.internal("garbage_bin_open_1.png"), Pixmap.Format.RGBA8888, true)
+        .apply { setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear) }
+
+    private var correctCheckMarkTexture = Texture(Gdx.files.internal("graphics/checkmark.png"), Pixmap.Format.RGBA8888, true)
+    private var incorrectCheckMarkTexture = Texture(Gdx.files.internal("graphics/incorrect_1.png"), Pixmap.Format.RGBA8888, true)
         .apply { setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear) }
 
     var isGarbageBinLifted = false
@@ -84,8 +84,12 @@ class UIManager(
         logger.debug { "initializeUI" }
         initializeTopBar()
         initializeCheckMarkUI()
-        initializeAddPuzzleButton()
-        initializeGarbageBin()
+
+        val rules = gameModel.currentExercise?.type?.ruleset
+        if (rules?.canAddMainPieces == true || rules?.canAddBlankPieces == true) {
+            initializeAddPuzzleButton()
+            initializeGarbageBin()
+        }
     }
 
     private fun initializeTopBar() {
@@ -153,9 +157,8 @@ class UIManager(
     private fun initializeCheckMarkUI() {
         logger.debug { "initializeCheckMarkUI" }
 
-        val texture = Texture(Gdx.files.internal("graphics/checkmark.png"), Pixmap.Format.RGBA8888, true)
         // Create an Image actor with the checkmark texture
-        checkMarkImage = Image(texture).apply {
+        checkMarkImage = Image(correctCheckMarkTexture).apply {
             setSize(80f, 80f) // Example size; adjust based on your design
             // Position it at the lower right corner with 20px padding from the edges
             setPosition(
@@ -168,18 +171,28 @@ class UIManager(
         uiStage.addActor(checkMarkImage)
     }
 
-    fun showCheckMark() {
-        logger.debug { "displayCheckMark" }
+    fun showCheckMark(isCorrect: Boolean = true) {
+        logger.debug { "showCheckMark isCorrect = $isCorrect" }
 
         if (::checkMarkImage.isInitialized) {
+            if (isCorrect) {
+                checkMarkImage.drawable = TextureRegionDrawable(correctCheckMarkTexture)
+            } else {
+                checkMarkImage.drawable = TextureRegionDrawable(incorrectCheckMarkTexture)
+            }
+
+            checkMarkImage.color.a = 0.2f
             checkMarkImage.isVisible = true
-            checkMarkImage.color.a = 0.5f
-            checkMarkImage.addAction(Actions.fadeIn(1f))
+            checkMarkImage.addAction(Actions.fadeIn(0.5f))
         }
     }
 
     fun hideCheckMark() {
+        logger.debug { "hideCheckMark" }
 
+        if (::checkMarkImage.isInitialized) {
+            checkMarkImage.addAction(Actions.fadeOut(0.1f))
+        }
     }
 
     fun displayTextEditorPopup(text: String, pos: Vector2, onSave: (String) -> Unit, onCancel: () -> Unit) {
@@ -248,10 +261,12 @@ class UIManager(
     fun displayAddPuzzlePopup(onAddBasePuzzle: () -> Unit, onAddBlankPuzzle: () -> Unit) {
         logger.debug { "displayAddPuzzlePopup" }
 
+        if (addPuzzleButton == null) return
+
         val popupWindow = AddPuzzlePopup(
             title = "",
             skin = uiSkin,
-            position = Vector2(addPuzzleButton.x + 50, addPuzzleButton.y - 250),
+            position = Vector2(addPuzzleButton!!.x + 50, addPuzzleButton!!.y - 250),
             onAddBasePuzzle = onAddBasePuzzle,
             onAddBlankPuzzle = onAddBlankPuzzle,
             onClose = {
@@ -279,28 +294,35 @@ class UIManager(
 
     fun showClosedGarbageBin() {
         logger.debug { "showClosedGarbageBin" }
-        garbageBinImage.drawable = TextureRegionDrawable(garbageBinClosedTexture)
-        garbageBinImage.isVisible = true
-        garbageBinImage.addAction(partialFadeIn(0.8f, 0.2f))
-        isGarbageBinLifted = false
+
+        garbageBinImage?.let { bin ->
+            bin.drawable = TextureRegionDrawable(garbageBinClosedTexture)
+            bin.isVisible = true
+            bin.addAction(partialFadeIn(0.8f, 0.2f))
+            isGarbageBinLifted = false
+        }
     }
 
     fun showLiftedGarbageBin() {
         logger.debug { "showOpenGarbageBin" }
-        garbageBinImage.drawable = TextureRegionDrawable(garbageBinOpenTexture)
-        garbageBinImage.isVisible = true
-        garbageBinImage.addAction(partialFadeIn(0.8f, 0.2f))
-        isGarbageBinLifted = true
+        garbageBinImage?.let { bin ->
+            bin.drawable = TextureRegionDrawable(garbageBinOpenTexture)
+            bin.isVisible = true
+            bin.addAction(partialFadeIn(0.8f, 0.2f))
+            isGarbageBinLifted = true
+        }
     }
 
     fun hideGarbageBin() {
         logger.debug { "hideGarbageBin" }
-        garbageBinImage.addAction(Actions.fadeOut(0.1f))
+        garbageBinImage?.addAction(Actions.fadeOut(0.1f))
 //        garbageBinImage.isVisible = false
     }
 
     fun isPuzzlePieceOverGarbageBin(puzzlePiece: PuzzlePiece): Boolean {
         logger.debug { "isPuzzlePieceOverGarbageBin" }
+
+        if (garbageBinImage == null) return false
 
         val puzzleBoundingBoxPos = gameViewport.project(puzzlePiece.boundingBoxPos.cpy())
 
@@ -309,8 +331,8 @@ class UIManager(
         val puzzleStartY = puzzleBoundingBoxPos.y + 50f
         val puzzleEndY = puzzleStartY + puzzlePiece.boundingBoxSize + 50f
 
-        val binMiddleX = garbageBinImage.x + garbageBinImage.width / 2f
-        val binMiddleY = garbageBinImage.y + garbageBinImage.height / 2f
+        val binMiddleX = garbageBinImage!!.x + garbageBinImage!!.width / 2f
+        val binMiddleY = garbageBinImage!!.y + garbageBinImage!!.height / 2f
         val binMiddleProjected = hudViewport.unproject(Vector2(binMiddleX, binMiddleY))
 
         logger.info { "puzzleStartX = $puzzleStartX puzzleEndX = $puzzleEndX puzzleStartY = $puzzleStartY puzzleEndY = $puzzleEndY binMiddleX = $binMiddleX binMiddleY = $binMiddleY projectedX = ${binMiddleProjected.x} projectedY = ${binMiddleProjected.y}" }
@@ -337,11 +359,9 @@ class UIManager(
                 }
             }
         }
-        if (this::addPuzzleButton.isInitialized) {
-            addPuzzleButton.let {
-                if (addPuzzleButton.isOver) {
-                    return true
-                }
+        addPuzzleButton?.let {
+            if (it.isOver) {
+                return true
             }
         }
         return false
