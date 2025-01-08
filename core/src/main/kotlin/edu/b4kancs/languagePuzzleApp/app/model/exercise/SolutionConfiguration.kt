@@ -29,8 +29,8 @@ class SolutionConfiguration(private val solutions: Set<Connection>) {
     }
 
     private fun Connection.matches(other: Connection): Boolean {
-        val theseTexts = this.puzzlesConnected.map { it.text }.toSet()
-        val thoseTexts = other.puzzlesConnected.map { it.text }.toSet()
+        val theseTexts = this.puzzlesConnected.map { it.text.lowercase() }.toSet()
+        val thoseTexts = other.puzzlesConnected.map { it.text.lowercase() }.toSet()
 
         if (this.via.grammaticalRole != other.via.grammaticalRole) return false
 

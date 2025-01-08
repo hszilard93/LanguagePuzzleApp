@@ -1,0 +1,80 @@
+{
+  "type": "CREATE_PUZZLE",
+  "taskDescription": "Rajzold meg az alábbi mondatoban szereplő igék igepuzzle-jét!\n\"A hetedikesek vicces dalokat énekelnek a ballagó nyolcadikosoknak.\"",
+  "buttonDescription": "6. feladat. Rakd ki! (FB2 145 28a #1)",
+  "predefinedPieces": [],
+  "solutionConfiguration": {
+    "solutions": [
+      {
+        "puzzlesConnected": [
+          {
+            "text": "énekel",
+            "grammaticalRole": "VERB",
+            "tabs": [],
+            "blanks": []
+          },
+          {
+            "text": "a hetedikesek",
+            "grammaticalRole": "SUBJECT",
+            "tabs": [],
+            "blanks": []
+          }
+        ],
+        "via": {
+          "grammaticalRole": "SUBJECT",
+          "text": ""
+        },
+        "roleOfConnection": "SUBJECT"
+      },
+      {
+        "puzzlesConnected": [
+          {
+            "text": "énekel",
+            "grammaticalRole": "VERB",
+            "tabs": [],
+            "blanks": []
+          },
+          {
+            "text": "vicces dalok",
+            "grammaticalRole": "OBJECT",
+            "tabs": [],
+            "blanks": []
+          }
+        ],
+        "via": {
+          "grammaticalRole": "OBJECT",
+          "text": ""
+        },
+        "roleOfConnection": "OBJECT"
+      },
+      {
+        "puzzlesConnected": [
+          {
+            "text": "énekel",
+            "grammaticalRole": "VERB",
+            "tabs": [],
+            "blanks": []
+          },
+          {
+            "text": "a ballagó nyolcadikosok",
+            "grammaticalRole": "ADVERBIAL",
+            "tabs": [],
+            "blanks": []
+          }
+        ],
+        "via": {
+          "grammaticalRole": "ADVERBIAL",
+          "text": ""
+        },
+        "roleOfConnection": "ADVERBIAL"
+      }
+    ]
+  },
+  "customRuleset": {
+    "canAddMainPieces": "true",
+    "canAddBlankPieces": "true",
+    "canAddRemoveTabs": "true",
+    "canEditBaseText": "true",
+    "canEditTabText": "true"
+  }
+}

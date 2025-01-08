@@ -1,10 +1,10 @@
 {
   "type": "PLACE_PUZZLES_IN_ORDER",
-  "taskDescription": "Helyezd el a puzzle darabokat úgy, hogy a következő mondatot alkossák:\n\"Bence virágot ad Anitának.\"",
-  "buttonDescription": "1. példafeladat",
+  "taskDescription": "Keresd meg az igepuzzle-t, majd helyezd a megfelelő puzzle-darabokat az ige füleire! Állapítsd meg, és írd le a füzetedbe, hogy milyen szerepük van az egyes szavaknak, kifejezéseknek az igével leírható jelenetben! Írd rá a fülekre a végződést, amelyből a többiek is érteni fogják a szó, kifejezés szerepét!",
+  "buttonDescription": "3. feladat. Rakd ki! (FB2 38–41 3.III.2.B #3)",
   "predefinedPieces": [
     {
-      "text": "ad",
+      "text": "megment",
       "grammaticalRole": "VERB",
       "tabs": [
         {
@@ -15,18 +15,18 @@
         {
           "side": "TOP",
           "grammaticalRole": "OBJECT",
-          "text": "-t"
+          "text": ""
         },
         {
           "side": "RIGHT",
           "grammaticalRole": "ADVERBIAL",
-          "text": "-nak\n/nek"
+          "text": ""
         }
       ],
       "blanks": []
     },
     {
-      "text": "Bence",
+      "text": "a királyfi",
       "grammaticalRole": "UNDEFINED",
       "tabs": [],
       "blanks": [
@@ -36,7 +36,7 @@
       ]
     },
     {
-      "text": "virág",
+      "text": "a királylány",
       "grammaticalRole": "UNDEFINED",
       "tabs": [],
       "blanks": [
@@ -46,7 +46,7 @@
       ]
     },
     {
-      "text": "Anita",
+      "text": "a sárkány",
       "grammaticalRole": "UNDEFINED",
       "tabs": [],
       "blanks": [
@@ -61,13 +61,13 @@
       {
         "puzzlesConnected": [
           {
-            "text": "ad",
+            "text": "megment",
             "grammaticalRole": "VERB",
             "tabs": [],
             "blanks": []
           },
           {
-            "text": "Bence",
+            "text": "a királyfi",
             "grammaticalRole": "SUBJECT",
             "tabs": [],
             "blanks": []
@@ -82,13 +82,13 @@
       {
         "puzzlesConnected": [
           {
-            "text": "ad",
+            "text": "megment",
             "grammaticalRole": "VERB",
             "tabs": [],
             "blanks": []
           },
           {
-            "text": "virág",
+            "text": "a királylány",
             "grammaticalRole": "OBJECT",
             "tabs": [],
             "blanks": []
@@ -96,20 +96,20 @@
         ],
         "via": {
           "grammaticalRole": "OBJECT",
-          "text": "-t"
+          "text": ""
         },
         "roleOfConnection": "OBJECT"
       },
       {
         "puzzlesConnected": [
           {
-            "text": "ad",
+            "text": "megment",
             "grammaticalRole": "VERB",
             "tabs": [],
             "blanks": []
           },
           {
-            "text": "Anita",
+            "text": "a sárkány",
             "grammaticalRole": "ADVERBIAL",
             "tabs": [],
             "blanks": []
@@ -117,10 +117,13 @@
         ],
         "via": {
           "grammaticalRole": "ADVERBIAL",
-          "text": "-nak/nek"
+          "text": ""
         },
         "roleOfConnection": "ADVERBIAL"
       }
     ]
+  },
+  "customRuleset": {
+      "canEditTabText": "true"
   }
 }

@@ -38,6 +38,7 @@ object TeaVMBuilder {
         val assetFileHandle = AssetFileHandle.createCopyHandle("../assets", FileType.Classpath, "")
         teaBuildConfiguration.assetsPath.add(assetFileHandle)
         teaBuildConfiguration.webappPath = File("build/dist").canonicalPath
+        teaBuildConfiguration.htmlTitle = "PuzzliApp"
 
         // Register any extra classpath assets here:
         // teaBuildConfiguration.additionalAssetsClasspathFiles.add("com/b4kancs/libgdxtest/asset.extension");

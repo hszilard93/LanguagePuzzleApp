@@ -162,7 +162,7 @@ class UIManager(
             setSize(80f, 80f) // Example size; adjust based on your design
             // Position it at the lower right corner with 20px padding from the edges
             setPosition(
-                Gdx.graphics.width - 100f, // Adjusted to dynamically use screen width
+                topBarTable.width - 20f,
                 20f
             )
             isVisible = false
@@ -181,6 +181,10 @@ class UIManager(
                 checkMarkImage.drawable = TextureRegionDrawable(incorrectCheckMarkTexture)
             }
 
+            checkMarkImage.setPosition(
+                topBarTable.width - 100f,
+                20f
+            )
             checkMarkImage.color.a = 0.2f
             checkMarkImage.isVisible = true
             checkMarkImage.addAction(Actions.fadeIn(0.5f))

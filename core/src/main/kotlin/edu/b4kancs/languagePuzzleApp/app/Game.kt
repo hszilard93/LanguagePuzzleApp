@@ -49,7 +49,7 @@ class Game(
 
     companion object {
         const val LOG_LEVEL = com.badlogic.gdx.utils.Logger.DEBUG
-        const val IS_DEBUG_MODE_ON = true
+        const val IS_DEBUG_MODE_ON = false
         val logger = logger<Game>()
     }
 
@@ -216,6 +216,48 @@ class Game(
         logger.info { "Starting demo exercise #3" }
         // Initialize a demo exercise in gameModel
         gameModel.loadExerciseFromDisk(Gdx.files.internal("tasks/puzzle_demo_task_3.json/"))
+        loadGameScreen()
+    }
+
+    fun startDemo4() {
+        logger.info { "Starting demo exercise #4" }
+        // Initialize a demo exercise in gameModel
+        gameModel.loadExerciseFromDisk(Gdx.files.internal("tasks/demo2/1_FB2_38–41_3_III_2_B_1.json"))
+        loadGameScreen()
+    }
+
+    fun startDemo5() {
+        logger.info { "Starting demo exercise #5" }
+        // Initialize a demo exercise in gameModel
+        gameModel.loadExerciseFromDisk(Gdx.files.internal("tasks/demo2/2_FB2_38–41_3_III_2_B_2.json"))
+        loadGameScreen()
+    }
+
+    fun startDemo6() {
+        logger.info { "Starting demo exercise #6" }
+        // Initialize a demo exercise in gameModel
+        gameModel.loadExerciseFromDisk(Gdx.files.internal("tasks/demo2/3_FB2_38–41_3_III_2_B_3.json"))
+        loadGameScreen()
+    }
+
+    fun startDemo7() {
+        logger.info { "Starting demo exercise #7" }
+        // Initialize a demo exercise in gameModel
+        gameModel.loadExerciseFromDisk(Gdx.files.internal("tasks/demo2/4_FB2_41-42_3_IV_1_b.json"))
+        loadGameScreen()
+    }
+
+    fun startDemo8() {
+        logger.info { "Starting demo exercise #8" }
+        // Initialize a demo exercise in gameModel
+        gameModel.loadExerciseFromDisk(Gdx.files.internal("tasks/demo2/5_FB2_44_3_V_1.json"))
+        loadGameScreen()
+    }
+
+    fun startDemo9() {
+        logger.info { "Starting demo exercise #9" }
+        // Initialize a demo exercise in gameModel
+        gameModel.loadExerciseFromDisk(Gdx.files.internal("tasks/demo2/6_FB2_145-28_a.json"))
         loadGameScreen()
     }
 

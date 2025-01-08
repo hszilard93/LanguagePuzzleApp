@@ -10,9 +10,11 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout
 import com.badlogic.gdx.graphics.g2d.NinePatch
 import com.badlogic.gdx.graphics.glutils.ShaderProgram
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
+import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Disposable
+import edu.b4kancs.languagePuzzleApp.app.GameViewport
 import edu.b4kancs.languagePuzzleApp.app.misc
 import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole.UNDEFINED
 import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole.VERB
@@ -43,7 +45,7 @@ data class TextLayoutData(
 )
 
 class PuzzlePieceDrawer(
-    context: Context
+    val context: Context
 ) : Disposable {
     private val batch = context.inject<Batch>()
     private val baseFont = context.inject<PuzzleFontHolder>().baseFont
@@ -306,43 +308,21 @@ class PuzzlePieceDrawer(
                 glowTabShader.setUniformf("u_resolution", PuzzleTab.WIDTH)
             }
 
-            val tabX: Float
-            val tabY: Float
-            val width: Float
-            val height: Float
-            val rotation: Float
-            val tabOffset = 10f
+            val tabX = tab.pos.x
+            val tabY = tab.pos.y
+            val rotation =
             when (tab.side) {
                 Side.TOP -> {
-                    width = PuzzleTab.WIDTH
-                    height = PuzzleTab.HEIGHT
-                    tabX = BASE_OFFSET + puzzlePiece.size / 2 - PuzzleTab.WIDTH / 2
-                    tabY = BASE_OFFSET - PuzzleTab.HEIGHT + tabOffset
-                    rotation = 180f
+                    180f
                 }
-
                 Side.BOTTOM -> {
-                    width = PuzzleTab.WIDTH
-                    height = PuzzleTab.HEIGHT
-                    tabX = BASE_OFFSET + puzzlePiece.size / 2 - PuzzleTab.WIDTH / 2
-                    tabY = BASE_OFFSET + puzzlePiece.size - tabOffset
-                    rotation = 0f
+                    0f
                 }
-
                 Side.LEFT -> {
-                    width = PuzzleTab.HEIGHT
-                    height = PuzzleTab.WIDTH
-                    tabX = BASE_OFFSET - width + tabOffset
-                    tabY = BASE_OFFSET + puzzlePiece.size / 2 - PuzzleTab.HEIGHT / 2
-                    rotation = 90f
+                    90f
                 }
-
                 Side.RIGHT -> {
-                    width = PuzzleTab.HEIGHT
-                    height = PuzzleTab.WIDTH
-                    tabX = BASE_OFFSET + puzzlePiece.size - tabOffset
-                    tabY = BASE_OFFSET + puzzlePiece.size / 2 - PuzzleTab.HEIGHT / 2
-                    rotation = 270f
+                    270f
                 }
             }
 
@@ -351,8 +331,8 @@ class PuzzlePieceDrawer(
                 /* texture = */ tabTexture,
                 /* x = */ tabX,
                 /* y = */ tabY,
-                /* originX = */ width / 2,
-                /* originY = */ height / 2,
+                /* originX = */ PuzzleTab.WIDTH / 2,
+                /* originY = */ PuzzleTab.HEIGHT / 2,
                 /* width = */ PuzzleTab.WIDTH,
                 /* height = */ PuzzleTab.HEIGHT,
                 /* scaleX = */ 1f,
@@ -370,31 +350,11 @@ class PuzzlePieceDrawer(
                 drawTextOnTab(tab, Vector2(tabX, tabY))
             }
 
-            val worldLayoutXOffset =
-                when (tab.side) {
-                    Side.LEFT -> PuzzleTab.WIDTH / 8f
-                    Side.RIGHT -> PuzzleTab.WIDTH / 4f * -1
-                    else -> PuzzleTab.WIDTH / 8f * -1
-                }
-
-            val worldLayoutYOffset =
-                when (tab.side) {
-                    Side.TOP -> PuzzleTab.HEIGHT / 2f * -1
-                    Side.BOTTOM -> PuzzleTab.HEIGHT / 5f * -1
-                    else -> PuzzleTab.HEIGHT / 2f * -1
-                }
-
-            val worldLayoutX = tabX + tab.owner!!.boundingBoxPos.x + PuzzleTab.HEIGHT / 2 + worldLayoutXOffset
-            val worldLayoutY = (tabY + tab.owner!!.boundingBoxPos.y) * -1 + PuzzleTab.WIDTH / 2 + worldLayoutYOffset
-
-            logger.info { "tabText = ${tab.text} layout: $worldLayoutX, $worldLayoutY" }
-
-            tab.textLayoutBounds.set(
-                worldLayoutX - 20f,
-                worldLayoutY - 20f,
-                75f,
-                75f
-            )
+//            val gameViewport = context.inject<GameViewport>()
+//            val correctedRectanglePos = gameViewport.unproject(Vector2(tab.textLayoutBounds.x, tab.textLayoutBounds.y))
+//            val correctedRectangle = Rectangle(correctedRectanglePos.x, correctedRectanglePos.y, tab.textLayoutBounds.width, tab.textLayoutBounds.height)
+//
+//            drawRectangleDebugBounds(correctedRectangle, Color.GREEN)
 
             batch.color = Color.WHITE
             batch.shader = null
@@ -505,6 +465,28 @@ class PuzzlePieceDrawer(
 
         batch.begin()
     }
+
+    fun drawRectangleDebugBounds(rectangle: Rectangle, color: Color = Color.RED) {
+        if (shapeRenderer == null) shapeRenderer = ShapeRenderer()
+
+        batch.end()
+
+        shapeRenderer?.let { sr ->
+            sr.projectionMatrix = batch.projectionMatrix  // Match the projection matrix
+            sr.transformMatrix = batch.transformMatrix    // Match the transform matrix
+
+            sr.begin(ShapeRenderer.ShapeType.Line)
+            sr.color = color  // Use the provided color
+
+            // Draw the rectangle using its properties
+            sr.rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height)
+            sr.end()
+        }
+
+        batch.begin()
+    }
+
+
 
     // For debugging only
     private fun drawCrosshair(batch: Batch, center: Vector2, color: Color = Color.WHITE) {

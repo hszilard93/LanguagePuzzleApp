@@ -12,7 +12,6 @@ import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePieceFeature
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzleTab
 import edu.b4kancs.languagePuzzleApp.app.model.Side
-import edu.b4kancs.languagePuzzleApp.app.view.screens.OldGameScreen
 import edu.b4kancs.languagePuzzleApp.app.view.utils.unprojectScreenCoords
 import java.util.Optional
 
@@ -123,31 +122,29 @@ class GameInputManager(
                     }
                 }
 
-                // We check if it's over an existing feature
+                // We check if the pointer is over an existing feature
                 // But only if we are allowed to add/remove features
-                if (rules?.canAddRemoveTabs == true || rules?.canEditTabText == true) {
-                    val featureUnderPointer = isPointOverEditablePuzzleFeature(mousePos, puzzleUnderPointer)
-                    if (!featureUnderPointer.isEmpty) {
-                        val feature = featureUnderPointer.get()
-                        if (feature is PuzzleTab) {
-                            val isPointerOverText = feature.isPointerOverTextLayout(mousePos)
-                            if (isPointerOverText && rules.canEditTabText) {
-                                cursorM.setCursor(cursorM.editTextCursor)
-                                puzzleManager.puzzleFeatureToEdit = feature
-                                return true
-                            }
+                val featureUnderPointer = isPointOverEditablePuzzleFeature(mousePos, puzzleUnderPointer)
+                if (!featureUnderPointer.isEmpty) {
+                    val feature = featureUnderPointer.get()
+                    if (feature is PuzzleTab) {
+                        val isPointerOverText = feature.isPointerOverTextLayout(mousePos)
+                        if (isPointerOverText && rules?.canEditTabText == true) {
+                            cursorM.setCursor(cursorM.editTextCursor)
+                            puzzleManager.puzzleFeatureToEdit = feature
+                            return true
                         }
-                        puzzleManager.puzzleFeatureToEdit = null
+                    }
+                    puzzleManager.puzzleFeatureToEdit = null
 
-                        if (rules.canAddRemoveTabs) {
-                            cursorM.setCursor(cursorM.removeFeatureCursor)
-                            puzzleManager.featureToRemove = Pair(puzzleUnderPointer, feature)
-                        }
-                        return true
+                    if (rules?.canAddRemoveTabs == true) {
+                        cursorM.setCursor(cursorM.removeFeatureCursor)
+                        puzzleManager.featureToRemove = Pair(puzzleUnderPointer, feature)
                     }
-                    else {
-                        puzzleManager.featureToRemove = null
-                    }
+                    return true
+                }
+                else {
+                    puzzleManager.featureToRemove = null
                 }
 
                 // 2. Puzzle text editing and detection of draggable piece

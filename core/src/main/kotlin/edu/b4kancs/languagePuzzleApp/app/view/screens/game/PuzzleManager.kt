@@ -199,7 +199,7 @@ class PuzzleManager(
         )
 
         if (!isBlank) {
-            newPuzzlePiece.addFeature(PuzzlePieceFeature.Type.TAB, Side.TOP, GrammaticalRole.SUBJECT)
+//            newPuzzlePiece.addFeature(PuzzlePieceFeature.Type.TAB, Side.TOP, GrammaticalRole.SUBJECT)
         }
         else {
             newPuzzlePiece.addFeature(PuzzlePieceFeature.Type.BLANK, Side.BOTTOM)

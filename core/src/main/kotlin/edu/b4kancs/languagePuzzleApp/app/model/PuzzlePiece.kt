@@ -142,7 +142,17 @@ class PuzzleTab(
     val grammaticalRole: GrammaticalRole,
     text: String = ""
 ) : PuzzlePieceFeature {
-    val textLayoutBounds = Rectangle(0f, 0f, 0f, 0f)
+    var pos: Vector2 = Vector2(0f, 0f)
+        get() = calculateRenderPosition()
+        private set
+    var textLayoutBounds: Rectangle = Rectangle(0f, 0f, 0f, 0f)
+        get() = calculateLayoutBounds()
+        private set
+
+    init {
+        calculateRenderPosition()
+        calculateLayoutBounds()
+    }
 
     var text: String = text
         set(value) {
@@ -160,6 +170,66 @@ class PuzzleTab(
     companion object {
         const val WIDTH = 150f
         const val HEIGHT = WIDTH * 1f
+    }
+
+    private fun calculateRenderPosition(): Vector2 {
+        if (owner == null) return Vector2(0f, 0f)
+
+        val x: Float
+        val y: Float
+        val tabOffset = 10f
+        when (side) {
+            Side.TOP -> {
+                x = HEIGHT + owner!!.size / 2f - WIDTH / 2
+                y = tabOffset
+            }
+
+            Side.BOTTOM -> {
+                x = HEIGHT + owner!!.size / 2 - WIDTH / 2
+                y = HEIGHT + owner!!.size - tabOffset
+            }
+
+            Side.LEFT -> {
+                x = HEIGHT - WIDTH + tabOffset
+                y = HEIGHT + owner!!.size / 2 - HEIGHT / 2
+            }
+
+            Side.RIGHT -> {
+                x = HEIGHT + owner!!.size - tabOffset
+                y = HEIGHT + owner!!.size / 2 - HEIGHT / 2
+            }
+        }
+        return Vector2(x, y)
+    }
+
+    private fun calculateLayoutBounds(): Rectangle {
+        if (owner == null) return Rectangle(0f, 0f, 0f, 0f)
+
+        val position = pos.cpy()
+
+        val worldLayoutXOffset =
+            when (side) {
+                Side.LEFT -> WIDTH / 8f
+                Side.RIGHT -> WIDTH / 4f * -1
+                else -> WIDTH / 8f * -1
+            }
+
+        val worldLayoutYOffset =
+            when (side) {
+                Side.TOP -> HEIGHT / 2f * -1
+                Side.BOTTOM -> HEIGHT / 5f * -1
+                else -> HEIGHT / 2f * -1
+            }
+
+        val worldLayoutX = position.x + owner!!.boundingBoxPos.x + HEIGHT / 2 + worldLayoutXOffset
+        val worldLayoutY = (position.y + owner!!.boundingBoxPos.y) * -1 + WIDTH / 2 + worldLayoutYOffset
+
+        return Rectangle(
+            worldLayoutX - 20f,
+            worldLayoutY - 20f,
+            75f,
+            75f
+        )
     }
 
     fun isPointerOverTextLayout(mousePos: Vector2): Boolean {

@@ -1,28 +1,12 @@
 {
-  "type": "PLACE_PUZZLES_IN_ORDER",
-  "taskDescription": "Helyezd el a puzzle darabokat úgy, hogy a következő mondatot alkossák:\n\"Bence virágot ad Anitának.\"",
-  "buttonDescription": "1. példafeladat",
+  "type": "CREATE_PUZZLE",
+  "taskDescription": "Készítsd el önállóan a \"Bence virágot ad Anitának.\" mondat puzzle-szerkezetét! Írd az igefülekbe a toldalékokat, és illeszd rájuk a puzzle-darabokat a mondatrészszerepeknek megfelelően! Csoporton belül ellenőrizzétek a megoldásaitokat!",
+  "buttonDescription": "5. feladat. Rakd ki! (FB2 44 3.V.1)",
   "predefinedPieces": [
     {
       "text": "ad",
       "grammaticalRole": "VERB",
-      "tabs": [
-        {
-          "side": "LEFT",
-          "grammaticalRole": "SUBJECT",
-          "text": ""
-        },
-        {
-          "side": "TOP",
-          "grammaticalRole": "OBJECT",
-          "text": "-t"
-        },
-        {
-          "side": "RIGHT",
-          "grammaticalRole": "ADVERBIAL",
-          "text": "-nak\n/nek"
-        }
-      ],
+      "tabs": [],
       "blanks": []
     },
     {
