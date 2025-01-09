@@ -76,7 +76,7 @@ class GameInputManager(
             }
 
             // First, if the mouse is above a button, change the cursor
-            if (uiManager.isPointerOverButton(mousePos)) {
+            if (uiManager.isPointerOverButton()) {
                 cursorM.setCursor(cursorM.handPointingCursor)
                 return false
             }
@@ -86,6 +86,9 @@ class GameInputManager(
                 cursorM.setCursor(null)
                 return false
             }
+
+            // Make sure the scroll focus is not captured unnecessarily
+            uiManager.setFocusToTaskDescription(false)
 
             // Then we check if the pointer is over a puzzle piece's approximate area
             gameModel.puzzlePieces.sortByDescending { it.depth }
@@ -382,6 +385,19 @@ class GameInputManager(
     override fun scrolled(amountX: Float, amountY: Float): Boolean {
         logger.debug { "scrolled amountX=$amountX amountY=$amountY zoom=${cameraController.gameCamera.zoom}" }
 
+        if (uiManager.isPointerOverTaskDescription()) {
+            uiManager.setFocusToTaskDescription(true)
+            return false
+        }
+        else {
+            scrollWorld(amountY)
+            return true
+        }
+    }
+
+    private fun scrollWorld(amountY: Float) {
+        logger.misc { "scrollWorld amountY=$amountY" }
+
         val mouseWorldPosBefore = Vector3(Gdx.input.x.toFloat(), Gdx.input.y.toFloat(), 0f)
         cameraController.gameCamera.unproject(mouseWorldPosBefore)
         val newZoom = (cameraController.gameCamera.zoom + amountY * 0.05f).coerceIn(1f, 3.5f)
@@ -394,7 +410,6 @@ class GameInputManager(
         val offsetY = mouseWorldPosAfter.y - mouseWorldPosBefore.y
         cameraController.gameCamera.translate(-offsetX, -offsetY, 0f)
         cameraController.gameCamera.update()
-        return true
     }
 
     fun emulateDragging() {

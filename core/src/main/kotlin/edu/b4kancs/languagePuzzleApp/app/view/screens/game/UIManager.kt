@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton
 import com.badlogic.gdx.scenes.scene2d.ui.Label
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.Window
@@ -53,6 +54,7 @@ class UIManager(
     private val taskFont = context.inject<TaskFontHolder>().font
 
     private lateinit var exerciseDescriptionLabel: Label
+    private lateinit var exerciseDescriptionScrollPane: ScrollPane
     private lateinit var returnButton: ImageButton
     private lateinit var checkMarkImage: Image
     private var addPuzzleButton: ImageButton? = null
@@ -107,13 +109,25 @@ class UIManager(
         exerciseDescriptionLabel = Label("", uiSkin).apply {
             setWrap(true)
             setAlignment(Align.center)
+            style.font = taskFont
+            color.a = 0.75f
         }
-        exerciseDescriptionLabel.style.background = uiSkin.getDrawable("white")
-        exerciseDescriptionLabel.color.a = 0.75f
-        exerciseDescriptionLabel.style.font = taskFont
 
         // ↓ This needs to be done or the style wont update ↓
         exerciseDescriptionLabel.style = exerciseDescriptionLabel.style
+
+        // ScrollPane makes the label scrollable
+        exerciseDescriptionScrollPane = ScrollPane(exerciseDescriptionLabel, uiSkin).apply {
+            setFadeScrollBars(true)
+            setScrollbarsVisible(true)
+            setScrollingDisabled(true, false)
+            style.background = uiSkin.getDrawable("white").apply {
+                topHeight = 10f
+                bottomHeight = 10f
+                leftWidth = 10f
+                rightWidth = 10f
+            }
+        }
 
         val buttonStyle = ImageButton.ImageButtonStyle().apply {
             this.up = TextureRegionDrawable(TextureRegion(backButtonTexture)).tint(Color(120f, 120f, 255f, 0.6f))
@@ -129,7 +143,7 @@ class UIManager(
         }
 
         // Add label and button to the table
-        topBarTable.add(exerciseDescriptionLabel).expandX().fillX().padRight(10f)
+        topBarTable.add(exerciseDescriptionScrollPane).expandX().fillX().maxHeight(200f).padRight(10f)
         topBarTable.add(returnButton).width(72f).height(72f).pad(12f)
 
         // Add the table to the UI stage
@@ -351,10 +365,8 @@ class UIManager(
         exerciseDescriptionLabel.style = exerciseDescriptionLabel.style
     }
 
-    fun isPointerOverButton(mousePos: Vector2): Boolean {
-        logger.misc { "isPointerOverButton mousePos = $mousePos" }
-
-        val realMousePos = gameViewport.project(mousePos.cpy())
+    fun isPointerOverButton(): Boolean {
+        logger.misc { "isPointerOverButton" }
 
         if (this::returnButton.isInitialized) {
             returnButton.let {
@@ -369,6 +381,32 @@ class UIManager(
             }
         }
         return false
+    }
+
+    fun isPointerOverTaskDescription(): Boolean {
+        logger.misc { "isPointerOverTaskDescription" }
+
+        if (this::exerciseDescriptionLabel.isInitialized) {
+            exerciseDescriptionScrollPane.let {
+                val mouseCoords = Vector2(Gdx.input.x.toFloat(), Gdx.input.y.toFloat())
+                val correctedCoords = mouseCoords// uiStage.screenToStageCoordinates(mouseCoords)
+                if (it.hit(correctedCoords.x, correctedCoords.y, false) != null) {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
+    fun setFocusToTaskDescription(shouldFocus: Boolean) {
+        logger.info { "setFocusToTaskDescription toFocus = $shouldFocus" }
+
+        if (shouldFocus && this::exerciseDescriptionScrollPane.isInitialized) {
+            uiStage.scrollFocus = exerciseDescriptionScrollPane
+        }
+        else {
+            uiStage.setScrollFocus(null)
+        }
     }
 
     fun dispose() {
