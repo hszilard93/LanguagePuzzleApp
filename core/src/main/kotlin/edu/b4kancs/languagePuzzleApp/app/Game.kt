@@ -23,10 +23,12 @@ import edu.b4kancs.languagePuzzleApp.app.view.ui.FilePickerInterface
 import edu.b4kancs.languagePuzzleApp.app.view.utils.HudFontHolder
 import edu.b4kancs.languagePuzzleApp.app.view.utils.PuzzleFontHolder
 import edu.b4kancs.languagePuzzleApp.app.view.utils.TaskFontHolder
+import edu.b4kancs.languagePuzzleApp.app.view.utils.UIFontHolder
 import edu.b4kancs.languagePuzzleApp.app.view.utils.loadFreeTypeFont
 import edu.b4kancs.languagePuzzleApp.app.view.utils.loadPuzzleBaseFont
 import edu.b4kancs.languagePuzzleApp.app.view.utils.loadPuzzleTabFont
 import edu.b4kancs.languagePuzzleApp.app.view.utils.loadTaskFont
+import edu.b4kancs.languagePuzzleApp.app.view.utils.loadUIFont
 import ktx.app.KtxGame
 import ktx.app.KtxScreen
 import ktx.assets.DisposableContainer
@@ -107,6 +109,12 @@ class Game(
                 val font = loadFreeTypeFont("Roboto-Regular.ttf", 12)
                 disposables.register(font)
                 HudFontHolder(font)
+            }
+
+            bindSingleton<UIFontHolder> {
+                val font = loadUIFont()
+                disposables.register(font)
+                UIFontHolder(font)
             }
 
             bindSingleton<TaskFontHolder> {

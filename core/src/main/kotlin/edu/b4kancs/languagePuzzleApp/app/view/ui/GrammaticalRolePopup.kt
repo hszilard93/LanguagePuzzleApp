@@ -19,7 +19,7 @@ import edu.b4kancs.languagePuzzleApp.app.model.Side
 import ktx.log.logger
 
 class GrammaticalRolePopup(
-    title: String,
+    title: String = "",
     skin: Skin,
     gameViewport: Viewport,
     puzzlePiece: PuzzlePiece,
@@ -53,8 +53,8 @@ class GrammaticalRolePopup(
                 addListener(object : ClickListener() {
                     override fun clicked(event: InputEvent?, x: Float, y: Float) {
                         logger.info { "ImageButton grammaticalRole = $role clicked" }
-                        onRoleSelected(role)
                         onClose()
+                        onRoleSelected(role)
                     }
                 })
             }

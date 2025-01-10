@@ -7,6 +7,7 @@ import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePieceFeature
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzleTab
 import edu.b4kancs.languagePuzzleApp.app.model.Side
+import edu.b4kancs.languagePuzzleApp.app.model.Suffix
 import ktx.log.logger
 
 enum class RotationDirection {
@@ -165,17 +166,56 @@ class PuzzleManager(
 
         if (type == PuzzlePieceFeature.Type.TAB) {
             uiManager.displayGrammaticalRolePopup(puzzle, side) { selectedRole ->
-                // Add the tab with the selected role
-                val addedFeature = puzzle.addFeature(type, side, selectedRole) // Modify addFeature to accept role
-                featureToRemove = puzzle to addedFeature
-                featureTripleToAdd = null
+
+                if (selectedRole == GrammaticalRole.ADVERBIAL) {
+                    uiManager.displaySelectSuffixPopupForResult(
+                        role = selectedRole,
+                        puzzlePiece = puzzle,
+                        side = side,
+                        onSuffixSelected = { suffix ->
+                            val indexOfSecondNewLine = suffix.text
+                                .mapIndexed { i, c -> if (c == '\n') i else -1 }
+                                .filter { it != -1 }
+                                .getOrNull(1)
+                                ?.minus(1)
+                                ?: suffix.text.lastIndex + 1
+                            val trimmedText = suffix.text
+                                .take(indexOfSecondNewLine)
+
+                            finishAddFeature(puzzle, type, side, selectedRole, trimmedText)
+                        },
+                        onCancel = {
+
+                        }
+                    )
+                }
+                else if (selectedRole == GrammaticalRole.OBJECT) {
+                    val tabText = Suffix.predefinedSuffixes
+                        .firstOrNull { it.grammaticalRole == GrammaticalRole.OBJECT }
+                        ?.text?.takeWhile { c -> c != '/' }
+                        ?: ""
+                    finishAddFeature(puzzle, type, side, selectedRole, tabText)
+                }
+                else {
+                    finishAddFeature(puzzle, type, side, selectedRole, "")
+                }
             }
         } else {
             // Directly add the blank
-            val addedFeature = puzzle.addFeature(type, side) // Assuming blanks don't need role selection
-            featureToRemove = puzzle to addedFeature
-            featureTripleToAdd = null
+            finishAddFeature(puzzle, type, side)
         }
+    }
+
+    private fun finishAddFeature(
+        puzzle: PuzzlePiece,
+        type: PuzzlePieceFeature.Type,
+        side: Side,
+        selectedRole: GrammaticalRole = GrammaticalRole.UNDEFINED,
+        tabText: String = ""
+    ) {
+        val addedFeature = puzzle.addFeature(type, side, selectedRole, tabText)
+        featureToRemove = puzzle to addedFeature
+        featureTripleToAdd = null
     }
 
     fun removeFeature() {

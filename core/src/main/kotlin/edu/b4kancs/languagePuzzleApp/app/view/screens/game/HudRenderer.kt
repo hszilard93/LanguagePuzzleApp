@@ -72,7 +72,5 @@ class HudRenderer(
         shouldDisplayMouseInfo = should
     }
 
-    fun dispose() {
-
-    }
+    fun dispose() { }
 }

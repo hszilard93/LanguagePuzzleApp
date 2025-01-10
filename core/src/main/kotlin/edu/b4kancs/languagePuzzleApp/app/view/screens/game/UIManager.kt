@@ -26,11 +26,15 @@ import edu.b4kancs.languagePuzzleApp.app.model.GameModel
 import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 import edu.b4kancs.languagePuzzleApp.app.model.Side
+import edu.b4kancs.languagePuzzleApp.app.model.Suffix
 import edu.b4kancs.languagePuzzleApp.app.view.ui.AddPuzzlePopup
 import edu.b4kancs.languagePuzzleApp.app.view.ui.GrammaticalRolePopup
+import edu.b4kancs.languagePuzzleApp.app.view.ui.SelectSuffixPopup
 import edu.b4kancs.languagePuzzleApp.app.view.ui.TextEditorPopup
 import edu.b4kancs.languagePuzzleApp.app.view.utils.TaskFontHolder
+import edu.b4kancs.languagePuzzleApp.app.view.utils.UIFontHolder
 import edu.b4kancs.languagePuzzleApp.app.view.utils.loadTaskFont
+import edu.b4kancs.languagePuzzleApp.app.view.utils.loadUIFont
 import edu.b4kancs.languagePuzzleApp.app.view.utils.partialFadeIn
 import ktx.inject.Context
 
@@ -52,6 +56,7 @@ class UIManager(
     private val gameViewport: GameViewport = context.inject()
     private val gameModel: GameModel = context.inject()
     private val taskFont = context.inject<TaskFontHolder>().font
+    private val uiFont = context.inject<UIFontHolder>()
 
     private lateinit var exerciseDescriptionLabel: Label
     private lateinit var exerciseDescriptionScrollPane: ScrollPane
@@ -232,7 +237,7 @@ class UIManager(
         logger.debug { "displayGrammaticalRolePopup for puzzlePiece=${puzzlePiece.text}" }
 
         val popupWindow = GrammaticalRolePopup(
-            title = "",
+            title = "Válassz szerepet!",
             skin = uiSkin,
             gameViewport = gameViewport,
             puzzlePiece = puzzlePiece,
@@ -242,6 +247,29 @@ class UIManager(
                 currentPopupWindow?.remove()
                 currentPopupWindow = null
             }
+        )
+
+        uiStage.addActor(popupWindow)
+        currentPopupWindow = popupWindow
+    }
+
+    fun displaySelectSuffixPopupForResult(role: GrammaticalRole, puzzlePiece: PuzzlePiece, side: Side, onSuffixSelected: (Suffix) -> Unit, onCancel: () -> Unit) {
+        logger.debug { "displaySelectSuffixPopup role = $role" }
+
+        val popupWindow = SelectSuffixPopup(
+            title = "Válassz\n toldalékot!",
+            skin = uiSkin,
+            font = uiFont.font,
+            role = role,
+            puzzlePiece = puzzlePiece,
+            side = side,
+            gameViewport = gameViewport,
+            onSuffixSelected = onSuffixSelected,
+            onClose = {
+                currentPopupWindow?.remove()
+                currentPopupWindow = null
+            },
+            onCancel = onCancel
         )
 
         uiStage.addActor(popupWindow)
@@ -359,10 +387,14 @@ class UIManager(
     }
 
     fun updateFonts() {
-        val font = loadTaskFont()
-        font.region.texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
-        exerciseDescriptionLabel.style.font = font
+        val taskFont = loadTaskFont()
+        taskFont.region.texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
+        exerciseDescriptionLabel.style.font = taskFont
         exerciseDescriptionLabel.style = exerciseDescriptionLabel.style
+
+        val uiFont = loadUIFont()
+        uiFont.region.texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
+
     }
 
     fun isPointerOverButton(): Boolean {

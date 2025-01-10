@@ -13,10 +13,13 @@ data class HudFontHolder(val font: BitmapFont)
 
 data class MenuFontHolder(val font: BitmapFont)
 
+data class UIFontHolder(val font: BitmapFont)
+
 private const val TASK_DESC_DEFAULT_FONT_SIZE = 24
 private const val MENU_DEFAULT_FONT_SIZE = 24
+private const val UI_DEFAULT_FONT_SIZE = 22
 private const val PUZZLE_BASE_FONT_SIZE = 40
-private const val PUZZLE_TAB_FONT_SIZE = (PUZZLE_BASE_FONT_SIZE * 0.8f).toInt()
+private const val PUZZLE_TAB_FONT_SIZE = (PUZZLE_BASE_FONT_SIZE * 0.75f).toInt()
 
 // Caching the FreeTypeFontGenerator objects to save on IO
 private val fontGeneratorMapByFileName = mutableMapOf<String, FreeTypeFontGenerator>()
@@ -45,6 +48,10 @@ fun loadTaskFont(): BitmapFont {
 
 fun loadMenuFont(): BitmapFont {
     return loadFreeTypeFont("Roboto-Regular.ttf", MENU_DEFAULT_FONT_SIZE)
+}
+
+fun loadUIFont(): BitmapFont {
+    return loadFreeTypeFont("Roboto-Regular.ttf", UI_DEFAULT_FONT_SIZE)
 }
 
 fun loadPuzzleBaseFont(): BitmapFont {
