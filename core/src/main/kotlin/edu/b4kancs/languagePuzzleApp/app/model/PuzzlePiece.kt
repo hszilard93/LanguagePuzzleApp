@@ -126,7 +126,7 @@ sealed interface PuzzlePieceFeature {
             Side.BOTTOM -> mousePos.x in (midpoint.x - width / 2f)..(midpoint.x + width / 2f) &&
                 mousePos.y in (midpoint.y - height / 2f) + heightOffset..(midpoint.y + height / 2f) + heightOffset
 
-            Side.LEFT -> mousePos.x in (midpoint.x - height / 2f) + heightOffset..(midpoint.x + height / 2f) + heightOffset &&
+            Side.LEFT -> mousePos.x in midpoint.x..(midpoint.x + width / 2f) &&
                 mousePos.y in (midpoint.y - width / 2f)..(midpoint.y + width / 2f)
 
             Side.RIGHT -> mousePos.x in (midpoint.x - height / 2f) - heightOffset..(midpoint.x + height / 2f) - heightOffset &&
@@ -143,14 +143,14 @@ class PuzzleTab(
     text: String = ""
 ) : PuzzlePieceFeature {
     var pos: Vector2 = Vector2(0f, 0f)
-        get() = calculateRenderPosition()
+        get() = calculateRelativePosition()
         private set
     var textLayoutBounds: Rectangle = Rectangle(0f, 0f, 0f, 0f)
         get() = calculateLayoutBounds()
         private set
 
     init {
-        calculateRenderPosition()
+        calculateRelativePosition()
         calculateLayoutBounds()
     }
 
@@ -172,7 +172,7 @@ class PuzzleTab(
         const val HEIGHT = WIDTH * 1f
     }
 
-    private fun calculateRenderPosition(): Vector2 {
+    private fun calculateRelativePosition(): Vector2 {
         if (owner == null) return Vector2(0f, 0f)
 
         val x: Float
@@ -203,6 +203,53 @@ class PuzzleTab(
     }
 
     private fun calculateLayoutBounds(): Rectangle {
+        if (owner == null) return Rectangle(0f, 0f, 0f, 0f)
+
+        // Start with the tab's world position
+        val tabWorldX = owner!!.boundingBoxPos.x + pos.x
+        val tabWorldY = owner!!.boundingBoxPos.y +
+            if (side == Side.TOP || side == Side.BOTTOM) {
+                (pos.y - (owner!!.size + HEIGHT)) * -1
+            }
+            else pos.y
+
+        // Adjust for text layout position relative to the tab's origin
+        val tLayoutWidth = 40f
+        val tLayoutHeight = 40f
+        val tLayoutOffsetX: Float
+        val tLayoutOffsetY: Float
+
+        when (side) {
+            Side.LEFT -> {
+                tLayoutOffsetX = WIDTH / 2f + 10f
+                tLayoutOffsetY = HEIGHT / 3f //* -1
+            }
+            Side.RIGHT -> {
+                tLayoutOffsetX = WIDTH / 4f - 10f
+                tLayoutOffsetY = HEIGHT / 3f // * -1
+            }
+            Side.TOP -> {
+                tLayoutOffsetX = WIDTH / 3f
+                tLayoutOffsetY = HEIGHT / 4f - 10f
+            }
+            Side.BOTTOM -> {
+                tLayoutOffsetX = WIDTH / 3f
+                tLayoutOffsetY = HEIGHT / 2f + 10f
+            }
+        }
+
+        val rectStartX = tabWorldX + tLayoutOffsetX
+        val rectStartY = tabWorldY + tLayoutOffsetY
+
+        return Rectangle(
+            rectStartX,
+            rectStartY,
+            tLayoutWidth,
+            tLayoutHeight
+        )
+    }
+
+    private fun calculateLayoutBoundsOLD(): Rectangle {
         if (owner == null) return Rectangle(0f, 0f, 0f, 0f)
 
         val position = pos.cpy()
@@ -391,6 +438,10 @@ class PuzzlePiece(
 
     fun rotateRight() {
         logger.debug { "rotateRight" }
+
+        if (this.grammaticalRole == GrammaticalRole.VERB) {
+            return  // Central puzzles shouldn't be rotated
+        }
 
         // Rotate each tab and blank's side in the opposite direction
         val newTabs = tabs.map {

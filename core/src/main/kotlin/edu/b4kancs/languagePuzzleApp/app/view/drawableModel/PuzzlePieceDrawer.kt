@@ -311,20 +311,23 @@ class PuzzlePieceDrawer(
             val tabX = tab.pos.x
             val tabY = tab.pos.y
             val rotation =
-            when (tab.side) {
-                Side.TOP -> {
-                    180f
+                when (tab.side) {
+                    Side.TOP -> {
+                        180f
+                    }
+
+                    Side.BOTTOM -> {
+                        0f
+                    }
+
+                    Side.LEFT -> {
+                        90f
+                    }
+
+                    Side.RIGHT -> {
+                        270f
+                    }
                 }
-                Side.BOTTOM -> {
-                    0f
-                }
-                Side.LEFT -> {
-                    90f
-                }
-                Side.RIGHT -> {
-                    270f
-                }
-            }
 
             @Suppress("InconsistentCommentForJavaParameter")
             batch.draw(
@@ -352,7 +355,12 @@ class PuzzlePieceDrawer(
 
 //            val gameViewport = context.inject<GameViewport>()
 //            val correctedRectanglePos = gameViewport.unproject(Vector2(tab.textLayoutBounds.x, tab.textLayoutBounds.y))
-//            val correctedRectangle = Rectangle(correctedRectanglePos.x, correctedRectanglePos.y, tab.textLayoutBounds.width, tab.textLayoutBounds.height)
+//            val correctedRectangle = Rectangle(
+//                correctedRectanglePos.x,
+//                correctedRectanglePos.y,
+//                tab.textLayoutBounds.width,
+//                tab.textLayoutBounds.height
+//            )
 //
 //            drawRectangleDebugBounds(correctedRectangle, Color.GREEN)
 
@@ -466,26 +474,26 @@ class PuzzlePieceDrawer(
         batch.begin()
     }
 
-    fun drawRectangleDebugBounds(rectangle: Rectangle, color: Color = Color.RED) {
+    private fun drawRectangleDebugBounds(rectangle: Rectangle, color: Color = Color.RED) {
         if (shapeRenderer == null) shapeRenderer = ShapeRenderer()
 
         batch.end()
 
-        shapeRenderer?.let { sr ->
-            sr.projectionMatrix = batch.projectionMatrix  // Match the projection matrix
-            sr.transformMatrix = batch.transformMatrix    // Match the transform matrix
 
-            sr.begin(ShapeRenderer.ShapeType.Line)
-            sr.color = color  // Use the provided color
+            shapeRenderer?.let { sr ->
+                sr.projectionMatrix = batch.projectionMatrix  // Match the projection matrix
+                sr.transformMatrix = batch.transformMatrix    // Match the transform matrix
 
-            // Draw the rectangle using its properties
-            sr.rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height)
-            sr.end()
-        }
+                sr.begin(ShapeRenderer.ShapeType.Line)
+                sr.color = color  // Use the provided color
+
+                // Draw the rectangle using its properties
+                sr.rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height)
+                sr.end()
+            }
 
         batch.begin()
     }
-
 
 
     // For debugging only

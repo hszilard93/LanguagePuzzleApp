@@ -56,9 +56,9 @@ class HudRenderer(
                         val renderX = (renderVector.x + 10f).coerceIn(10f, hudViewport.worldWidth - 100f)
                         val renderY = (renderVector.y + 10f).coerceIn(10f, hudViewport.worldHeight - 10f)
                         message =
-                            """$mouseX, $mouseY
-                           |${worldVector.x}, ${worldVector.y}
-                           |$realToVirtualResolutionRatio"""
+                            """SP: $mouseX, $mouseY
+                           |WP: ${worldVector.x}, ${worldVector.y}
+                           |RTVRR: $realToVirtualResolutionRatio"""
                                 .trimMargin()
                         hudFont.draw(batch, message, renderX, renderY + 10f)
                     }

@@ -34,7 +34,7 @@ class PuzzleManager(
     var featureToRemove: Pair<PuzzlePiece,PuzzlePieceFeature>? = null
 
     var puzzlePieceToEdit: PuzzlePiece? = null
-    var puzzleFeatureToEdit: PuzzlePieceFeature? = null
+    var featureToTextEdit: PuzzlePieceFeature? = null
     var editingPuzzlePiece: PuzzlePiece? = null
         private set
     var editingPuzzleFeature: PuzzlePieceFeature? = null
@@ -49,10 +49,7 @@ class PuzzleManager(
         draggedPuzzlePiece = puzzlePiece
         puzzlePieceToDragOrRotate = null
 
-        val maxDepth = gameModel.puzzlePieces.maxOfOrNull { it.depth } ?: 0
-        if (puzzlePiece.depth != maxDepth) {
-            puzzlePiece.depth = maxDepth + 1
-        }
+        puzzlePiece.depth = gameModel.puzzlePieces.maxOfOrNull { it.depth }?.plus(1) ?: 0
 
         if (toSnap) {
             puzzleSnapHelper.updatePuzzleFeaturesByProximity()
@@ -154,11 +151,11 @@ class PuzzleManager(
             onSave = { newText ->
                 puzzleFeature.text = newText
                 editingPuzzleFeature = null
-                puzzleFeatureToEdit = null
+                featureToTextEdit = null
             },
             onCancel = {
                 editingPuzzleFeature = null
-                puzzleFeatureToEdit = null
+                featureToTextEdit = null
             }
         )
     }

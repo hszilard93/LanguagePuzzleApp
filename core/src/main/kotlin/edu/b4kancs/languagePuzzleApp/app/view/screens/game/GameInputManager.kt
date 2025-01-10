@@ -131,23 +131,28 @@ class GameInputManager(
                 if (!featureUnderPointer.isEmpty) {
                     val feature = featureUnderPointer.get()
                     if (feature is PuzzleTab) {
-                        val isPointerOverText = feature.isPointerOverTextLayout(mousePos)
-                        if (isPointerOverText && rules?.canEditTabText == true) {
-                            cursorM.setCursor(cursorM.editTextCursor)
-                            puzzleManager.puzzleFeatureToEdit = feature
+                        if (rules?.canEditTabText == true) {
+                            val isPointerOverText = feature.isPointerOverTextLayout(mousePos)
+                            if (isPointerOverText) {
+                                cursorM.setCursor(cursorM.editTextCursor)
+                                puzzleManager.featureToTextEdit = feature
+                                return true
+                            }
+                        }
+                        puzzleManager.featureToTextEdit = null
+
+                        if (rules?.canAddRemoveTabs == true) {
+                            cursorM.setCursor(cursorM.removeFeatureCursor)
+                            puzzleManager.featureToRemove = Pair(puzzleUnderPointer, feature)
                             return true
                         }
                     }
-                    puzzleManager.puzzleFeatureToEdit = null
-
-                    if (rules?.canAddRemoveTabs == true) {
-                        cursorM.setCursor(cursorM.removeFeatureCursor)
-                        puzzleManager.featureToRemove = Pair(puzzleUnderPointer, feature)
-                    }
+                    puzzleManager.featureToRemove = null
                     return true
                 }
                 else {
                     puzzleManager.featureToRemove = null
+                    puzzleManager.featureToTextEdit = null
                 }
 
                 // 2. Puzzle text editing and detection of draggable piece
@@ -256,7 +261,7 @@ class GameInputManager(
                 }
             }
 
-            puzzleManager.puzzleFeatureToEdit?.let { feature ->
+            puzzleManager.featureToTextEdit?.let { feature ->
                 feature as PuzzleTab
                 if (feature.isPointerOverTextLayout(mousePos)) {
                     logger.debug { "doubleClick puzzleFeature=$feature" }
@@ -269,7 +274,7 @@ class GameInputManager(
 
         lastClickTime = currentTime
 
-        if (puzzleManager.puzzleFeatureToEdit != null || puzzleManager.puzzlePieceToEdit != null) {
+        if (puzzleManager.featureToTextEdit != null || puzzleManager.puzzlePieceToEdit != null) {
             return
         }
 
@@ -418,7 +423,7 @@ class GameInputManager(
     }
 
     private fun isPointerOverPuzzlePiece(mousePos: Vector2, puzzlePiece: PuzzlePiece, approximate: Boolean = false): Boolean {
-        val offset = if (approximate) 50f else 0f
+        val offset = if (approximate) 90f else 0f
 
         return mousePos.x in (puzzlePiece.pos.x - offset)..(puzzlePiece.pos.x + puzzlePiece.size + offset) &&
             mousePos.y in (puzzlePiece.pos.y - offset)..(puzzlePiece.pos.y + puzzlePiece.size + offset)
