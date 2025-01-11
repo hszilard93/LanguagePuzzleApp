@@ -168,10 +168,10 @@ class UIManager(
         uiStage.addActor(topBarTable)
 
         // Update the description based on the current exercise
-        updateExerciseDescription()
+        updateTaskInfo()
     }
 
-    fun updateExerciseDescription() {
+    fun updateTaskInfo() {
         val task = gameModel.currentTask!!
         if (task.taskDescription.isNotBlank()) {
             exerciseDescriptionLabel.setText(task.taskDescription)
@@ -237,7 +237,7 @@ class UIManager(
                 override fun clicked(event: InputEvent?, x: Float, y: Float) {
                     logger.info { "Back page button clicked" }
                     gameModel.setUpPreviousTask() {
-                        updateExerciseDescription()
+                        updateTaskInfo()
                     }
                 }
             })
@@ -254,7 +254,7 @@ class UIManager(
                 override fun clicked(event: InputEvent?, x: Float, y: Float) {
                     logger.info { "Forward page button clicked" }
                     gameModel.setUpNextTask() {
-                        updateExerciseDescription()
+                        updateTaskInfo()
                     }
                 }
             })

@@ -131,7 +131,7 @@ class GameScreen(
         uiStage.viewport.update(newWidth, newHeight, true)
 
         uiManager.updateFonts()
-        uiManager.updateExerciseDescription()
+        uiManager.updateTaskInfo()
     }
 
     override fun render(delta: Float) {

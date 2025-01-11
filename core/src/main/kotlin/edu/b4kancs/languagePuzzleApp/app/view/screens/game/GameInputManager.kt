@@ -45,6 +45,8 @@ class GameInputManager(
     private val longPressDuration = 500
     private var isPotentialClick = false
 
+    private var isCtrlPressed = false
+
     var lastPublicMouseWorldPos = Vector2()
         private set
 
@@ -200,13 +202,30 @@ class GameInputManager(
 
     override fun keyDown(keycode: Int): Boolean {
         logger.debug { "keyDown keycode=$keycode" }
+
         when (keycode) {
+            Input.Keys.CONTROL_LEFT, Input.Keys.CONTROL_RIGHT -> isCtrlPressed = true
+            Input.Keys.LEFT -> if (isCtrlPressed) {
+                logger.debug { "Ctrl + Left Arrow pressed" }
+                gameModel.setUpPreviousTask {
+                    uiManager.updateTaskInfo()
+                }
+                return true
+            }
+            Input.Keys.RIGHT -> if (isCtrlPressed) {
+                logger.debug { "Ctrl + Right Arrow pressed" }
+                gameModel.setUpNextTask {
+                    uiManager.updateTaskInfo()
+                }
+                return true
+            }
 //            Input.Keys.W -> {
 //                handleWPressed(Gdx.input.x, Gdx.input.y)
 //                return true
 //            }
             else -> return false
         }
+        return false
     }
 
     override fun touchDown(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {

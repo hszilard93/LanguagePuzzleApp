@@ -28,10 +28,21 @@ data class Suffix(
         )
 
         fun identifySuffixFromTabText(tabText: String): Suffix? {
-            val tabTextPartials = tabText.replace("\n", "").split("/").map { it.removePrefix("-") }
+            val tabTextPartials = tabText
+                .replace("\n", "")
+                .split("/")
+                .map { it.removePrefix("-") }
+                .map { if (it.contains("al") || it.contains("el")) it.drop(1) else it } // helps with "-val/-vel" and its variants
 
             for (suffix in predefinedSuffixes) {
-                val suffixPartials = suffix.text.replace("\n", "").split("/").map { it.removePrefix("-") }
+                val suffixPartials = suffix.text
+                    .replace("\n", "")
+                    .replace("val", "al")
+                    .replace("vel", "el")
+                    .split("/")
+                    .map { it.removePrefix("-") }
+                    .map { if (it.contains("al") || it.contains("el")) it.drop(1) else it }
+
                 for (sp in suffixPartials) {
                     if (tabTextPartials.any { it == sp }) {
                         return suffix
