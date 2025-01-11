@@ -119,7 +119,7 @@ class GameScreen(
 
     override fun show() {
         logger.debug { "show" }
-        gameCamera.moveTo(gameCamera.position.toVector2().add(-100f, 100f))
+        gameCamera.moveTo(gameCamera.position.toVector2().add(0f, 150f))
         gameCamera.update()
         super.show()
     }
@@ -130,7 +130,8 @@ class GameScreen(
 //        (uiStage.viewport as ExtendViewport).
         uiStage.viewport.update(newWidth, newHeight, true)
 
-        uiManager.updateFonts()
+        val multiplier = maxOf(newWidth / 1200f, newHeight / 800f)
+        uiManager.updateFonts(multiplier)
         uiManager.updateTaskInfo()
     }
 

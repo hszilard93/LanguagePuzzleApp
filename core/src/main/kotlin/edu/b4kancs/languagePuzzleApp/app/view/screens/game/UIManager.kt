@@ -35,10 +35,12 @@ import edu.b4kancs.languagePuzzleApp.app.view.ui.SelectSuffixPopup
 import edu.b4kancs.languagePuzzleApp.app.view.ui.TextEditorPopup
 import edu.b4kancs.languagePuzzleApp.app.view.utils.TaskFontHolder
 import edu.b4kancs.languagePuzzleApp.app.view.utils.UIFontHolder
+import edu.b4kancs.languagePuzzleApp.app.view.utils.loadTaskCounterFont
 import edu.b4kancs.languagePuzzleApp.app.view.utils.loadTaskDescriptionFont
 import edu.b4kancs.languagePuzzleApp.app.view.utils.loadUIFont
 import edu.b4kancs.languagePuzzleApp.app.view.utils.partialFadeIn
 import ktx.inject.Context
+import ktx.log.debug
 
 class UIManager(
     private val context: Context,
@@ -59,7 +61,7 @@ class UIManager(
     private val gameModel: GameModel = context.inject()
     private val taskFont = context.inject<TaskFontHolder>().descriptionFont
     private val counterFont = context.inject<TaskFontHolder>().counterFont
-    private val uiFont = context.inject<UIFontHolder>()
+    private var uiFont = context.inject<UIFontHolder>().font
 
     private lateinit var exerciseDescriptionLabel: Label
     private lateinit var taskCounterLabel: Label
@@ -97,13 +99,14 @@ class UIManager(
     fun initializeUI() {
         logger.debug { "initializeUI" }
         initializeTopBar()
-        initializeBottomBar()
 
         val rules = gameModel.currentExercise?.type?.ruleset
         if (rules?.canAddMainPieces == true || rules?.canAddBlankPieces == true) {
             initializeAddPuzzleButton()
             initializeGarbageBin()
         }
+
+        initializeBottomBar()
     }
 
     private fun initializeTopBar() {
@@ -140,9 +143,9 @@ class UIManager(
             }
         }
 
-        val taskCounterLabelStyle = LabelStyle(counterFont, Color.WHITE)
+        val taskCounterLabelStyle = LabelStyle(counterFont, Color.valueOf("#004411DD"))
         taskCounterLabel = Label("", taskCounterLabelStyle).apply {
-            style.font.data.markupEnabled = true
+//            style.font.data.markupEnabled = true
 //            style.fontColor.a = 0.75f     // Enabling this leads to some kind of bug with the blending
         }
 
@@ -179,7 +182,8 @@ class UIManager(
             topBarTable.isVisible = true
 
             taskCounterLabel.apply {
-                setText("[#22CC22]${gameModel.currentTaskNumber}[BLACK]/[#005500]${gameModel.totalTaskCount}[]")
+//                setText("[#22CC22]${gameModel.currentTaskNumber}[BLACK]/[#005500]${gameModel.totalTaskCount}[]")
+                setText("${gameModel.currentTaskNumber}/${gameModel.totalTaskCount}")
                 isVisible = gameModel.totalTaskCount > 1
             }
 
@@ -328,6 +332,7 @@ class UIManager(
         TextEditorPopup(
             stage = uiStage,
             skin = uiSkin,
+            font = uiFont,
             text = text,
             pos = pos,
             onSave = onSave,
@@ -343,6 +348,7 @@ class UIManager(
         val popupWindow = GrammaticalRolePopup(
             title = "Válassz szerepet!",
             skin = uiSkin,
+            font = uiFont,
             gameViewport = gameViewport,
             puzzlePiece = puzzlePiece,
             side = side,
@@ -369,7 +375,7 @@ class UIManager(
         val popupWindow = SelectSuffixPopup(
             title = "Válassz\n toldalékot!",
             skin = uiSkin,
-            font = uiFont.font,
+            font = uiFont,
             role = role,
             puzzlePiece = puzzlePiece,
             side = side,
@@ -443,7 +449,7 @@ class UIManager(
 //            setSize(125f, 125f)
 //            setPosition(10f, 20f)
 //            isVisible = false
-            isVisible = true
+            isVisible = false
             setColor(200f, 50f, 50f, 0.1f)
         }
 //        uiStage.addActor(garbageBinImage)
@@ -498,15 +504,20 @@ class UIManager(
         return ((binMiddleX in puzzleStartX..puzzleEndX) && (binMiddleY in puzzleStartY..puzzleEndY))
     }
 
-    fun updateFonts() {
-        val taskFont = loadTaskDescriptionFont()
+    fun updateFonts(multiplier: Float = 1f) {
+        val taskFont = loadTaskDescriptionFont(multiplier)
         taskFont.region.texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
         exerciseDescriptionLabel.style.font = taskFont
         exerciseDescriptionLabel.style = exerciseDescriptionLabel.style
 
-        val uiFont = loadUIFont()
-        uiFont.region.texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
+        val taskCounterFont = loadTaskCounterFont(multiplier)
+        taskCounterFont.region.texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
+        taskCounterLabel.style.font = taskCounterFont
+        taskCounterLabel.style = taskCounterLabel.style
 
+        uiFont = loadUIFont(multiplier).apply {
+            region.texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
+        }
     }
 
     fun isPointerOverButton(): Boolean {

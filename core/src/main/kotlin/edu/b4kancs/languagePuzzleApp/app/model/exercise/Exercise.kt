@@ -13,6 +13,13 @@ enum class TaskType(var ruleset: Ruleset) {
         canEditBaseText = true,
         canEditTabText = true
     )),
+    FREE_EDIT_PUZZLE(Ruleset(
+        canAddMainPieces = true,
+        canAddBlankPieces = true,
+        canAddRemoveTabs = true,
+        canEditBaseText = true,
+        canEditTabText = true
+    )),
     MATCH_PUZZLE(Ruleset()),               // Mondat társítása a puzzle-szerkezethez.
     COMPLETE_PUZZLE(Ruleset()),            //
     COMPLETE_ARGUMENTS(Ruleset()),         // Készítsd el helyesen a megadott ige vonzatait.

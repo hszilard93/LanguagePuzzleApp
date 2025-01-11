@@ -456,6 +456,7 @@ class OldGameScreen(
         TextEditorPopup(
             stage = uiStage,
             skin = uiSkin,
+            font = hudFont,
             text = puzzlePiece.text,
             pos = puzzlePiece.pos,
             onSave = { newText ->

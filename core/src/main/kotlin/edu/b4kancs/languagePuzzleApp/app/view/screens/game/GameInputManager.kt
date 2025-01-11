@@ -44,6 +44,8 @@ class GameInputManager(
     private var lastClickTime: Long = 0
     private val doubleClickThreshold = 300
     private val longPressDuration = 500
+    private var lastZoomTime: Long = 0
+    private val zoomTimeTreshold = 40
     private var isPotentialClick = false
 
     private var isCtrlPressed = false
@@ -180,10 +182,10 @@ class GameInputManager(
                 // We recheck if it's over the puzzle piece's exact area
                 if (isPointerOverPuzzlePiece(mousePos, puzzleUnderPointer, false)) {
                     cursorManager.setCursor(cursorManager.handOpenCursor)
-                    puzzleManager.puzzlePieceToDragOrRotate = puzzleUnderPointer
+                    puzzleManager.potentialDragOrRotatePiece = puzzleUnderPointer
                     return true
                 }
-                puzzleManager.puzzlePieceToDragOrRotate = null
+                puzzleManager.potentialDragOrRotatePiece = null
             }
 
 //            gameModel.puzzlePieces.filter { !it.isConnected }.forEach { puzzlePiece ->
@@ -316,7 +318,7 @@ class GameInputManager(
             return
         }
 
-        if (puzzleManager.puzzlePieceToDragOrRotate != null) {
+        if (puzzleManager.potentialDragOrRotatePiece != null) {
             isPotentialClick = true
             initialTouchPos.set(mousePos)
             lastMouseWorldPos.set(mousePos)
@@ -359,12 +361,12 @@ class GameInputManager(
         val worldCoordinates = cameraController.gameCamera.unprojectScreenCoords(screenX, screenY)
         val mousePos = Vector2(worldCoordinates.x, worldCoordinates.y)
 
-        if (isPotentialClick && puzzleManager.puzzlePieceToDragOrRotate != null) {
+        if (isPotentialClick && puzzleManager.potentialDragOrRotatePiece != null) {
             val distanceMoved = mousePos.dst(initialTouchPos)
             if (distanceMoved > dragThreshold) {
                 // Initiate drag
                 isPotentialClick = false
-                puzzleManager.startDragging(puzzleManager.puzzlePieceToDragOrRotate!!) // Use initialTouchPos for start
+                puzzleManager.startDragging(puzzleManager.potentialDragOrRotatePiece!!) // Use initialTouchPos for start
                 cursorManager.setCursor(cursorManager.handClosedCursor)
                 lastMouseWorldPos.set(mousePos)
                 return true
@@ -389,10 +391,10 @@ class GameInputManager(
         logger.debug { "touchUp button = $button" }
 
         if (button == Input.Buttons.LEFT) {
-            if (isPotentialClick && puzzleManager.puzzlePieceToDragOrRotate != null) {
+            if (isPotentialClick && puzzleManager.potentialDragOrRotatePiece != null) {
                 logger.debug { "Single click: Rotating puzzle piece" }
-                if (!puzzleManager.puzzlePieceToDragOrRotate!!.isConnected) {
-                    puzzleManager.puzzlePieceToDragOrRotate?.rotateRight()
+                if (!puzzleManager.potentialDragOrRotatePiece!!.isConnected) {
+                    puzzleManager.potentialDragOrRotatePiece?.rotateRight()
                 }
             }
 
@@ -427,6 +429,12 @@ class GameInputManager(
 
     private fun scrollWorld(amountY: Float) {
         logger.misc { "scrollWorld amountY=$amountY" }
+
+        val currentTime = System.currentTimeMillis()
+        if (currentTime - lastZoomTime < zoomTimeTreshold) {
+            return
+        }
+        lastZoomTime = currentTime
 
         val mouseWorldPosBefore = Vector3(Gdx.input.x.toFloat(), Gdx.input.y.toFloat(), 0f)
         cameraController.gameCamera.unproject(mouseWorldPosBefore)

@@ -2,7 +2,6 @@ package edu.b4kancs.languagePuzzleApp.app.view.screens.game
 
 import com.badlogic.gdx.math.Vector2
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
-import edu.b4kancs.languagePuzzleApp.app.model.GameModel.Companion
 import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePieceFeature
@@ -28,7 +27,7 @@ class PuzzleManager(
 
     private lateinit var gameInputManager: GameInputManager
 
-    var puzzlePieceToDragOrRotate: PuzzlePiece? = null
+    var potentialDragOrRotatePiece: PuzzlePiece? = null
     var draggedPuzzlePiece: PuzzlePiece? = null
         private set
     var puzzlePieceToRotate: PuzzlePiece? = null
@@ -50,7 +49,7 @@ class PuzzleManager(
     fun startDragging(puzzlePiece: PuzzlePiece, toSnap: Boolean = true) {
         logger.debug { "startDragging puzzlePiece = $puzzlePiece" }
         draggedPuzzlePiece = puzzlePiece
-        puzzlePieceToDragOrRotate = null
+        potentialDragOrRotatePiece = null
 
         puzzlePiece.depth = gameModel.puzzlePieces.maxOfOrNull { it.depth }?.plus(1) ?: 0
 
@@ -182,7 +181,7 @@ class PuzzleManager(
                                 .filter { it != -1 }
                                 .getOrNull(1)
                                 ?.minus(1)
-                                ?: suffix.text.lastIndex + 1
+                                ?: (suffix.text.lastIndex + 1)
                             val trimmedText = suffix.text
                                 .take(indexOfSecondNewLine)
 
@@ -260,7 +259,7 @@ class PuzzleManager(
     }
 
     fun checkSolution() {
-        val centerPuzzle = gameModel.puzzlePieces.find { it.grammaticalRole == GrammaticalRole.VERB }!!
+        val centerPuzzle = gameModel.puzzlePieces.find { it.grammaticalRole == GrammaticalRole.VERB } ?: return
 
         if (centerPuzzle.connectionSize < centerPuzzle.tabs.size) {
             uiManager.hideCheckMark()

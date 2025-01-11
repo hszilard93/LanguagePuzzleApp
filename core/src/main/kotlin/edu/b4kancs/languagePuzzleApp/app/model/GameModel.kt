@@ -30,7 +30,7 @@ class GameModel {
         private set
 
 
-    private val basePosition = Vector2(0f, -100f)
+    private val basePosition = Vector2(-135f, -400f)
     private var lastPuzzlePosition = basePosition
 
     // Currently unused, can be used to load exercises from disk.
@@ -127,12 +127,12 @@ class GameModel {
         }
 
         var nextX: Float = if (lastPuzzlePosition == basePosition) {
-            (puzzlePieces.size - 1) * 350f / 2 * -1
+            (puzzlePieces.size - 1) * 400f / 2 * -1
         }
         else {
             lastPuzzlePosition.x + 450f
         }
-        var nextY = 350f
+        var nextY = basePosition.y + 450f
 
         lastPuzzlePosition = Vector2(nextX, nextY)
         return lastPuzzlePosition

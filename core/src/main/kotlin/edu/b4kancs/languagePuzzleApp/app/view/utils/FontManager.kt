@@ -16,7 +16,7 @@ data class MenuFontHolder(val font: BitmapFont)
 data class UIFontHolder(val font: BitmapFont)
 
 private const val TASK_DESC_DEFAULT_FONT_SIZE = 24
-private const val MENU_DEFAULT_FONT_SIZE = 24
+private const val MENU_DEFAULT_FONT_SIZE = 22
 private const val UI_DEFAULT_FONT_SIZE = 22
 private const val PUZZLE_BASE_FONT_SIZE = 40
 private const val PUZZLE_TAB_FONT_SIZE = (PUZZLE_BASE_FONT_SIZE * 0.75f).toInt()
@@ -41,27 +41,27 @@ fun loadFreeTypeFont(fileName: String, fontSize: Int, flipFont: Boolean = false)
     return font
 }
 
-fun loadTaskDescriptionFont(): BitmapFont {
-    return loadFreeTypeFont("PlaywriteGBS.ttf", TASK_DESC_DEFAULT_FONT_SIZE)
+fun loadTaskDescriptionFont(multiplier: Float = 1f): BitmapFont {
+    return loadFreeTypeFont("PlaywriteGBS.ttf", (TASK_DESC_DEFAULT_FONT_SIZE * multiplier).toInt())
 //    return loadFreeTypeFont("libre-baskerville.regular.ttf", (TASK_DESC_DEFAULT_FONT_SIZE * scale).toInt())
 }
 
-fun loadTaskCounterFont(): BitmapFont {
-    return loadFreeTypeFont("PlaywriteGBS.ttf", (TASK_DESC_DEFAULT_FONT_SIZE * 1.25f).toInt())
+fun loadTaskCounterFont(multiplier: Float = 1f): BitmapFont {
+    return loadFreeTypeFont("PlaywriteGBS.ttf", (TASK_DESC_DEFAULT_FONT_SIZE * 1.25f * multiplier).toInt())
 }
 
-fun loadMenuFont(): BitmapFont {
-    return loadFreeTypeFont("Roboto-Regular.ttf", MENU_DEFAULT_FONT_SIZE)
+fun loadMenuFont(multiplier: Float = 1f): BitmapFont {
+    return loadFreeTypeFont("Roboto-Regular.ttf", (MENU_DEFAULT_FONT_SIZE * multiplier.toInt()))
 }
 
-fun loadUIFont(): BitmapFont {
-    return loadFreeTypeFont("Roboto-Regular.ttf", UI_DEFAULT_FONT_SIZE)
+fun loadUIFont(multiplier: Float = 1f): BitmapFont {
+    return loadFreeTypeFont("Roboto-Regular.ttf", (UI_DEFAULT_FONT_SIZE * multiplier).toInt())
 }
 
-fun loadPuzzleBaseFont(): BitmapFont {
+fun loadPuzzleBaseFont(multiplier: Float = 1f): BitmapFont {
     return loadFreeTypeFont("libre-baskerville.regular.ttf", PUZZLE_BASE_FONT_SIZE, true)
 }
 
-fun loadPuzzleTabFont(): BitmapFont {
+fun loadPuzzleTabFont(multiplier: Float = 1f): BitmapFont {
     return loadFreeTypeFont("libre-baskerville.regular.ttf", PUZZLE_TAB_FONT_SIZE, true)
 }

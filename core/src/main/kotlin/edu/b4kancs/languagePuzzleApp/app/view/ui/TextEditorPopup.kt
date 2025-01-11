@@ -1,6 +1,7 @@
 package edu.b4kancs.languagePuzzleApp.app.view.ui
 
 import com.badlogic.gdx.Input
+import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.InputListener
@@ -19,6 +20,7 @@ import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 class TextEditorPopup(
     private val stage: Stage,
     private val skin: Skin,
+    private val font: BitmapFont,
     private val hudViewport: HudViewport,
     private val gameViewport: GameViewport,
     private val text: String,
@@ -41,9 +43,16 @@ class TextEditorPopup(
             titleTable.isVisible = false
             background = skin.getDrawable("white")
 
-            textField = TextField(text, skin)
-            saveButton = TextButton("Mentés", skin)
-            cancelButton = TextButton("Mégse", skin)
+            textField = TextField(text, skin).apply {
+                style.font = font
+            }
+
+            saveButton = TextButton("Mentés", skin).apply {
+                style.font = font
+            }
+            cancelButton = TextButton("Mégse", skin).apply {
+                style.font = font
+            }
 
             // Make window draggable by adding an InputListener to the background area
             addListener(object : InputListener() {

@@ -3,6 +3,7 @@ package edu.b4kancs.languagePuzzleApp.app.view.ui
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.InputEvent
@@ -21,6 +22,7 @@ import ktx.log.logger
 class GrammaticalRolePopup(
     title: String = "",
     skin: Skin,
+    font: BitmapFont,
     gameViewport: Viewport,
     puzzlePiece: PuzzlePiece,
     side: Side,
@@ -38,6 +40,9 @@ class GrammaticalRolePopup(
     init {
         isMovable = true
         isResizable = false
+
+        titleLabel.style.font = font
+        titleLabel.style = titleLabel.style
 
         // Layout group for the buttons
         val buttonTable = Table()

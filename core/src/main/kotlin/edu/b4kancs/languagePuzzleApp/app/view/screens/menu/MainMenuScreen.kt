@@ -48,6 +48,8 @@ class MainMenuScreen(
         logger.debug { "MainMenuScreen: show" }
         Gdx.input.inputProcessor = stage
 
+        val fontMultiplier = maxOf(Gdx.graphics.width / 1200f, Gdx.graphics.height / 800f)
+
         // Create a table to organize buttons
         val table = Table().apply {
             setFillParent(true)
@@ -70,7 +72,8 @@ class MainMenuScreen(
         val exitButton = TextButton("Kilepés", uiSkin).apply { menuButtons.add(this) }
 
         val buttonStyle = startExercise1Button.style.apply {
-            font = loadMenuFont()
+            font = loadMenuFont(fontMultiplier)
+            font.region.texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
         }
         menuButtons.forEach { it.style = buttonStyle }
 
@@ -168,12 +171,12 @@ class MainMenuScreen(
 //        table.add(startExercise1Button).width(600f).height(100f).pad(10f).row()
 //        table.add(startExercise2Button).width(600f).height(100f).pad(10f).row()
 //        table.add(startExercise3Button).width(600f).height(100f).pad(10f).row()
-        table.add(startExercise4Button).width(600f).height(100f).pad(10f).row()
-        table.add(startExercise5Button).width(600f).height(100f).pad(10f).row()
-        table.add(startExercise6Button).width(600f).height(100f).pad(10f).row()
-        table.add(startExercise7Button).width(600f).height(100f).pad(10f).row()
-        table.add(startExercise8Button).width(600f).height(100f).pad(10f).row()
-        table.add(startExercise9Button).width(600f).height(100f).pad(10f).row()
+        table.add(startExercise4Button).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(100f).pad(10f).row()
+        table.add(startExercise5Button).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(100f).pad(10f).row()
+        table.add(startExercise6Button).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(100f).pad(10f).row()
+        table.add(startExercise7Button).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(100f).pad(10f).row()
+        table.add(startExercise8Button).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(100f).pad(10f).row()
+        table.add(startExercise9Button).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(100f).pad(10f).row()
 //        table.add(settingsButton).width(400f).height(100f).pad(10f).row()
 //        table.add(exitButton).width(400f).height(100f).pad(10f).row()
 
@@ -193,7 +196,8 @@ class MainMenuScreen(
     override fun resize(newWidth: Int, newHeight: Int) {
         logger.debug { "resize newWidth=$newWidth newHeight=$newHeight" }
 
-        updateFonts()
+        val multiplier = maxOf(newWidth / 1200f, newHeight / 800f)
+        updateFonts(multiplier)
         stage.viewport.update(newWidth, newHeight, true)
     }
 
@@ -203,8 +207,8 @@ class MainMenuScreen(
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
     }
 
-    private fun updateFonts() {
-        val font = loadMenuFont()
+    private fun updateFonts(multiplier: Float) {
+        val font = loadMenuFont(multiplier)
         font.region.texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
 
         menuButtons.forEach { button ->

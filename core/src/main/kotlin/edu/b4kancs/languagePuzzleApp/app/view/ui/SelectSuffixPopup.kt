@@ -47,6 +47,9 @@ class SelectSuffixPopup(
         // Layout group for the buttons
         val textTable = Table()
 
+        titleLabel.style.font = font
+        titleLabel.style = titleLabel.style
+
         val suffixes = Suffix.predefinedSuffixes.filter { it.grammaticalRole == role && it.text.isNotEmpty() }
         suffixes.forEach { suffix ->
             val buttonStyle = TextButton.TextButtonStyle().apply {
