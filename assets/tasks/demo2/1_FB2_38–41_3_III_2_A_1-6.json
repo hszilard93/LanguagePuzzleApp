@@ -1,0 +1,528 @@
+{
+  "type": "CREATE_PUZZLE",
+  "buttonDescription": "1. feladat. Töltsd ki a puzzle-öket! (FB2 38–41 3.III.2.B)",
+  "tasks": [
+    {
+      "taskDescription": "Írd rá az igepuzzle-re az igét, a többi puzzle-re a további szavak valamelyikét, majd válassz az ige füleinek megfelelő szerepet, és helyezd rájuk a megfelelő puzzle-darabokat! Állapítsd meg, milyen szerepük van az egyes szavaknak, kifejezéseknek az igével leírható jelenetben! Írd rá a fülekre a végződést, amelyből a többiek is érteni fogják a szó, kifejezés szerepét!\nA felhasználandó szavak: \"rábíz\", \"a szülő\", \"a gyerek\", \"az óvó néni\"",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "UNDEFINED",
+              "text": ""
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "UNDEFINED",
+              "text": ""
+            },
+            {
+              "side": "RIGHT",
+              "grammaticalRole": "UNDEFINED",
+              "text": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        }
+      ],
+      "solutionConfiguration": {
+        "checkTabText": "true",
+        "centerPiece": {
+          "text": "rábíz",
+          "grammaticalRole": "VERB"
+        },
+        "puzzlesConnected": [
+          {
+            "text": "a szülő",
+            "grammaticalRole": "SUBJECT",
+            "via": {
+              "text": ""
+            }
+          },
+          {
+            "text": "a gyerek",
+            "grammaticalRole": "OBJECT",
+            "via": {
+              "text": "-t"
+            }
+          },
+          {
+            "text": "az óvó néni",
+            "grammaticalRole": "ADVERBIAL",
+            "via": {
+              "text": "-ra/-re"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "taskDescription": "Írd rá az igepuzzle-re az igét, a többi puzzle-re a további szavak valamelyikét, majd válassz az ige füleinek megfelelő szerepet, és helyezd rájuk a megfelelő puzzle-darabokat! Állapítsd meg, milyen szerepük van az egyes szavaknak, kifejezéseknek az igével leírható jelenetben! Írd rá a fülekre a végződést, amelyből a többiek is érteni fogják a szó, kifejezés szerepét!\nA felhasználandó szavak: \"eltalál\", \"Gyuri\", \"a labda\", \"az igazgató\"",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "UNDEFINED",
+              "text": ""
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "UNDEFINED",
+              "text": ""
+            },
+            {
+              "side": "RIGHT",
+              "grammaticalRole": "UNDEFINED",
+              "text": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        }
+      ],
+      "solutionConfiguration": {
+        "checkTabText": "true",
+        "centerPiece": {
+          "text": "eltalál",
+          "grammaticalRole": "VERB"
+        },
+        "puzzlesConnected": [
+          {
+            "text": "Gyuri",
+            "grammaticalRole": "SUBJECT",
+            "via": {
+              "text": ""
+            }
+          },
+          {
+            "text": "az igazgató",
+            "grammaticalRole": "OBJECT",
+            "via": {
+              "text": "-t"
+            }
+          },
+          {
+            "text": "a labda",
+            "grammaticalRole": "ADVERBIAL",
+            "via": {
+              "text": "-val/-vel"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "taskDescription": "Írd rá az igepuzzle-re az igét, a többi puzzle-re a további szavak valamelyikét, majd válassz az ige füleinek megfelelő szerepet, és helyezd rájuk a megfelelő puzzle-darabokat! Állapítsd meg, milyen szerepük van az egyes szavaknak, kifejezéseknek az igével leírható jelenetben! Írd rá a fülekre a végződést, amelyből a többiek is érteni fogják a szó, kifejezés szerepét!\nA felhasználandó szavak: \"megment\", \"a királyfi\", \"a királylány\", \"a sárkány\"",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "UNDEFINED",
+              "text": ""
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "UNDEFINED",
+              "text": ""
+            },
+            {
+              "side": "RIGHT",
+              "grammaticalRole": "UNDEFINED",
+              "text": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        }
+      ],
+      "solutionConfiguration": {
+        "checkTabText": "true",
+        "centerPiece": {
+          "text": "megment",
+          "grammaticalRole": "VERB"
+        },
+        "puzzlesConnected": [
+          {
+            "text": "a királyfi",
+            "grammaticalRole": "SUBJECT",
+            "via": {
+              "text": ""
+            }
+          },
+          {
+            "text": "a királylány",
+            "grammaticalRole": "OBJECT",
+            "via": {
+              "text": "-t"
+            }
+          },
+          {
+            "text": "a sárkány",
+            "grammaticalRole": "ADVERBIAL",
+            "via": {
+              "text": "-tól/-től"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "taskDescription": "Írd rá az igepuzzle-re az igét, a többi puzzle-re a további szavak valamelyikét, majd válassz az ige füleinek megfelelő szerepet, és helyezd rájuk a megfelelő puzzle-darabokat! Állapítsd meg, milyen szerepük van az egyes szavaknak, kifejezéseknek az igével leírható jelenetben! Írd rá a fülekre a végződést, amelyből a többiek is érteni fogják a szó, kifejezés szerepét!\nA felhasználandó szavak: \"kigyógyít\", \"az orvos\", \"a betegség\", \"egy páciens\"",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "UNDEFINED",
+              "text": ""
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "UNDEFINED",
+              "text": ""
+            },
+            {
+              "side": "RIGHT",
+              "grammaticalRole": "UNDEFINED",
+              "text": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        }
+      ],
+      "solutionConfiguration": {
+        "checkTabText": "true",
+        "centerPiece": {
+          "text": "kigyógyít",
+          "grammaticalRole": "VERB"
+        },
+        "puzzlesConnected": [
+          {
+            "text": "az orvos",
+            "grammaticalRole": "SUBJECT",
+            "via": {
+              "text": ""
+            }
+          },
+          {
+            "text": "egy páciens",
+            "grammaticalRole": "OBJECT",
+            "via": {
+              "text": "-t"
+            }
+          },
+          {
+            "text": "a betegség",
+            "grammaticalRole": "ADVERBIAL",
+            "via": {
+              "text": "-ból/-ből"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "taskDescription": "Írd rá az igepuzzle-re az igét, a többi puzzle-re a további szavak valamelyikét, majd válassz az ige füleinek megfelelő szerepet, és helyezd rájuk a megfelelő puzzle-darabokat! Állapítsd meg, milyen szerepük van az egyes szavaknak, kifejezéseknek az igével leírható jelenetben! Írd rá a fülekre a végződést, amelyből a többiek is érteni fogják a szó, kifejezés szerepét!\nA felhasználandó szavak: \"hozzáragaszt\", \"Marci\", \"a Peti nadrágja\", \"a szék\"",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "UNDEFINED",
+              "text": ""
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "UNDEFINED",
+              "text": ""
+            },
+            {
+              "side": "RIGHT",
+              "grammaticalRole": "UNDEFINED",
+              "text": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        }
+      ],
+      "solutionConfiguration": {
+        "checkTabText": "true",
+        "centerPiece": {
+          "text": "hozzáragaszt",
+          "grammaticalRole": "VERB"
+        },
+        "puzzlesConnected": [
+          {
+            "text": "Marci",
+            "grammaticalRole": "SUBJECT",
+            "via": {
+              "text": ""
+            }
+          },
+          {
+            "text": "a Peti nadrágja",
+            "grammaticalRole": "OBJECT",
+            "via": {
+              "text": "-t"
+            }
+          },
+          {
+            "text": "a szék",
+            "grammaticalRole": "ADVERBIAL",
+            "via": {
+              "text": "-hez"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "taskDescription": "Írd rá az igepuzzle-re az igét, a többi puzzle-re a további szavak valamelyikét, majd válassz az ige füleinek megfelelő szerepet, és helyezd rájuk a megfelelő puzzle-darabokat! Állapítsd meg, milyen szerepük van az egyes szavaknak, kifejezéseknek az igével leírható jelenetben! Írd rá a fülekre a végződést, amelyből a többiek is érteni fogják a szó, kifejezés szerepét!\nA felhasználandó szavak: \"megszór\", \"a kínai szakács\", \"a sonkás pizza\", \"sajt\"",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "UNDEFINED",
+              "text": ""
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "UNDEFINED",
+              "text": ""
+            },
+            {
+              "side": "RIGHT",
+              "grammaticalRole": "UNDEFINED",
+              "text": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        }
+      ],
+      "solutionConfiguration": {
+        "checkTabText": "true",
+        "centerPiece": {
+          "text": "megszór",
+          "grammaticalRole": "VERB"
+        },
+        "puzzlesConnected": [
+          {
+            "text": "a kínai szakács",
+            "grammaticalRole": "SUBJECT",
+            "via": {
+              "text": ""
+            }
+          },
+          {
+            "text": "a sonkás pizza",
+            "grammaticalRole": "OBJECT",
+            "via": {
+              "text": "-t"
+            }
+          },
+          {
+            "text": "sajt",
+            "grammaticalRole": "ADVERBIAL",
+            "via": {
+              "text": "-val/-vel"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

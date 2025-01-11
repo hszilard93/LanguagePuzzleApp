@@ -490,6 +490,11 @@ class PuzzlePiece(
         hasChangedAppearance = true
         when (type) {
             PuzzlePieceFeature.Type.TAB -> {
+                val tabToReplace = tabs.firstOrNull { it.side == side }  // We might need to replace UNDEFINED tabs
+                if (tabToReplace != null) {
+                    removeFeature(tabToReplace)
+                }
+
                 tabs.add(PuzzleTab(this, side, role, tabText))
                 return tabs.last()
             }
@@ -539,8 +544,20 @@ class PuzzlePiece(
     }
 
     fun findPotentialFeatureUnderPointer(mousePos: Vector2): Optional<Pair<PuzzlePieceFeature.Type, Side>> {
+
+        if (this.grammaticalRole != GrammaticalRole.VERB) {
+            return Optional.empty()
+        }
+
         setOf(Side.TOP, Side.BOTTOM, Side.LEFT, Side.RIGHT)
-            .filter { side -> this.getAllFeatures().map { it.side }.contains(side).not() }
+            .filter { side ->
+                this.getAllFeatures()
+                    // We now have to handle UNDEFINED tabs as well
+//                    .filter { !(it is PuzzleTab && it.grammaticalRole == GrammaticalRole.UNDEFINED) }
+                    .map { it.side }
+                    .contains(side)
+                    .not()
+            }
             .forEach { side ->
                 val featureHeight = 40f
                 val featureWidth = 50f
@@ -559,13 +576,6 @@ class PuzzlePiece(
                             if (isTab) {
                                 result = Optional.of(PuzzlePieceFeature.Type.TAB to side)
                             }
-                            // We don't need to do blanks
-//                            else {
-//                                val isBlank = mousePos.y < zoneYStart && mousePos.y > zoneYStart - featureHeight
-//                                if (isBlank) {  // We may only add one blank to a puzzle piece
-//                                    result = Optional.of(PuzzlePieceFeature.Type.BLANK to side)
-//                                }
-//                            }
                         }
                     }
 
@@ -581,12 +591,6 @@ class PuzzlePiece(
                             if (isTab) {
                                 result = Optional.of(PuzzlePieceFeature.Type.TAB to side)
                             }
-//                            else {
-//                                val isBlank = mousePos.y > zoneYStart && mousePos.y <= zoneYStart + featureHeight
-//                                if (isBlank) {
-//                                    result = Optional.of(PuzzlePieceFeature.Type.BLANK to side)
-//                                }
-//                            }
                         }
                     }
 
@@ -602,12 +606,6 @@ class PuzzlePiece(
                             if (isTab) {
                                 result = Optional.of(PuzzlePieceFeature.Type.TAB to side)
                             }
-//                            else {
-//                                val isBlank = mousePos.x > zoneXStart && mousePos.x <= zoneXStart + featureWidth
-//                                if (isBlank) {
-//                                    result = Optional.of(PuzzlePieceFeature.Type.BLANK to side)
-//                                }
-//                            }
                         }
                     }
 
@@ -623,12 +621,6 @@ class PuzzlePiece(
                             if (isTab) {
                                 result = Optional.of(PuzzlePieceFeature.Type.TAB to side)
                             }
-//                            else {
-//                                val isBlank = mousePos.x < zoneXStart && mousePos.x > zoneXStart - featureWidth
-//                                if (isBlank) {
-//                                    result = Optional.of(PuzzlePieceFeature.Type.BLANK to side)
-//                                }
-//                            }
                         }
                     }
                 }

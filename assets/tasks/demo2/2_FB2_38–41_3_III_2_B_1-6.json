@@ -1,6 +1,6 @@
 {
   "type": "PLACE_PUZZLES_IN_ORDER",
-  "buttonDescription": "1. feladat. Rakd ki! (FB2 38–41 3.III.2.A)",
+  "buttonDescription": "1. feladat. Rakd ki! (FB2 38–41 3.III.2.B)",
   "customRuleset": {
     "canEditTabText": "true"
   },
@@ -51,7 +51,7 @@
           ]
         },
         {
-          "text": "az óvónéni",
+          "text": "az óvó néni",
           "grammaticalRole": "UNDEFINED",
           "tabs": [],
           "blanks": [
@@ -83,7 +83,7 @@
             }
           },
           {
-            "text": "az óvónéni",
+            "text": "az óvó néni",
             "grammaticalRole": "ADVERBIAL",
             "via": {
               "text": "-ra/-re"

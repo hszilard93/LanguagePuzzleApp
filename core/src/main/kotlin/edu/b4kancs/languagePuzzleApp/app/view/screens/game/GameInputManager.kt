@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector3
 import edu.b4kancs.languagePuzzleApp.app.misc
 import edu.b4kancs.languagePuzzleApp.app.model.Environment
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
+import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePieceFeature
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzleTab
@@ -23,7 +24,7 @@ enum class Corner {
 class GameInputManager(
     private val cameraController: CameraController,
     private val puzzleManager: PuzzleManager,
-    private val cursorM: CursorManager,
+    private val cursorManager: CursorManager,
     private val uiManager: UIManager,
     private val environment: Environment,
     private val gameModel: GameModel,
@@ -68,8 +69,8 @@ class GameInputManager(
         if (!environment.isMobile) {
 
             if (isEmulatedDragOn) {
-                if (cursorM.currentCursor == null) {
-                    cursorM.setCursor(cursorM.handClosedCursor)
+                if (cursorManager.currentCursor == null) {
+                    cursorManager.setCursor(cursorManager.handClosedCursor)
                     lastMouseWorldPos.set(mousePos)
                 }
 
@@ -79,13 +80,13 @@ class GameInputManager(
 
             // First, if the mouse is above a button, change the cursor
             if (uiManager.isPointerOverButton()) {
-                cursorM.setCursor(cursorM.handPointingCursor)
+                cursorManager.setCursor(cursorManager.handPointingCursor)
                 return false
             }
 
             // Second, if there is a popup active, we don't change cursors
             if (uiManager.currentPopupWindow != null || puzzleManager.editingPuzzlePiece != null || puzzleManager.editingPuzzleFeature != null) {
-                cursorM.setCursor(null)
+                cursorManager.setCursor(null)
                 return false
             }
 
@@ -114,7 +115,7 @@ class GameInputManager(
                     }
 
                     if (potentialFeatureType != null) {
-                        cursorM.setCursor(cursorM.addFeatureCursor)
+                        cursorManager.setCursor(cursorManager.addFeatureCursor)
                         puzzleManager.featureTripleToAdd = Triple(
                             puzzleUnderPointer,
                             potentialFeatureType.second,
@@ -133,10 +134,16 @@ class GameInputManager(
                 if (!featureUnderPointer.isEmpty) {
                     val feature = featureUnderPointer.get()
                     if (feature is PuzzleTab) {
+                        if (feature.grammaticalRole == GrammaticalRole.UNDEFINED && rules?.canAddRemoveTabs == true) {
+                            cursorManager.setCursor(cursorManager.gearCursor)
+                            puzzleManager.featureTripleToAdd = Triple(puzzleUnderPointer, feature.side, PuzzlePieceFeature.Type.TAB)
+                            return true
+                        }
+
                         if (rules?.canEditTabText == true) {
                             val isPointerOverText = feature.isPointerOverTextLayout(mousePos)
                             if (isPointerOverText) {
-                                cursorM.setCursor(cursorM.editTextCursor)
+                                cursorManager.setCursor(cursorManager.editTextCursor)
                                 puzzleManager.featureToTextEdit = feature
                                 return true
                             }
@@ -144,7 +151,7 @@ class GameInputManager(
                         puzzleManager.featureToTextEdit = null
 
                         if (rules?.canAddRemoveTabs == true) {
-                            cursorM.setCursor(cursorM.removeFeatureCursor)
+                            cursorManager.setCursor(cursorManager.removeFeatureCursor)
                             puzzleManager.featureToRemove = Pair(puzzleUnderPointer, feature)
                             return true
                         }
@@ -164,7 +171,7 @@ class GameInputManager(
                 // We check if it's over a puzzle piece's text
                 val isTextUnderPointer = puzzleUnderPointer.isPointerOverTextLayout(mousePos)
                 if (isTextUnderPointer && rules?.canEditBaseText == true) {
-                    cursorM.setCursor(cursorM.editTextCursor)
+                    cursorManager.setCursor(cursorManager.editTextCursor)
                     puzzleManager.puzzlePieceToEdit = puzzleUnderPointer
                     return true
                 }
@@ -172,7 +179,7 @@ class GameInputManager(
 
                 // We recheck if it's over the puzzle piece's exact area
                 if (isPointerOverPuzzlePiece(mousePos, puzzleUnderPointer, false)) {
-                    cursorM.setCursor(cursorM.handOpenCursor)
+                    cursorManager.setCursor(cursorManager.handOpenCursor)
                     puzzleManager.puzzlePieceToDragOrRotate = puzzleUnderPointer
                     return true
                 }
@@ -193,8 +200,8 @@ class GameInputManager(
 //                }
 //            }
 
-            if (cursorM.currentCursor != null) {
-                cursorM.setCursor(null)
+            if (cursorManager.currentCursor != null) {
+                cursorManager.setCursor(null)
             }
         }
         return false
@@ -252,7 +259,7 @@ class GameInputManager(
 
         if (isEmulatedDragOn) {
             isEmulatedDragOn = false
-            cursorM.setCursor(null)
+            cursorManager.setCursor(null)
             puzzleManager.stopDragging()
             isDraggingGame = false
             return
@@ -274,7 +281,7 @@ class GameInputManager(
                     logger.debug { "doubleClick puzzlePiece=$puzzlePiece" }
                     if (!puzzlePiece.isConnected) {
                         puzzleManager.openTextEditor(puzzlePiece)
-                        cursorM.setCursor(null)
+                        cursorManager.setCursor(null)
                     }
                     return
                 }
@@ -285,7 +292,7 @@ class GameInputManager(
                 if (feature.isPointerOverTextLayout(mousePos)) {
                     logger.debug { "doubleClick puzzleFeature=$feature" }
                     puzzleManager.openTextEditor(feature)
-                    cursorM.setCursor(null)
+                    cursorManager.setCursor(null)
                 }
                 return
             }
@@ -299,13 +306,13 @@ class GameInputManager(
 
         if (puzzleManager.featureTripleToAdd != null) {
             puzzleManager.addFeature()
-            cursorM.setCursor(null)
+            cursorManager.setCursor(null)
             return
         }
 
         if (puzzleManager.featureToRemove != null) {
             puzzleManager.removeFeature()
-            cursorM.setCursor(cursorM.addFeatureCursor)
+            cursorManager.setCursor(cursorManager.addFeatureCursor)
             return
         }
 
@@ -316,12 +323,12 @@ class GameInputManager(
             return
         }
 
-        if (cursorM.currentCursor == cursorM.rotateLeftCursor) {
+        if (cursorManager.currentCursor == cursorManager.rotateLeftCursor) {
             logger.debug { "rotateLeft" }
             puzzleManager.puzzlePieceToRotate!!.rotateLeft()
             return
         }
-        else if (cursorM.currentCursor == cursorM.rotateRightCursor) {
+        else if (cursorManager.currentCursor == cursorManager.rotateRightCursor) {
             logger.debug { "rotateRight" }
             puzzleManager.puzzlePieceToRotate!!.rotateRight()
             return
@@ -358,7 +365,7 @@ class GameInputManager(
                 // Initiate drag
                 isPotentialClick = false
                 puzzleManager.startDragging(puzzleManager.puzzlePieceToDragOrRotate!!) // Use initialTouchPos for start
-                cursorM.setCursor(cursorM.handClosedCursor)
+                cursorManager.setCursor(cursorManager.handClosedCursor)
                 lastMouseWorldPos.set(mousePos)
                 return true
             }
@@ -394,8 +401,8 @@ class GameInputManager(
             isPotentialClick = false // Reset the flag
 
             if (!environment.isMobile) {
-                if (cursorM.currentCursor == cursorM.handClosedCursor) {
-                    cursorM.setCursor(cursorM.handOpenCursor)
+                if (cursorManager.currentCursor == cursorManager.handClosedCursor) {
+                    cursorManager.setCursor(cursorManager.handOpenCursor)
                     gameModel.rebasePuzzleDepths()
                     mouseMoved(screenX, screenY)
                 }

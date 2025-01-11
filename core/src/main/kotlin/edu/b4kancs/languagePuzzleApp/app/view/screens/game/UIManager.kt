@@ -383,6 +383,7 @@ class UIManager(
         )
 
         uiStage.addActor(popupWindow)
+        uiStage.setScrollFocus(popupWindow)
         currentPopupWindow = popupWindow
     }
 

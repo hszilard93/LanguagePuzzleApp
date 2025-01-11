@@ -58,8 +58,8 @@ class MainMenuScreen(
         val startExercise1Button = TextButton("Indítás az 1. példafeladattal", uiSkin).apply { menuButtons.add(this) }
         val startExercise2Button = TextButton("Indítás a 2. példafeladattal", uiSkin).apply { menuButtons.add(this) }
         val startExercise3Button = TextButton("Indítás a 3. példafeladattal", uiSkin).apply { menuButtons.add(this) }
-        val startExercise4Button = TextButton("1. feladat. Rakd ki! (FB2 38–41 3.III.2.B #1)", uiSkin).apply { menuButtons.add(this) }
-        val startExercise5Button = TextButton("2. feladat. Rakd ki! (FB2 38–41 3.III.2.B #2)", uiSkin).apply { menuButtons.add(this) }
+        val startExercise4Button = TextButton("1. feladat. Töltsd ki! (FB2 38–41 3.III.2.A)", uiSkin).apply { menuButtons.add(this) }
+        val startExercise5Button = TextButton("2. feladat. Rakd ki! (FB2 38–41 3.III.2.B)", uiSkin).apply { menuButtons.add(this) }
         val startExercise6Button = TextButton("3. feladat. Rakd ki! (FB2 38–41 3.III.2.B #3)", uiSkin).apply { menuButtons.add(this) }
         val startExercise7Button = TextButton("4. feladat. Töltsd ki! (FB2 41-42 3.IV.1.b)", uiSkin).apply { menuButtons.add(this) }
         val startExercise8Button = TextButton("5. feladat. Rakd ki! (FB2 44 3.V.1)", uiSkin).apply { menuButtons.add(this) }

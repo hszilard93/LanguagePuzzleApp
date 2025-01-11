@@ -14,7 +14,8 @@ object CustomCursorLoader {
         ROTATE_RIGHT_CURSOR("cursors/pointer_rotate-right.png"),
         REMOVE_FEATURE_CURSOR("cursors/pointer_minus_5.png"),
         ADD_FEATURE_CURSOR("cursors/pointer_plus_3.png"),
-        EDIT_TEXT_CURSOR("cursors/pointer_text_3.png")
+        EDIT_TEXT_CURSOR("cursors/pointer_text_3.png"),
+        GEAR_CURSOR("cursors/pointer_gear_1.png")
     }
 
     private val logger = ktx.log.logger<CustomCursorLoader>()

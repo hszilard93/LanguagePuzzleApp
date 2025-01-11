@@ -233,14 +233,14 @@ class Game(
     fun startDemo4() {
         logger.info { "Starting demo exercise #4" }
         // Initialize a demo exercise in gameModel
-        gameModel.loadExerciseFromDisk(Gdx.files.internal("tasks/demo2/1_FB2_38–41_3_III_2_B_1.json"))
+        gameModel.loadExerciseFromDisk(Gdx.files.internal("tasks/demo2/1_FB2_38–41_3_III_2_A_1-6.json"))
         loadGameScreen()
     }
 
     fun startDemo5() {
         logger.info { "Starting demo exercise #5" }
         // Initialize a demo exercise in gameModel
-        gameModel.loadExerciseFromDisk(Gdx.files.internal("tasks/demo2/2_FB2_38–41_3_III_2_B_2.json"))
+        gameModel.loadExerciseFromDisk(Gdx.files.internal("tasks/demo2/2_FB2_38–41_3_III_2_B_1-6.json"))
         loadGameScreen()
     }
 

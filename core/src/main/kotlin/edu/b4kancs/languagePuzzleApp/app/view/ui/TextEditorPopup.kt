@@ -27,7 +27,7 @@ class TextEditorPopup(
     private val onCancel: () -> Unit
 ) {
     val window: Window
-    private val textField: TextField
+    val textField: TextField
     private val saveButton: TextButton
     private val cancelButton: TextButton
 
@@ -114,8 +114,10 @@ class TextEditorPopup(
             add(buttonTable).height(25f)
         }
 
+        // TODO refactor this eventually
         window.add(table).expand().fill()
         stage.addActor(window)
+        stage.setKeyboardFocus(textField)
     }
 
     private fun close() {
