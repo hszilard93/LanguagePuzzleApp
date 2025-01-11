@@ -31,10 +31,8 @@ data class Ruleset(
 data class Exercise(
     val type: TaskType,
     val buttonDescription: String = "",
-    val taskDescription: String,
-    val predefinedPieces: Set<PuzzlePiece>,
-    val solutionConfiguration: SolutionConfiguration,
-    val customRuleset: Ruleset? = null
+    val customRuleset: Ruleset? = null,
+    val tasks: List<Task>
 ) {
     init {
         if (customRuleset != null) {
@@ -42,3 +40,10 @@ data class Exercise(
         }
     }
 }
+
+@Serializable
+data class Task(
+    val taskDescription: String,
+    val predefinedPieces: Set<PuzzlePiece>,
+    val solutionConfiguration: SolutionConfiguration
+)

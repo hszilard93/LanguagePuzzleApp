@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFont
 
 data class PuzzleFontHolder(val baseFont: BitmapFont, val tabFont: BitmapFont)
 
-data class TaskFontHolder(val font: BitmapFont)
+data class TaskFontHolder(val descriptionFont: BitmapFont, val counterFont: BitmapFont)
 
 data class HudFontHolder(val font: BitmapFont)
 
@@ -41,9 +41,13 @@ fun loadFreeTypeFont(fileName: String, fontSize: Int, flipFont: Boolean = false)
     return font
 }
 
-fun loadTaskFont(): BitmapFont {
+fun loadTaskDescriptionFont(): BitmapFont {
     return loadFreeTypeFont("PlaywriteGBS.ttf", TASK_DESC_DEFAULT_FONT_SIZE)
 //    return loadFreeTypeFont("libre-baskerville.regular.ttf", (TASK_DESC_DEFAULT_FONT_SIZE * scale).toInt())
+}
+
+fun loadTaskCounterFont(): BitmapFont {
+    return loadFreeTypeFont("PlaywriteGBS.ttf", (TASK_DESC_DEFAULT_FONT_SIZE * 1.25f).toInt())
 }
 
 fun loadMenuFont(): BitmapFont {

@@ -14,12 +14,10 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport
 import edu.b4kancs.languagePuzzleApp.app.Game
 import edu.b4kancs.languagePuzzleApp.app.misc
 import edu.b4kancs.languagePuzzleApp.app.view.screens.game.CursorManager
-import edu.b4kancs.languagePuzzleApp.app.view.screens.game.CustomCursorLoader
 import edu.b4kancs.languagePuzzleApp.app.view.screens.game.GameScreen
 import edu.b4kancs.languagePuzzleApp.app.view.ui.FilePickerInterface
 import edu.b4kancs.languagePuzzleApp.app.view.utils.HudFontHolder
 import edu.b4kancs.languagePuzzleApp.app.view.utils.loadMenuFont
-import edu.b4kancs.languagePuzzleApp.app.view.utils.loadTaskFont
 import edu.b4kancs.languagePuzzleApp.app.view.utils.toRGBFloat
 import ktx.app.KtxScreen
 import ktx.inject.Context

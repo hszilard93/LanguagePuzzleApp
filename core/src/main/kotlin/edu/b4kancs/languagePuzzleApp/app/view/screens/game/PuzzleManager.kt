@@ -2,12 +2,14 @@ package edu.b4kancs.languagePuzzleApp.app.view.screens.game
 
 import com.badlogic.gdx.math.Vector2
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
+import edu.b4kancs.languagePuzzleApp.app.model.GameModel.Companion
 import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePieceFeature
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzleTab
 import edu.b4kancs.languagePuzzleApp.app.model.Side
 import edu.b4kancs.languagePuzzleApp.app.model.Suffix
+import edu.b4kancs.languagePuzzleApp.app.model.exercise.SolutionResult
 import ktx.log.logger
 
 enum class RotationDirection {
@@ -104,6 +106,8 @@ class PuzzleManager(
         draggedPuzzlePiece = null
         puzzleSnapHelper.performSnapIfAny()
         puzzleSnapHelper.clearPuzzleFeaturesByProximity()
+
+        checkSolution()
 
         uiManager.hideGarbageBin()
     }
@@ -253,5 +257,39 @@ class PuzzleManager(
 
         startDragging(newPiece, false)
         gameInputManager.emulateDragging()
+    }
+
+    fun checkSolution() {
+        val centerPuzzle = gameModel.puzzlePieces.find { it.grammaticalRole == GrammaticalRole.VERB }!!
+
+        if (centerPuzzle.connectionSize < centerPuzzle.tabs.size) {
+            uiManager.hideCheckMark()
+            return
+        }
+
+        // All the tabs are connected, let's check the correctness of the result
+        val solutionResult = gameModel.currentTask
+            ?.solutionConfiguration
+            ?.doesGameStateMatchSolution(gameModel.puzzlePieces)
+            ?: return
+
+        GameModel.logger.info { "solutionResult = $solutionResult" }
+
+        when (solutionResult) {
+            SolutionResult.CORRECT -> {
+                uiManager.showCheckMark(isCorrect = true)
+                gameModel.updateIsSolved(true)
+            }
+
+            SolutionResult.INCORRECT -> {
+                uiManager.showCheckMark(isCorrect = false)
+                gameModel.updateIsSolved(false)
+            }
+
+            SolutionResult.INELIGIBLE -> {
+                uiManager.hideCheckMark()
+                gameModel.updateIsSolved(false)
+            }
+        }
     }
 }

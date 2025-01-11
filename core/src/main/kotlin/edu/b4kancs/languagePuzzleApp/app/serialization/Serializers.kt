@@ -2,12 +2,15 @@ package edu.b4kancs.languagePuzzleApp.app.serialization
 
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.ObjectSet
+import edu.b4kancs.languagePuzzleApp.app.model.Connection
 import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzleBlank
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzleTab
 import edu.b4kancs.languagePuzzleApp.app.model.Side
+import edu.b4kancs.languagePuzzleApp.app.model.exercise.SolutionConfiguration
 import kotlinx.serialization.KSerializer
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.Serializer
 import kotlinx.serialization.builtins.ListSerializer
@@ -22,13 +25,6 @@ import kotlinx.serialization.modules.SerializersModule
 import ktx.collections.GdxSet
 import ktx.collections.toGdxSet
 
-//val module = SerializersModule {
-//    // Register GdxSetSerializer for ObjectSet<TestSerializableClass>
-//    contextual (
-//        ObjectSet::class,
-//        GdxSetSerializer.serializer<TestSerializableClass>()
-//    )
-//}
 
 @Serializer(forClass = ObjectSet::class)
 class GdxSetSerializer<T>(
@@ -192,3 +188,72 @@ object PuzzleBlankSerializer : KSerializer<PuzzleBlank> {
         )
     }
 }
+
+
+@Serializer(forClass = SolutionConfiguration::class)
+object SolutionConfigurationSerializer : KSerializer<SolutionConfiguration> {
+
+    override val descriptor: SerialDescriptor = buildClassSerialDescriptor("solutionConfiguration") {
+        element<Boolean>("checkTabText")
+        element("centerPiece", PuzzlePieceSerializer.descriptor)
+        element<List<ConnectedPuzzleInfo>>("puzzlesConnected")
+    }
+
+    override fun serialize(encoder: Encoder, value: SolutionConfiguration) {
+        // Implement serialization if needed
+        throw NotImplementedError("Serialization for SolutionConfiguration is not implemented yet")
+    }
+
+    override fun deserialize(decoder: Decoder): SolutionConfiguration {
+        val decStructure = decoder.beginStructure(descriptor)
+        var checkTabText = false
+        var centerPiece: PuzzlePiece? = null
+        var connectedPuzzleInfos: List<ConnectedPuzzleInfo> = emptyList()
+
+        loop@ while (true) {
+            when (val index = decStructure.decodeElementIndex(descriptor)) {
+                0 -> checkTabText = decStructure.decodeBooleanElement(descriptor, 0)
+                1 -> centerPiece = decStructure.decodeSerializableElement(descriptor, 1, PuzzlePieceSerializer)
+                2 -> connectedPuzzleInfos = decStructure.decodeSerializableElement(descriptor, 2, ListSerializer(ConnectedPuzzleInfo.serializer()))
+                CompositeDecoder.DECODE_DONE -> break@loop
+                else -> throw SerializationException("Unknown index $index in SolutionConfiguration deserialization")
+            }
+        }
+        decStructure.endStructure(descriptor)
+
+        requireNotNull(centerPiece) { "centerPiece cannot be null" }
+
+        val connections = connectedPuzzleInfos.map { info ->
+            val connectedPiece = PuzzlePiece(info.text, info.grammaticalRole)
+            val viaTab = PuzzleTab(
+                side = when (info.grammaticalRole) { // Infer side based on grammatical role - adjust as needed
+                    GrammaticalRole.SUBJECT -> Side.TOP
+                    GrammaticalRole.OBJECT -> Side.BOTTOM
+                    GrammaticalRole.ADVERBIAL -> Side.LEFT
+                    else -> Side.RIGHT
+                },
+                grammaticalRole = info.grammaticalRole,
+                text = info.via.text
+            )
+            Connection(
+                puzzlesConnected = setOf(centerPiece, connectedPiece),
+                via = viaTab,
+                roleOfConnection = info.grammaticalRole // Or potentially centerPiece.grammaticalRole
+            )
+        }.toSet()
+
+        return SolutionConfiguration(connections, checkTabText)
+    }
+}
+
+@kotlinx.serialization.Serializable
+private data class ConnectedPuzzleInfo(
+    val text: String,
+    val grammaticalRole: GrammaticalRole,
+    val via: ViaInfo
+)
+
+@Serializable
+private data class ViaInfo(
+    val text: String
+)

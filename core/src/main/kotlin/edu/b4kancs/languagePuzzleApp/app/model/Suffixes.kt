@@ -26,5 +26,19 @@ data class Suffix(
             Suffix("-ért"),
             Suffix("-ig"),
         )
+
+        fun identifySuffixFromTabText(tabText: String): Suffix? {
+            val tabTextPartials = tabText.replace("\n", "").split("/").map { it.removePrefix("-") }
+
+            for (suffix in predefinedSuffixes) {
+                val suffixPartials = suffix.text.replace("\n", "").split("/").map { it.removePrefix("-") }
+                for (sp in suffixPartials) {
+                    if (tabTextPartials.any { it == sp }) {
+                        return suffix
+                    }
+                }
+            }
+            return null
+        }
     }
 }

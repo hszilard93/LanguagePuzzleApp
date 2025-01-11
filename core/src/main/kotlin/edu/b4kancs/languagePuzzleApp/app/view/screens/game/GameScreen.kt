@@ -80,7 +80,6 @@ class GameScreen(
         uiManager = UIManager(context, uiStage, uiSkin) {
             game.backToMenuScreen()
         }
-        gameModel.registerUIManager(uiManager)
 
         puzzleManager = PuzzleManager(gameModel, puzzleSnapHelper, uiManager)
 

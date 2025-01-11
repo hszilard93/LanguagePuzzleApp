@@ -517,10 +517,10 @@ class OldGameScreen(
     }
 
     private fun updateExerciseDescription() {
-        val currentExercise = gameModel.currentExercise
-        if (currentExercise!!.taskDescription.isNotBlank()) {
+        val task = gameModel.currentTask!!
+        if (task.taskDescription?.isNotBlank() ?: false) {
             // Set the description text
-            exerciseDescriptionLabel.setText(currentExercise.taskDescription)
+            exerciseDescriptionLabel.setText(task.taskDescription)
 
             // Adjust the window size based on the content
             exerciseDescriptionFrame.pack()
@@ -764,9 +764,9 @@ class OldGameScreen(
                 puzzleSnapHelper.performSnapIfAny()
 
                 puzzleSnapHelper.clearPuzzleFeaturesByProximity()
-                if (gameModel.isSolved()) {
-                    displayCheckMark()
-                }
+//                if (gameModel.isSolved()) {
+//                    displayCheckMark()
+//                }
 
                 isDraggingGame = false
                 if (!environment.isMobile) {

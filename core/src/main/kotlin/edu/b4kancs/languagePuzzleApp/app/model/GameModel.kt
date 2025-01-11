@@ -3,8 +3,9 @@ package edu.b4kancs.languagePuzzleApp.app.model
 import com.badlogic.gdx.files.FileHandle
 import com.badlogic.gdx.math.Vector2
 import edu.b4kancs.languagePuzzleApp.app.model.exercise.Exercise
-import edu.b4kancs.languagePuzzleApp.app.model.exercise.Result
+import edu.b4kancs.languagePuzzleApp.app.model.exercise.SolutionResult
 import edu.b4kancs.languagePuzzleApp.app.model.exercise.SolutionConfiguration
+import edu.b4kancs.languagePuzzleApp.app.model.exercise.Task
 import edu.b4kancs.languagePuzzleApp.app.model.exercise.TaskType
 import edu.b4kancs.languagePuzzleApp.app.view.screens.game.UIManager
 import kotlinx.serialization.json.Json
@@ -15,18 +16,24 @@ const val LOG_LEVEL_MISC = 4
 class GameModel {
 
     var currentExercise: Exercise? = null
-        private set(value) {
-            field = value
-            if (value != null) {
-                initializePuzzlePieces(value.predefinedPieces)
-            }
-        }
+        private set
+    var currentTask: Task? = null
+        private set
+    var currentTaskNumber: Int = 0
+        private set
+    var totalTaskCount: Int = 0
+        private set
+    var isSolved: Boolean = false
+        private set
 
-    val puzzlePieces: MutableList<PuzzlePiece> = ArrayList()
+    var puzzlePieces: MutableList<PuzzlePiece> = ArrayList()
+        private set
+
+
     private val basePosition = Vector2(0f, -100f)
-
     private var lastPuzzlePosition = basePosition
 
+    // Currently unused, can be used to load exercises from disk.
     private val jsonSerializer = Json {
         prettyPrint = true
     }
@@ -38,43 +45,8 @@ class GameModel {
     }
 
     init {
-        logger.debug { "Initializing GameModel with example exercise." }
-
-        currentExercise = loadExampleExercise1()
-
-        initializePuzzlePieces(currentExercise!!.predefinedPieces)
+        logger.debug { "Initializing GameModel." }
     }
-
-    fun registerUIManager(uiManager: UIManager) {
-        this.uiManager = uiManager
-    }
-
-    fun isSolved(): Boolean {
-        // Collect all unique current connections in the game
-        val currentConnections = puzzlePieces.flatMap { it.copyOfConnections }.toSet()
-
-        val solutionResult = currentExercise?.solutionConfiguration?.doesGameStateMatchSolution(puzzlePieces) ?: false
-
-        logger.info { "solutionResult = $solutionResult" }
-
-        when (solutionResult) {
-            Result.CORRECT -> {
-                uiManager.showCheckMark(isCorrect = true)
-                return true
-            }
-            Result.INCORRECT -> {
-                uiManager.showCheckMark(isCorrect = false)
-                return false
-            }
-            Result.INELIGIBLE -> {
-                uiManager.hideCheckMark()
-                return false
-            }
-        }
-
-        return (solutionResult == Result.CORRECT)
-    }
-
 
     private fun serializeExercise(exercise: Exercise): String {
         val jsonSerializer = Json {
@@ -88,7 +60,48 @@ class GameModel {
 
     fun loadExerciseFromDisk(fileHandle: FileHandle) {
         logger.info { "Loading exercise from file: ${fileHandle.path()}" }
-        currentExercise = deserializeExerciseFromFile(fileHandle)
+
+        initializeExercise(deserializeExerciseFromFile(fileHandle))
+    }
+
+    fun initializeExercise(exercise: Exercise) {
+        logger.debug { "Initializing exercise: $exercise" }
+
+        currentExercise = exercise
+        setUpTask(currentExercise!!.tasks.first())
+        currentTaskNumber = 1
+        totalTaskCount = currentExercise!!.tasks.size
+    }
+
+    fun setUpTask(task: Task) {
+        logger.debug { "Setting up task: ${task.taskDescription.take(12)}" }
+
+        currentTask = task
+        initializePuzzlePieces(currentTask!!.predefinedPieces)
+    }
+
+    fun setUpNextTask(onTaskChange: () -> Unit) {
+        logger.info { "nextTask $currentTaskNumber/$totalTaskCount" }
+
+        if (currentTaskNumber < totalTaskCount) {
+            currentTaskNumber++
+            setUpTask(currentExercise!!.tasks[currentTaskNumber - 1])
+            onTaskChange()
+        }
+    }
+
+    fun setUpPreviousTask(onTaskChange: () -> Unit) {
+        logger.info { "previousTask $currentTaskNumber/$totalTaskCount" }
+
+        if (currentTaskNumber > 1) {
+            currentTaskNumber--
+            setUpTask(currentExercise!!.tasks[currentTaskNumber - 1])
+            onTaskChange()
+        }
+    }
+
+    fun updateIsSolved(isSolved: Boolean) {
+        this.isSolved = isSolved
     }
 
     private fun deserializeExerciseFromFile(jsonFile: FileHandle): Exercise {
@@ -114,11 +127,11 @@ class GameModel {
         }
 
         var nextX: Float = if (lastPuzzlePosition == basePosition) {
-                (puzzlePieces.size - 1) * 350f / 2 * -1
-            }
-            else {
-                lastPuzzlePosition.x + 450f
-            }
+            (puzzlePieces.size - 1) * 350f / 2 * -1
+        }
+        else {
+            lastPuzzlePosition.x + 450f
+        }
         var nextY = 350f
 
         lastPuzzlePosition = Vector2(nextX, nextY)
@@ -164,15 +177,20 @@ class GameModel {
         // Define the Exercise instance
         return Exercise(
             type = TaskType.PLACE_PUZZLES_IN_ORDER,
-            taskDescription = "Helyezd el a puzzle darabokat úgy, hogy a következő mondatot alkossák:\n\"Peti virágot ad Annának névnapjára.\"",
-            predefinedPieces = setOf(
-                verbPuzzle,
-                subjectPuzzle,
-                objectPuzzle,
-                adverbial1Puzzle,
-                adverbial2Puzzle
-            ),
-            solutionConfiguration = SolutionConfiguration(solutionSet)
+            buttonDescription = "Példafeladat",
+            tasks = listOf(
+                Task(
+                    taskDescription = "Helyezd el a puzzle darabokat úgy, hogy a következő mondatot alkossák:\n\"Peti virágot ad Annának névnapjára.\"",
+                    predefinedPieces = setOf(
+                        verbPuzzle,
+                        subjectPuzzle,
+                        objectPuzzle,
+                        adverbial1Puzzle,
+                        adverbial2Puzzle
+                    ),
+                    solutionConfiguration = SolutionConfiguration(solutionSet)
+                )
+            )
         )
     }
 

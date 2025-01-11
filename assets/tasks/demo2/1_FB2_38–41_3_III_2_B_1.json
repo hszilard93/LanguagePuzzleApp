@@ -1,129 +1,183 @@
 {
   "type": "PLACE_PUZZLES_IN_ORDER",
-  "taskDescription": "Keresd meg az igepuzzle-t, majd helyezd a megfelelő puzzle-darabokat az ige füleire! Állapítsd meg, és írd le a füzetedbe, hogy milyen szerepük van az egyes szavaknak, kifejezéseknek az igével leírható jelenetben! Írd rá a fülekre a végződést, amelyből a többiek is érteni fogják a szó, kifejezés szerepét!",
   "buttonDescription": "1. feladat. Rakd ki! (FB2 38–41 3.III.2.B #1)",
-  "predefinedPieces": [
+  "customRuleset": {
+    "canEditTabText": "true"
+  },
+  "tasks": [
     {
-      "text": "rábíz",
-      "grammaticalRole": "VERB",
-      "tabs": [
+      "taskDescription": "Keresd meg az igepuzzle-t, majd helyezd a megfelelő puzzle-darabokat az ige füleire! Állapítsd meg, és írd le a füzetedbe, hogy milyen szerepük van az egyes szavaknak, kifejezéseknek az igével leírható jelenetben! Írd rá a fülekre a végződést, amelyből a többiek is érteni fogják a szó, kifejezés szerepét!",
+      "predefinedPieces": [
         {
-          "side": "LEFT",
-          "grammaticalRole": "SUBJECT",
-          "text": ""
+          "text": "rábíz",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": ""
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": ""
+            },
+            {
+              "side": "RIGHT",
+              "grammaticalRole": "ADVERBIAL",
+              "text": ""
+            }
+          ],
+          "blanks": []
         },
         {
-          "side": "TOP",
-          "grammaticalRole": "OBJECT",
-          "text": ""
+          "text": "a szülő",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
         },
         {
-          "side": "RIGHT",
-          "grammaticalRole": "ADVERBIAL",
-          "text": ""
+          "text": "a gyerek",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "az óvónéni",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
         }
       ],
-      "blanks": []
-    },
-    {
-      "text": "a szülő",
-      "grammaticalRole": "UNDEFINED",
-      "tabs": [],
-      "blanks": [
-        {
-          "side": "BOTTOM"
-        }
-      ]
-    },
-    {
-      "text": "a gyerek",
-      "grammaticalRole": "UNDEFINED",
-      "tabs": [],
-      "blanks": [
-        {
-          "side": "BOTTOM"
-        }
-      ]
-    },
-    {
-      "text": "az óvónéni",
-      "grammaticalRole": "UNDEFINED",
-      "tabs": [],
-      "blanks": [
-        {
-          "side": "BOTTOM"
-        }
-      ]
-    }
-  ],
-  "solutionConfiguration": {
-    "solutions": [
-      {
+      "solutionConfiguration": {
+        "checkTabText": "false",
+        "centerPiece": {
+          "text": "rábíz",
+          "grammaticalRole": "VERB"
+        },
         "puzzlesConnected": [
-          {
-            "text": "rábíz",
-            "grammaticalRole": "VERB",
-            "tabs": [],
-            "blanks": []
-          },
           {
             "text": "a szülő",
             "grammaticalRole": "SUBJECT",
-            "tabs": [],
-            "blanks": []
-          }
-        ],
-        "via": {
-          "grammaticalRole": "SUBJECT",
-          "text": ""
-        },
-        "roleOfConnection": "SUBJECT"
-      },
-      {
-        "puzzlesConnected": [
-          {
-            "text": "rábíz",
-            "grammaticalRole": "VERB",
-            "tabs": [],
-            "blanks": []
+            "via": {
+              "text": ""
+            }
           },
           {
             "text": "a gyerek",
             "grammaticalRole": "OBJECT",
-            "tabs": [],
-            "blanks": []
-          }
-        ],
-        "via": {
-          "grammaticalRole": "OBJECT",
-          "text": ""
-        },
-        "roleOfConnection": "OBJECT"
-      },
-      {
-        "puzzlesConnected": [
-          {
-            "text": "rábíz",
-            "grammaticalRole": "VERB",
-            "tabs": [],
-            "blanks": []
+            "via": {
+              "text": "-t"
+            }
           },
           {
             "text": "az óvónéni",
             "grammaticalRole": "ADVERBIAL",
-            "tabs": [],
-            "blanks": []
+            "via": {
+              "text": "-ra/-re"
+            }
           }
-        ],
-        "via": {
-          "grammaticalRole": "ADVERBIAL",
-          "text": ""
-        },
-        "roleOfConnection": "ADVERBIAL"
+        ]
       }
-    ]
-  },
-  "customRuleset": {
-      "canEditTabText": "true"
-  }
+    },
+    {
+      "taskDescription": "Keresd meg az igepuzzle-t, majd helyezd a megfelelő puzzle-darabokat az ige füleire! Állapítsd meg, és írd le a füzetedbe, hogy milyen szerepük van az egyes szavaknak, kifejezéseknek az igével leírható jelenetben! Írd rá a fülekre a végződést, amelyből a többiek is érteni fogják a szó, kifejezés szerepét!",
+      "predefinedPieces": [
+        {
+          "text": "eltalál",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": ""
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": ""
+            },
+            {
+              "side": "RIGHT",
+              "grammaticalRole": "ADVERBIAL",
+              "text": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "Gyuri",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "a labda",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "az igazgató",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        }
+      ],
+      "solutionConfiguration": {
+        "checkTabText": "false",
+        "centerPiece": {
+          "text": "eltalál",
+          "grammaticalRole": "VERB"
+        },
+        "puzzlesConnected": [
+          {
+            "text": "Gyuri",
+            "grammaticalRole": "SUBJECT",
+            "via": {
+              "text": ""
+            }
+          },
+          {
+            "text": "az igazgató",
+            "grammaticalRole": "OBJECT",
+            "via": {
+              "text": "-t"
+            }
+          },
+          {
+            "text": "a labda",
+            "grammaticalRole": "ADVERBIAL",
+            "via": {
+              "text": "-val/-vel"
+            }
+          }
+        ]
+      }
+    }
+  ]
 }

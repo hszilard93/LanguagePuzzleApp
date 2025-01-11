@@ -8,10 +8,12 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton
 import com.badlogic.gdx.scenes.scene2d.ui.Label
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.Table
@@ -33,7 +35,7 @@ import edu.b4kancs.languagePuzzleApp.app.view.ui.SelectSuffixPopup
 import edu.b4kancs.languagePuzzleApp.app.view.ui.TextEditorPopup
 import edu.b4kancs.languagePuzzleApp.app.view.utils.TaskFontHolder
 import edu.b4kancs.languagePuzzleApp.app.view.utils.UIFontHolder
-import edu.b4kancs.languagePuzzleApp.app.view.utils.loadTaskFont
+import edu.b4kancs.languagePuzzleApp.app.view.utils.loadTaskDescriptionFont
 import edu.b4kancs.languagePuzzleApp.app.view.utils.loadUIFont
 import edu.b4kancs.languagePuzzleApp.app.view.utils.partialFadeIn
 import ktx.inject.Context
@@ -55,17 +57,22 @@ class UIManager(
     private val hudViewport: HudViewport = context.inject()
     private val gameViewport: GameViewport = context.inject()
     private val gameModel: GameModel = context.inject()
-    private val taskFont = context.inject<TaskFontHolder>().font
+    private val taskFont = context.inject<TaskFontHolder>().descriptionFont
+    private val counterFont = context.inject<TaskFontHolder>().counterFont
     private val uiFont = context.inject<UIFontHolder>()
 
     private lateinit var exerciseDescriptionLabel: Label
+    private lateinit var taskCounterLabel: Label
     private lateinit var exerciseDescriptionScrollPane: ScrollPane
     private lateinit var returnButton: ImageButton
     private lateinit var checkMarkImage: Image
+    private lateinit var backPageImageButton: ImageButton
+    private lateinit var forwardPageImageButton: ImageButton
     private var addPuzzleButton: ImageButton? = null
     private var garbageBinImage: Image? = null
 
     private lateinit var topBarTable: Table
+    private lateinit var bottomBarTable: Table
 
     private var backButtonTexture = Texture(Gdx.files.internal("back_button_1.png"), Pixmap.Format.RGBA8888, true)
         .apply { setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear) }
@@ -90,7 +97,7 @@ class UIManager(
     fun initializeUI() {
         logger.debug { "initializeUI" }
         initializeTopBar()
-        initializeCheckMarkUI()
+        initializeBottomBar()
 
         val rules = gameModel.currentExercise?.type?.ruleset
         if (rules?.canAddMainPieces == true || rules?.canAddBlankPieces == true) {
@@ -108,13 +115,12 @@ class UIManager(
             padLeft(4f)
             padRight(24f)
             top().left()
-            //debug = true // Uncomment for debugging table layout
+//            debug = true
         }
 
         exerciseDescriptionLabel = Label("", uiSkin).apply {
             setWrap(true)
             setAlignment(Align.center)
-            style.font = taskFont
             color.a = 0.75f
         }
 
@@ -134,6 +140,12 @@ class UIManager(
             }
         }
 
+        val taskCounterLabelStyle = LabelStyle(counterFont, Color.WHITE)
+        taskCounterLabel = Label("", taskCounterLabelStyle).apply {
+            style.font.data.markupEnabled = true
+//            style.fontColor.a = 0.75f     // Enabling this leads to some kind of bug with the blending
+        }
+
         val buttonStyle = ImageButton.ImageButtonStyle().apply {
             this.up = TextureRegionDrawable(TextureRegion(backButtonTexture)).tint(Color(120f, 120f, 255f, 0.6f))
             this.down = TextureRegionDrawable(TextureRegion(backButtonTexture)).tint(Color(120f, 120f, 255f, 1f))
@@ -149,7 +161,8 @@ class UIManager(
 
         // Add label and button to the table
         topBarTable.add(exerciseDescriptionScrollPane).expandX().fillX().maxHeight(200f).padRight(10f)
-        topBarTable.add(returnButton).width(72f).height(72f).pad(12f)
+        topBarTable.add(returnButton).width(72f).height(72f).pad(12f).row()
+        topBarTable.add(taskCounterLabel).align(Align.right).padTop(-30f).padRight(20f)
 
         // Add the table to the UI stage
         uiStage.addActor(topBarTable)
@@ -159,17 +172,105 @@ class UIManager(
     }
 
     fun updateExerciseDescription() {
-        val currentExercise = gameModel.currentExercise
-        if (currentExercise!!.taskDescription.isNotBlank()) {
-            // Set the description text
-            exerciseDescriptionLabel.setText(currentExercise.taskDescription)
-
+        val task = gameModel.currentTask!!
+        if (task.taskDescription.isNotBlank()) {
+            exerciseDescriptionLabel.setText(task.taskDescription)
             // Make sure the table is visible
             topBarTable.isVisible = true
+
+            taskCounterLabel.apply {
+                setText("[#22CC22]${gameModel.currentTaskNumber}[BLACK]/[#005500]${gameModel.totalTaskCount}[]")
+                isVisible = gameModel.totalTaskCount > 1
+            }
+
+            if (this::forwardPageImageButton.isInitialized) {
+                forwardPageImageButton.isVisible = false
+            }
+
+            if (this::checkMarkImage.isInitialized) {
+                hideCheckMark()
+            }
         }
         else {
             // Hide the table if there's no description
             topBarTable.isVisible = false
+        }
+    }
+
+    private fun initializeBottomBar() {
+        logger.debug { "initializeBottomBar" }
+
+        initializePageButtons()
+        initializeCheckMarkUI()
+
+        bottomBarTable = Table().apply {
+            setFillParent(true)
+            padBottom(4f)
+            padLeft(4f)
+            padRight(24f)
+            bottom().left()
+        }
+
+        if (garbageBinImage != null) {
+            bottomBarTable.add(garbageBinImage).width(125f).height(125f).pad(12f)
+        }
+        bottomBarTable.add(backPageImageButton).width(72f).height(72f).pad(12f)
+        bottomBarTable.add().expandX()
+        bottomBarTable.add(forwardPageImageButton).width(72f).height(72f).pad(12f)
+        bottomBarTable.add(checkMarkImage).width(80f).height(80f).padLeft(12f).padBottom(-25f)
+        bottomBarTable.pack()
+
+        uiStage.addActor(bottomBarTable)
+    }
+
+    private fun initializePageButtons() {
+        logger.debug { "initializePageButtons" }
+
+        val backPageImage = Texture(Gdx.files.internal("backpage_icon_1.png"), Pixmap.Format.RGBA8888, true)
+        val backStyle = ImageButton.ImageButtonStyle().apply {
+            this.up = TextureRegionDrawable(TextureRegion(backPageImage)).tint(Color(120f, 120f, 120f, 0.8f))
+            this.down = TextureRegionDrawable(TextureRegion(backPageImage)).tint(Color(120f, 255f, 255f, 1f))
+        }
+
+        backPageImageButton = ImageButton(backStyle).apply {
+            addListener(object : ClickListener() {
+                override fun clicked(event: InputEvent?, x: Float, y: Float) {
+                    logger.info { "Back page button clicked" }
+                    gameModel.setUpPreviousTask() {
+                        updateExerciseDescription()
+                    }
+                }
+            })
+            isVisible = false
+        }
+
+        val forwardPageImage = Texture(Gdx.files.internal("forwardpage_icon_1.png"), Pixmap.Format.RGBA8888, true)
+        val forwardStyle = ImageButton.ImageButtonStyle().apply {
+            this.up = TextureRegionDrawable(TextureRegion(forwardPageImage)).tint(Color(120f, 120f, 120f, 0.8f))
+            this.down = TextureRegionDrawable(TextureRegion(forwardPageImage)).tint(Color(120f, 255f, 255f, 1f))
+        }
+        forwardPageImageButton = ImageButton(forwardStyle).apply {
+            addListener(object : ClickListener() {
+                override fun clicked(event: InputEvent?, x: Float, y: Float) {
+                    logger.info { "Forward page button clicked" }
+                    gameModel.setUpNextTask() {
+                        updateExerciseDescription()
+                    }
+                }
+            })
+            isVisible = false
+        }
+    }
+
+    private fun showForwardPageButton() {
+        logger.debug { "showNextPageButton" }
+
+        if (::forwardPageImageButton.isInitialized) {
+            if (gameModel.currentTaskNumber < gameModel.totalTaskCount) {
+                forwardPageImageButton.color.a = 0.2f
+                forwardPageImageButton.isVisible = true
+                forwardPageImageButton.addAction(Actions.fadeIn(0.5f))
+            }
         }
     }
 
@@ -178,16 +279,17 @@ class UIManager(
 
         // Create an Image actor with the checkmark texture
         checkMarkImage = Image(correctCheckMarkTexture).apply {
-            setSize(80f, 80f) // Example size; adjust based on your design
-            // Position it at the lower right corner with 20px padding from the edges
-            setPosition(
-                topBarTable.width - 20f,
-                20f
-            )
+//            setSize(80f, 80f)
+//            setPosition(
+//                topBarTable.width - 20f,
+//                20f
+//            )
+//            isVisible = false
+            touchable = Touchable.disabled
             isVisible = false
         }
         // Add the checkmark image to the UI stage
-        uiStage.addActor(checkMarkImage)
+//        uiStage.addActor(checkMarkImage)
     }
 
     fun showCheckMark(isCorrect: Boolean = true) {
@@ -196,7 +298,9 @@ class UIManager(
         if (::checkMarkImage.isInitialized) {
             if (isCorrect) {
                 checkMarkImage.drawable = TextureRegionDrawable(correctCheckMarkTexture)
-            } else {
+                showForwardPageButton()
+            }
+            else {
                 checkMarkImage.drawable = TextureRegionDrawable(incorrectCheckMarkTexture)
             }
 
@@ -253,7 +357,13 @@ class UIManager(
         currentPopupWindow = popupWindow
     }
 
-    fun displaySelectSuffixPopupForResult(role: GrammaticalRole, puzzlePiece: PuzzlePiece, side: Side, onSuffixSelected: (Suffix) -> Unit, onCancel: () -> Unit) {
+    fun displaySelectSuffixPopupForResult(
+        role: GrammaticalRole,
+        puzzlePiece: PuzzlePiece,
+        side: Side,
+        onSuffixSelected: (Suffix) -> Unit,
+        onCancel: () -> Unit
+    ) {
         logger.debug { "displaySelectSuffixPopup role = $role" }
 
         val popupWindow = SelectSuffixPopup(
@@ -329,12 +439,13 @@ class UIManager(
         logger.debug { "initializeGarbageBin" }
 
         garbageBinImage = Image(garbageBinClosedTexture).apply {
-            setSize(125f, 125f)
-            setPosition(10f, 20f)
-            isVisible = false
+//            setSize(125f, 125f)
+//            setPosition(10f, 20f)
+//            isVisible = false
+            isVisible = true
             setColor(200f, 50f, 50f, 0.1f)
         }
-        uiStage.addActor(garbageBinImage)
+//        uiStage.addActor(garbageBinImage)
         isGarbageBinLifted = false
     }
 
@@ -387,7 +498,7 @@ class UIManager(
     }
 
     fun updateFonts() {
-        val taskFont = loadTaskFont()
+        val taskFont = loadTaskDescriptionFont()
         taskFont.region.texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
         exerciseDescriptionLabel.style.font = taskFont
         exerciseDescriptionLabel.style = exerciseDescriptionLabel.style

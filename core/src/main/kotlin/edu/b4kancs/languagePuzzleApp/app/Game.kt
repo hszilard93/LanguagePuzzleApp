@@ -27,7 +27,8 @@ import edu.b4kancs.languagePuzzleApp.app.view.utils.UIFontHolder
 import edu.b4kancs.languagePuzzleApp.app.view.utils.loadFreeTypeFont
 import edu.b4kancs.languagePuzzleApp.app.view.utils.loadPuzzleBaseFont
 import edu.b4kancs.languagePuzzleApp.app.view.utils.loadPuzzleTabFont
-import edu.b4kancs.languagePuzzleApp.app.view.utils.loadTaskFont
+import edu.b4kancs.languagePuzzleApp.app.view.utils.loadTaskCounterFont
+import edu.b4kancs.languagePuzzleApp.app.view.utils.loadTaskDescriptionFont
 import edu.b4kancs.languagePuzzleApp.app.view.utils.loadUIFont
 import ktx.app.KtxGame
 import ktx.app.KtxScreen
@@ -118,9 +119,11 @@ class Game(
             }
 
             bindSingleton<TaskFontHolder> {
-                val font = loadTaskFont()
-                disposables.register(font)
-                TaskFontHolder(font)
+                val descFont = loadTaskDescriptionFont()
+                val countFont = loadTaskCounterFont()
+                disposables.register(descFont)
+                disposables.register(countFont)
+                TaskFontHolder(descFont, countFont)
             }
 
             bindSingleton<PuzzleFontHolder> {
