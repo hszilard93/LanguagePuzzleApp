@@ -60,12 +60,12 @@ class MainMenuScreen(
         val startExercise1Button = TextButton("Indítás az 1. példafeladattal", uiSkin).apply { menuButtons.add(this) }
         val startExercise2Button = TextButton("Indítás a 2. példafeladattal", uiSkin).apply { menuButtons.add(this) }
         val startExercise3Button = TextButton("Indítás a 3. példafeladattal", uiSkin).apply { menuButtons.add(this) }
+
         val startExercise4Button = TextButton("1. feladat. Töltsd ki! (FB2 38–41 3.III.2.A)", uiSkin).apply { menuButtons.add(this) }
         val startExercise5Button = TextButton("2. feladat. Rakd ki! (FB2 38–41 3.III.2.B)", uiSkin).apply { menuButtons.add(this) }
-        val startExercise6Button = TextButton("3. feladat. Rakd ki! (FB2 38–41 3.III.2.B #3)", uiSkin).apply { menuButtons.add(this) }
-        val startExercise7Button = TextButton("4. feladat. Töltsd ki! (FB2 41-42 3.IV.1.b)", uiSkin).apply { menuButtons.add(this) }
-        val startExercise8Button = TextButton("5. feladat. Rakd ki! (FB2 44 3.V.1)", uiSkin).apply { menuButtons.add(this) }
-        val startExercise9Button = TextButton("6. feladat. Rakd ki! (FB2 145 28a #1)", uiSkin).apply { menuButtons.add(this) }
+        val startExercise7Button = TextButton("3. feladat. Töltsd ki! (FB2 41-42 3.IV.1.b)", uiSkin).apply { menuButtons.add(this) }
+        val startExercise8Button = TextButton("4. feladat. Rakd ki! (FB2 44 3.V.1)", uiSkin).apply { menuButtons.add(this) }
+        val startExercise9Button = TextButton("5. feladat. Rakd ki! (FB2 145 28a-b)", uiSkin).apply { menuButtons.add(this) }
 
         val loadExerciseButton = TextButton("Feladat betöltése fájlból", uiSkin).apply { menuButtons.add(this) }
         val settingsButton = TextButton("Beallítások", uiSkin).apply { menuButtons.add(this) }
@@ -109,13 +109,6 @@ class MainMenuScreen(
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 logger.info { "Start with exercise 5 button clicked" }
                 game.startDemo5()
-            }
-        })
-
-        startExercise6Button.addListener(object : ClickListener() {
-            override fun clicked(event: InputEvent?, x: Float, y: Float) {
-                logger.info { "Start with exercise 6 button clicked" }
-                game.startDemo6()
             }
         })
 
@@ -173,7 +166,6 @@ class MainMenuScreen(
 //        table.add(startExercise3Button).width(600f).height(100f).pad(10f).row()
         table.add(startExercise4Button).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(100f).pad(10f).row()
         table.add(startExercise5Button).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(100f).pad(10f).row()
-        table.add(startExercise6Button).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(100f).pad(10f).row()
         table.add(startExercise7Button).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(100f).pad(10f).row()
         table.add(startExercise8Button).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(100f).pad(10f).row()
         table.add(startExercise9Button).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(100f).pad(10f).row()

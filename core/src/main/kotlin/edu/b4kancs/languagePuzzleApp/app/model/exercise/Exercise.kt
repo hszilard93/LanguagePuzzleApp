@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 enum class TaskType(var ruleset: Ruleset) {
     PLACE_PUZZLES_IN_ORDER(Ruleset()),     // Készítsd el az előre megadott mondat puzzle-szerkezetét.
-    CREATE_PUZZLE(Ruleset(                 // Add hozzá a puzzle darabokat, majd rakd őket sorrendbe.
+    EDIT_PUZZLES(Ruleset(                 // Add hozzá a puzzle darabokat, majd rakd őket sorrendbe.
         canAddMainPieces = false,
         canAddBlankPieces = false,
         canAddRemoveTabs = true,
@@ -52,5 +52,5 @@ data class Exercise(
 data class Task(
     val taskDescription: String,
     val predefinedPieces: Set<PuzzlePiece>,
-    val solutionConfiguration: SolutionConfiguration
+    val solutionConfigurations: List<SolutionConfiguration>
 )

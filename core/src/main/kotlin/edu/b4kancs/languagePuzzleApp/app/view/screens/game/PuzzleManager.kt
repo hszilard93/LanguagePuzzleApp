@@ -268,8 +268,18 @@ class PuzzleManager(
 
         // All the tabs are connected, let's check the correctness of the result
         val solutionResult = gameModel.currentTask
-            ?.solutionConfiguration
-            ?.doesGameStateMatchSolution(gameModel.puzzlePieces)
+            ?.solutionConfigurations
+            ?.map { it.doesGameStateMatchSolution(gameModel.puzzlePieces)}
+            ?.fold(SolutionResult.INELIGIBLE) { acc, result ->
+                if (result == SolutionResult.CORRECT || acc == SolutionResult.CORRECT) {
+                    SolutionResult.CORRECT
+                }
+                else if (result == SolutionResult.INCORRECT && (acc == SolutionResult.INELIGIBLE || acc == SolutionResult.INCORRECT)) {
+                    SolutionResult.INCORRECT
+                }
+                else
+                    SolutionResult.INELIGIBLE
+            }
             ?: return
 
         GameModel.logger.info { "solutionResult = $solutionResult" }

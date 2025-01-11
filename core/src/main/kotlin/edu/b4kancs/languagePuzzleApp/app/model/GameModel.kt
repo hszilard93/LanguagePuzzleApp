@@ -188,7 +188,7 @@ class GameModel {
                         adverbial1Puzzle,
                         adverbial2Puzzle
                     ),
-                    solutionConfiguration = SolutionConfiguration(solutionSet)
+                    solutionConfigurations = listOf(SolutionConfiguration(solutionSet))
                 )
             )
         )
