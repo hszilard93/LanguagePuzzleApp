@@ -242,7 +242,7 @@ object SolutionConfigurationSerializer : KSerializer<SolutionConfiguration> {
             )
         }.toSet()
 
-        return SolutionConfiguration(connections, checkTabText)
+        return SolutionConfiguration(centerPiece, connections, checkTabText)
     }
 }
 

@@ -6,10 +6,11 @@ import kotlinx.serialization.Serializable
 @Serializable
 enum class TaskType(var ruleset: Ruleset) {
     PLACE_PUZZLES_IN_ORDER(Ruleset()),     // Készítsd el az előre megadott mondat puzzle-szerkezetét.
-    EDIT_PUZZLES(Ruleset(                 // Add hozzá a puzzle darabokat, majd rakd őket sorrendbe.
+    EDIT_PUZZLES(Ruleset(                  // Szerkeszd a meglévő puzzle darabokat
         canAddMainPieces = false,
         canAddBlankPieces = false,
         canAddRemoveTabs = true,
+        canColorTabs = true,
         canEditBaseText = true,
         canEditTabText = true
     )),
@@ -17,12 +18,20 @@ enum class TaskType(var ruleset: Ruleset) {
         canAddMainPieces = true,
         canAddBlankPieces = true,
         canAddRemoveTabs = true,
+        canColorTabs = true,
         canEditBaseText = true,
         canEditTabText = true
     )),
     MATCH_PUZZLE(Ruleset()),               // Mondat társítása a puzzle-szerkezethez.
     COMPLETE_PUZZLE(Ruleset()),            //
-    COMPLETE_ARGUMENTS(Ruleset()),         // Készítsd el helyesen a megadott ige vonzatait.
+    COMPLETE_ARGUMENTS(Ruleset(            // Készítsd el helyesen a megadott ige vonzatait.
+        canAddMainPieces = false,
+        canAddBlankPieces = false,
+        canAddRemoveTabs = true,
+        canColorTabs = true,
+        canEditBaseText = false,
+        canEditTabText = true
+    ))
 }
 
 @Serializable
@@ -30,6 +39,7 @@ data class Ruleset(
     val canAddMainPieces: Boolean = false,
     val canAddBlankPieces: Boolean = false,
     val canAddRemoveTabs: Boolean = false,
+    val canColorTabs: Boolean = true,
     val canEditBaseText: Boolean = false,
     val canEditTabText: Boolean = false,
 )

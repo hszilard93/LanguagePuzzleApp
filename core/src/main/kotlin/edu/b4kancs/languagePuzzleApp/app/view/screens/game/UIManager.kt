@@ -132,7 +132,7 @@ class UIManager(
 
         // ScrollPane makes the label scrollable
         exerciseDescriptionScrollPane = ScrollPane(exerciseDescriptionLabel, uiSkin).apply {
-            setFadeScrollBars(true)
+            setFadeScrollBars(false)
             setScrollbarsVisible(true)
             setScrollingDisabled(true, false)
             style.background = uiSkin.getDrawable("white").apply {
@@ -430,6 +430,7 @@ class UIManager(
             title = "",
             skin = uiSkin,
             position = Vector2(addPuzzleButton!!.x + 50, addPuzzleButton!!.y - 250),
+            canAddBlankPuzzle = gameModel.currentExercise?.type?.ruleset?.canAddBlankPieces ?: true,
             onAddBasePuzzle = onAddBasePuzzle,
             onAddBlankPuzzle = onAddBlankPuzzle,
             onClose = {

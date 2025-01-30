@@ -64,8 +64,10 @@ class MainMenuScreen(
         val startExercise4Button = TextButton("1. feladat. Töltsd ki! (FB2 38–41 3.III.2.A)", uiSkin).apply { menuButtons.add(this) }
         val startExercise5Button = TextButton("2. feladat. Rakd ki! (FB2 38–41 3.III.2.B)", uiSkin).apply { menuButtons.add(this) }
         val startExercise7Button = TextButton("3. feladat. Töltsd ki! (FB2 41-42 3.IV.1.b)", uiSkin).apply { menuButtons.add(this) }
-        val startExercise8Button = TextButton("4. feladat. Rakd ki! (FB2 44 3.V.1)", uiSkin).apply { menuButtons.add(this) }
+        val startExercise8Button = TextButton("4. feladat. Rakd ki! (FB2 44 3.V.1.)", uiSkin).apply { menuButtons.add(this) }
         val startExercise9Button = TextButton("5. feladat. Rakd ki! (FB2 145 28a-b)", uiSkin).apply { menuButtons.add(this) }
+        val startExercise10Button = TextButton("0. feladat. Rakd ki! (FB2/31/3.I.1b)", uiSkin).apply { menuButtons.add(this) }
+        val startExercise11Button = TextButton("0,5. feladat. Rakd ki! (FB2/37-38/3.III.1.)", uiSkin).apply { menuButtons.add(this) }
 
         val loadExerciseButton = TextButton("Feladat betöltése fájlból", uiSkin).apply { menuButtons.add(this) }
         val settingsButton = TextButton("Beallítások", uiSkin).apply { menuButtons.add(this) }
@@ -133,6 +135,20 @@ class MainMenuScreen(
             }
         })
 
+        startExercise10Button.addListener(object : ClickListener() {
+            override fun clicked(event: InputEvent?, x: Float, y: Float) {
+                logger.info { "Start with exercise 9 button clicked" }
+                game.startDemo10()
+            }
+        })
+
+        startExercise11Button.addListener(object : ClickListener() {
+            override fun clicked(event: InputEvent?, x: Float, y: Float) {
+                logger.info { "Start with exercise 10 button clicked" }
+                game.startDemo11()
+            }
+        })
+
         loadExerciseButton.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 logger.info { "Load Exercise from Disk button clicked" }
@@ -164,11 +180,13 @@ class MainMenuScreen(
 //        table.add(startExercise1Button).width(600f).height(100f).pad(10f).row()
 //        table.add(startExercise2Button).width(600f).height(100f).pad(10f).row()
 //        table.add(startExercise3Button).width(600f).height(100f).pad(10f).row()
-        table.add(startExercise4Button).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(100f).pad(10f).row()
-        table.add(startExercise5Button).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(100f).pad(10f).row()
-        table.add(startExercise7Button).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(100f).pad(10f).row()
-        table.add(startExercise8Button).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(100f).pad(10f).row()
-        table.add(startExercise9Button).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(100f).pad(10f).row()
+        table.add(startExercise10Button).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(80f).pad(0f).row()
+        table.add(startExercise11Button).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(80f).pad(0f).row()
+        table.add(startExercise4Button).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(80f).pad(0f).row()
+        table.add(startExercise5Button).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(80f).pad(0f).row()
+        table.add(startExercise7Button).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(80f).pad(0f).row()
+        table.add(startExercise8Button).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(80f).pad(0f).row()
+        table.add(startExercise9Button).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(80f).pad(0f).row()
 //        table.add(settingsButton).width(400f).height(100f).pad(10f).row()
 //        table.add(exitButton).width(400f).height(100f).pad(10f).row()
 

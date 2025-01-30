@@ -9,6 +9,7 @@ import edu.b4kancs.languagePuzzleApp.app.model.PuzzleTab
 import edu.b4kancs.languagePuzzleApp.app.model.Side
 import edu.b4kancs.languagePuzzleApp.app.model.Suffix
 import edu.b4kancs.languagePuzzleApp.app.model.exercise.SolutionResult
+import edu.b4kancs.languagePuzzleApp.app.model.exercise.TaskType
 import ktx.log.logger
 
 enum class RotationDirection {
@@ -33,7 +34,7 @@ class PuzzleManager(
     var puzzlePieceToRotate: PuzzlePiece? = null
 
     var featureTripleToAdd: Triple<PuzzlePiece, Side, PuzzlePieceFeature.Type>? = null
-    var featureToRemove: Pair<PuzzlePiece,PuzzlePieceFeature>? = null
+    var featureToRemove: Pair<PuzzlePiece, PuzzlePieceFeature>? = null
 
     var puzzlePieceToEdit: PuzzlePiece? = null
     var featureToTextEdit: PuzzlePieceFeature? = null
@@ -95,7 +96,11 @@ class PuzzleManager(
     fun stopDragging() {
         logger.debug { "stopDragging" }
 
-        draggedPuzzlePiece?.let {
+        if (draggedPuzzlePiece == null) {
+            return
+        }
+
+        draggedPuzzlePiece!!.let {
             if (!draggedPuzzlePiece!!.isConnected && uiManager.isPuzzlePieceOverGarbageBin(it)) {
                 gameModel.puzzlePieces.remove(it)
             }
@@ -156,6 +161,9 @@ class PuzzleManager(
                 puzzleFeature.text = newText
                 editingPuzzleFeature = null
                 featureToTextEdit = null
+                if (gameModel.currentExercise?.type == TaskType.COMPLETE_ARGUMENTS) {
+                    checkSolution()
+                }
             },
             onCancel = {
                 editingPuzzleFeature = null
@@ -168,6 +176,12 @@ class PuzzleManager(
         val (puzzle, side, type) = featureTripleToAdd!!
 
         if (type == PuzzlePieceFeature.Type.TAB) {
+
+            if (!(gameModel.currentExercise?.type?.ruleset?.canColorTabs ?: true)) {
+                finishAddFeature(puzzle, PuzzlePieceFeature.Type.TAB, side, GrammaticalRole.UNDEFINED)
+                return
+            }
+
             uiManager.displayGrammaticalRolePopup(puzzle, side) { selectedRole ->
 
                 if (selectedRole == GrammaticalRole.ADVERBIAL) {
@@ -203,7 +217,8 @@ class PuzzleManager(
                     finishAddFeature(puzzle, type, side, selectedRole, "")
                 }
             }
-        } else {
+        }
+        else {
             // Directly add the blank
             finishAddFeature(puzzle, type, side)
         }
@@ -219,13 +234,24 @@ class PuzzleManager(
         val addedFeature = puzzle.addFeature(type, side, selectedRole, tabText)
         featureToRemove = puzzle to addedFeature
         featureTripleToAdd = null
+        if (gameModel.currentExercise?.type == TaskType.COMPLETE_ARGUMENTS) {
+            checkSolution()
+        }
     }
 
     fun removeFeature() {
         val (puzzle, feature) = featureToRemove!!
         puzzle.removeFeature(feature)
-        featureTripleToAdd = Triple(puzzle, feature.side, if (feature is PuzzleTab) PuzzlePieceFeature.Type.TAB else PuzzlePieceFeature.Type.BLANK)
+        featureTripleToAdd = Triple(
+            puzzle,
+            feature.side,
+            if (feature is PuzzleTab) PuzzlePieceFeature.Type.TAB else PuzzlePieceFeature.Type.BLANK
+        )
         featureToRemove = null
+
+        if (gameModel.currentExercise?.type == TaskType.COMPLETE_ARGUMENTS) {
+            checkSolution()
+        }
     }
 
     fun addNewPuzzlePiece(mousePos: Vector2, isBlank: Boolean = false): PuzzlePiece {
@@ -261,7 +287,7 @@ class PuzzleManager(
     fun checkSolution() {
         val centerPuzzle = gameModel.puzzlePieces.find { it.grammaticalRole == GrammaticalRole.VERB } ?: return
 
-        if (centerPuzzle.connectionSize < centerPuzzle.tabs.size) {
+        if (centerPuzzle.connectionSize < centerPuzzle.tabs.size && gameModel.currentExercise?.type != TaskType.COMPLETE_ARGUMENTS) {
             uiManager.hideCheckMark()
             return
         }
@@ -269,7 +295,7 @@ class PuzzleManager(
         // All the tabs are connected, let's check the correctness of the result
         val solutionResult = gameModel.currentTask
             ?.solutionConfigurations
-            ?.map { it.doesGameStateMatchSolution(gameModel.puzzlePieces)}
+            ?.map { it.doesGameStateMatchSolution(gameModel.puzzlePieces, gameModel.currentExercise!!.type) }
             ?.fold(SolutionResult.INELIGIBLE) { acc, result ->
                 if (result == SolutionResult.CORRECT || acc == SolutionResult.CORRECT) {
                     SolutionResult.CORRECT

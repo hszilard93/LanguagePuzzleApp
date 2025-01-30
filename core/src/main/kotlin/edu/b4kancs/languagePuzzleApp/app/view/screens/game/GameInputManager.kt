@@ -136,7 +136,7 @@ class GameInputManager(
                 if (!featureUnderPointer.isEmpty) {
                     val feature = featureUnderPointer.get()
                     if (feature is PuzzleTab) {
-                        if (feature.grammaticalRole == GrammaticalRole.UNDEFINED && rules?.canAddRemoveTabs == true) {
+                        if (feature.grammaticalRole == GrammaticalRole.UNDEFINED && rules?.canColorTabs == true) {
                             cursorManager.setCursor(cursorManager.gearCursor)
                             puzzleManager.featureTripleToAdd = Triple(puzzleUnderPointer, feature.side, PuzzlePieceFeature.Type.TAB)
                             return true

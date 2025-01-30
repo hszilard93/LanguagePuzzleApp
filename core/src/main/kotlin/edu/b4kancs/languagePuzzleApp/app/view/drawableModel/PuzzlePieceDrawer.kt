@@ -14,7 +14,6 @@ import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Disposable
-import edu.b4kancs.languagePuzzleApp.app.GameViewport
 import edu.b4kancs.languagePuzzleApp.app.misc
 import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole.UNDEFINED
 import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole.VERB
@@ -393,9 +392,16 @@ class PuzzlePieceDrawer(
         else {
             logger.debug { "Creating new layout data for tab $key" }
 
+            // Handles "valahonnan" and "-nak/-nek" differently, for example
+            val maxWidth =
+                if ((!tab.text.contains("/")) && (tab.side == Side.LEFT || tab.side == Side.RIGHT))
+                    PuzzleTab.WIDTH / 2
+                else
+                    PuzzleTab.WIDTH
+
             // Create a new GlyphLayout
             val layout = GlyphLayout().apply {
-                setText(tabFont, tab.text, Color.BLACK, PuzzleTab.WIDTH, Align.left, false)
+                setText(tabFont, tab.text, Color.BLACK, maxWidth, Align.left, true)
             }
 
             // Calculate offsets based on the tab's side
@@ -419,7 +425,7 @@ class PuzzlePieceDrawer(
                 }
 
                 Side.RIGHT -> {
-                    xOffset = PuzzleTab.HEIGHT * 0.25f - layout.width / 2 + 8f
+                    xOffset = PuzzleTab.HEIGHT * 0.25f - layout.width / 2 + 12f
                     yOffset = PuzzleTab.WIDTH / 2 - layout.height / 2
                 }
             }
@@ -480,17 +486,17 @@ class PuzzlePieceDrawer(
         batch.end()
 
 
-            shapeRenderer?.let { sr ->
-                sr.projectionMatrix = batch.projectionMatrix  // Match the projection matrix
-                sr.transformMatrix = batch.transformMatrix    // Match the transform matrix
+        shapeRenderer?.let { sr ->
+            sr.projectionMatrix = batch.projectionMatrix  // Match the projection matrix
+            sr.transformMatrix = batch.transformMatrix    // Match the transform matrix
 
-                sr.begin(ShapeRenderer.ShapeType.Line)
-                sr.color = color  // Use the provided color
+            sr.begin(ShapeRenderer.ShapeType.Line)
+            sr.color = color  // Use the provided color
 
-                // Draw the rectangle using its properties
-                sr.rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height)
-                sr.end()
-            }
+            // Draw the rectangle using its properties
+            sr.rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height)
+            sr.end()
+        }
 
         batch.begin()
     }

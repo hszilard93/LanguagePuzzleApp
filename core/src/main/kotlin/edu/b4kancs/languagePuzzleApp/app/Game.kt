@@ -233,42 +233,56 @@ class Game(
     fun startDemo4() {
         logger.info { "Starting demo exercise #4" }
         // Initialize a demo exercise in gameModel
-        gameModel.loadExerciseFromDisk(Gdx.files.internal("tasks/demo2/1_FB2_38–41_3_III_2_A_1-6.json"))
+        gameModel.loadExerciseFromDisk(Gdx.files.internal("tasks/demo2/02_FB2_38–41_3_III_2_A_1-6.json"))
         loadGameScreen()
     }
 
     fun startDemo5() {
         logger.info { "Starting demo exercise #5" }
         // Initialize a demo exercise in gameModel
-        gameModel.loadExerciseFromDisk(Gdx.files.internal("tasks/demo2/2_FB2_38–41_3_III_2_B_1-6.json"))
+        gameModel.loadExerciseFromDisk(Gdx.files.internal("tasks/demo2/03_FB2_38–41_3_III_2_B_1-6.json"))
         loadGameScreen()
     }
 
     fun startDemo6() {
         logger.info { "Starting demo exercise #6" }
         // Initialize a demo exercise in gameModel
-        gameModel.loadExerciseFromDisk(Gdx.files.internal("tasks/demo2/3_FB2_38–41_3_III_2_B_3.json"))
+        gameModel.loadExerciseFromDisk(Gdx.files.internal("tasks/demo2/03_FB2_38–41_3_III_2_B_3.json"))
         loadGameScreen()
     }
 
     fun startDemo7() {
         logger.info { "Starting demo exercise #7" }
         // Initialize a demo exercise in gameModel
-        gameModel.loadExerciseFromDisk(Gdx.files.internal("tasks/demo2/3_FB2_41-42_3_IV_1_b.json"))
+        gameModel.loadExerciseFromDisk(Gdx.files.internal("tasks/demo2/04_FB2_41-42_3_IV_1_b.json"))
         loadGameScreen()
     }
 
     fun startDemo8() {
         logger.info { "Starting demo exercise #8" }
         // Initialize a demo exercise in gameModel
-        gameModel.loadExerciseFromDisk(Gdx.files.internal("tasks/demo2/4_FB2_44_3_V_1.json"))
+        gameModel.loadExerciseFromDisk(Gdx.files.internal("tasks/demo2/05_FB2_44_3_V_1.json"))
         loadGameScreen()
     }
 
     fun startDemo9() {
         logger.info { "Starting demo exercise #9" }
         // Initialize a demo exercise in gameModel
-        gameModel.loadExerciseFromDisk(Gdx.files.internal("tasks/demo2/5_FB2_145-28_a-b.json"))
+        gameModel.loadExerciseFromDisk(Gdx.files.internal("tasks/demo2/06_FB2_145-28_a-b.json"))
+        loadGameScreen()
+    }
+
+    fun startDemo10() {
+        logger.info { "Starting demo exercise #10" }
+        // Initialize a demo exercise in gameModel
+        gameModel.loadExerciseFromDisk(Gdx.files.internal("tasks/demo2/00_FB2_31_3-I-1-b.json"))
+        loadGameScreen()
+    }
+
+    fun startDemo11() {
+        logger.info { "Starting demo exercise #11" }
+        // Initialize a demo exercise in gameModel
+        gameModel.loadExerciseFromDisk(Gdx.files.internal("tasks/demo2/01_FB2_37-38_3-III-1-b.json"))
         loadGameScreen()
     }
 

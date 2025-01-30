@@ -1,0 +1,67 @@
+{
+  "type": "COMPLETE_ARGUMENTS",
+  "buttonDescription": "2. feladat. FB2/37-38/3.III.1",
+  "customRuleset": {
+    "canAddMainPieces": "false",
+    "canAddBlankPieces": "false",
+    "canAddRemoveTabs": "true",
+    "canColorTabs": "false",
+    "canEditBaseText": "false",
+    "canEditTabText": "true"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Rajzold le a \"bemutat\" ige puzzle-jét, és írd be a fülekbe a megfelelő végződéseket! Segít, ha megnézed, mit karikáztál be a 3.I.3. feladat d. pontjában. Ha elkészültetek, mutassátok be társaitoknak a megoldásotokat, javítsátok, ha szükséges!",
+      "predefinedPieces": [
+        {
+          "text": "bemutat",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "bemutat",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": "-nak/-nek"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "bemutat",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": "-nak/-nek"
+              },
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        }
+      ]
+    }
+  ]
+}
