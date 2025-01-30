@@ -6,10 +6,13 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
+import com.badlogic.gdx.utils.Align
+import com.badlogic.gdx.utils.JsonReader
 import com.badlogic.gdx.utils.viewport.ExtendViewport
 import edu.b4kancs.languagePuzzleApp.app.Game
 import edu.b4kancs.languagePuzzleApp.app.misc
@@ -37,117 +40,131 @@ class MainMenuScreen(
     private val cursorManager: CursorManager = context.inject()
 
     companion object {
-        val logger = logger<MainMenuScreen>()
+        private val logger = logger<MainMenuScreen>()
+        private val PAGE_NUMBER_REGEX = Regex("FB2/(\\d+)(?:-\\d+)?[/]")
     }
 
     private val stage = Stage(viewport)
-
-    private val menuButtons = mutableSetOf<TextButton>()
+    private val table = Table() // Table for buttons
+    private val menuButtons = mutableListOf<TextButton>()
+    private val jsonReader = JsonReader()
 
     override fun show() {
         logger.debug { "MainMenuScreen: show" }
+
+        table.clear()
+
         Gdx.input.inputProcessor = stage
 
         val fontMultiplier = maxOf(Gdx.graphics.width / 1200f, Gdx.graphics.height / 800f)
 
-        // Create a table to organize buttons
-        val table = Table().apply {
+//        table.setFillParent(true)
+        table.center()
+
+        if (menuButtons.isEmpty()) {    // Load the exercises only once per instance.
+            loadExercisesAndCreateButtons("assets/tasks/fb", fontMultiplier)
+
+            menuButtons.sortBy { button ->
+                extractPageNumber(button.text.toString()) ?: Int.MAX_VALUE
+            }
+            menuButtons.forEachIndexed { i, button ->
+                button.setText("${i + 1}. feladat: ${button.text}")
+            }
+        }
+
+        menuButtons.forEach { button ->
+            table.add(button).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(80f).pad(0f).row()
+//            addManualButtons(fontMultiplier)
+        }
+
+        val scrollPane = ScrollPane(table, uiSkin).apply {
+            fadeScrollBars = false
+            setScrollbarsVisible(true)
+            setScrollingDisabled(true, false)
             setFillParent(true)
-            center()
+            width = table.width + 100f
         }
 
-        // Create buttons
-        val startExercise1Button = TextButton("Indítás az 1. példafeladattal", uiSkin).apply { menuButtons.add(this) }
-        val startExercise2Button = TextButton("Indítás a 2. példafeladattal", uiSkin).apply { menuButtons.add(this) }
-        val startExercise3Button = TextButton("Indítás a 3. példafeladattal", uiSkin).apply { menuButtons.add(this) }
+        stage.addActor(scrollPane)
 
-        val startExercise4Button = TextButton("1. feladat. Töltsd ki! (FB2 38–41 3.III.2.A)", uiSkin).apply { menuButtons.add(this) }
-        val startExercise5Button = TextButton("2. feladat. Rakd ki! (FB2 38–41 3.III.2.B)", uiSkin).apply { menuButtons.add(this) }
-        val startExercise7Button = TextButton("3. feladat. Töltsd ki! (FB2 41-42 3.IV.1.b)", uiSkin).apply { menuButtons.add(this) }
-        val startExercise8Button = TextButton("4. feladat. Rakd ki! (FB2 44 3.V.1.)", uiSkin).apply { menuButtons.add(this) }
-        val startExercise9Button = TextButton("5. feladat. Rakd ki! (FB2 145 28a-b)", uiSkin).apply { menuButtons.add(this) }
-        val startExercise10Button = TextButton("0. feladat. Rakd ki! (FB2/31/3.I.1b)", uiSkin).apply { menuButtons.add(this) }
-        val startExercise11Button = TextButton("0,5. feladat. Rakd ki! (FB2/37-38/3.III.1.)", uiSkin).apply { menuButtons.add(this) }
+        cursorManager.setCursor(null)
+    }
 
-        val loadExerciseButton = TextButton("Feladat betöltése fájlból", uiSkin).apply { menuButtons.add(this) }
-        val settingsButton = TextButton("Beallítások", uiSkin).apply { menuButtons.add(this) }
-        val exitButton = TextButton("Kilepés", uiSkin).apply { menuButtons.add(this) }
+    private fun loadExercisesAndCreateButtons(path: String, fontMultiplier: Float) {
+        logger.info { "Loading exercises from disk..." }
+        val tasksDir = Gdx.files.internal(path) // Assuming exercises are in "tasks/" directory
 
-        val buttonStyle = startExercise1Button.style.apply {
-            font = loadMenuFont(fontMultiplier)
-            font.region.texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
+        if (!tasksDir.exists() || !tasksDir.isDirectory) {
+            logger.error { "Tasks directory '$path' not found or is not a directory." }
+            return
         }
-        menuButtons.forEach { it.style = buttonStyle }
 
-        startExercise1Button.addListener(object : ClickListener() {
-            override fun clicked(event: InputEvent?, x: Float, y: Float) {
-                logger.info { "Start with exercise 1 button clicked" }
-                game.startDemo1()
-            }
-        })
+        val exerciseFiles = tasksDir.list(".json") // List only .json files
 
-        startExercise2Button.addListener(object : ClickListener() {
-            override fun clicked(event: InputEvent?, x: Float, y: Float) {
-                logger.info { "Start with exercise 2 button clicked" }
-                game.startDemo2()
-            }
-        })
+        if (exerciseFiles.isEmpty()) {
+            logger.info { "No exercise files found in 'tasks/' directory." }
+            // You might want to display a message to the user in the UI
+            return
+        }
 
-        startExercise3Button.addListener(object : ClickListener() {
-            override fun clicked(event: InputEvent?, x: Float, y: Float) {
-                logger.info { "Start with exercise 3 button clicked" }
-                game.startDemo3()
-            }
-        })
+        val buttonStyle = createButtonStyle(fontMultiplier) // Create button style once
 
-        startExercise4Button.addListener(object : ClickListener() {
-            override fun clicked(event: InputEvent?, x: Float, y: Float) {
-                logger.info { "Start with exercise 4 button clicked" }
-                game.startDemo4()
-            }
-        })
+        exerciseFiles.forEach { fileHandle ->
+            try {
+                logger.debug { "Trying to load exercise from: ${fileHandle.path()}" }
+                val json = jsonReader.parse(fileHandle)
+                val buttonDescription = json?.getString("buttonDescription")
 
-        startExercise5Button.addListener(object : ClickListener() {
-            override fun clicked(event: InputEvent?, x: Float, y: Float) {
-                logger.info { "Start with exercise 5 button clicked" }
-                game.startDemo5()
-            }
-        })
+                if (buttonDescription != null) {
+                    val exerciseButton = TextButton(buttonDescription, uiSkin).apply {
+                        style = buttonStyle
+                        label.setAlignment(Align.left)
+                        padLeft(120f)
+                        menuButtons.add(this)
+                    }
 
-        startExercise7Button.addListener(object : ClickListener() {
-            override fun clicked(event: InputEvent?, x: Float, y: Float) {
-                logger.info { "Start with exercise 7 button clicked" }
-                game.startDemo7()
+                    exerciseButton.addListener(object : ClickListener() {
+                        override fun clicked(event: InputEvent?, x: Float, y: Float) {
+                            logger.info { "Button '${buttonDescription}' clicked, loading exercise from: ${fileHandle.path()}" }
+                            // Ensure that loadExerciseFromDisk runs on the LibGDX rendering thread
+                            Gdx.app.postRunnable {
+                                game.loadExerciseFromDisk(fileHandle)
+                            }
+                        }
+                    })
+                }
+                else {
+                    logger.error { "Exercise file '${fileHandle.path()}' is missing 'buttonDescription', skipping." }
+                }
+            } catch (e: Exception) {
+                logger.error(e) { "Error loading exercise file: ${fileHandle.path()}. Skipping file." }
             }
-        })
+        }
+    }
 
-        startExercise8Button.addListener(object : ClickListener() {
-            override fun clicked(event: InputEvent?, x: Float, y: Float) {
-                logger.info { "Start with exercise 8 button clicked" }
-                game.startDemo8()
-            }
-        })
+    private fun createButtonStyle(fontMultiplier: Float): TextButton.TextButtonStyle {
+        val font = loadMenuFont(fontMultiplier)
+        font.region.texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
+        return TextButton.TextButtonStyle(uiSkin.get(TextButton.TextButtonStyle::class.java)).apply {
+            this.font = font
+        }
+    }
 
-        startExercise9Button.addListener(object : ClickListener() {
-            override fun clicked(event: InputEvent?, x: Float, y: Float) {
-                logger.info { "Start with exercise 9 button clicked" }
-                game.startDemo9()
-            }
-        })
+    private fun addManualButtons(fontMultiplier: Float) {
+        val buttonStyle = createButtonStyle(fontMultiplier)
 
-        startExercise10Button.addListener(object : ClickListener() {
-            override fun clicked(event: InputEvent?, x: Float, y: Float) {
-                logger.info { "Start with exercise 9 button clicked" }
-                game.startDemo10()
-            }
-        })
-
-        startExercise11Button.addListener(object : ClickListener() {
-            override fun clicked(event: InputEvent?, x: Float, y: Float) {
-                logger.info { "Start with exercise 10 button clicked" }
-                game.startDemo11()
-            }
-        })
+        val loadExerciseButton = TextButton("Feladat betöltése fájlból", uiSkin).apply {
+            style = buttonStyle
+//            menuButtons.add(this)
+        }
+        val settingsButton = TextButton("Beallítások", uiSkin).apply {
+            style = buttonStyle
+//            menuButtons.add(this)
+        }
+        val exitButton = TextButton("Kilepés", uiSkin).apply {
+            style = buttonStyle
+//            menuButtons.add(this)
+        }
 
         loadExerciseButton.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
@@ -165,7 +182,7 @@ class MainMenuScreen(
         settingsButton.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 logger.info { "Settings button clicked" }
-//                game.setScreen<SettingsScreen>() // Implement SettingsScreen as needed
+                // game.setScreen<SettingsScreen>() // Implement SettingsScreen as needed
             }
         })
 
@@ -175,25 +192,11 @@ class MainMenuScreen(
                 Gdx.app.exit()
             }
         })
+    }
 
-        // Add buttons to the table with spacing
-//        table.add(startExercise1Button).width(600f).height(100f).pad(10f).row()
-//        table.add(startExercise2Button).width(600f).height(100f).pad(10f).row()
-//        table.add(startExercise3Button).width(600f).height(100f).pad(10f).row()
-        table.add(startExercise10Button).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(80f).pad(0f).row()
-        table.add(startExercise11Button).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(80f).pad(0f).row()
-        table.add(startExercise4Button).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(80f).pad(0f).row()
-        table.add(startExercise5Button).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(80f).pad(0f).row()
-        table.add(startExercise7Button).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(80f).pad(0f).row()
-        table.add(startExercise8Button).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(80f).pad(0f).row()
-        table.add(startExercise9Button).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(80f).pad(0f).row()
-//        table.add(settingsButton).width(400f).height(100f).pad(10f).row()
-//        table.add(exitButton).width(400f).height(100f).pad(10f).row()
-
-        // Add the table to the stage
-        stage.addActor(table)
-
-        cursorManager.setCursor(null)
+    private fun extractPageNumber(buttonText: String): Int? {
+        val matchResult = PAGE_NUMBER_REGEX.find(buttonText)
+        return matchResult?.groups?.get(1)?.value?.toIntOrNull()
     }
 
     override fun render(delta: Float) {

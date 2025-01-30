@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter
+import com.badlogic.gdx.utils.GdxRuntimeException
+import ktx.log.Logger
 
 data class PuzzleFontHolder(val baseFont: BitmapFont, val tabFont: BitmapFont)
 
@@ -16,16 +18,18 @@ data class MenuFontHolder(val font: BitmapFont)
 data class UIFontHolder(val font: BitmapFont)
 
 private const val TASK_DESC_DEFAULT_FONT_SIZE = 24
-private const val MENU_DEFAULT_FONT_SIZE = 22
+private const val MENU_DEFAULT_FONT_SIZE = 24
 private const val UI_DEFAULT_FONT_SIZE = 22
 private const val PUZZLE_BASE_FONT_SIZE = 40
 private const val PUZZLE_TAB_FONT_SIZE = (PUZZLE_BASE_FONT_SIZE * 0.75f).toInt()
+private const val MIN_FONT_SIZE = 3
 
 // Caching the FreeTypeFontGenerator objects to save on IO
 private val fontGeneratorMapByFileName = mutableMapOf<String, FreeTypeFontGenerator>()
 
-fun loadFreeTypeFont(fileName: String, fontSize: Int, flipFont: Boolean = false): BitmapFont {
+private val logger = Logger("FontManager")
 
+fun loadFreeTypeFont(fileName: String, fontSize: Int, flipFont: Boolean = false): BitmapFont {
     var typeFontGenerator = fontGeneratorMapByFileName.getOrDefault(fileName, null)
     if (typeFontGenerator == null) {
         typeFontGenerator = FreeTypeFontGenerator(Gdx.files.internal("fonts/$fileName"))
@@ -33,10 +37,11 @@ fun loadFreeTypeFont(fileName: String, fontSize: Int, flipFont: Boolean = false)
     }
 
     val typeFontParameter = FreeTypeFontParameter().apply {
-        size = fontSize
+        size = maxOf(fontSize, MIN_FONT_SIZE)   // The app crashes if the font size becomes too small.
         characters = FreeTypeFontGenerator.DEFAULT_CHARS + "őŐűŰ"
         flip = flipFont
     }
+
     val font = typeFontGenerator.generateFont(typeFontParameter)
     return font
 }
