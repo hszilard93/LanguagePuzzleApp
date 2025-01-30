@@ -1,20 +1,21 @@
 {
   "type": "COMPLETE_ARGUMENTS",
-  "buttonDescription": "FB2/31/3.I.1b",
+  "buttonDescription": "FB2/41–42/3.IV.1c",
   "customRuleset": {
     "canAddMainPieces": "false",
     "canAddBlankPieces": "false",
     "canAddRemoveTabs": "true",
-    "canColorTabs": "false",
+    "canColorTabs": "true",
+    "doesAllowTabText": "false",
     "canEditBaseText": "false",
     "canEditTabText": "false"
   },
   "tasks": [
     {
-      "taskDescription": "Hány fülű puzzle-ként tudnátok az \"ül\" igét elképzelni az alapján, hogy milyen visszatérő elemek tartoznak az igéhez? Rajzoljátok le a megfelelő puzzle-t!",
+      "taskDescription": "Milyen lenne a \"kap\" ige puzzle-je? Színezd ki a füleket!",
       "predefinedPieces": [
         {
-          "text": "ül",
+          "text": "kap",
           "grammaticalRole": "VERB",
           "tabs": [],
           "blanks": []
@@ -22,31 +23,21 @@
       ],
       "solutionConfigurations": [
         {
-          "checkTabText": "true",
+          "checkTabText": "false",
           "centerPiece": {
-            "text": "ül",
+            "text": "kap",
             "grammaticalRole": "VERB",
             "tabs": [
               {
-                "grammaticalRole": "UNDEFINED",
+                "grammaticalRole": "OBJECT",
                 "text": ""
               },
               {
-                "grammaticalRole": "UNDEFINED",
-                "text": "-n"
-              }
-            ]
-          },
-          "puzzlesConnected": []
-        },
-        {
-          "checkTabText": "true",
-          "centerPiece": {
-            "text": "ül",
-            "grammaticalRole": "VERB",
-            "tabs": [
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
               {
-                "grammaticalRole": "UNDEFINED",
+                "grammaticalRole": "ADVERBIAL",
                 "text": ""
               }
             ]
@@ -56,7 +47,7 @@
       ]
     },
     {
-      "taskDescription": "Hány fülű puzzle-ként tudnátok az \"olvas\" igét elképzelni az alapján, hogy milyen visszatérő elemek tartoznak az igéhez? Rajzoljátok le a megfelelő puzzle-t!",
+      "taskDescription": "Milyen lenne az \"olvas\" ige puzzle-je? Színezd ki a füleket!",
       "predefinedPieces": [
         {
           "text": "olvas",
@@ -73,11 +64,11 @@
             "grammaticalRole": "VERB",
             "tabs": [
               {
-                "grammaticalRole": "UNDEFINED",
+                "grammaticalRole": "SUBJECT",
                 "text": ""
               },
               {
-                "grammaticalRole": "UNDEFINED",
+                "grammaticalRole": "OBJECT",
                 "text": ""
               }
             ]
@@ -87,7 +78,52 @@
       ]
     },
     {
-      "taskDescription": "Hány fülű puzzle-ként tudnátok az \"eszik\" igét elképzelni az alapján, hogy milyen visszatérő elemek tartoznak az igéhez? Rajzoljátok le a megfelelő puzzle-t!",
+      "taskDescription": "Milyen lenne az \"ül\" ige puzzle-je? Színezd ki a füleket!",
+      "predefinedPieces": [
+        {
+          "text": "ül",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "ül",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "ül",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": ""
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        }
+      ]
+    },
+    {
+      "taskDescription": "Milyen lenne az \"eszik\" ige puzzle-je? Színezd ki a füleket!",
       "predefinedPieces": [
         {
           "text": "eszik",
@@ -104,11 +140,11 @@
             "grammaticalRole": "VERB",
             "tabs": [
               {
-                "grammaticalRole": "UNDEFINED",
+                "grammaticalRole": "SUBJECT",
                 "text": ""
               },
               {
-                "grammaticalRole": "UNDEFINED",
+                "grammaticalRole": "OBJECT",
                 "text": ""
               }
             ]
@@ -118,7 +154,7 @@
       ]
     },
     {
-      "taskDescription": "Hány fülű puzzle-ként tudnátok a \"vág\" igét elképzelni az alapján, hogy milyen visszatérő elemek tartoznak az igéhez? Rajzoljátok le a megfelelő puzzle-t!",
+      "taskDescription": "Milyen lenne a \"vág\" ige puzzle-je? Színezd ki a füleket!",
       "predefinedPieces": [
         {
           "text": "vág",
@@ -135,11 +171,11 @@
             "grammaticalRole": "VERB",
             "tabs": [
               {
-                "grammaticalRole": "UNDEFINED",
+                "grammaticalRole": "SUBJECT",
                 "text": ""
               },
               {
-                "grammaticalRole": "UNDEFINED",
+                "grammaticalRole": "OBJECT",
                 "text": ""
               }
             ]
@@ -153,15 +189,15 @@
             "grammaticalRole": "VERB",
             "tabs": [
               {
-                "grammaticalRole": "UNDEFINED",
+                "grammaticalRole": "SUBJECT",
                 "text": ""
               },
               {
-                "grammaticalRole": "UNDEFINED",
+                "grammaticalRole": "OBJECT",
                 "text": ""
               },
               {
-                "grammaticalRole": "UNDEFINED",
+                "grammaticalRole": "ADVERBIAL",
                 "text": ""
               }
             ]
@@ -171,7 +207,7 @@
       ]
     },
     {
-      "taskDescription": "Hány fülű puzzle-ként tudnátok az \"utazik\" igét elképzelni az alapján, hogy milyen visszatérő elemek tartoznak az igéhez? Rajzoljátok le a megfelelő puzzle-t!",
+      "taskDescription": "Milyen lenne az \"utazik\" ige puzzle-je? Színezd ki a füleket!",
       "predefinedPieces": [
         {
           "text": "utazik",
@@ -188,11 +224,11 @@
             "grammaticalRole": "VERB",
             "tabs": [
               {
-                "grammaticalRole": "UNDEFINED",
+                "grammaticalRole": "SUBJECT",
                 "text": ""
               },
               {
-                "grammaticalRole": "UNDEFINED",
+                "grammaticalRole": "ADVERBIAL",
                 "text": ""
               }
             ]
@@ -206,50 +242,15 @@
             "grammaticalRole": "VERB",
             "tabs": [
               {
-                "grammaticalRole": "UNDEFINED",
+                "grammaticalRole": "SUBJECT",
                 "text": ""
               },
               {
-                "grammaticalRole": "UNDEFINED",
+                "grammaticalRole": "ADVERBIAL",
                 "text": ""
               },
               {
-                "grammaticalRole": "UNDEFINED",
-                "text": ""
-              }
-            ]
-          },
-          "puzzlesConnected": []
-        }
-      ]
-    },
-    {
-      "taskDescription": "Hány fülű puzzle-ként tudnátok az \"ad\" igét elképzelni az alapján, hogy milyen visszatérő elemek tartoznak az igéhez? Rajzoljátok le a megfelelő puzzle-t!",
-      "predefinedPieces": [
-        {
-          "text": "ad",
-          "grammaticalRole": "VERB",
-          "tabs": [],
-          "blanks": []
-        }
-      ],
-      "solutionConfigurations": [
-        {
-          "checkTabText": "true",
-          "centerPiece": {
-            "text": "ad",
-            "grammaticalRole": "VERB",
-            "tabs": [
-              {
-                "grammaticalRole": "UNDEFINED",
-                "text": ""
-              },
-              {
-                "grammaticalRole": "UNDEFINED",
-                "text": ""
-              },
-              {
-                "grammaticalRole": "UNDEFINED",
+                "grammaticalRole": "ADVERBIAL",
                 "text": ""
               }
             ]

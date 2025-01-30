@@ -1,0 +1,68 @@
+{
+  "type": "COMPLETE_ARGUMENTS",
+  "buttonDescription": "FB2/41–42/3.IV.1a",
+  "customRuleset": {
+    "canAddMainPieces": "false",
+    "canAddBlankPieces": "false",
+    "canAddRemoveTabs": "false",
+    "canColorTabs": "true",
+    "canEditBaseText": "false",
+    "canEditTabText": "false"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Vedd elő a \"bemutat\" ige puzzle-jét, amit a 3.III.1. feladatban megrajzoltál! Színezd ki a füleket az igéhez társítható szerepeknek megfelelően! Segít a 3.I.3. feladat c. pontjában használt aláhúzás!",
+      "predefinedPieces": [
+        {
+          "text": "bemutat",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "UNDEFINED",
+              "text": ""
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "UNDEFINED",
+              "text": "-t"
+            },
+            {
+              "side": "RIGHT",
+              "grammaticalRole": "UNDEFINED",
+              "text": "-nak/\n-nek"
+            }
+          ],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "bemutat",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "side": "LEFT",
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "side": "TOP",
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "side": "RIGHT",
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-nak/\n-nek"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        }
+      ]
+    }
+  ]
+}

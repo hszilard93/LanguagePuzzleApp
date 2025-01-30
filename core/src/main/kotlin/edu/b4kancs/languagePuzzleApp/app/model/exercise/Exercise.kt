@@ -42,6 +42,7 @@ data class Ruleset(
     val canColorTabs: Boolean = true,
     val canEditBaseText: Boolean = false,
     val canEditTabText: Boolean = false,
+    val doesAllowTabText: Boolean = true
 )
 
 @Serializable

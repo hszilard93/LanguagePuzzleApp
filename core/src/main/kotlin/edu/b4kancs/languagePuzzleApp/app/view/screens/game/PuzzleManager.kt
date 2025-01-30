@@ -177,51 +177,61 @@ class PuzzleManager(
 
         if (type == PuzzlePieceFeature.Type.TAB) {
 
-            if (!(gameModel.currentExercise?.type?.ruleset?.canColorTabs ?: true)) {
+            if (gameModel.currentExercise?.type?.ruleset?.canColorTabs == false) {
                 finishAddFeature(puzzle, PuzzlePieceFeature.Type.TAB, side, GrammaticalRole.UNDEFINED)
                 return
             }
 
             uiManager.displayGrammaticalRolePopup(puzzle, side) { selectedRole ->
+                val doesAllowTabText = gameModel.currentExercise?.type?.ruleset?.doesAllowTabText ?: true
 
                 if (selectedRole == GrammaticalRole.ADVERBIAL) {
-                    uiManager.displaySelectSuffixPopupForResult(
-                        role = selectedRole,
-                        puzzlePiece = puzzle,
-                        side = side,
-                        onSuffixSelected = { suffix ->
-                            val indexOfSecondNewLine = suffix.text
-                                .mapIndexed { i, c -> if (c == '\n') i else -1 }
-                                .filter { it != -1 }
-                                .getOrNull(1)
-                                ?.minus(1)
-                                ?: (suffix.text.lastIndex + 1)
-                            val trimmedText = suffix.text
-                                .take(indexOfSecondNewLine)
+                    if (doesAllowTabText) {
+                        uiManager.displaySelectSuffixPopupForResult(
+                            role = selectedRole,
+                            puzzlePiece = puzzle,
+                            side = side,
+                            onSuffixSelected = { suffix ->
+                                val indexOfSecondNewLine = suffix.text
+                                    .mapIndexed { i, c -> if (c == '\n') i else -1 }
+                                    .filter { it != -1 }
+                                    .getOrNull(1)
+                                    ?.minus(1)
+                                    ?: (suffix.text.lastIndex + 1)
+                                val trimmedText = suffix.text
+                                    .take(indexOfSecondNewLine)
 
-                            finishAddFeature(puzzle, type, side, selectedRole, trimmedText)
-                        },
-                        onCancel = {
+                                finishAddFeature(puzzle, type, side, selectedRole, trimmedText)
+                            },
+                            onCancel = {
 
-                        }
-                    )
+                            }
+                        )
+                    }
+                    else {
+                        finishAddFeature(puzzle, type, side, selectedRole, "")
+                    }
                 }
                 else if (selectedRole == GrammaticalRole.OBJECT) {
-                    val tabText = Suffix.predefinedSuffixes
-                        .firstOrNull { it.grammaticalRole == GrammaticalRole.OBJECT }
-                        ?.text?.takeWhile { c -> c != '/' }
-                        ?: ""
-                    finishAddFeature(puzzle, type, side, selectedRole, tabText)
+                    if (doesAllowTabText) {
+                        val tabText = Suffix.predefinedSuffixes
+                            .firstOrNull { it.grammaticalRole == GrammaticalRole.OBJECT }
+                            ?.text?.takeWhile { c -> c != '/' }
+                            ?: ""
+                        finishAddFeature(puzzle, type, side, selectedRole, tabText)
+                    }
+                    else {
+                        finishAddFeature(puzzle, type, side, selectedRole, "")
+                    }
                 }
                 else {
                     finishAddFeature(puzzle, type, side, selectedRole, "")
                 }
             }
         }
-        else {
-            // Directly add the blank
-            finishAddFeature(puzzle, type, side)
-        }
+
+        // Directly add the blank
+        finishAddFeature(puzzle, type, side)
     }
 
     private fun finishAddFeature(
@@ -231,12 +241,12 @@ class PuzzleManager(
         selectedRole: GrammaticalRole = GrammaticalRole.UNDEFINED,
         tabText: String = ""
     ) {
-        val addedFeature = puzzle.addFeature(type, side, selectedRole, tabText)
-        featureToRemove = puzzle to addedFeature
+        puzzle.addFeature(type, side, selectedRole, tabText)
         featureTripleToAdd = null
         if (gameModel.currentExercise?.type == TaskType.COMPLETE_ARGUMENTS) {
             checkSolution()
         }
+        featureToRemove = null
     }
 
     fun removeFeature() {
