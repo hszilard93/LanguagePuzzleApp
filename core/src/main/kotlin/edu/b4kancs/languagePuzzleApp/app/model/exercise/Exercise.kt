@@ -13,7 +13,10 @@ enum class TaskType(var ruleset: Ruleset) {
         canAddRemoveTabs = true,
         canColorTabs = true,
         canEditBaseText = true,
-        canEditTabText = true
+        canEditTabText = true,
+        doesAllowTabText = true,
+        doesBaseTextCount = true,
+        doesBlankTextCount = true
     )),
     FREE_EDIT_PUZZLE(Ruleset(
         canAddMainPieces = true,
@@ -21,7 +24,10 @@ enum class TaskType(var ruleset: Ruleset) {
         canAddRemoveTabs = true,
         canColorTabs = true,
         canEditBaseText = true,
-        canEditTabText = true
+        canEditTabText = true,
+        doesAllowTabText = true,
+        doesBaseTextCount = true,
+        doesBlankTextCount = true
     )),
     MATCH_PUZZLE(Ruleset()),               // Mondat társítása a puzzle-szerkezethez.
     COMPLETE_PUZZLE(Ruleset()),            //
@@ -31,7 +37,10 @@ enum class TaskType(var ruleset: Ruleset) {
         canAddRemoveTabs = true,
         canColorTabs = true,
         canEditBaseText = false,
-        canEditTabText = true
+        canEditTabText = true,
+        doesAllowTabText = true,
+        doesBaseTextCount = false,
+        doesBlankTextCount = false
     ))
 }
 
@@ -43,7 +52,9 @@ data class Ruleset(
     val canColorTabs: Boolean? = null,
     val canEditBaseText: Boolean? = null,
     val canEditTabText: Boolean? = null,
-    val doesAllowTabText: Boolean? = null
+    val doesAllowTabText: Boolean? = null,
+    val doesBaseTextCount: Boolean? = null,
+    val doesBlankTextCount: Boolean? = null
 )
 
 @Serializable
@@ -63,7 +74,9 @@ data class Exercise(
                 canColorTabs = customRuleset.canColorTabs ?: defaultRuleset.canColorTabs,
                 canEditBaseText = customRuleset.canEditBaseText ?: defaultRuleset.canEditBaseText,
                 canEditTabText = customRuleset.canEditTabText ?: defaultRuleset.canEditTabText,
-                doesAllowTabText = customRuleset.doesAllowTabText ?: defaultRuleset.doesAllowTabText
+                doesAllowTabText = customRuleset.doesAllowTabText ?: defaultRuleset.doesAllowTabText,
+                doesBaseTextCount = customRuleset.doesBaseTextCount ?: defaultRuleset.doesBaseTextCount,
+                doesBlankTextCount = customRuleset.doesBlankTextCount ?: defaultRuleset.doesBlankTextCount
             )
         }
     }
@@ -73,5 +86,6 @@ data class Exercise(
 data class Task(
     val taskDescription: String,
     val predefinedPieces: Set<PuzzlePiece>,
+    val requiredSolutions: Int = 1,
     val solutionConfigurations: List<SolutionConfiguration>
 )

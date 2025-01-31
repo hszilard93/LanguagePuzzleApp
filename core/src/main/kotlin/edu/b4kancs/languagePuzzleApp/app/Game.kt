@@ -170,6 +170,7 @@ class Game(
     private fun loadMainMenuScreen() {
         logger.info { "loadMainMenuScreen" }
 
+        this.removeScreen<GameScreen>()
         addScreen(
             MainMenuScreen(
                 context,

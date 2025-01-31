@@ -1,13 +1,13 @@
 {
   "type": "PLACE_PUZZLES_IN_ORDER",
-  "buttonDescription": "FB2/38-41/3.III.2.a.B",
+  "buttonDescription": "FB2/38–41/3.III.2.a.B",
   "customRuleset": {
     "canEditTabText": "false",
     "canColorTabs": "true"
   },
   "tasks": [
     {
-      "taskDescription": "Keresd meg az igepuzzle-t, majd helyezd a megfelelő puzzle-darabokat az ige füleire! Állapítsd meg, és írd le a füzetedbe, hogy milyen szerepük van az egyes szavaknak, kifejezéseknek az igével leírható jelenetben! Írd rá a fülekre a végződést, amelyből a többiek is érteni fogják a szó, kifejezés szerepét!",
+      "taskDescription": "Keresd meg az igepuzzle-t, majd helyezd a megfelelő puzzle-darabokat az ige füleire! Állapítsd meg, és írd le a füzetedbe, hogy milyen szerepük van az egyes szavaknak, kifejezéseknek az igével leírható jelenetben! Válaszd ki az ige füleire illő végződést, amelyből a többiek is érteni fogják a szó, kifejezés szerepét!\nFigyeld meg a Feladatbankban megadott példát!",
       "predefinedPieces": [
         {
           "text": "rábíz",
@@ -15,17 +15,17 @@
           "tabs": [
             {
               "side": "LEFT",
-              "grammaticalRole": "SUBJECT",
+              "grammaticalRole": "UNDEFINED",
               "text": ""
             },
             {
               "side": "TOP",
-              "grammaticalRole": "OBJECT",
+              "grammaticalRole": "UNDEFINED",
               "text": ""
             },
             {
               "side": "RIGHT",
-              "grammaticalRole": "ADVERBIAL",
+              "grammaticalRole": "UNDEFINED",
               "text": ""
             }
           ],
@@ -104,17 +104,17 @@
           "tabs": [
             {
               "side": "LEFT",
-              "grammaticalRole": "SUBJECT",
+              "grammaticalRole": "UNDEFINED",
               "text": ""
             },
             {
               "side": "TOP",
-              "grammaticalRole": "OBJECT",
+              "grammaticalRole": "UNDEFINED",
               "text": ""
             },
             {
               "side": "RIGHT",
-              "grammaticalRole": "ADVERBIAL",
+              "grammaticalRole": "UNDEFINED",
               "text": ""
             }
           ],
@@ -193,17 +193,17 @@
           "tabs": [
             {
               "side": "LEFT",
-              "grammaticalRole": "SUBJECT",
+              "grammaticalRole": "UNDEFINED",
               "text": ""
             },
             {
               "side": "TOP",
-              "grammaticalRole": "OBJECT",
+              "grammaticalRole": "UNDEFINED",
               "text": ""
             },
             {
               "side": "RIGHT",
-              "grammaticalRole": "ADVERBIAL",
+              "grammaticalRole": "UNDEFINED",
               "text": ""
             }
           ],
@@ -282,17 +282,17 @@
           "tabs": [
             {
               "side": "LEFT",
-              "grammaticalRole": "SUBJECT",
+              "grammaticalRole": "UNDEFINED",
               "text": ""
             },
             {
               "side": "TOP",
-              "grammaticalRole": "OBJECT",
+              "grammaticalRole": "UNDEFINED",
               "text": ""
             },
             {
               "side": "RIGHT",
-              "grammaticalRole": "ADVERBIAL",
+              "grammaticalRole": "UNDEFINED",
               "text": ""
             }
           ],
@@ -371,17 +371,17 @@
           "tabs": [
             {
               "side": "LEFT",
-              "grammaticalRole": "SUBJECT",
+              "grammaticalRole": "UNDEFINED",
               "text": ""
             },
             {
               "side": "TOP",
-              "grammaticalRole": "OBJECT",
+              "grammaticalRole": "UNDEFINED",
               "text": ""
             },
             {
               "side": "RIGHT",
-              "grammaticalRole": "ADVERBIAL",
+              "grammaticalRole": "UNDEFINED",
               "text": ""
             }
           ],
@@ -460,17 +460,17 @@
           "tabs": [
             {
               "side": "LEFT",
-              "grammaticalRole": "SUBJECT",
+              "grammaticalRole": "UNDEFINED",
               "text": ""
             },
             {
               "side": "TOP",
-              "grammaticalRole": "OBJECT",
+              "grammaticalRole": "UNDEFINED",
               "text": ""
             },
             {
               "side": "RIGHT",
-              "grammaticalRole": "ADVERBIAL",
+              "grammaticalRole": "UNDEFINED",
               "text": ""
             }
           ],

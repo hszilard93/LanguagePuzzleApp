@@ -157,7 +157,7 @@ class MainMenuScreen(
                     val exerciseButton = TextButton(buttonDescription, uiSkin).apply {
                         style = buttonStyle
                         label.setAlignment(Align.left)
-                        padLeft(120f)
+                        padLeft(150f)
                         menuButtons.add(this)
                     }
 
@@ -200,7 +200,7 @@ class MainMenuScreen(
     }
 
     private fun extractPageNumber(buttonText: String): Int? {
-        val pageNumberRegex = Regex("FB2/(\\d+)(?:-\\d+)?[/]")
+        val pageNumberRegex = Regex("FB2/(\\d+)(?:[-–]\\d+)?[/]")
         val matchResult = pageNumberRegex.find(buttonText)
         return matchResult?.groups?.get(1)?.value?.toIntOrNull()
     }

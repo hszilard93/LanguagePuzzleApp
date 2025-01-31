@@ -392,8 +392,9 @@ class GameInputManager(
 
         if (button == Input.Buttons.LEFT) {
             if (isPotentialClick && puzzleManager.potentialDragOrRotatePiece != null) {
-                logger.debug { "Single click: Rotating puzzle piece" }
-                if (!puzzleManager.potentialDragOrRotatePiece!!.isConnected) {
+                if (!puzzleManager.potentialDragOrRotatePiece!!.isConnected &&
+                    puzzleManager.potentialDragOrRotatePiece!!.grammaticalRole != GrammaticalRole.VERB) {
+                    logger.debug { "Single click: Rotating puzzle piece" }
                     puzzleManager.potentialDragOrRotatePiece?.rotateRight()
                 }
             }

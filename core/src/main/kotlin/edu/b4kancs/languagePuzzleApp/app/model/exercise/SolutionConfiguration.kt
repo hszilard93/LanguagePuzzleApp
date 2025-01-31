@@ -18,21 +18,24 @@ class SolutionConfiguration(
     private val checkTabText: Boolean = false
 ) {
 
+    private lateinit var ruleset: Ruleset
+
     /*
         To check the validity of the solution, only the solutions of the central puzzle piece (the verb) are taken into account.
         The text of the tabs is optionally taken into account.
      */
 
-    fun doesGameStateMatchSolution(puzzles: List<PuzzlePiece>, exerciseType: TaskType? = null): SolutionResult {
+    fun doesVerbHaveSolution(centerPiece: PuzzlePiece, exerciseType: TaskType? = null): SolutionResult {
+        ruleset = exerciseType?.ruleset ?: Ruleset()
+
         if (exerciseType == TaskType.COMPLETE_ARGUMENTS) {
-            return doesMatchArgumentsSolution(puzzles.first())
+            return doesMatchArgumentsSolution(centerPiece)
         }
 
         if (solutionSet.isEmpty()) return SolutionResult.INELIGIBLE
 
-        val verbConnections = puzzles.find { it.grammaticalRole == GrammaticalRole.VERB }?.copyOfConnections
+        val verbConnections = centerPiece.copyOfConnections
 
-        if (verbConnections == null) return SolutionResult.INELIGIBLE
         if (verbConnections.size != solutionSet.size) return SolutionResult.INELIGIBLE
 
         verbConnections.forEach { c1 ->
@@ -69,8 +72,13 @@ class SolutionConfiguration(
     }
 
     private fun Connection.matches(other: Connection, checkTabText: Boolean): Boolean {
-        val theseTexts = this.puzzlesConnected.map { it.text.lowercase() }.toSet()
-        val thoseTexts = other.puzzlesConnected.map { it.text.lowercase() }.toSet()
+//        val theseTexts = this.puzzlesConnected.map { it.text.lowercase() }.toSet()
+//        val thoseTexts = other.puzzlesConnected.map { it.text.lowercase() }.toSet()
+
+        val theseVerbTexts = this.puzzlesConnected.filter { it.grammaticalRole == GrammaticalRole.VERB }.map { it.text.lowercase() }.toSet()
+        val theseBlankTexts = this.puzzlesConnected.filter { it.grammaticalRole != GrammaticalRole.VERB }.map { it.text.lowercase() }.toSet()
+        val thoseVerbTexts = other.puzzlesConnected.filter { it.grammaticalRole == GrammaticalRole.VERB }.map { it.text.lowercase() }.toSet()
+        val thoseBlankTexts = other.puzzlesConnected.filter { it.grammaticalRole != GrammaticalRole.VERB }.map { it.text.lowercase() }.toSet()
 
         if (this.via.grammaticalRole != other.via.grammaticalRole) return false
         if (checkTabText) {
@@ -81,7 +89,10 @@ class SolutionConfiguration(
             }
         }
 
-        return theseTexts == thoseTexts
+        val doBlankTextsMatch = if (ruleset.doesBlankTextCount != false) theseBlankTexts == thoseBlankTexts else true
+        val doVerbTextsMatch = if (ruleset.doesBaseTextCount != false) theseVerbTexts == thoseVerbTexts else true
+
+        return doBlankTextsMatch && doVerbTextsMatch
 
         // TODO: Fix incorrect role of connection
 //        if (this.roleOfConnection != other.roleOfConnection) return false

@@ -65,7 +65,7 @@ class GameModel {
     }
 
     fun initializeExercise(exercise: Exercise) {
-        logger.debug { "Initializing exercise: $exercise" }
+        logger.info { "Initializing exercise: $exercise" }
 
         currentExercise = exercise
         setUpTask(currentExercise!!.tasks.first())
@@ -136,138 +136,6 @@ class GameModel {
 
         lastPuzzlePosition = Vector2(nextX, nextY)
         return lastPuzzlePosition
-    }
-
-    private fun loadExampleExercise1(): Exercise {
-        // Create the PuzzlePieces and store them in variables
-        val verbPuzzle = createExampleVerbPuzzle()
-        val subjectPuzzle = createExampleSubjectPuzzle()
-        val objectPuzzle = createExampleObjectPuzzle()
-        val adverbial1Puzzle = createExampleAdverbial1Puzzle()
-        val adverbial2Puzzle = createExampleAdverbial2Puzzle()
-
-        // Define the solutionConfiguration by specifying the correct connections
-        val solutionSet = setOf(
-            // Connection between verbPuzzle and subjectPuzzle via the LEFT tab of verbPuzzle
-            Connection(
-                puzzlesConnected = setOf(verbPuzzle, subjectPuzzle),
-                via = verbPuzzle.tabs.first { it.side == Side.LEFT },
-                roleOfConnection = GrammaticalRole.SUBJECT
-            ),
-            // Connection between verbPuzzle and objectPuzzle via the TOP tab of verbPuzzle
-            Connection(
-                puzzlesConnected = setOf(verbPuzzle, objectPuzzle),
-                via = verbPuzzle.tabs.first { it.side == Side.TOP },
-                roleOfConnection = GrammaticalRole.OBJECT
-            ),
-            // Connection between verbPuzzle and adverbial2Puzzle via the BOTTOM tab of verbPuzzle
-            Connection(
-                puzzlesConnected = setOf(verbPuzzle, adverbial2Puzzle),
-                via = verbPuzzle.tabs.first { it.side == Side.BOTTOM },
-                roleOfConnection = GrammaticalRole.ADVERBIAL
-            ),
-            // Connection between verbPuzzle and adverbial1Puzzle via the RIGHT tab of verbPuzzle
-            Connection(
-                puzzlesConnected = setOf(verbPuzzle, adverbial1Puzzle),
-                via = verbPuzzle.tabs.first { it.side == Side.RIGHT },
-                roleOfConnection = GrammaticalRole.ADVERBIAL
-            )
-        )
-
-        // Define the Exercise instance
-        return Exercise(
-            type = TaskType.PLACE_PUZZLES_IN_ORDER,
-            buttonDescription = "Példafeladat",
-            tasks = listOf(
-                Task(
-                    taskDescription = "Helyezd el a puzzle darabokat úgy, hogy a következő mondatot alkossák:\n\"Peti virágot ad Annának névnapjára.\"",
-                    predefinedPieces = setOf(
-                        verbPuzzle,
-                        subjectPuzzle,
-                        objectPuzzle,
-                        adverbial1Puzzle,
-                        adverbial2Puzzle
-                    ),
-                    solutionConfigurations = listOf(SolutionConfiguration(verbPuzzle, solutionSet))
-                )
-            )
-        )
-    }
-
-    /**
-     * Creates the central VERB puzzle piece with its tabs.
-     */
-    private fun createExampleVerbPuzzle(): PuzzlePiece {
-        return PuzzlePiece(
-            text = "ad",
-            grammaticalRole = GrammaticalRole.VERB,
-            depth = 1
-        ).apply {
-            // Add tabs: Subject, Object, and two Adverbial tabs
-            tabs.addAll(
-                listOf(
-                    PuzzleTab(this, Side.LEFT, GrammaticalRole.SUBJECT),
-                    PuzzleTab(this, Side.TOP, GrammaticalRole.OBJECT, text = "-t"),
-                    PuzzleTab(this, Side.RIGHT, GrammaticalRole.ADVERBIAL, text = "-ra\n/re"),
-                    PuzzleTab(this, Side.BOTTOM, GrammaticalRole.ADVERBIAL, text = "-nak\n/nek")
-                )
-            )
-        }
-    }
-
-    /**
-     * Creates the SUBJECT puzzle piece with a blank on the bottom.
-     */
-    private fun createExampleSubjectPuzzle(): PuzzlePiece {
-        return PuzzlePiece(
-            text = "Peti",
-            grammaticalRole = GrammaticalRole.UNDEFINED
-        ).apply {
-            // Add a blank on the bottom
-            blanks.add(PuzzleBlank(this, Side.BOTTOM))
-        }
-    }
-
-    /**
-     * Creates the OBJECT puzzle piece with a blank on the bottom.
-     */
-    private fun createExampleObjectPuzzle(): PuzzlePiece {
-        return PuzzlePiece(
-            text = "virág",
-            grammaticalRole = GrammaticalRole.UNDEFINED
-        ).apply {
-            // Add a blank on the bottom
-            blanks.add(PuzzleBlank(this, Side.BOTTOM))
-//            blanks.add(PuzzleBlank(this, Side.TOP))
-//            blanks.add(PuzzleBlank(this, Side.LEFT))
-//            blanks.add(PuzzleBlank(this, Side.RIGHT))
-        }
-    }
-
-    /**
-     * Creates the first ADVERBIAL puzzle piece with a blank on the bottom.
-     */
-    private fun createExampleAdverbial1Puzzle(): PuzzlePiece {
-        return PuzzlePiece(
-            text = "névnap",
-            grammaticalRole = GrammaticalRole.UNDEFINED
-        ).apply {
-            // Add a blank on the bottom
-            blanks.add(PuzzleBlank(this, Side.BOTTOM))
-        }
-    }
-
-    /**
-     * Creates the second ADVERBIAL puzzle piece with a blank on the bottom.
-     */
-    private fun createExampleAdverbial2Puzzle(): PuzzlePiece {
-        return PuzzlePiece(
-            text = "Anna",
-            grammaticalRole = GrammaticalRole.UNDEFINED
-        ).apply {
-            // Add a blank on the bottom
-            blanks.add(PuzzleBlank(this, Side.BOTTOM))
-        }
     }
 
     /**

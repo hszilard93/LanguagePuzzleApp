@@ -38,7 +38,7 @@ fun loadFreeTypeFont(fileName: String, fontSize: Int, flipFont: Boolean = false)
 
     val typeFontParameter = FreeTypeFontParameter().apply {
         size = maxOf(fontSize, MIN_FONT_SIZE)   // The app crashes if the font size becomes too small.
-        characters = FreeTypeFontGenerator.DEFAULT_CHARS + "őŐűŰ"
+        characters = FreeTypeFontGenerator.DEFAULT_CHARS + "őŐűŰ–"
         flip = flipFont
     }
 

@@ -260,6 +260,8 @@ object RulesetSerializer : KSerializer<Ruleset> {
         element<Boolean?>("canEditBaseText", isOptional = true)
         element<Boolean?>("canEditTabText", isOptional = true)
         element<Boolean?>("doesAllowTabText", isOptional = true)
+        element<Boolean?>("doesBaseTextCount", isOptional = true)
+        element<Boolean?>("doesBlankTextCount", isOptional = true)
     }
 
     @OptIn(ExperimentalSerializationApi::class)
@@ -272,6 +274,8 @@ object RulesetSerializer : KSerializer<Ruleset> {
         var canEditBaseText: Boolean? = null
         var canEditTabText: Boolean? = null
         var doesAllowTabText: Boolean? = null
+        var doesBaseTextCount: Boolean? = null
+        var doesBlankTextCount: Boolean? = null
 
         loop@ while (true) {
             when (val index = decStructure.decodeElementIndex(descriptor)) {
@@ -282,6 +286,8 @@ object RulesetSerializer : KSerializer<Ruleset> {
                 4 -> canEditBaseText = decStructure.decodeNullableSerializableElement(descriptor, 4, Boolean.serializer())
                 5 -> canEditTabText = decStructure.decodeNullableSerializableElement(descriptor, 5, Boolean.serializer())
                 6 -> doesAllowTabText = decStructure.decodeNullableSerializableElement(descriptor, 6, Boolean.serializer())
+                7 -> doesBaseTextCount = decStructure.decodeNullableSerializableElement(descriptor, 7, Boolean.serializer())
+                8 -> doesBlankTextCount = decStructure.decodeNullableSerializableElement(descriptor, 8, Boolean.serializer())
                 CompositeDecoder.DECODE_DONE -> break@loop
                 else -> throw SerializationException("Unknown index $index in Ruleset deserialization")
             }
@@ -295,7 +301,9 @@ object RulesetSerializer : KSerializer<Ruleset> {
             canColorTabs = canColorTabs,
             canEditBaseText = canEditBaseText,
             canEditTabText = canEditTabText,
-            doesAllowTabText = doesAllowTabText
+            doesAllowTabText = doesAllowTabText,
+            doesBaseTextCount = doesBaseTextCount,
+            doesBlankTextCount = doesBlankTextCount
         )
     }
 

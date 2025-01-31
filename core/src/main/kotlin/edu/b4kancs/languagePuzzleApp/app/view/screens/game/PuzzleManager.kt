@@ -294,33 +294,40 @@ class PuzzleManager(
         gameInputManager.emulateDragging()
     }
 
-    fun checkSolution() {
-        val centerPuzzle = gameModel.puzzlePieces.find { it.grammaticalRole == GrammaticalRole.VERB } ?: return
+    private fun checkSolution() {
+        val verbPuzzles = gameModel.puzzlePieces.filter { it.grammaticalRole == GrammaticalRole.VERB }
 
-        if (centerPuzzle.connectionSize < centerPuzzle.tabs.size && gameModel.currentExercise?.type != TaskType.COMPLETE_ARGUMENTS) {
+        if (verbPuzzles.size != gameModel.currentTask?.requiredSolutions) {
             uiManager.hideCheckMark()
             return
         }
 
-        // All the tabs are connected, let's check the correctness of the result
-        val solutionResult = gameModel.currentTask
-            ?.solutionConfigurations
-            ?.map { it.doesGameStateMatchSolution(gameModel.puzzlePieces, gameModel.currentExercise!!.type) }
-            ?.fold(SolutionResult.INELIGIBLE) { acc, result ->
-                if (result == SolutionResult.CORRECT || acc == SolutionResult.CORRECT) {
-                    SolutionResult.CORRECT
-                }
-                else if (result == SolutionResult.INCORRECT && (acc == SolutionResult.INELIGIBLE || acc == SolutionResult.INCORRECT)) {
-                    SolutionResult.INCORRECT
-                }
-                else
-                    SolutionResult.INELIGIBLE
+        val hasSameVerbMultipleTimes = verbPuzzles.any { thisPuzzle ->
+            (verbPuzzles - thisPuzzle).any { otherPuzzle -> thisPuzzle.text == otherPuzzle.text }
+        }
+        if (hasSameVerbMultipleTimes) {
+            uiManager.hideCheckMark()
+            return
+        }
+
+        val solutionResults = arrayListOf<SolutionResult>()
+        verbPuzzles.forEach { verbPuzzle ->
+            val solutionResult = checkSolutionsForVerb(verbPuzzle)
+            solutionResults.add(solutionResult)
+        }
+
+        val aggregateSolutionState: SolutionResult =
+            if (solutionResults.contains(SolutionResult.INELIGIBLE)) {
+                SolutionResult.INELIGIBLE
             }
-            ?: return
+            else if (solutionResults.contains(SolutionResult.INCORRECT)) {
+                SolutionResult.INCORRECT
+            }
+            else {
+                SolutionResult.CORRECT
+            }
 
-        GameModel.logger.info { "solutionResult = $solutionResult" }
-
-        when (solutionResult) {
+        when (aggregateSolutionState) {
             SolutionResult.CORRECT -> {
                 uiManager.showCheckMark(isCorrect = true)
                 gameModel.updateIsSolved(true)
@@ -336,5 +343,30 @@ class PuzzleManager(
                 gameModel.updateIsSolved(false)
             }
         }
+    }
+
+    private fun checkSolutionsForVerb(centerPuzzle: PuzzlePiece): SolutionResult {
+        if (centerPuzzle.connectionSize < centerPuzzle.tabs.size && gameModel.currentExercise?.type != TaskType.COMPLETE_ARGUMENTS) {
+            return SolutionResult.INELIGIBLE
+        }
+
+        // All the tabs are connected, let's check the correctness of the result
+        val solutionResult = gameModel.currentTask
+            ?.solutionConfigurations
+            ?.map { it.doesVerbHaveSolution(centerPuzzle, gameModel.currentExercise!!.type) }
+            ?.fold(SolutionResult.INELIGIBLE) { acc, result ->
+                if (result == SolutionResult.CORRECT || acc == SolutionResult.CORRECT) {
+                    SolutionResult.CORRECT
+                }
+                else if (result == SolutionResult.INCORRECT && (acc == SolutionResult.INELIGIBLE || acc == SolutionResult.INCORRECT)) {
+                    SolutionResult.INCORRECT
+                }
+                else
+                    SolutionResult.INELIGIBLE
+            }
+            ?: SolutionResult.INELIGIBLE
+
+        GameModel.logger.info { "solutionResult = $solutionResult" }
+        return solutionResult
     }
 }
