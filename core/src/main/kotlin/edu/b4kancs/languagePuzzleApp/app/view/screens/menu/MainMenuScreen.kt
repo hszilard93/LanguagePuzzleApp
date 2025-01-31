@@ -45,20 +45,20 @@ class MainMenuScreen(
     }
 
     private val stage = Stage(viewport)
-    private val table = Table() // Table for buttons
+    private val buttonTable = Table() // Table for buttons (renamed for clarity)
     private val menuButtons = mutableListOf<TextButton>()
     private val jsonReader = JsonReader()
 
     override fun show() {
         logger.debug { "MainMenuScreen: show" }
 
-        table.clear()
+        buttonTable.clear() // Clear the button table, not the outer table
 
         Gdx.input.inputProcessor = stage
 
         val fontMultiplier = maxOf(Gdx.graphics.width / 1200f, Gdx.graphics.height / 800f)
 
-//        table.setFillParent(true)
+        buttonTable.center() // Center the button table content
         table.center()
 
         if (menuButtons.isEmpty()) {    // Load the exercises only once per instance.
@@ -73,19 +73,30 @@ class MainMenuScreen(
         }
 
         menuButtons.forEach { button ->
-            table.add(button).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(80f).pad(0f).row()
+            buttonTable.add(button).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(80f).pad(0f).row()
 //            addManualButtons(fontMultiplier)
         }
 
-        val scrollPane = ScrollPane(table, uiSkin).apply {
+        val scrollPane = ScrollPane(buttonTable, uiSkin).apply {
             fadeScrollBars = false
             setScrollbarsVisible(true)
             setScrollingDisabled(true, false)
-            setFillParent(true)
-            width = table.width + 100f
+            // Removed setFillParent(true) from ScrollPane
+            width = buttonTable.width + 100f // Keep width setting if needed
+            debug = true // Keep debug if needed
         }
 
-        stage.addActor(scrollPane)
+        val outerTable = Table().apply {
+            setFillParent(true) // Outer table fills the stage
+            add().height(50f).row() // Top margin row
+            add().width(Gdx.graphics.width / 5f)
+            add(scrollPane).grow()     // ScrollPane in the middle row, grows to fill space
+            add().width(Gdx.graphics.width / 5f).row()
+            add().height(50f).row() // Bottom margin row
+            debug = false // Set debug for outer table if needed
+        }
+
+        stage.addActor(outerTable) // Add the outer table to the stage
 
         cursorManager.setCursor(null)
     }

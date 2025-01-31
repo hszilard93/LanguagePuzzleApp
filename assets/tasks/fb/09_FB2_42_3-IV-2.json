@@ -1,0 +1,21 @@
+{
+  "type": "FREE_EDIT_PUZZLE",
+  "buttonDescription": "FB2/42/3.IV.2.*",
+  "customRuleset": {
+    "canAddBlankPieces": "false"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Keressetek olyan igéket, amelyek egy gesztust, arckifejezést vagy egyéb nonverbális közlést ragadnak meg, és legalább kétfülű puzzle-lel modellezhetjük!\nPl. valaki rábólint valamire",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": []
+    }
+  ]
+}

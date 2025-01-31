@@ -220,7 +220,7 @@ class UIManager(
         }
         bottomBarTable.add(backPageImageButton).width(72f).height(72f).pad(12f)
         bottomBarTable.add().expandX()
-        bottomBarTable.add(forwardPageImageButton).width(72f).height(72f).pad(12f)
+        bottomBarTable.add(forwardPageImageButton).width(72f).height(72f).pad(12f).padBottom(20f).padRight(40f)
         bottomBarTable.add(checkMarkImage).width(80f).height(80f).padLeft(12f).padBottom(-25f)
         bottomBarTable.pack()
 
@@ -251,7 +251,9 @@ class UIManager(
         val forwardPageImage = Texture(Gdx.files.internal("forwardpage_icon_1.png"), Pixmap.Format.RGBA8888, true)
         val forwardStyle = ImageButton.ImageButtonStyle().apply {
             this.up = TextureRegionDrawable(TextureRegion(forwardPageImage)).tint(Color(120f, 120f, 120f, 0.8f))
+//            this.up = TextureRegionDrawable(TextureRegion(forwardPageImage)).tint(Color(255f, 255f, 60f, 0.8f))
             this.down = TextureRegionDrawable(TextureRegion(forwardPageImage)).tint(Color(120f, 255f, 255f, 1f))
+//            this.down = TextureRegionDrawable(TextureRegion(forwardPageImage)).tint(Color(255f, 255f, 60f, 0.8f))
         }
         forwardPageImageButton = ImageButton(forwardStyle).apply {
             addListener(object : ClickListener() {
@@ -426,6 +428,10 @@ class UIManager(
 
         if (addPuzzleButton == null) return
 
+        if (currentPopupWindow != null) {
+            currentPopupWindow?.remove()
+            currentPopupWindow = null
+        }
         val popupWindow = AddPuzzlePopup(
             title = "",
             skin = uiSkin,

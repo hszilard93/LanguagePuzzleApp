@@ -1,6 +1,7 @@
 package edu.b4kancs.languagePuzzleApp.app.model.exercise
 
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
+import edu.b4kancs.languagePuzzleApp.app.serialization.RulesetSerializer
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -34,15 +35,15 @@ enum class TaskType(var ruleset: Ruleset) {
     ))
 }
 
-@Serializable
+@Serializable(with = RulesetSerializer::class)
 data class Ruleset(
-    val canAddMainPieces: Boolean = false,
-    val canAddBlankPieces: Boolean = false,
-    val canAddRemoveTabs: Boolean = false,
-    val canColorTabs: Boolean = true,
-    val canEditBaseText: Boolean = false,
-    val canEditTabText: Boolean = false,
-    val doesAllowTabText: Boolean = true
+    val canAddMainPieces: Boolean? = null,
+    val canAddBlankPieces: Boolean? = null,
+    val canAddRemoveTabs: Boolean? = null,
+    val canColorTabs: Boolean? = null,
+    val canEditBaseText: Boolean? = null,
+    val canEditTabText: Boolean? = null,
+    val doesAllowTabText: Boolean? = null
 )
 
 @Serializable
@@ -54,7 +55,16 @@ data class Exercise(
 ) {
     init {
         if (customRuleset != null) {
-            type.ruleset = customRuleset
+            val defaultRuleset = type.ruleset   // Load the default ruleset
+            type.ruleset = Ruleset(
+                canAddMainPieces = customRuleset.canAddMainPieces ?: defaultRuleset.canAddMainPieces,
+                canAddBlankPieces = customRuleset.canAddBlankPieces ?: defaultRuleset.canAddBlankPieces,
+                canAddRemoveTabs = customRuleset.canAddRemoveTabs ?: defaultRuleset.canAddRemoveTabs,
+                canColorTabs = customRuleset.canColorTabs ?: defaultRuleset.canColorTabs,
+                canEditBaseText = customRuleset.canEditBaseText ?: defaultRuleset.canEditBaseText,
+                canEditTabText = customRuleset.canEditTabText ?: defaultRuleset.canEditTabText,
+                doesAllowTabText = customRuleset.doesAllowTabText ?: defaultRuleset.doesAllowTabText
+            )
         }
     }
 }

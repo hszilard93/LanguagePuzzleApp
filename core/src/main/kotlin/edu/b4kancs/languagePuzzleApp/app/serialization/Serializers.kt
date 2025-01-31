@@ -1,6 +1,7 @@
 package edu.b4kancs.languagePuzzleApp.app.serialization
 
 import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.utils.Json
 import com.badlogic.gdx.utils.ObjectSet
 import edu.b4kancs.languagePuzzleApp.app.model.Connection
 import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole
@@ -8,13 +9,16 @@ import edu.b4kancs.languagePuzzleApp.app.model.PuzzleBlank
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzleTab
 import edu.b4kancs.languagePuzzleApp.app.model.Side
+import edu.b4kancs.languagePuzzleApp.app.model.exercise.Ruleset
 import edu.b4kancs.languagePuzzleApp.app.model.exercise.SolutionConfiguration
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.Serializer
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.builtins.SetSerializer
+import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.descriptors.buildClassSerialDescriptor
 import kotlinx.serialization.descriptors.element
@@ -243,6 +247,60 @@ object SolutionConfigurationSerializer : KSerializer<SolutionConfiguration> {
         }.toSet()
 
         return SolutionConfiguration(centerPiece, connections, checkTabText)
+    }
+}
+
+@Serializer(forClass = Ruleset::class)
+object RulesetSerializer : KSerializer<Ruleset> {
+    override val descriptor: SerialDescriptor = buildClassSerialDescriptor("Ruleset") {
+        element<Boolean?>("canAddMainPieces", isOptional = true) // Mark elements as optional
+        element<Boolean?>("canAddBlankPieces", isOptional = true)
+        element<Boolean?>("canAddRemoveTabs", isOptional = true)
+        element<Boolean?>("canColorTabs", isOptional = true)
+        element<Boolean?>("canEditBaseText", isOptional = true)
+        element<Boolean?>("canEditTabText", isOptional = true)
+        element<Boolean?>("doesAllowTabText", isOptional = true)
+    }
+
+    @OptIn(ExperimentalSerializationApi::class)
+    override fun deserialize(decoder: Decoder): Ruleset {
+        val decStructure = decoder.beginStructure(descriptor)
+        var canAddMainPieces: Boolean? = null
+        var canAddBlankPieces: Boolean? = null
+        var canAddRemoveTabs: Boolean? = null
+        var canColorTabs: Boolean? = null
+        var canEditBaseText: Boolean? = null
+        var canEditTabText: Boolean? = null
+        var doesAllowTabText: Boolean? = null
+
+        loop@ while (true) {
+            when (val index = decStructure.decodeElementIndex(descriptor)) {
+                0 -> canAddMainPieces = decStructure.decodeNullableSerializableElement(descriptor, 0, Boolean.serializer())
+                1 -> canAddBlankPieces = decStructure.decodeNullableSerializableElement(descriptor, 1, Boolean.serializer())
+                2 -> canAddRemoveTabs = decStructure.decodeNullableSerializableElement(descriptor, 2, Boolean.serializer())
+                3 -> canColorTabs = decStructure.decodeNullableSerializableElement(descriptor, 3, Boolean.serializer())
+                4 -> canEditBaseText = decStructure.decodeNullableSerializableElement(descriptor, 4, Boolean.serializer())
+                5 -> canEditTabText = decStructure.decodeNullableSerializableElement(descriptor, 5, Boolean.serializer())
+                6 -> doesAllowTabText = decStructure.decodeNullableSerializableElement(descriptor, 6, Boolean.serializer())
+                CompositeDecoder.DECODE_DONE -> break@loop
+                else -> throw SerializationException("Unknown index $index in Ruleset deserialization")
+            }
+        }
+        decStructure.endStructure(descriptor)
+
+        return Ruleset(
+            canAddMainPieces = canAddMainPieces,
+            canAddBlankPieces = canAddBlankPieces,
+            canAddRemoveTabs = canAddRemoveTabs,
+            canColorTabs = canColorTabs,
+            canEditBaseText = canEditBaseText,
+            canEditTabText = canEditTabText,
+            doesAllowTabText = doesAllowTabText
+        )
+    }
+
+    override fun serialize(encoder: Encoder, value: Ruleset) {
+        throw NotImplementedError("Serialization for Ruleset is not implemented yet")
     }
 }
 
