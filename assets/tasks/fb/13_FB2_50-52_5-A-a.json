@@ -6,8 +6,8 @@
   },
   "tasks": [
     {
-      "taskDescription": "A kapott puzzle-ekből rakj össze elfogadható puzzle-szerkezeteket! Írd rá az igepuzzle füleire a megfelelő végződéseket!",
-      "requiredSolutions": 1,
+      "taskDescription": "A kapott puzzle-ekből rakj össze elfogadható puzzle-szerkezeteket, de előbb írd rá az igepuzzle füleire a megfelelő végződéseket!",
+      "requiredSolutions": 4,
       "predefinedPieces": [
         {
           "text": "kioszt",
@@ -303,29 +303,6 @@
               }
             },
             {
-              "text": "a baráti kapcsolataim",
-              "grammaticalRole": "ADVERBIAL",
-              "via": {
-                "text": "-nak/-nek"
-              }
-            }
-          ]
-        },
-        {
-          "checkTabText": "true",
-          "centerPiece": {
-            "text": "árt",
-            "grammaticalRole": "VERB"
-          },
-          "puzzlesConnected": [
-            {
-              "text": "mi",
-              "grammaticalRole": "SUBJECT",
-              "via": {
-                "text": ""
-              }
-            },
-            {
               "text": "a vállalat helyi vezetője",
               "grammaticalRole": "ADVERBIAL",
               "via": {
@@ -350,52 +327,6 @@
             },
             {
               "text": "az értekezleten részt vevő alkalmazottak",
-              "grammaticalRole": "ADVERBIAL",
-              "via": {
-                "text": "-nak/-nek"
-              }
-            }
-          ]
-        },
-        {
-          "checkTabText": "true",
-          "centerPiece": {
-            "text": "árt",
-            "grammaticalRole": "VERB"
-          },
-          "puzzlesConnected": [
-            {
-              "text": "a vállalat helyi vezetője",
-              "grammaticalRole": "SUBJECT",
-              "via": {
-                "text": ""
-              }
-            },
-            {
-              "text": "a baráti kapcsolataim",
-              "grammaticalRole": "ADVERBIAL",
-              "via": {
-                "text": "-nak/-nek"
-              }
-            }
-          ]
-        },
-        {
-          "checkTabText": "true",
-          "centerPiece": {
-            "text": "árt",
-            "grammaticalRole": "VERB"
-          },
-          "puzzlesConnected": [
-            {
-              "text": "a vállalat helyi vezetője",
-              "grammaticalRole": "SUBJECT",
-              "via": {
-                "text": ""
-              }
-            },
-            {
-              "text": "a vállalat helyi vezetője",
               "grammaticalRole": "ADVERBIAL",
               "via": {
                 "text": "-nak/-nek"

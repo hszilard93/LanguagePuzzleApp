@@ -1,9 +1,9 @@
 {
   "type": "EDIT_PUZZLES",
-  "buttonDescription": "FB2/41–42/3.IV.1.b",
+  "buttonDescription": "FB2/41–42/3.IV.1b",
   "tasks": [
     {
-      "taskDescription": "Válassz egyet a 3.I.3. feladat b. pontjában megalkotott hat mondatból, és rajzold le a puzzle-szerkezetét (igepuzzle és szereplők)! Az ige füleibe írd bele a megfelelő végződéseket!\n\"Lokuci bemutatja Illokucit Perlokucinak.\"\n\"Lokuci bemutatja Perlokucit Illokucinak.\"\n\"Illokuci mutatja be Perlokucit Lokucinak.\"\n\"Illokuci Perlokucinak mutatja be Lokucit.\"\n\"Illokucit Perlokuci mutatja be Lokucinak.\"\n\"Perlokuci Lokucit mutatja be Illokucinak.\"\n",
+      "taskDescription": "Válassz egyet a 3.I.3. feladat b. pontjában megalkotott, alábbi hat mondatból! Készítsd el az ige puzzle-jét, majd a puzzle-darabokat is töltsd ki, és rakd össze a puzzle-szerkezetet!\n\"Lokuci bemutatja Illokucit Perlokucinak.\"\n\"Lokuci bemutatja Perlokucit Illokucinak.\"\n\"Illokuci mutatja be Perlokucit Lokucinak.\"\n\"Illokuci Perlokucinak mutatja be Lokucit.\"\n\"Illokucit Perlokuci mutatja be Lokucinak.\"\n\"Perlokuci Lokucit mutatja be Illokucinak.\"\n",
       "predefinedPieces": [
         {
           "text": "",
