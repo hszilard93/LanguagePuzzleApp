@@ -218,11 +218,12 @@ class UIManager(
         if (garbageBinImage != null) {
             bottomBarTable.add(garbageBinImage).width(125f).height(125f).pad(12f)
         }
-        bottomBarTable.add(backPageImageButton).width(72f).height(72f).pad(12f)
+        bottomBarTable.add(backPageImageButton).width(75f).height(75f).pad(12f).padBottom(15f)
         bottomBarTable.add().expandX()
-        bottomBarTable.add(forwardPageImageButton).width(72f).height(72f).pad(12f).padBottom(20f).padRight(40f)
+        bottomBarTable.add(forwardPageImageButton).width(75f).height(75f).pad(12f).padBottom(15f).padRight(40f)
         bottomBarTable.add(checkMarkImage).width(80f).height(80f).padLeft(12f).padBottom(-25f)
         bottomBarTable.pack()
+        bottomBarTable.debug = false
 
         uiStage.addActor(bottomBarTable)
     }

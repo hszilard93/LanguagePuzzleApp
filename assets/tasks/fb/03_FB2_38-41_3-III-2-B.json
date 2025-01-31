@@ -2,7 +2,8 @@
   "type": "PLACE_PUZZLES_IN_ORDER",
   "buttonDescription": "FB2/38-41/3.III.2.a.B",
   "customRuleset": {
-    "canEditTabText": "true"
+    "canEditTabText": "false",
+    "canColorTabs": "true"
   },
   "tasks": [
     {
