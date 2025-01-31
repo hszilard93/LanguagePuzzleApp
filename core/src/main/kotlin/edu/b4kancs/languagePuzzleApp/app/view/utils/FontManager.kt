@@ -22,7 +22,7 @@ private const val MENU_DEFAULT_FONT_SIZE = 24
 private const val UI_DEFAULT_FONT_SIZE = 22
 private const val PUZZLE_BASE_FONT_SIZE = 40
 private const val PUZZLE_TAB_FONT_SIZE = (PUZZLE_BASE_FONT_SIZE * 0.75f).toInt()
-private const val MIN_FONT_SIZE = 3
+private const val MIN_FONT_SIZE = 16
 
 // Caching the FreeTypeFontGenerator objects to save on IO
 private val fontGeneratorMapByFileName = mutableMapOf<String, FreeTypeFontGenerator>()

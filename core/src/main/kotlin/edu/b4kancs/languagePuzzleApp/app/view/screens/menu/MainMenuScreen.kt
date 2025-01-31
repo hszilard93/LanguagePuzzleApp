@@ -65,7 +65,7 @@ class MainMenuScreen(
 
         Gdx.input.inputProcessor = stage
 
-        val fontMultiplier = maxOf(Gdx.graphics.width / 1200f, Gdx.graphics.height / 800f)
+        val fontMultiplier = maxOf(1200f / Gdx.graphics.width, 800f / Gdx.graphics.height) //* 1.5f
 
         buttonTable.center() // Center the button table content
 

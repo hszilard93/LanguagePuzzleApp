@@ -3,13 +3,12 @@ package edu.b4kancs.languagePuzzleApp.app.model
 import com.badlogic.gdx.files.FileHandle
 import com.badlogic.gdx.math.Vector2
 import edu.b4kancs.languagePuzzleApp.app.model.exercise.Exercise
-import edu.b4kancs.languagePuzzleApp.app.model.exercise.SolutionResult
-import edu.b4kancs.languagePuzzleApp.app.model.exercise.SolutionConfiguration
 import edu.b4kancs.languagePuzzleApp.app.model.exercise.Task
-import edu.b4kancs.languagePuzzleApp.app.model.exercise.TaskType
 import edu.b4kancs.languagePuzzleApp.app.view.screens.game.UIManager
 import kotlinx.serialization.json.Json
 import ktx.log.logger
+import kotlin.math.ceil
+import kotlin.math.sqrt
 
 const val LOG_LEVEL_MISC = 4
 
@@ -29,9 +28,12 @@ class GameModel {
     var puzzlePieces: MutableList<PuzzlePiece> = ArrayList()
         private set
 
-
-    private val basePosition = Vector2(-135f, -400f)
-    private var lastPuzzlePosition = basePosition
+    // VALUES USED TO POSITION THE PUZZLE PIECES
+    private val puzzlePieceSize = PuzzlePiece.MIN_SIZE
+    private val puzzlePieceSpacingX = 175f // Horizontal spacing between pieces
+    private val puzzlePieceSpacingY = 175f // Vertical spacing between pieces
+    private val gridOffsetX = 0f // Padding around the grid horizontally
+    private val gridOffsetY = 0f // Padding around the grid vertically
 
     // Currently unused, can be used to load exercises from disk.
     private val jsonSerializer = Json {
@@ -117,25 +119,41 @@ class GameModel {
     }
 
     private fun repositionPuzzlePieces() {
-        puzzlePieces.forEach { it.pos = calculateNextPuzzlePosition(it.grammaticalRole) }
+        positionPuzzlePiecesInGrid()
     }
 
-    private fun calculateNextPuzzlePosition(role: GrammaticalRole): Vector2 {
-        if (role == GrammaticalRole.VERB) {
-            lastPuzzlePosition = basePosition
-            return basePosition
-        }
+    private fun positionPuzzlePiecesInGrid() {
+        if (puzzlePieces.isEmpty()) return
 
-        var nextX: Float = if (lastPuzzlePosition == basePosition) {
-            (puzzlePieces.size - 1) * 400f / 2 * -1
-        }
-        else {
-            lastPuzzlePosition.x + 450f
-        }
-        var nextY = basePosition.y + 450f
+        val numPieces = puzzlePieces.size
 
-        lastPuzzlePosition = Vector2(nextX, nextY)
-        return lastPuzzlePosition
+        // Calculate grid dimensions (aim for roughly square)
+        val numColumns = ceil(sqrt(numPieces.toDouble())).toInt()
+        val numRows = ceil(numPieces.toDouble() / numColumns).toInt()
+
+        // Calculate total grid width and height
+        val gridWidth = (numColumns * puzzlePieceSize) + ((numColumns - 1) * puzzlePieceSpacingX)
+        val gridHeight = (numRows * puzzlePieceSize) + ((numRows - 1) * puzzlePieceSpacingY)
+
+        // Calculate starting position to center the grid
+        val startX = 0 - gridWidth / 2f + gridOffsetX
+        val startY = 0 - gridHeight / 2f + gridOffsetY
+
+        var pieceIndex = 0
+        for (row in 0 until numRows) {
+            for (col in 0 until numColumns) {
+                if (pieceIndex < numPieces) {
+                    val piece = puzzlePieces[pieceIndex]
+                    val x = startX + (col * (puzzlePieceSize + puzzlePieceSpacingX))
+                    val y = startY + (row * (puzzlePieceSize + puzzlePieceSpacingY))
+                    piece.pos = Vector2(x, y)
+                    pieceIndex++
+                }
+                else {
+                    break // No more pieces
+                }
+            }
+        }
     }
 
     /**

@@ -30,10 +30,13 @@ class CameraController(
     }
 
     fun recenterCamera() {
-        gameModel.puzzlePieces.find { it.grammaticalRole == GrammaticalRole.VERB }?.let {
-            gameCamera.position.set(it.pos.x + it.size / 2, it.pos.y + it.size / 2 + 200f, 0f)
-            gameCamera.update()
-        }
+//        gameModel.puzzlePieces.find { it.grammaticalRole == GrammaticalRole.VERB }?.let {
+//            gameCamera.position.set(it.pos.x + it.size / 2, it.pos.y + it.size / 2 + 200f, 0f)
+//            gameCamera.update()
+//        }
+
+        gameCamera.position.set(0f, 0f, 0f)
+        gameCamera.update()
     }
 
     fun resize(newWidth: Int, newHeight: Int) {

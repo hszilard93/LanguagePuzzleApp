@@ -297,7 +297,7 @@ class PuzzleManager(
     private fun checkSolution() {
         val verbPuzzles = gameModel.puzzlePieces.filter { it.grammaticalRole == GrammaticalRole.VERB }
 
-        if (verbPuzzles.size != gameModel.currentTask?.requiredSolutions) {
+        if (verbPuzzles.size < gameModel.currentTask?.requiredSolutions ?: 1) {
             uiManager.hideCheckMark()
             return
         }
@@ -317,14 +317,14 @@ class PuzzleManager(
         }
 
         val aggregateSolutionState: SolutionResult =
-            if (solutionResults.contains(SolutionResult.INELIGIBLE)) {
+            if (solutionResults.count { it == SolutionResult.CORRECT } >= gameModel.currentTask?.requiredSolutions ?: 1) {
+                SolutionResult.CORRECT
+            }
+            else if (solutionResults.contains(SolutionResult.INELIGIBLE)) {
                 SolutionResult.INELIGIBLE
             }
-            else if (solutionResults.contains(SolutionResult.INCORRECT)) {
-                SolutionResult.INCORRECT
-            }
             else {
-                SolutionResult.CORRECT
+                SolutionResult.INCORRECT
             }
 
         when (aggregateSolutionState) {

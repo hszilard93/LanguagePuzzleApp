@@ -6,7 +6,7 @@
   "buttonDescription": "FB2/46–47/3.VI.2a",
   "tasks": [
     {
-      "taskDescription": "Mindenki válasszon ki magában két igét az alábbiak közül!\n\"reklámoz\", \"töpreng\", \"áradozik\", \"elárul\", \"lefényképez\", \"megles\"\nGondolja végig, hogy a kiválasztott igékkel megragadható jeleneteknek mik lennének a visszatérő elemei! Ezeket nevezze meg, de ne egyetlen szóval, hanem részletezőbb kifejezéssel, majd írja le egy puzzle-darabra, és rakja össze a puzzle-szerkezetet!\nPl. beburkolózik -> valaki, aki beburkolózik (pl. a toronyugró bajnok) + valami, amibe beburkolózik (pl. a jól ismert kék törölközője)\n",
+      "taskDescription": "Válassz ki két tetszőleges igét az alábbiak közül!\n\"reklámoz\", \"töpreng\", \"áradozik\", \"elárul\", \"lefényképez\", \"megles\"\nGondold végig, hogy a kiválasztott igékkel megragadható jeleneteknek mik lennének a visszatérő elemei! Ezeket nevezd meg, de ne egyetlen szóval, hanem részletezőbb kifejezéssel, majd írd le egy puzzle-darabra, és rakd össze a puzzle-szerkezetet!\nPl. beburkolózik -> valaki, aki beburkolózik (pl. a toronyugró bajnok) + valami, amibe beburkolózik (pl. a jól ismert kék törölközője)\n",
       "predefinedPieces": [],
       "requiredSolutions": 2,
       "solutionConfigurations": [
