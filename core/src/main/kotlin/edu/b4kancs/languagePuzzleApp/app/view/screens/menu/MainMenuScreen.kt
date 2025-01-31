@@ -16,6 +16,8 @@ import com.badlogic.gdx.utils.JsonReader
 import com.badlogic.gdx.utils.viewport.ExtendViewport
 import edu.b4kancs.languagePuzzleApp.app.Game
 import edu.b4kancs.languagePuzzleApp.app.misc
+import edu.b4kancs.languagePuzzleApp.app.model.Environment
+import edu.b4kancs.languagePuzzleApp.app.model.Platform
 import edu.b4kancs.languagePuzzleApp.app.view.screens.game.CursorManager
 import edu.b4kancs.languagePuzzleApp.app.view.screens.game.GameScreen
 import edu.b4kancs.languagePuzzleApp.app.view.ui.FilePickerInterface
@@ -25,11 +27,19 @@ import edu.b4kancs.languagePuzzleApp.app.view.utils.toRGBFloat
 import ktx.app.KtxScreen
 import ktx.inject.Context
 import ktx.log.logger
+import java.io.BufferedReader
+import java.io.IOException
 
 class MainMenuScreen(
     context: Context,
     private val game: Game
 ) : KtxScreen {
+
+    companion object {
+        private val logger = logger<MainMenuScreen>()
+    }
+
+    private val environment = context.inject<Environment>()
 
     private val viewPortDimensions = Vector2(1200f, 800f)
     private val viewport = ExtendViewport(viewPortDimensions.x, viewPortDimensions.y)
@@ -39,15 +49,14 @@ class MainMenuScreen(
     private val hudFont = context.inject<HudFontHolder>().font
     private val cursorManager: CursorManager = context.inject()
 
-    companion object {
-        private val logger = logger<MainMenuScreen>()
-        private val PAGE_NUMBER_REGEX = Regex("FB2/(\\d+)(?:-\\d+)?[/]")
-    }
-
     private val stage = Stage(viewport)
     private val buttonTable = Table() // Table for buttons (renamed for clarity)
     private val menuButtons = mutableListOf<TextButton>()
     private val jsonReader = JsonReader()
+
+    private val fbTasksWebPath = "tasks/fb" // Web path prefix. Does not work.
+    private val fbTasksDesktopPath = "assets/tasks/fb" // Desktop path prefix
+    private val fileListPath = "tasks/fb_task_list.txt" // Path to the file list
 
     override fun show() {
         logger.debug { "MainMenuScreen: show" }
@@ -59,10 +68,9 @@ class MainMenuScreen(
         val fontMultiplier = maxOf(Gdx.graphics.width / 1200f, Gdx.graphics.height / 800f)
 
         buttonTable.center() // Center the button table content
-        table.center()
 
         if (menuButtons.isEmpty()) {    // Load the exercises only once per instance.
-            loadExercisesAndCreateButtons("assets/tasks/fb", fontMultiplier)
+            loadExercisesAndCreateButtons(fontMultiplier) // Modified to not take path as argument
 
             menuButtons.sortBy { button ->
                 extractPageNumber(button.text.toString()) ?: Int.MAX_VALUE
@@ -74,53 +82,72 @@ class MainMenuScreen(
 
         menuButtons.forEach { button ->
             buttonTable.add(button).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(80f).pad(0f).row()
-//            addManualButtons(fontMultiplier)
         }
 
         val scrollPane = ScrollPane(buttonTable, uiSkin).apply {
             fadeScrollBars = false
             setScrollbarsVisible(true)
             setScrollingDisabled(true, false)
-            // Removed setFillParent(true) from ScrollPane
-            width = buttonTable.width + 100f // Keep width setting if needed
-            debug = true // Keep debug if needed
+            width = buttonTable.width + 100f
+            debug = false
         }
 
         val outerTable = Table().apply {
-            setFillParent(true) // Outer table fills the stage
-            add().height(50f).row() // Top margin row
+            setFillParent(true)
+            add().height(50f).row()
             add().width(Gdx.graphics.width / 5f)
-            add(scrollPane).grow()     // ScrollPane in the middle row, grows to fill space
+            add(scrollPane).grow()
             add().width(Gdx.graphics.width / 5f).row()
-            add().height(50f).row() // Bottom margin row
-            debug = false // Set debug for outer table if needed
+            add().height(50f).row()
+            debug = false
         }
 
         stage.addActor(outerTable) // Add the outer table to the stage
+        stage.setScrollFocus(scrollPane)
 
         cursorManager.setCursor(null)
     }
 
-    private fun loadExercisesAndCreateButtons(path: String, fontMultiplier: Float) {
-        logger.info { "Loading exercises from disk..." }
-        val tasksDir = Gdx.files.internal(path) // Assuming exercises are in "tasks/" directory
+    // I am using a pregenerated file list because the Gdx.files.internal works incorrectly in TeaVM in the case of directories.
+    private fun loadExercisesAndCreateButtons(fontMultiplier: Float) {
+        logger.info { "Loading exercises from file list: $fileListPath" }
+        val fileListHandle = Gdx.files.internal(fileListPath)
 
-        if (!tasksDir.exists() || !tasksDir.isDirectory) {
-            logger.error { "Tasks directory '$path' not found or is not a directory." }
+        if (!fileListHandle.exists()) {
+            logger.error { "File list not found: $fileListPath" }
             return
         }
 
-        val exerciseFiles = tasksDir.list(".json") // List only .json files
+        val buttonStyle = createButtonStyle(fontMultiplier)
+        val fileNames = mutableListOf<String>()
 
-        if (exerciseFiles.isEmpty()) {
-            logger.info { "No exercise files found in 'tasks/' directory." }
-            // You might want to display a message to the user in the UI
+        try {
+            BufferedReader(fileListHandle.reader()).use { reader ->
+                var line: String? = reader.readLine()
+                while (line != null) {
+                    val fileName = line.trim()
+                    if (fileName.isNotBlank()) {
+                        fileNames.add(fileName)
+                    }
+                    line = reader.readLine()
+                }
+            }
+        } catch (e: IOException) {
+            logger.error(e) { "Error reading file list: $fileListPath" }
             return
         }
 
-        val buttonStyle = createButtonStyle(fontMultiplier) // Create button style once
+        if (fileNames.isEmpty()) {
+            logger.info { "No filenames found in $fileListPath." }
+            return
+        }
 
-        exerciseFiles.forEach { fileHandle ->
+        val tasksBasePath = if (environment.platform == Platform.WEB) fbTasksWebPath else fbTasksDesktopPath
+
+        fileNames.forEach { fileName ->
+            val exerciseFilePath = "$tasksBasePath/$fileName" // Construct full path
+            val fileHandle = Gdx.files.internal(exerciseFilePath)
+
             try {
                 logger.debug { "Trying to load exercise from: ${fileHandle.path()}" }
                 val json = jsonReader.parse(fileHandle)
@@ -143,8 +170,7 @@ class MainMenuScreen(
                             }
                         }
                     })
-                }
-                else {
+                } else {
                     logger.error { "Exercise file '${fileHandle.path()}' is missing 'buttonDescription', skipping." }
                 }
             } catch (e: Exception) {
@@ -152,6 +178,18 @@ class MainMenuScreen(
             }
         }
     }
+
+    // Helps debug path errors
+//    private fun logFolderStructure(fileHandle: FileHandle, indent: String = "") {
+//        if (fileHandle.isDirectory) {
+//            logger.error { "$indent[D] ${fileHandle.path()}\n" }
+//            fileHandle.list().forEach { child ->
+//                logFolderStructure(child, "$indent  ")
+//            }
+//        } else {
+//            logger.error { "$indent[F] ${fileHandle.path()}\n" }
+//        }
+//    }
 
     private fun createButtonStyle(fontMultiplier: Float): TextButton.TextButtonStyle {
         val font = loadMenuFont(fontMultiplier)
@@ -161,52 +199,9 @@ class MainMenuScreen(
         }
     }
 
-    private fun addManualButtons(fontMultiplier: Float) {
-        val buttonStyle = createButtonStyle(fontMultiplier)
-
-        val loadExerciseButton = TextButton("Feladat betöltése fájlból", uiSkin).apply {
-            style = buttonStyle
-//            menuButtons.add(this)
-        }
-        val settingsButton = TextButton("Beallítások", uiSkin).apply {
-            style = buttonStyle
-//            menuButtons.add(this)
-        }
-        val exitButton = TextButton("Kilepés", uiSkin).apply {
-            style = buttonStyle
-//            menuButtons.add(this)
-        }
-
-        loadExerciseButton.addListener(object : ClickListener() {
-            override fun clicked(event: InputEvent?, x: Float, y: Float) {
-                logger.info { "Load Exercise from Disk button clicked" }
-                filePicker.openFileChooser { fileHandle ->
-                    logger.info { "Selected file: ${fileHandle.path()}" }
-                    // Ensure that loadExerciseFromDisk runs on the LibGDX rendering thread
-                    Gdx.app.postRunnable {
-                        game.loadExerciseFromDisk(fileHandle)
-                    }
-                }
-            }
-        })
-
-        settingsButton.addListener(object : ClickListener() {
-            override fun clicked(event: InputEvent?, x: Float, y: Float) {
-                logger.info { "Settings button clicked" }
-                // game.setScreen<SettingsScreen>() // Implement SettingsScreen as needed
-            }
-        })
-
-        exitButton.addListener(object : ClickListener() {
-            override fun clicked(event: InputEvent?, x: Float, y: Float) {
-                logger.info { "Exit button clicked" }
-                Gdx.app.exit()
-            }
-        })
-    }
-
     private fun extractPageNumber(buttonText: String): Int? {
-        val matchResult = PAGE_NUMBER_REGEX.find(buttonText)
+        val pageNumberRegex = Regex("FB2/(\\d+)(?:-\\d+)?[/]")
+        val matchResult = pageNumberRegex.find(buttonText)
         return matchResult?.groups?.get(1)?.value?.toIntOrNull()
     }
 
