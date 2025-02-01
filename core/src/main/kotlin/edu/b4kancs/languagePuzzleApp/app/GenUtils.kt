@@ -1,7 +1,7 @@
 package edu.b4kancs.languagePuzzleApp.app
 
 import com.badlogic.gdx.Gdx
-import edu.b4kancs.languagePuzzleApp.app.model.LOG_LEVEL_MISC
+import edu.b4kancs.languagePuzzleApp.app.Game.Companion.LOG_LEVEL_MISC
 import ktx.log.Logger
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind

@@ -1,0 +1,196 @@
+{
+  "type": "FREE_EDIT_PUZZLE",
+  "buttonDescription": "FB2/44–45/3.V.2.A.a-b",
+  "tasks": [
+    {
+      "taskDescription": "Válaszd ki melyik puzzle-szerkezet talál a mondathoz! A kiválasztottat szedd szét, írd rá a puzzle-ekre a megfelelő szót vagy kifejezést és az igefülekbe a megfelelő toldalékot, majd rakd újra össze!\nCsoporton belül ellenőrizzétek megoldásaitokat!\n1. \"Terka elárulta a titkot Tibinek.\"",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "connectedTo": ""
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": "",
+              "connectedTo": ""
+            },
+            {
+              "side": "RIGHT",
+              "grammaticalRole": "ADVERBIAL",
+              "text": "",
+              "connectedTo": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "connectedTo": ""
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": "",
+              "connectedTo": ""
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "connectedTo": ""
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "ADVERBIAL",
+              "text": "",
+              "connectedTo": ""
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "connectedTo": ""
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "ADVERBIAL",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "LEFT"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "ADVERBIAL",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "elárul",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Terka",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a titok",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "Tibi",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-nak/-nek"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

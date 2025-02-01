@@ -545,6 +545,10 @@ class PuzzlePiece(
         }
     }
 
+    fun getBoundingRectangle(): Rectangle {
+        return Rectangle(pos.x, pos.y, size, size)
+    }
+
     fun isPointerOverTextLayout(mousePos: Vector2): Boolean {
         return textLayoutBounds.contains(mousePos.x, mousePos.y)
     }
