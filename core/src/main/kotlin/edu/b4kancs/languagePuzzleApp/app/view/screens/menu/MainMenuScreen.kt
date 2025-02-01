@@ -72,9 +72,13 @@ class MainMenuScreen(
         if (menuButtons.isEmpty()) {    // Load the exercises only once per instance.
             loadExercisesAndCreateButtons(fontMultiplier) // Modified to not take path as argument
 
-            menuButtons.sortBy { button ->
-                extractPageNumber(button.text.toString()) ?: Int.MAX_VALUE
-            }
+            menuButtons.sortWith(
+                compareBy(
+                    { extractPageNumber(it.text.toString()) ?: Int.MAX_VALUE },
+                    { it.text.toString() }
+                )
+            )
+
             menuButtons.forEachIndexed { i, button ->
                 button.setText("${i + 1}. feladat: ${button.text}")
             }

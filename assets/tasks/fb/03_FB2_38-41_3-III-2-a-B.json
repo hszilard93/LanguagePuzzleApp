@@ -2,12 +2,12 @@
   "type": "PLACE_PUZZLES_IN_ORDER",
   "buttonDescription": "FB2/38–41/3.III.2.a.B",
   "customRuleset": {
-    "canEditTabText": "false",
-    "canColorTabs": "true"
+    "canEditTabText": "true",
+    "canColorTabs": "false"
   },
   "tasks": [
     {
-      "taskDescription": "Keresd meg az igepuzzle-t, és válaszd ki az ige füleire illő végződést, amelyből a többiek is érteni fogják a szó, kifejezés szerepét! Ezután helyezd a megfelelő puzzle-darabokat az ige füleire! Állapítsd meg, és írd le a füzetedbe, hogy milyen szerepük van az egyes szavaknak, kifejezéseknek az igével leírható jelenetben!\nSegítség lehet a Feladatbank 40. oldalán levő példa.",
+      "taskDescription": "Keresd meg az igepuzzle-t, és írd rá az ige füleire a megfelelő végződést, amelyből a többiek is érteni fogják a szó, kifejezés szerepét! Ezután helyezd a megfelelő puzzle-darabokat az ige füleire! Állapítsd meg, és írd le a füzetedbe, hogy milyen szerepük van az egyes szavaknak, kifejezéseknek az igével leírható jelenetben!\nSegítség lehet a Feladatbank 40. oldalán levő példa.",
       "predefinedPieces": [
         {
           "text": "rábíz",
@@ -72,21 +72,21 @@
           "puzzlesConnected": [
             {
               "text": "a szülő",
-              "grammaticalRole": "SUBJECT",
+              "grammaticalRole": "UNDEFINED",
               "via": {
                 "text": ""
               }
             },
             {
               "text": "a gyerek",
-              "grammaticalRole": "OBJECT",
+              "grammaticalRole": "UNDEFINED",
               "via": {
                 "text": "-t"
               }
             },
             {
               "text": "az óvó néni",
-              "grammaticalRole": "ADVERBIAL",
+              "grammaticalRole": "UNDEFINED",
               "via": {
                 "text": "-ra/-re"
               }
@@ -161,21 +161,21 @@
           "puzzlesConnected": [
             {
               "text": "Gyuri",
-              "grammaticalRole": "SUBJECT",
+              "grammaticalRole": "UNDEFINED",
               "via": {
                 "text": ""
               }
             },
             {
               "text": "az igazgató",
-              "grammaticalRole": "OBJECT",
+              "grammaticalRole": "UNDEFINED",
               "via": {
                 "text": "-t"
               }
             },
             {
               "text": "a labda",
-              "grammaticalRole": "ADVERBIAL",
+              "grammaticalRole": "UNDEFINED",
               "via": {
                 "text": "-val/-vel"
               }
@@ -250,21 +250,21 @@
           "puzzlesConnected": [
             {
               "text": "a királyfi",
-              "grammaticalRole": "SUBJECT",
+              "grammaticalRole": "UNDEFINED",
               "via": {
                 "text": ""
               }
             },
             {
               "text": "a királylány",
-              "grammaticalRole": "OBJECT",
+              "grammaticalRole": "UNDEFINED",
               "via": {
                 "text": "-t"
               }
             },
             {
               "text": "a sárkány",
-              "grammaticalRole": "ADVERBIAL",
+              "grammaticalRole": "UNDEFINED",
               "via": {
                 "text": "-tól/-től"
               }
@@ -339,21 +339,21 @@
           "puzzlesConnected": [
             {
               "text": "az orvos",
-              "grammaticalRole": "SUBJECT",
+              "grammaticalRole": "UNDEFINED",
               "via": {
                 "text": ""
               }
             },
             {
               "text": "egy páciens",
-              "grammaticalRole": "OBJECT",
+              "grammaticalRole": "UNDEFINED",
               "via": {
                 "text": "-t"
               }
             },
             {
               "text": "a betegség",
-              "grammaticalRole": "ADVERBIAL",
+              "grammaticalRole": "UNDEFINED",
               "via": {
                 "text": "-ból/-ből"
               }
@@ -428,21 +428,21 @@
           "puzzlesConnected": [
             {
               "text": "Marci",
-              "grammaticalRole": "SUBJECT",
+              "grammaticalRole": "UNDEFINED",
               "via": {
                 "text": ""
               }
             },
             {
               "text": "a Peti nadrágja",
-              "grammaticalRole": "OBJECT",
+              "grammaticalRole": "UNDEFINED",
               "via": {
                 "text": "-t"
               }
             },
             {
               "text": "a szék",
-              "grammaticalRole": "ADVERBIAL",
+              "grammaticalRole": "UNDEFINED",
               "via": {
                 "text": "-hez"
               }
@@ -517,21 +517,21 @@
           "puzzlesConnected": [
             {
               "text": "a kínai szakács",
-              "grammaticalRole": "SUBJECT",
+              "grammaticalRole": "UNDEFINED",
               "via": {
                 "text": ""
               }
             },
             {
               "text": "a sonkás pizza",
-              "grammaticalRole": "OBJECT",
+              "grammaticalRole": "UNDEFINED",
               "via": {
                 "text": "-t"
               }
             },
             {
               "text": "sajt",
-              "grammaticalRole": "ADVERBIAL",
+              "grammaticalRole": "UNDEFINED",
               "via": {
                 "text": "-val/-vel"
               }

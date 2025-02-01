@@ -190,6 +190,20 @@
               {
                 "grammaticalRole": "UNDEFINED",
                 "text": ""
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "utazik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
               },
               {
                 "grammaticalRole": "UNDEFINED",
