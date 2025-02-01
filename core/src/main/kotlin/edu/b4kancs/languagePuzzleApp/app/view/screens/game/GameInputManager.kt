@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input
 import com.badlogic.gdx.InputAdapter
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.math.Vector3
+import edu.b4kancs.languagePuzzleApp.app.Game.Companion.DEFAULT_ZOOM
 import edu.b4kancs.languagePuzzleApp.app.misc
 import edu.b4kancs.languagePuzzleApp.app.model.Environment
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
@@ -49,6 +50,7 @@ class GameInputManager(
     private var isPotentialClick = false
 
     private var isCtrlPressed = false
+    private var isAltPressed = false
 
     var lastPublicMouseWorldPos = Vector2()
         private set
@@ -214,6 +216,10 @@ class GameInputManager(
 
         when (keycode) {
             Input.Keys.CONTROL_LEFT, Input.Keys.CONTROL_RIGHT -> isCtrlPressed = true
+            Input.Keys.ALT_LEFT, Input.Keys.ALT_RIGHT -> isAltPressed = true
+        }
+
+        when (keycode) {
             Input.Keys.LEFT -> if (isCtrlPressed) {
                 logger.debug { "Ctrl + Left Arrow pressed" }
                 gameModel.setUpPreviousTask {
@@ -228,12 +234,44 @@ class GameInputManager(
                 }
                 return true
             }
+
+            Input.Keys.I -> if (isAltPressed) {
+                logger.debug { "Alt + I pressed" }
+                resetZoom()
+                return true
+            }
+
+            Input.Keys.U -> if (isAltPressed) {
+                logger.debug { "Alt + U pressed" }
+                zoomIn()
+                return true
+            }
+
+            Input.Keys.O -> if (isAltPressed) {
+                logger.debug { "Alt + O pressed" }
+                zoomOut()
+                return true
+            }
+
 //            Input.Keys.W -> {
 //                handleWPressed(Gdx.input.x, Gdx.input.y)
 //                return true
 //            }
             else -> return false
         }
+
+        return false
+    }
+
+    override fun keyUp(keycode: Int): Boolean {
+        logger.debug { "keyUp keycode=$keycode" }
+
+        when (keycode) {
+            Input.Keys.CONTROL_LEFT, Input.Keys.CONTROL_RIGHT -> isCtrlPressed = false
+            Input.Keys.ALT_LEFT, Input.Keys.ALT_RIGHT -> isAltPressed = false
+            else -> return false
+        }
+
         return false
     }
 
@@ -448,6 +486,23 @@ class GameInputManager(
         val offsetX = mouseWorldPosAfter.x - mouseWorldPosBefore.x
         val offsetY = mouseWorldPosAfter.y - mouseWorldPosBefore.y
         cameraController.gameCamera.translate(-offsetX, -offsetY, 0f)
+        cameraController.gameCamera.update()
+    }
+
+    private fun resetZoom() {
+        cameraController.gameCamera.zoom = DEFAULT_ZOOM
+        cameraController.gameCamera.update()
+    }
+
+    private fun zoomIn() {
+        val newZoom = (cameraController.gameCamera.zoom + 0.1f).coerceIn(1f, 3.5f)
+        cameraController.gameCamera.zoom = newZoom
+        cameraController.gameCamera.update()
+    }
+
+    private fun zoomOut() {
+        val newZoom = (cameraController.gameCamera.zoom - 0.1f).coerceIn(1f, 3.5f)
+        cameraController.gameCamera.zoom = newZoom
         cameraController.gameCamera.update()
     }
 

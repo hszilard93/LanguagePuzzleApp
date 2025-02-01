@@ -121,6 +121,10 @@ class GameScreen(
         logger.debug { "show" }
         gameCamera.moveTo(gameCamera.position.toVector2().add(0f, 150f))
         gameCamera.update()
+
+        // Temporary
+        puzzleManager.checkSolution()
+
         super.show()
     }
 

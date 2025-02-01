@@ -3,6 +3,7 @@ package edu.b4kancs.languagePuzzleApp.app.view.screens.game
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.viewport.Viewport
+import edu.b4kancs.languagePuzzleApp.app.Game.Companion.DEFAULT_ZOOM
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
 import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole
 import edu.b4kancs.languagePuzzleApp.app.view.utils.toVector2
@@ -16,7 +17,7 @@ class CameraController(
     private val gameModel: GameModel
 ) {
 
-    private val startZoom = 2.5f
+    private val startZoom = DEFAULT_ZOOM
 
     fun setupCameras() {
         gameCamera.setToOrtho(false, Constants.GAME_VIRTUAL_WIDTH, Constants.GAME_VIRTUAL_HEIGHT)

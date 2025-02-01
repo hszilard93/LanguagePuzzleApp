@@ -299,7 +299,7 @@ class PuzzleManager(
         gameInputManager.emulateDragging()
     }
 
-    private fun checkSolution() {
+    fun checkSolution() {
         val verbPuzzles = gameModel.puzzlePieces.filter { it.grammaticalRole == GrammaticalRole.VERB }
 
         if (verbPuzzles.size < gameModel.currentTask?.requiredSolutions ?: 1) {
