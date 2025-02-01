@@ -164,6 +164,9 @@ Thumbs.db
 
 .secrets
 
+## Project rules
 frameBufferScreenshot.png
 /generated-fonts
 /netlify_hosted
+/assets/tasks/fb_task_list.txt
+/assets/tasks/fb_task_list_generator.bat

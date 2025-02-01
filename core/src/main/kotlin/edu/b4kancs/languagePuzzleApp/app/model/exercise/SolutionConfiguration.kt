@@ -75,10 +75,10 @@ class SolutionConfiguration(
 //        val theseTexts = this.puzzlesConnected.map { it.text.lowercase() }.toSet()
 //        val thoseTexts = other.puzzlesConnected.map { it.text.lowercase() }.toSet()
 
-        val theseVerbTexts = this.puzzlesConnected.filter { it.grammaticalRole == GrammaticalRole.VERB }.map { it.text.lowercase() }.toSet()
-        val theseBlankTexts = this.puzzlesConnected.filter { it.grammaticalRole != GrammaticalRole.VERB }.map { it.text.lowercase() }.toSet()
-        val thoseVerbTexts = other.puzzlesConnected.filter { it.grammaticalRole == GrammaticalRole.VERB }.map { it.text.lowercase() }.toSet()
-        val thoseBlankTexts = other.puzzlesConnected.filter { it.grammaticalRole != GrammaticalRole.VERB }.map { it.text.lowercase() }.toSet()
+        val theseVerbTexts = this.puzzlesConnected.filter { it.grammaticalRole == GrammaticalRole.VERB }.map { it.text.process() }.toSet()
+        val theseBlankTexts = this.puzzlesConnected.filter { it.grammaticalRole != GrammaticalRole.VERB }.map { it.text.process() }.toSet()
+        val thoseVerbTexts = other.puzzlesConnected.filter { it.grammaticalRole == GrammaticalRole.VERB }.map { it.text.process() }.toSet()
+        val thoseBlankTexts = other.puzzlesConnected.filter { it.grammaticalRole != GrammaticalRole.VERB }.map { it.text.process() }.toSet()
 
         if (this.via.grammaticalRole != other.via.grammaticalRole) return false
         if (checkTabText) {
@@ -98,3 +98,5 @@ class SolutionConfiguration(
 //        if (this.roleOfConnection != other.roleOfConnection) return false
     }
 }
+
+fun String.process() = this.trim().lowercase()//.replace("(", "").replace(")", "")
