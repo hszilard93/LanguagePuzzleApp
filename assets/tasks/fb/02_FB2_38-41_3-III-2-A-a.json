@@ -8,7 +8,7 @@
   },
   "tasks": [
     {
-      "taskDescription": "Írd rá az igepuzzle-re az igét, a többi puzzle-re a további szavak valamelyikét, majd válassz az ige füleinek megfelelő szerepet. Válaszd ki az ige füleire illő végződést, amelyből a többiek is érteni fogják a szó, kifejezés szerepét, és helyezd rájuk a megfelelő puzzle-darabokat! Állapítsd meg, és írd le a füzetedbe, milyen szerepük van az egyes szavaknak, kifejezéseknek az igével leírható jelenetben!\nA felhasználandó szavak: \"rábíz\", \"a szülő\", \"a gyerek\", \"az óvó néni\"",
+      "taskDescription": "Írd rá az igepuzzle-re az igét, a többi puzzle-re a további szavak valamelyikét, majd írd rá az ige füleire a megfelelő toldalékot. Válaszd ki az ige füleire illő végződést, amelyből a többiek is érteni fogják a szó, kifejezés szerepét, és helyezd rájuk a megfelelő puzzle-darabokat! Állapítsd meg, és írd le a füzetedbe, milyen szerepük van az egyes szavaknak, kifejezéseknek az igével leírható jelenetben!\nA felhasználandó szavak: \"rábíz\", \"a szülő\", \"a gyerek\", \"az óvó néni\".",
       "predefinedPieces": [
         {
           "text": "",
