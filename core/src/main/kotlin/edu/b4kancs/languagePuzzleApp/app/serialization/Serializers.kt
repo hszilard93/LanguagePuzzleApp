@@ -120,6 +120,7 @@ object PuzzleTabSerializer : KSerializer<PuzzleTab> {
         element<Side>("side")
         element<GrammaticalRole>("grammaticalRole")
         element<String>("text")
+        element<String>("connectedTo", isOptional = true)
     }
 
     override fun serialize(encoder: Encoder, value: PuzzleTab) {
@@ -135,12 +136,14 @@ object PuzzleTabSerializer : KSerializer<PuzzleTab> {
         var side: Side = Side.BOTTOM // Replace with an appropriate default
         var grammaticalRole: GrammaticalRole = GrammaticalRole.SUBJECT // Replace with an appropriate default
         var text: String = ""
+        var connectedToText: String? = null
 
         loop@ while (true) {
             when (val index = decStructure.decodeElementIndex(descriptor)) {
                 0 -> side = decStructure.decodeSerializableElement(descriptor, 0, Side.serializer())
                 1 -> grammaticalRole = decStructure.decodeSerializableElement(descriptor, 1, GrammaticalRole.serializer())
                 2 -> text = decStructure.decodeStringElement(descriptor, 2)
+                3 -> connectedToText = decStructure.decodeStringElement(descriptor, 3)
                 CompositeDecoder.DECODE_DONE -> break@loop
                 else -> throw SerializationException("Unknown index $index in PuzzleTab deserialization")
             }
@@ -154,7 +157,9 @@ object PuzzleTabSerializer : KSerializer<PuzzleTab> {
             side = side,
             grammaticalRole = grammaticalRole,
             text = text
-        )
+        ).apply {
+            this.connectedToText = connectedToText
+        }
     }
 }
 

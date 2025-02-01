@@ -12,17 +12,20 @@
             {
               "side": "LEFT",
               "grammaticalRole": "SUBJECT",
-              "text": ""
+              "text": "",
+              "connectedTo": "(én)"
             },
             {
               "side": "TOP",
               "grammaticalRole": "OBJECT",
-              "text": "-t"
+              "text": "-t",
+              "connectedTo": "magam"
             },
             {
               "side": "RIGHT",
               "grammaticalRole": "ADVERBIAL",
-              "text": "-ért"
+              "text": "-ért",
+              "connectedTo": "a történtek"
             }
           ],
           "blanks": []

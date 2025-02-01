@@ -52,7 +52,7 @@ class Game(
 
     companion object {
         const val LOG_LEVEL = com.badlogic.gdx.utils.Logger.DEBUG
-        const val IS_DEBUG_MODE_ON = true
+        const val IS_DEBUG_MODE_ON = false
         val logger = logger<Game>()
     }
 

@@ -167,6 +167,10 @@ class PuzzleTab(
             owner?.hasChangedAppearance = true
         }
 
+    // New property for connection reference at deserialization time.
+    // Could make a wrapper class for this, but not right now.
+    var connectedToText: String? = null
+
     companion object {
         const val WIDTH = 150f
         const val HEIGHT = WIDTH * 1f
@@ -473,8 +477,10 @@ class PuzzlePiece(
     }
 
     fun addConnection(connection: Connection) {
-        _connections.add(connection)
-        hasChangedAppearance = true
+        if (!copyOfConnections.contains(connection)) {
+            _connections.add(connection)
+            hasChangedAppearance = true
+        }
     }
 
     fun removeConnection(connection: Connection) {

@@ -4,7 +4,7 @@ import com.badlogic.gdx.files.FileHandle
 import com.badlogic.gdx.math.Vector2
 import edu.b4kancs.languagePuzzleApp.app.model.exercise.Exercise
 import edu.b4kancs.languagePuzzleApp.app.model.exercise.Task
-import edu.b4kancs.languagePuzzleApp.app.view.screens.game.UIManager
+import edu.b4kancs.languagePuzzleApp.app.view.screens.game.PuzzleSnapHelper
 import kotlinx.serialization.json.Json
 import ktx.log.logger
 import kotlin.math.ceil
@@ -14,6 +14,8 @@ const val LOG_LEVEL_MISC = 4
 
 class GameModel {
 
+    val puzzleSnapHelper: PuzzleSnapHelper = PuzzleSnapHelper(this)
+
     var currentExercise: Exercise? = null
         private set
     var currentTask: Task? = null
@@ -22,8 +24,7 @@ class GameModel {
         private set
     var totalTaskCount: Int = 0
         private set
-    var isSolved: Boolean = false
-        private set
+    private var isSolved: Boolean = false
 
     var puzzlePieces: MutableList<PuzzlePiece> = ArrayList()
         private set
@@ -40,8 +41,6 @@ class GameModel {
         prettyPrint = true
     }
 
-    private lateinit var uiManager: UIManager
-
     companion object {
         val logger = logger<GameModel>()
     }
@@ -50,6 +49,7 @@ class GameModel {
         logger.debug { "Initializing GameModel." }
     }
 
+    // Currently unused, needs to be revised if to be used.
     private fun serializeExercise(exercise: Exercise): String {
         val jsonSerializer = Json {
             prettyPrint = true
@@ -66,7 +66,7 @@ class GameModel {
         initializeExercise(deserializeExerciseFromFile(fileHandle))
     }
 
-    fun initializeExercise(exercise: Exercise) {
+    private fun initializeExercise(exercise: Exercise) {
         logger.info { "Initializing exercise: $exercise" }
 
         currentExercise = exercise
@@ -75,7 +75,7 @@ class GameModel {
         totalTaskCount = currentExercise!!.tasks.size
     }
 
-    fun setUpTask(task: Task) {
+    private fun setUpTask(task: Task) {
         logger.debug { "Setting up task: ${task.taskDescription.take(12)}" }
 
         currentTask = task
@@ -125,13 +125,27 @@ class GameModel {
     private fun positionPuzzlePiecesInGrid() {
         if (puzzlePieces.isEmpty()) return
 
+        val preConnectedPieces = mutableSetOf<PuzzlePiece>()
+        val verbPiecesWithConnections = puzzlePieces.filter { it.grammaticalRole == GrammaticalRole.VERB && it.copyOfConnections.isNotEmpty() }
+
+        // Identify all preconnected pieces and log them
+        verbPiecesWithConnections.forEach { verbPiece ->
+            verbPiece.copyOfConnections.forEach { connection ->
+                preConnectedPieces.addAll(connection.puzzlesConnected)
+            }
+        }
+
+        if (preConnectedPieces.isNotEmpty()) {
+            logger.debug { "Found preconnected pieces: $preConnectedPieces" }
+        }
+
         val numPieces = puzzlePieces.size
 
-        // Calculate grid dimensions (aim for roughly square)
+        // Calculate grid dimensions (aim for roughly square) - UNCHANGED for now
         val numColumns = ceil(sqrt(numPieces.toDouble())).toInt()
         val numRows = ceil(numPieces.toDouble() / numColumns).toInt()
 
-        // Calculate total grid width and height
+        // Calculate total grid width and height - UNCHANGED for now
         val gridWidth = (numColumns * puzzlePieceSize) + ((numColumns - 1) * puzzlePieceSpacingX)
         val gridHeight = (numRows * puzzlePieceSize) + ((numRows - 1) * puzzlePieceSpacingY)
 
@@ -147,10 +161,37 @@ class GameModel {
                     val x = startX + (col * (puzzlePieceSize + puzzlePieceSpacingX))
                     val y = startY + (row * (puzzlePieceSize + puzzlePieceSpacingY))
                     piece.pos = Vector2(x, y)
+
+                    // Log if the piece is preconnected (for debugging/awareness)
+                    if (preConnectedPieces.contains(piece)) {
+                        logger.debug { "Positioned preconnected piece: ${piece.text} at ($x, $y)" }
+                    }
+                    else {
+                        logger.debug { "Positioned piece: ${piece.text} at ($x, $y)" }
+                    }
+
                     pieceIndex++
                 }
                 else {
                     break // No more pieces
+                }
+            }
+        }
+
+        verbPiecesWithConnections.forEach { verbPiece ->
+            verbPiece.copyOfConnections.forEach { connection ->
+                val piece1 = connection.puzzlesConnected.first() // Let's assume the verb piece is always first
+                val piece2 = connection.puzzlesConnected.last()  // and the other is second
+
+                val tabToSnap = connection.via
+                val blankToSnapTo = piece2.blanks.firstOrNull()
+
+                if (blankToSnapTo != null) {
+                    logger.debug { "Forced snapping: Tab '${tabToSnap.text}' on '${piece1.text}' to Blank on '${piece2.text}'" }
+                    puzzleSnapHelper.performForcedSnap(blankToSnapTo, tabToSnap)
+                }
+                else {
+                    logger.error { "Could not find compatible blank to snap to for tab '${tabToSnap.text}' on '${piece1.text}' to '${piece2.text}'" }
                 }
             }
         }
@@ -163,6 +204,26 @@ class GameModel {
     private fun initializePuzzlePieces(predefinedPieces: Set<PuzzlePiece>) {
         puzzlePieces.clear()
         puzzlePieces.addAll(predefinedPieces)
+
+        for (piece in puzzlePieces) {
+            for (tab in piece.tabs) {
+                tab.connectedToText?.let { targetText ->
+                    // Find the first puzzle piece whose text matches the target text.
+                    val targetPiece = predefinedPieces.firstOrNull { it.text == targetText && it.grammaticalRole == tab.grammaticalRole }
+                    if (targetPiece != null) {
+                        // Create a new connection linking the two pieces via this tab.
+                        val connection = Connection(
+                            puzzlesConnected = setOf(piece, targetPiece),
+                            via = tab,
+                            roleOfConnection = tab.grammaticalRole
+                        )
+                        piece.addConnection(connection)
+                        targetPiece.addConnection(connection)
+                    }
+                }
+            }
+        }
+
         repositionPuzzlePieces()
     }
 

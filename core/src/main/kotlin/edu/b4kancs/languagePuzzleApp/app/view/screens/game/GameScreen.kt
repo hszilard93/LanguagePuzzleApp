@@ -69,7 +69,7 @@ class GameScreen(
         }
 
 
-    private val puzzleSnapHelper = PuzzleSnapHelper(gameModel)
+    private val puzzleSnapHelper = gameModel.puzzleSnapHelper
 
     init {
         logger.debug { "init" }

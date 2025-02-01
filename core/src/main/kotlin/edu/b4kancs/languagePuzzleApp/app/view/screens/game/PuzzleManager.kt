@@ -43,6 +43,11 @@ class PuzzleManager(
     var editingPuzzleFeature: PuzzlePieceFeature? = null
         private set
 
+    init {
+        // Check for solution in case there are completed puzzle configurations in the initial state
+        checkSolution()
+    }
+
     fun registerGameInputManager(gameInputManager: GameInputManager) {
         this.gameInputManager = gameInputManager
     }

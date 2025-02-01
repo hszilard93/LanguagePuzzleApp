@@ -18,32 +18,40 @@ class PuzzleSnapHelper(private val gameModel: GameModel) {
     }
 
     private val puzzleFeatureCompatibilityMap = GdxMap<PuzzlePieceFeature, List<PuzzlePieceFeature>>()
-    private var snapFeature: PuzzlePieceFeature? = null
-    private var targetFeature: PuzzlePieceFeature? = null
+    private var innerSnapFeature: PuzzlePieceFeature? = null
+    private var innerTargetFeature: PuzzlePieceFeature? = null
 
+    // Uses the innerSnapFeature and innerTargetFeature to snap the pieces together
     fun performSnapIfAny() {
-        logger.info { "performSnap snapFeature=$snapFeature snapTarget=$targetFeature" }
+        logger.info { "performSnap snapFeature=$innerSnapFeature snapTarget=$innerTargetFeature" }
+        if (innerSnapFeature == null || innerTargetFeature == null) return
+        performSnapLogic(innerSnapFeature!!, innerTargetFeature!!)
+    }
 
-        if (snapFeature == null || targetFeature == null) return
+    // Can be called in the initial puzzle placing phase to force a snap between two features
+    // The target feature is the one who's puzzle remains fixed!
+    fun performForcedSnap(snapFeature: PuzzlePieceFeature, targetFeature: PuzzlePieceFeature) {
+        logger.debug { "performForcedSnap snapFeature=$snapFeature targetFeature=$targetFeature" }
+        performSnapLogic(snapFeature, targetFeature)
+    }
 
-//            val (maleFeature: PuzzleTab, femaleFeature: PuzzleBlank) =
-//                if (snapFeature is PuzzleTab) (snapFeature as PuzzleTab) to (targetFeature as PuzzleBlank)
-//                else (targetFeature as PuzzleTab) to (snapFeature as PuzzleBlank)
-//
-        val snapPiece = snapFeature!!.owner!!
-        val targetPiece = targetFeature!!.owner!!
+    private fun performSnapLogic(snapFeature: PuzzlePieceFeature, targetFeature: PuzzlePieceFeature) {
+        val snapPiece = snapFeature.owner!!
+        val targetPiece = targetFeature.owner!!
 
-        adjustSizeIfNecessary(snapPiece, targetPiece, snapFeature!!, targetFeature!!)
+        adjustSizeIfNecessary(snapPiece, targetPiece, snapFeature, targetFeature)
 
-        val delta = snapFeature!!.getFeatureMidpoint().sub(targetFeature!!.getFeatureMidpoint())
-        val puzzleToSnap = snapFeature!!.owner!!
+        val delta = snapFeature.getFeatureMidpoint().sub(targetFeature.getFeatureMidpoint())
+        val puzzleToSnap = snapFeature.owner!!
         puzzleToSnap.pos = puzzleToSnap.pos.sub(delta)
 
+        val puzzleTab = (if (snapFeature is PuzzleTab) snapFeature else targetFeature) as PuzzleTab
         val newConnection =
             Connection(
                 setOf(snapPiece, targetPiece),
-                (if (snapFeature is PuzzleTab) snapFeature else targetFeature) as PuzzleTab,
-                GrammaticalRole.ADVERBIAL
+                puzzleTab,
+//                GrammaticalRole.ADVERBIAL
+                puzzleTab.grammaticalRole
             )
 
         snapPiece.addConnection(newConnection)
@@ -136,17 +144,17 @@ class PuzzleSnapHelper(private val gameModel: GameModel) {
 
         // Apply glow colors if the closest pair is within the threshold
         if (closestPair != null && minDistance <= SNAPPING_THRESHOLD) {
-            snapFeature = closestPair.first
-            targetFeature = closestPair.second
-            logger.info { "snapFeature=(${snapFeature!!.getType()}, ${snapFeature!!.side}, ${snapFeature!!.getFeatureMidpoint()}), targetFeature=(${targetFeature!!.getType()}, ${targetFeature!!.side}, ${targetFeature!!.getFeatureMidpoint()}), distance=$minDistance" }
-            targetFeature!!.isGlowing = true
-            snapFeature!!.isGlowing = true
-            logger.debug { "Snapping pair found with distance=$minDistance: $snapFeature and $targetFeature" }
+            innerSnapFeature = closestPair.first
+            innerTargetFeature = closestPair.second
+            logger.info { "snapFeature=(${innerSnapFeature!!.getType()}, ${innerSnapFeature!!.side}, ${innerSnapFeature!!.getFeatureMidpoint()}), targetFeature=(${innerTargetFeature!!.getType()}, ${innerTargetFeature!!.side}, ${innerTargetFeature!!.getFeatureMidpoint()}), distance=$minDistance" }
+            innerTargetFeature!!.isGlowing = true
+            innerSnapFeature!!.isGlowing = true
+            logger.debug { "Snapping pair found with distance=$minDistance: $innerSnapFeature and $innerTargetFeature" }
         }
         else {
             logger.debug { "No snapping pair within threshold found." }
-            snapFeature = null
-            targetFeature = null
+            innerSnapFeature = null
+            innerTargetFeature = null
         }
     }
 

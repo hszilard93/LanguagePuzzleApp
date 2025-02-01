@@ -16,7 +16,7 @@ class CameraController(
     private val gameModel: GameModel
 ) {
 
-    private val startZoom = 2f
+    private val startZoom = 2.5f
 
     fun setupCameras() {
         gameCamera.setToOrtho(false, Constants.GAME_VIRTUAL_WIDTH, Constants.GAME_VIRTUAL_HEIGHT)
