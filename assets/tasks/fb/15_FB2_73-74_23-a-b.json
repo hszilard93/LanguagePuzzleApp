@@ -416,6 +416,23 @@
         {
           "checkTabText": "true",
           "centerPiece": {
+            "text": "hoz",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
             "text": "elhoz",
             "grammaticalRole": "VERB",
             "tabs": [
@@ -437,6 +454,44 @@
         {
           "checkTabText": "true",
           "centerPiece": {
+            "text": "elhoz",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "valahonnan"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "elhoz",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
             "text": "összehoz",
             "grammaticalRole": "VERB",
             "tabs": [
@@ -451,31 +506,6 @@
               {
                 "grammaticalRole": "ADVERBIAL",
                 "text": "-val/-vel"
-              }
-            ]
-          }
-        },
-        {
-          "checkTabText": "true",
-          "centerPiece": {
-            "text": "áthoz",
-            "grammaticalRole": "VERB",
-            "tabs": [
-              {
-                "grammaticalRole": "SUBJECT",
-                "text": ""
-              },
-              {
-                "grammaticalRole": "OBJECT",
-                "text": "-t"
-              },
-              {
-                "grammaticalRole": "ADVERBIAL",
-                "text": "-ból/-ből"
-              },
-              {
-                "grammaticalRole": "ADVERBIAL",
-                "text": "valahová"
               }
             ]
           }
