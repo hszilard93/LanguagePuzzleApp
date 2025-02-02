@@ -116,6 +116,7 @@ class GameModel {
                             it.text == targetText
                                 && it.grammaticalRole == tab.grammaticalRole
                                 && !it.isConnected  // Important to avoid connecting to already connected pieces
+                                && it.blanks.firstOrNull()?.side == tab.side.opposite()
                         }
                     if (targetPiece != null) {
                         // Create a new connection linking the two pieces via this tab.
