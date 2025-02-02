@@ -19,6 +19,7 @@ class AddPuzzlePopup(
     skin: Skin,
     position: Vector2,
     canAddBlankPuzzle: Boolean,
+    canAddBasePuzzle: Boolean,
     onAddBasePuzzle: () -> Unit,
     onAddBlankPuzzle: () -> Unit,
     onClose: () -> Unit
@@ -88,7 +89,9 @@ class AddPuzzlePopup(
             })
         }
 
-        buttonTable.add(addBasePuzzleButton).size(150f).pad(5f).padTop(-20f).row()
+        if (canAddBasePuzzle) {
+            buttonTable.add(addBasePuzzleButton).size(150f).pad(5f).padTop(-20f).row()
+        }
         if (canAddBlankPuzzle) {
             buttonTable.add(addBlankPuzzleButton).size(150f).pad(5f).padTop(-20f).row()
         }

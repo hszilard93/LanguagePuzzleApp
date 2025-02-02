@@ -182,7 +182,7 @@ class UIManager(
     fun updateTaskInfo() {
         val task = gameModel.currentTask!!
         if (task.taskDescription.isNotBlank()) {
-            exerciseDescriptionLabel.setText(task.taskDescription)
+            exerciseDescriptionLabel.setText(task.taskDescription.trim())
             // Make sure the table is visible
             topBarTable.isVisible = true
 
@@ -609,6 +609,7 @@ class UIManager(
             skin = uiSkin,
             position = Vector2(addPuzzleButton!!.x + 50, addPuzzleButton!!.y - 250),
             canAddBlankPuzzle = gameModel.currentExercise?.ruleset?.canAddBlankPieces ?: true,
+            canAddBasePuzzle = gameModel.currentExercise?.ruleset?.canAddMainPieces ?: true,
             onAddBasePuzzle = onAddBasePuzzle,
             onAddBlankPuzzle = onAddBlankPuzzle,
             onClose = {
