@@ -47,8 +47,8 @@ class SolutionConfiguration(
         return SolutionResult.CORRECT
     }
 
-    fun doesMatchArgumentsSolution(puzzle: PuzzlePiece): SolutionResult {
-        if (puzzle.tabs.isEmpty()) return SolutionResult.INELIGIBLE
+    private fun doesMatchArgumentsSolution(puzzle: PuzzlePiece): SolutionResult {
+//        if (puzzle.tabs.isEmpty()) return SolutionResult.INELIGIBLE
 
         if (puzzle.tabs.size != solutionCenterPiece.tabs.size) return SolutionResult.INELIGIBLE
 

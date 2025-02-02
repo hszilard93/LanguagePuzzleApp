@@ -309,7 +309,7 @@ class PuzzleManager(
         }
 
         val hasSameVerbMultipleTimes = verbPuzzles.any { thisPuzzle ->
-            (verbPuzzles - thisPuzzle).any { otherPuzzle -> thisPuzzle.text == otherPuzzle.text }
+            (verbPuzzles - thisPuzzle).any { otherPuzzle -> thisPuzzle.text == otherPuzzle.text && thisPuzzle.text.isNotEmpty() }
         }
         if (hasSameVerbMultipleTimes) {
             uiManager.hideCheckMark()

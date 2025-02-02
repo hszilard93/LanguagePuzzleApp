@@ -67,9 +67,10 @@ class SelectIndefinitePronounPopup(
             }
 
             textTable.add(indPronounButton).pad(0f).space(10f).align(Align.left)
-            if (side == Side.LEFT || side == Side.RIGHT) {
-                textTable.row()
-            }
+//            if (side == Side.LEFT || side == Side.RIGHT) {
+//                textTable.row()
+//            }
+            textTable.row()
         }
 
         textTable.pack()

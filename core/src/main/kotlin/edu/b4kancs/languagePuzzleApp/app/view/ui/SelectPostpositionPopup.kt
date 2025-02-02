@@ -65,9 +65,10 @@ class SelectPostpositionPopup(
             }
 
             textTable.add(postpButton).pad(0f).space(10f)
-            if (side == Side.LEFT || side == Side.RIGHT) {
-                textTable.row()
-            }
+//            if (side == Side.LEFT || side == Side.RIGHT) {
+//                textTable.row()
+//            }
+            textTable.row()
         }
 
         textTable.pack()

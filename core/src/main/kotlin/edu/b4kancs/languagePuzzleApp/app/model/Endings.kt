@@ -67,7 +67,7 @@ data class Suffix(
                     .replace("vel", "el")
                     .split("/")
                     .map { it.removePrefix("-") }
-                    .map { if (it.contains("al") || it.contains("el")) it.drop(1) else it }
+//                    .map { if (it.contains("al") || it.contains("el")) it.drop(1) else it }
 
                 for (sp in suffixPartials) {
                     if (tabTextPartials.any { it == sp }) {
