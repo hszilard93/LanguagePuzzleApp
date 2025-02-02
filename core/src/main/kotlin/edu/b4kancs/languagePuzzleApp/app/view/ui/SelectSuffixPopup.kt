@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.ui.Window
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
+import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.viewport.Viewport
 import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
@@ -56,17 +57,19 @@ class SelectSuffixPopup(
                 this.font = font
                 this.fontColor = Color.BLACK
             }
-            val suffixButton = TextButton(suffix.text, buttonStyle).apply {
+            val text = if (side == Side.LEFT || side == Side.RIGHT) suffix.text.replace("\n-", "") else suffix.text
+
+            val suffixButton = TextButton(text, buttonStyle).apply {
                 addListener(object : ClickListener() {
                     override fun clicked(event: InputEvent?, x: Float, y: Float) {
-                        logger.info { "TextButton suffixSelected = ${suffix.text} clicked" }
+                        logger.info { "TextButton suffixSelected = $text clicked" }
                         onClose()
                         onSuffixSelected(suffix)
                     }
                 })
             }
 
-            textTable.add(suffixButton).pad(0f).space(10f)
+            textTable.add(suffixButton).pad(5f).space(10f).align(Align.left)
             if (side == Side.LEFT || side == Side.RIGHT) {
                 textTable.row()
             }

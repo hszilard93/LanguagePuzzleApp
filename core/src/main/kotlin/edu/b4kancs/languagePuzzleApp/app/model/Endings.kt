@@ -3,11 +3,37 @@ package edu.b4kancs.languagePuzzleApp.app.model
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 
+interface Ending {
+    val text: String
+    val grammaticalRole: GrammaticalRole
+
+    companion object {
+        fun normalizeEnding(text: String): String {
+            val suffixOrNull = Suffix.identifySuffixFromTabText(text)
+            suffixOrNull?.let {
+                return suffixOrNull.text
+            }
+
+            val postpositionOrNull = Postposition.identifyPostPositionFromTabText(text)
+            postpositionOrNull?.let {
+                return postpositionOrNull.text
+            }
+
+            val indefinitePronounOrNull = IndefinitePronoun.identifyIndefinitePronounFromTabText(text)
+            indefinitePronounOrNull?.let {
+                return indefinitePronounOrNull.text
+            }
+
+            return text
+        }
+    }
+}
+
 @Serializable
 data class Suffix(
-    val text: String,
-    @Transient val grammaticalRole: GrammaticalRole = GrammaticalRole.ADVERBIAL
-) {
+    override val text: String,
+    @Transient override val grammaticalRole: GrammaticalRole = GrammaticalRole.ADVERBIAL
+) : Ending {
     companion object {
         val predefinedSuffixes = listOf(
             Suffix(""),
@@ -57,9 +83,9 @@ data class Suffix(
 // Névutók
 @Serializable
 data class Postposition(
-    val text: String,
-    @Transient val grammaticalRole: GrammaticalRole = GrammaticalRole.ADVERBIAL
-) {
+    override val text: String,
+    @Transient override val grammaticalRole: GrammaticalRole = GrammaticalRole.ADVERBIAL
+) : Ending {
     companion object {
         val predefinedPostpositions = listOf(
             Postposition("miatt"),
@@ -81,15 +107,27 @@ data class Postposition(
                 else -> postposition
             }
         }
+
+        fun identifyPostPositionFromTabText(tabText: String): Postposition? {
+            // Normalize the tab text: remove newlines, split on "/" to allow for multiple variants,
+            // then trim and lowercase each partial.
+            val tabTextNormalized = tabText
+                .replace("\n", "").trim().lowercase()
+
+            predefinedPostpositions.firstOrNull { it.text == tabTextNormalized }?.let {
+                return it
+            }
+            return null
+        }
     }
 }
 
 // Jelentéscímkék
 @Serializable
 data class IndefinitePronoun(
-    val text: String,
-    @Transient val grammaticalRole: GrammaticalRole = GrammaticalRole.ADVERBIAL
-) {
+    override val text: String,
+    @Transient override val grammaticalRole: GrammaticalRole = GrammaticalRole.ADVERBIAL
+) : Ending {
     companion object {
         val predefinedIndPronouns = listOf(
             IndefinitePronoun("valahová"),
@@ -101,7 +139,7 @@ data class IndefinitePronoun(
         )
 
         fun shortenPredefinedIndPronoun(pronoun: IndefinitePronoun): IndefinitePronoun {
-            return when(pronoun.text) {
+            return when (pronoun.text) {
                 "valamennyibe" -> IndefinitePronoun("vmeny-\nnyibe")
                 else -> IndefinitePronoun(pronoun.text.replace("vala", "v"))
             }
@@ -117,6 +155,28 @@ data class IndefinitePronoun(
                 "valamennyibe" -> IndefinitePronoun("vmeny-\nnyibe")
                 else -> pronoun
             }
+        }
+
+        fun identifyIndefinitePronounFromTabText(tabText: String): IndefinitePronoun? {
+
+            val tabTextNormalized = tabText
+                .trim()
+                .lowercase()
+                .replace("\n", "")
+                .replace("-", "")
+                .run {
+                    if (!startsWith("vala")) {
+                        replaceFirst("v", "vala")
+                    }
+                    else {
+                        this
+                    }
+                }
+
+            predefinedIndPronouns.firstOrNull { it.text == tabTextNormalized }?.let {
+                return it
+            }
+            return null
         }
     }
 }

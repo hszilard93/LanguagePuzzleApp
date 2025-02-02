@@ -14,11 +14,13 @@ import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.viewport.Viewport
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 import edu.b4kancs.languagePuzzleApp.app.model.Side
+import edu.b4kancs.languagePuzzleApp.app.model.exercise.Ruleset
 
 class SelectEndingTypePopup(
     title: String = "",
     skin: Skin,
     font: BitmapFont,
+    rules: Ruleset,
     side: Side,
     gameViewport: Viewport,
     puzzlePiece: PuzzlePiece,
@@ -52,7 +54,11 @@ class SelectEndingTypePopup(
         val suffixButtonText = "Toldalék"
         val postpButtonText = "Névutó"
         val indPronounsButtonText = "Jelentéscímke"
-        val items = listOf(suffixButtonText, postpButtonText, indPronounsButtonText)
+
+        val items = arrayListOf(suffixButtonText)
+        if (rules.shouldOfferPostpositions == true) items.add(postpButtonText)
+        if (rules.shouldOfferIndPronouns == true) items.add(indPronounsButtonText)
+
         items.forEach { item ->
             val buttonStyle = TextButton.TextButtonStyle().apply {
                 this.font = font

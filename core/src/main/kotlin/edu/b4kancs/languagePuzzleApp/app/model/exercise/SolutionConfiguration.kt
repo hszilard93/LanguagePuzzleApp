@@ -1,6 +1,7 @@
 package edu.b4kancs.languagePuzzleApp.app.model.exercise
 
 import edu.b4kancs.languagePuzzleApp.app.model.Connection
+import edu.b4kancs.languagePuzzleApp.app.model.Ending
 import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 import edu.b4kancs.languagePuzzleApp.app.model.Suffix
@@ -25,10 +26,10 @@ class SolutionConfiguration(
         The text of the tabs is optionally taken into account.
      */
 
-    fun doesVerbHaveSolution(centerPiece: PuzzlePiece, exerciseType: TaskType? = null): SolutionResult {
-        ruleset = exerciseType?.ruleset ?: Ruleset()
+    fun doesVerbHaveSolution(centerPiece: PuzzlePiece, exercise: Exercise): SolutionResult {
+        ruleset = exercise.ruleset
 
-        if (exerciseType == TaskType.COMPLETE_ARGUMENTS) {
+        if (exercise.type == TaskType.COMPLETE_ARGUMENTS) {
             return doesMatchArgumentsSolution(centerPiece)
         }
 
@@ -50,6 +51,8 @@ class SolutionConfiguration(
         if (puzzle.tabs.isEmpty()) return SolutionResult.INELIGIBLE
 
         if (puzzle.tabs.size != solutionCenterPiece.tabs.size) return SolutionResult.INELIGIBLE
+
+        if (ruleset.doesBaseTextCount == true && puzzle.text != solutionCenterPiece.text) return SolutionResult.INCORRECT
 
         val matches = solutionCenterPiece.tabs.all { t1 ->
             puzzle.tabs.any { t2 ->
@@ -82,9 +85,9 @@ class SolutionConfiguration(
 
         if (this.via.grammaticalRole != other.via.grammaticalRole) return false
         if (checkTabText) {
-            val thisSuffix = Suffix.identifySuffixFromTabText(this.via.text.lowercase())
-            val thatSuffix = Suffix.identifySuffixFromTabText(other.via.text.lowercase())
-            if (thisSuffix != thatSuffix) {
+            val thisEnding = Ending.normalizeEnding(this.via.text.lowercase())
+            val thatEnding = Ending.normalizeEnding(other.via.text.lowercase())
+            if (thisEnding != thatEnding) {
                 return false
             }
         }

@@ -132,7 +132,7 @@ class PuzzleManager(
         }
     }
 
-    fun openTextEditor(puzzlePiece: PuzzlePiece) {
+    fun openBaseTextEditor(puzzlePiece: PuzzlePiece) {
         logger.debug { "openTextEditor puzzlePiece = $puzzlePiece" }
 
         if (editingPuzzlePiece != null) return
@@ -145,6 +145,7 @@ class PuzzleManager(
                 puzzlePiece.text = newText
                 editingPuzzlePiece = null
                 puzzlePieceToEdit = null
+                checkSolution()
             },
             onCancel = {
                 editingPuzzlePiece = null
@@ -153,7 +154,7 @@ class PuzzleManager(
         )
     }
 
-    fun openTextEditor(puzzleFeature: PuzzleTab) {
+    fun openTabTextEditor(puzzleFeature: PuzzleTab) {
         logger.debug { "openTextEditor puzzleFeature = $puzzleFeature" }
 
         if (editingPuzzleFeature != null) return
@@ -182,13 +183,13 @@ class PuzzleManager(
 
         if (type == PuzzlePieceFeature.Type.TAB) {
 
-            if (gameModel.currentExercise?.type?.ruleset?.canColorTabs == false) {
+            if (gameModel.currentExercise?.ruleset?.canColorTabs == false) {
                 finishAddFeature(puzzle, PuzzlePieceFeature.Type.TAB, side, GrammaticalRole.UNDEFINED)
                 return
             }
 
             uiManager.displayGrammaticalRolePopup(puzzle, side) { selectedRole ->
-                val doesAllowTabText = gameModel.currentExercise?.type?.ruleset?.doesAllowTabText ?: true
+                val doesAllowTabText = gameModel.currentExercise?.ruleset?.doesAllowTabText ?: true
 
                 if (selectedRole == GrammaticalRole.ADVERBIAL) {
                     if (doesAllowTabText) {
@@ -322,7 +323,7 @@ class PuzzleManager(
         }
 
         val aggregateSolutionState: SolutionResult =
-            if (solutionResults.count { it == SolutionResult.CORRECT } >= gameModel.currentTask?.requiredSolutions ?: 1) {
+            if (solutionResults.count { it == SolutionResult.CORRECT } >= (gameModel.currentTask?.requiredSolutions ?: 1)) {
                 SolutionResult.CORRECT
             }
             else if (solutionResults.contains(SolutionResult.INELIGIBLE)) {
@@ -358,7 +359,7 @@ class PuzzleManager(
         // All the tabs are connected, let's check the correctness of the result
         val solutionResult = gameModel.currentTask
             ?.solutionConfigurations
-            ?.map { it.doesVerbHaveSolution(centerPuzzle, gameModel.currentExercise!!.type) }
+            ?.map { it.doesVerbHaveSolution(centerPuzzle, gameModel.currentExercise!!) }
             ?.fold(SolutionResult.INELIGIBLE) { acc, result ->
                 if (result == SolutionResult.CORRECT || acc == SolutionResult.CORRECT) {
                     SolutionResult.CORRECT

@@ -103,7 +103,7 @@ class GameInputManager(
 
             if (puzzleUnderPointer != null && puzzleManager.draggedPuzzlePiece == null) {
 
-                val rules = gameModel.currentExercise?.type?.ruleset
+                val rules = gameModel.currentExercise?.ruleset
 
                 // 1. Feature addition/removal
 
@@ -320,7 +320,7 @@ class GameInputManager(
                 if (puzzleManager.puzzlePieceToEdit!!.isPointerOverTextLayout(mousePos)) {
                     logger.debug { "doubleClick puzzlePiece=$puzzlePiece" }
                     if (!puzzlePiece.isConnected) {
-                        puzzleManager.openTextEditor(puzzlePiece)
+                        puzzleManager.openBaseTextEditor(puzzlePiece)
                         cursorManager.setCursor(null)
                     }
                     return
@@ -331,7 +331,7 @@ class GameInputManager(
                 feature as PuzzleTab
                 if (feature.isPointerOverTextLayout(mousePos)) {
                     logger.debug { "doubleClick puzzleFeature=$feature" }
-                    puzzleManager.openTextEditor(feature)
+                    puzzleManager.openTabTextEditor(feature)
                     cursorManager.setCursor(null)
                 }
                 return

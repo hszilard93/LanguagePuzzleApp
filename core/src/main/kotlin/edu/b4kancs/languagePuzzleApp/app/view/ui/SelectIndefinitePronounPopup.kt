@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.ui.Window
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
+import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.viewport.Viewport
 import edu.b4kancs.languagePuzzleApp.app.model.IndefinitePronoun
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
@@ -65,7 +66,7 @@ class SelectIndefinitePronounPopup(
                 })
             }
 
-            textTable.add(indPronounButton).pad(0f).space(10f)
+            textTable.add(indPronounButton).pad(0f).space(10f).align(Align.left)
             if (side == Side.LEFT || side == Side.RIGHT) {
                 textTable.row()
             }

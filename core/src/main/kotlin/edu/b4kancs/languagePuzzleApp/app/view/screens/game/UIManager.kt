@@ -31,6 +31,7 @@ import edu.b4kancs.languagePuzzleApp.app.model.Postposition
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 import edu.b4kancs.languagePuzzleApp.app.model.Side
 import edu.b4kancs.languagePuzzleApp.app.model.Suffix
+import edu.b4kancs.languagePuzzleApp.app.model.exercise.Ruleset
 import edu.b4kancs.languagePuzzleApp.app.view.ui.AddPuzzlePopup
 import edu.b4kancs.languagePuzzleApp.app.view.ui.GrammaticalRolePopup
 import edu.b4kancs.languagePuzzleApp.app.view.ui.SelectEndingTypePopup
@@ -104,7 +105,7 @@ class UIManager(
         logger.info { "initializeUI" }
         initializeTopBar()
 
-        val rules = gameModel.currentExercise?.type?.ruleset
+        val rules = gameModel.currentExercise?.ruleset
         if (rules?.canAddMainPieces == true || rules?.canAddBlankPieces == true) {
             initializeAddPuzzleButton()
             initializeGarbageBin()
@@ -428,10 +429,11 @@ class UIManager(
             )
         }
 
-        val rules = gameModel.currentExercise?.type?.ruleset
+        val rules = gameModel.currentExercise?.ruleset
 
-        if (rules?.shouldOfferPostpositions == true || rules?.shouldOfferIndPronouns == true || true) {
+        if (rules?.shouldOfferPostpositions == true || rules?.shouldOfferIndPronouns == true) {
             displaySelectEndingTypePopup(
+                rules = rules,
                 puzzlePiece = puzzlePiece,
                 side = side,
                 onSuffixesSelected = { callDisplaySelectSuffixPopup() },
@@ -446,6 +448,7 @@ class UIManager(
     }
 
     private fun displaySelectEndingTypePopup(
+        rules: Ruleset,
         puzzlePiece: PuzzlePiece,
         side: Side,
         onSuffixesSelected: () -> Unit,
@@ -459,6 +462,7 @@ class UIManager(
             title = "Mit kérsz?",
             skin = uiSkin,
             font = uiFont,
+            rules = rules,
             puzzlePiece = puzzlePiece,
             side = side,
             gameViewport = gameViewport,
@@ -604,7 +608,7 @@ class UIManager(
             title = "",
             skin = uiSkin,
             position = Vector2(addPuzzleButton!!.x + 50, addPuzzleButton!!.y - 250),
-            canAddBlankPuzzle = gameModel.currentExercise?.type?.ruleset?.canAddBlankPieces ?: true,
+            canAddBlankPuzzle = gameModel.currentExercise?.ruleset?.canAddBlankPieces ?: true,
             onAddBasePuzzle = onAddBasePuzzle,
             onAddBlankPuzzle = onAddBlankPuzzle,
             onClose = {

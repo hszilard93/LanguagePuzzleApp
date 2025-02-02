@@ -267,6 +267,8 @@ object RulesetSerializer : KSerializer<Ruleset> {
         element<Boolean?>("doesAllowTabText", isOptional = true)
         element<Boolean?>("doesBaseTextCount", isOptional = true)
         element<Boolean?>("doesBlankTextCount", isOptional = true)
+        element<Boolean?>("shouldOfferPostpositions", isOptional = true)
+        element<Boolean?>("shouldOfferIndPronouns", isOptional = true)
     }
 
     @OptIn(ExperimentalSerializationApi::class)
@@ -281,6 +283,8 @@ object RulesetSerializer : KSerializer<Ruleset> {
         var doesAllowTabText: Boolean? = null
         var doesBaseTextCount: Boolean? = null
         var doesBlankTextCount: Boolean? = null
+        var shouldOfferPostpositions: Boolean? = null
+        var shouldOfferIndPronouns: Boolean? = null
 
         loop@ while (true) {
             when (val index = decStructure.decodeElementIndex(descriptor)) {
@@ -293,6 +297,8 @@ object RulesetSerializer : KSerializer<Ruleset> {
                 6 -> doesAllowTabText = decStructure.decodeNullableSerializableElement(descriptor, 6, Boolean.serializer())
                 7 -> doesBaseTextCount = decStructure.decodeNullableSerializableElement(descriptor, 7, Boolean.serializer())
                 8 -> doesBlankTextCount = decStructure.decodeNullableSerializableElement(descriptor, 8, Boolean.serializer())
+                9 -> shouldOfferPostpositions = decStructure.decodeNullableSerializableElement(descriptor, 9, Boolean.serializer())
+                10 -> shouldOfferIndPronouns = decStructure.decodeNullableSerializableElement(descriptor, 10, Boolean.serializer())
                 CompositeDecoder.DECODE_DONE -> break@loop
                 else -> throw SerializationException("Unknown index $index in Ruleset deserialization")
             }
@@ -308,7 +314,9 @@ object RulesetSerializer : KSerializer<Ruleset> {
             canEditTabText = canEditTabText,
             doesAllowTabText = doesAllowTabText,
             doesBaseTextCount = doesBaseTextCount,
-            doesBlankTextCount = doesBlankTextCount
+            doesBlankTextCount = doesBlankTextCount,
+            shouldOfferPostpositions = shouldOfferPostpositions,
+            shouldOfferIndPronouns = shouldOfferIndPronouns
         )
     }
 
