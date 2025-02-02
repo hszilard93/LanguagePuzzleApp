@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.math.Vector3
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import com.badlogic.gdx.utils.GdxRuntimeException
 import com.badlogic.gdx.utils.viewport.ExtendViewport
 import edu.b4kancs.languagePuzzleApp.app.Game
 import edu.b4kancs.languagePuzzleApp.app.GameCamera
@@ -135,7 +136,11 @@ class GameScreen(
         uiStage.viewport.update(newWidth, newHeight, true)
 
         val multiplier = maxOf(1200f / newWidth, 800f / newHeight)
-        uiManager.updateFonts(multiplier)
+        try {
+            uiManager.updateFonts(multiplier)
+        } catch (e: GdxRuntimeException) {
+            logger.error { e.message ?: "GdxRuntimeException occurred with no message." }
+        }
         uiManager.updateTaskInfo()
     }
 

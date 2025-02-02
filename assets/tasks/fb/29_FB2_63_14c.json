@@ -1,0 +1,188 @@
+{
+  "type": "EDIT_PUZZLES",
+  "buttonDescription": "FB2/63/14c",
+  "customRuleset": {
+    "canAddBlankPieces": "true",
+    "doesBlankTextCount": "false",
+    "doNotOfferSuffixes": "true",
+    "shouldOfferPostpositions": "true"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Alkoss mondatokat a következő igéknek azzal a jelentésével, amelyben az egyik szereplő lila fülre kerülne, de nem toldalék, hanem külön szó kapcsolja az igéhez! Válaszd ki a megfelelő viszonyjelölő szót!\nTöltsd ki puzzle-darabokat is, és rakd össze  a puzzle-szerkezeteket! \n„kitart”, „ítélkezik”, „fellázad”, „vágyódik”, „kering”",
+      "requiredSolutions": 5,
+      "predefinedPieces": [
+        {
+          "text": "kitart",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "ítélkezik",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "fellázad",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "vágyódik",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "kering",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "kitart",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "mellett"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "ítélkezik",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "felett"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "ítélkezik",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "fölött"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "fellázad",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "ellen"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "vágyódik",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "után"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "kering",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "körül"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -63,6 +63,7 @@ data class Ruleset(
     val doesBlankTextCount: Boolean? = null,
     val shouldOfferPostpositions: Boolean? = null,      // Névutók
     val shouldOfferIndPronouns: Boolean? = null,        // Jelentéscímkék
+    val doNotOfferSuffixes: Boolean? = null,            // NE ajánljon toldalékokat
 )
 
 @Serializable

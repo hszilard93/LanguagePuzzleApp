@@ -94,7 +94,10 @@ data class Postposition(
             Postposition("elől"),
             Postposition("után"),
             Postposition("mellett"),
+            Postposition("felett"),
+            Postposition("fölött"),
             Postposition("közül"),
+            Postposition("körül"),
             Postposition("felől"),
             Postposition("ellen"),
             Postposition("felé")
@@ -104,7 +107,10 @@ data class Postposition(
             return when (postposition.text) {
                 "miatt" -> Postposition("mi-\natt")
                 "mellett" -> Postposition("mel-\nlett")
+                "felett" -> Postposition("fe-\nlett")
+                "fölött" -> Postposition("fö-\nlött")
                 "közül" -> Postposition("kö-\nzül")
+                "körül" -> Postposition("kö-\nrül")
                 "felől" -> Postposition("fe-\nlől")
                 else -> postposition
             }

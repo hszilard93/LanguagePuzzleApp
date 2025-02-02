@@ -59,9 +59,8 @@ class SolutionConfiguration(
                 val matchesText =
                     if (checkTabText) {
                         Connection(emptySet(), t1, t1.grammaticalRole)
-                            .matches(Connection(emptySet(), t2, t2.grammaticalRole), checkTabText)
-                    }
-                    else true
+                            .matches(Connection(emptySet(), t2, t2.grammaticalRole), checkTabText, true)
+                    } else true
 
                 matchesRole && matchesText
             }
@@ -70,12 +69,15 @@ class SolutionConfiguration(
         return if (matches) return SolutionResult.CORRECT else SolutionResult.INELIGIBLE
     }
 
-    private fun Connection.matches(other: Connection, checkTabText: Boolean): Boolean {
+    private fun Connection.matches(other: Connection, checkTabText: Boolean, isArgumentSolution: Boolean = false): Boolean {
 //        val theseTexts = this.puzzlesConnected.map { it.text.lowercase() }.toSet()
 //        val thoseTexts = other.puzzlesConnected.map { it.text.lowercase() }.toSet()
 
+        // these pieces are IN THE SOLUTION
         val theseVerbTexts = this.puzzlesConnected.filter { it.grammaticalRole == GrammaticalRole.VERB }.map { it.text.process() }.toSet()
         val theseBlankTexts = this.puzzlesConnected.filter { it.grammaticalRole != GrammaticalRole.VERB }.map { it.text.process() }.toSet()
+
+        // those pieces are BY THE USER
         val thoseVerbTexts = other.puzzlesConnected.filter { it.grammaticalRole == GrammaticalRole.VERB }.map { it.text.process() }.toSet()
         val thoseBlankTexts = other.puzzlesConnected.filter { it.grammaticalRole != GrammaticalRole.VERB }.map { it.text.process() }.toSet()
 
@@ -88,8 +90,20 @@ class SolutionConfiguration(
             }
         }
 
-        val doBlankTextsMatch = if (ruleset.doesBlankTextCount != false) theseBlankTexts == thoseBlankTexts else true
-        val doVerbTextsMatch = if (ruleset.doesBaseTextCount != false) theseVerbTexts == thoseVerbTexts else true
+        if ((thoseBlankTexts.any(String::isBlank) || thoseVerbTexts.any(String::isBlank)) && !isArgumentSolution) return false
+
+        val doBlankTextsMatch =
+            if (ruleset.doesBlankTextCount != false) {
+                theseBlankTexts.size == thoseBlankTexts.size &&
+                    theseBlankTexts.all { s -> thoseBlankTexts.any { t -> t.specialEquals(s) } }
+            } else true
+
+        val doVerbTextsMatch =
+            if (ruleset.doesBaseTextCount != false) {
+                theseVerbTexts.size == thoseVerbTexts.size &&
+                    theseVerbTexts.all { s -> thoseVerbTexts.any { t -> s.specialEquals(t) } } &&
+                    theseVerbTexts.all { s -> s.isNotBlank() }
+            } else true
 
         return doBlankTextsMatch && doVerbTextsMatch
 
@@ -99,3 +113,12 @@ class SolutionConfiguration(
 }
 
 fun String.process() = this.trim().lowercase()//.replace("(", "").replace(")", "")
+
+// Special rule: if a puzzle piece's text is set to "IGNORE", count it as if it would match anything
+fun String.specialEquals(other: String): Boolean {
+    return if (this == "IGNORE" || other == "IGNORE") {
+        true
+    } else {
+        this.lowercase().trim() == other.lowercase().trim()
+    }
+}

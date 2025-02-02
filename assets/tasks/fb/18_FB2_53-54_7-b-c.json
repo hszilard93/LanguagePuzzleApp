@@ -53,7 +53,7 @@
       ]
     },
     {
-      "taskDescription": "Rakd össze a szókártyákból a mondat igéjének puzzle-szerkezetét! Írd rá az igét a központi puzzle-re, feliratozd a füleket (ahol szükséges)  és a puzzle-darabokat is!\n„a bátyjától ”, „kapott kiskutya”, „ragaszkodik”, „Ábel”\n",
+      "taskDescription": "Rakd össze a szókártyákból a mondat igéjének puzzle-szerkezetét! Írd rá az igét a központi puzzle-re, feliratozd a füleket (ahol szükséges)  és a puzzle-darabokat is!\n„a bátyjától kapott kiskutya”, „ragaszkodik”, „Ábel”\n",
       "predefinedPieces": [],
       "solutionConfigurations": [
         {
@@ -327,6 +327,39 @@
               }
             }
           ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "beleszeret",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ba/-be"
+              }
+            ]
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a szappanopera árva lánya",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a főhős",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ba/-be"
+              }
+            }
+          ]
         }
       ]
     },
@@ -399,6 +432,39 @@
             },
             {
               "text": "a kedvenc elárusítónője",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ban/-ben"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "csalódik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ban/-ben"
+              }
+            ]
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a kedvenc elárusítónője",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a szomszéd néni",
               "grammaticalRole": "ADVERBIAL",
               "via": {
                 "text": "-ban/-ben"

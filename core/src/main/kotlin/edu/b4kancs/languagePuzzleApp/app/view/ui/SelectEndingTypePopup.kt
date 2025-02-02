@@ -55,7 +55,8 @@ class SelectEndingTypePopup(
         val postpButtonText = "Névutó"
         val indPronounsButtonText = "Jelentéscímke"
 
-        val items = arrayListOf(suffixButtonText)
+        val items = arrayListOf<String>()
+        if (rules.doNotOfferSuffixes != true) items.add(suffixButtonText)
         if (rules.shouldOfferPostpositions == true) items.add(postpButtonText)
         if (rules.shouldOfferIndPronouns == true) items.add(indPronounsButtonText)
 

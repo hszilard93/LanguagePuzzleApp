@@ -199,8 +199,7 @@ class UIManager(
             if (this::checkMarkImage.isInitialized) {
                 hideCheckMark()
             }
-        }
-        else {
+        } else {
             // Hide the table if there's no description
             topBarTable.isVisible = false
         }
@@ -311,8 +310,7 @@ class UIManager(
             if (isCorrect) {
                 checkMarkImage.drawable = TextureRegionDrawable(correctCheckMarkTexture)
                 showForwardPageButton()
-            }
-            else {
+            } else {
                 checkMarkImage.drawable = TextureRegionDrawable(incorrectCheckMarkTexture)
             }
 
@@ -401,8 +399,7 @@ class UIManager(
                     val text =
                         if (side == Side.LEFT || side == Side.RIGHT) {
                             Postposition.splitPredefinedPostposition(postp).text
-                        }
-                        else {
+                        } else {
                             postp.text
                         }
                     onEndingSelected(text)
@@ -419,8 +416,7 @@ class UIManager(
                     val text =
                         if (side == Side.LEFT || side == Side.RIGHT) {
                             IndefinitePronoun.splitShortenedIndPronoun(pronoun).text
-                        }
-                        else {
+                        } else {
                             IndefinitePronoun.shortenPredefinedIndPronoun(pronoun).text
                         }
                     onEndingSelected(text)
@@ -429,9 +425,19 @@ class UIManager(
             )
         }
 
-        val rules = gameModel.currentExercise?.ruleset
+        val rules = gameModel.currentExercise?.ruleset ?: return
 
-        if (rules?.shouldOfferPostpositions == true || rules?.shouldOfferIndPronouns == true) {
+        val shouldShowEndingTypePopup =
+            with(rules) {
+                setOf(
+                    shouldOfferPostpositions,
+                    shouldOfferIndPronouns,
+                    doNotOfferSuffixes?.not()
+                )
+                    .count { it == true } >= 2
+            }
+
+        if (shouldShowEndingTypePopup) {
             displaySelectEndingTypePopup(
                 rules = rules,
                 puzzlePiece = puzzlePiece,
@@ -441,9 +447,10 @@ class UIManager(
                 onIndPronounsSelected = { callDisplayIndPronounPopup() },
                 onCancel = onCancel
             )
-        }
-        else {
-            callDisplaySelectSuffixPopup()
+        } else {
+            if (rules.shouldOfferPostpositions == true) callDisplayPostpositionPopup()
+            else if (rules.shouldOfferIndPronouns == true) callDisplayIndPronounPopup()
+            else if (rules.doNotOfferSuffixes?.not() == true) callDisplaySelectSuffixPopup()
         }
     }
 
@@ -738,8 +745,7 @@ class UIManager(
 
         if (shouldFocus && this::exerciseDescriptionScrollPane.isInitialized) {
             uiStage.scrollFocus = exerciseDescriptionScrollPane
-        }
-        else {
+        } else {
             uiStage.setScrollFocus(null)
         }
     }
