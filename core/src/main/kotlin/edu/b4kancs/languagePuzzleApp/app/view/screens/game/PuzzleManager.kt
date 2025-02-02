@@ -188,6 +188,15 @@ class PuzzleManager(
                 return
             }
 
+            // Special case
+            if (gameModel.currentExercise?.buttonDescription == "FB2/48–49/3.VI.2a-b") {
+                val hasTabHere = puzzle.tabs.any { it.side == side }
+                if (!hasTabHere) {
+                    finishAddFeature(puzzle, PuzzlePieceFeature.Type.TAB, side, GrammaticalRole.UNDEFINED)
+                    return
+                }
+            }
+
             uiManager.displayGrammaticalRolePopup(puzzle, side) { selectedRole ->
                 val doesAllowTabText = gameModel.currentExercise?.ruleset?.doesAllowTabText ?: true
 
@@ -364,7 +373,7 @@ class PuzzleManager(
                 if (result == SolutionResult.CORRECT || acc == SolutionResult.CORRECT) {
                     SolutionResult.CORRECT
                 }
-                else if (result == SolutionResult.INCORRECT && (acc == SolutionResult.INELIGIBLE || acc == SolutionResult.INCORRECT)) {
+                else if (result == SolutionResult.INCORRECT && acc == SolutionResult.INCORRECT) {
                     SolutionResult.INCORRECT
                 }
                 else

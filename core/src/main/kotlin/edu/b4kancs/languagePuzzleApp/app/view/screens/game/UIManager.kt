@@ -354,7 +354,7 @@ class UIManager(
         logger.debug { "displayGrammaticalRolePopup for puzzlePiece=${puzzlePiece.text}" }
 
         val popupWindow = GrammaticalRolePopup(
-            title = "Válassz szerepet!",
+            title = "Válassz!",
             skin = uiSkin,
             font = uiFont,
             gameViewport = gameViewport,
@@ -480,7 +480,7 @@ class UIManager(
         currentPopupWindow = popupWindow
     }
 
-    fun displaySelectSuffixPopup(
+    private fun displaySelectSuffixPopup(
         role: GrammaticalRole,
         puzzlePiece: PuzzlePiece,
         side: Side,

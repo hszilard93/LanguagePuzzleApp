@@ -57,7 +57,7 @@ class SelectSuffixPopup(
                 this.font = font
                 this.fontColor = Color.BLACK
             }
-            val text = if (side == Side.LEFT || side == Side.RIGHT) suffix.text.replace("\n-", "") else suffix.text
+            val text = if (side == Side.LEFT || side == Side.RIGHT) suffix.text.replace("\n", "") else suffix.text
 
             val suffixButton = TextButton(text, buttonStyle).apply {
                 addListener(object : ClickListener() {

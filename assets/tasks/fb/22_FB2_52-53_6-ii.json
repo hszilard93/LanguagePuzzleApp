@@ -1,6 +1,6 @@
 {
   "type": "EDIT_PUZZLES",
-  "buttonDescription": "FB2/52–53/6i",
+  "buttonDescription": "FB2/52–53/6ii",
   "customRuleset": {
     "canAddRemoveTabs": "false",
     "canColorTabs": "false"
@@ -19,17 +19,10 @@
               "grammaticalRole": "SUBJECT",
               "text": "",
               "connectedTo": ""
-            }
-          ],
-          "blanks": []
-        },
-        {
-          "text": "",
-          "grammaticalRole": "VERB",
-          "tabs": [
+            },
             {
-              "side": "LEFT",
-              "grammaticalRole": "SUBJECT",
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
               "text": "",
               "connectedTo": ""
             }
@@ -45,6 +38,12 @@
               "grammaticalRole": "SUBJECT",
               "text": "",
               "connectedTo": ""
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": "",
+              "connectedTo": ""
             }
           ],
           "blanks": []
@@ -56,6 +55,31 @@
             {
               "side": "LEFT",
               "grammaticalRole": "SUBJECT",
+              "text": "",
+              "connectedTo": ""
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": "",
+              "connectedTo": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "connectedTo": ""
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
               "text": "",
               "connectedTo": ""
             }
@@ -99,6 +123,46 @@
           "blanks": [
             {
               "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
             }
           ]
         }
@@ -107,15 +171,22 @@
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "mosolyog",
+            "text": "épít",
             "grammaticalRole": "VERB"
           },
           "puzzlesConnected": [
             {
-              "text": "Ani",
+              "text": "a legkisebb ovis",
               "grammaticalRole": "SUBJECT",
               "via": {
                 "text": ""
+              }
+            },
+            {
+              "text": "a legmagasabb torony",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
               }
             }
           ]
@@ -123,15 +194,22 @@
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "elpirul",
+            "text": "összeszed",
             "grammaticalRole": "VERB"
           },
           "puzzlesConnected": [
             {
-              "text": "az összes lány",
+              "text": "mi",
               "grammaticalRole": "SUBJECT",
               "via": {
                 "text": ""
+              }
+            },
+            {
+              "text": "a szemét",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
               }
             }
           ]
@@ -139,15 +217,22 @@
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "eltörik",
+            "text": "ismer",
             "grammaticalRole": "VERB"
           },
           "puzzlesConnected": [
             {
-              "text": "a kerámiakanál",
+              "text": "a botanikusok",
               "grammaticalRole": "SUBJECT",
               "via": {
                 "text": ""
+              }
+            },
+            {
+              "text": "a legtöbb növényfaj",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
               }
             }
           ]
@@ -155,15 +240,22 @@
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "csúszik",
+            "text": "kerget",
             "grammaticalRole": "VERB"
           },
           "puzzlesConnected": [
             {
-              "text": "a cipőm",
+              "text": "a zöld kabátos fiú",
               "grammaticalRole": "SUBJECT",
               "via": {
                 "text": ""
+              }
+            },
+            {
+              "text": "a labda",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
               }
             }
           ]

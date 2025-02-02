@@ -488,6 +488,9 @@ class PuzzlePiece(
         connection.puzzlesConnected.filter { it != this }.forEach { other ->
             if (other.copyOfConnections.contains(connection)) other.removeConnection(connection)
         }
+        if (this.grammaticalRole != GrammaticalRole.VERB) {
+            this.grammaticalRole = GrammaticalRole.UNDEFINED
+        }
         hasChangedAppearance = true
     }
 
