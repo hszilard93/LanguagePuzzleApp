@@ -429,12 +429,12 @@ class UIManager(
 
         val shouldShowEndingTypePopup =
             with(rules) {
-                setOf(
-                    shouldOfferPostpositions,
-                    shouldOfferIndPronouns,
-                    doNotOfferSuffixes?.not()
+                listOf(
+                    shouldOfferPostpositions == true,
+                    shouldOfferIndPronouns == true,
+                    (doNotOfferSuffixes == true).not()
                 )
-                    .count { it == true } >= 2
+                    .count { it } >= 2
             }
 
         if (shouldShowEndingTypePopup) {
@@ -450,7 +450,7 @@ class UIManager(
         } else {
             if (rules.shouldOfferPostpositions == true) callDisplayPostpositionPopup()
             else if (rules.shouldOfferIndPronouns == true) callDisplayIndPronounPopup()
-            else if (rules.doNotOfferSuffixes?.not() == true) callDisplaySelectSuffixPopup()
+            else if ((rules.doNotOfferSuffixes == true).not()) callDisplaySelectSuffixPopup()
         }
     }
 

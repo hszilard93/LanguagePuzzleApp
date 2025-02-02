@@ -317,10 +317,14 @@ class PuzzleManager(
             return
         }
 
-        val hasSameVerbMultipleTimes = verbPuzzles.any { thisPuzzle ->
-            (verbPuzzles - thisPuzzle).any { otherPuzzle -> thisPuzzle.text == otherPuzzle.text && thisPuzzle.text.isNotEmpty() }
+        val hasSameVerbTooManyTimes = verbPuzzles.any { thisPuzzle ->
+            gameModel.currentExercise?.ruleset?.doesBaseTextCount == true &&
+            verbPuzzles.count { it.text == thisPuzzle.text } > (gameModel.currentTask?.solutionConfigurations?.map { it.solutionCenterPiece.text }
+                ?.count { it == thisPuzzle.text } ?: 0)
+//                (verbPuzzles - thisPuzzle).any { otherPuzzle -> thisPuzzle.text == otherPuzzle.text && thisPuzzle.text.isNotEmpty() }
         }
-        if (hasSameVerbMultipleTimes) {
+
+        if (hasSameVerbTooManyTimes) {
             uiManager.hideCheckMark()
             return
         }
