@@ -50,9 +50,11 @@ class TextEditorPopup(
             saveButton = TextButton("Mentés", skin).apply {
                 style.font = font
             }
+            saveButton.style = saveButton.style
             cancelButton = TextButton("Mégse", skin).apply {
                 style.font = font
             }
+            cancelButton.style = cancelButton.style
 
             // Make window draggable by adding an InputListener to the background area
             addListener(object : InputListener() {

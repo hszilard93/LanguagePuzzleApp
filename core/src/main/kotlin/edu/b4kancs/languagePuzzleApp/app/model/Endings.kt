@@ -109,10 +109,11 @@ data class Postposition(
         }
 
         fun identifyPostPositionFromTabText(tabText: String): Postposition? {
-            // Normalize the tab text: remove newlines, split on "/" to allow for multiple variants,
-            // then trim and lowercase each partial.
             val tabTextNormalized = tabText
-                .replace("\n", "").trim().lowercase()
+                .trim()
+                .lowercase()
+                .replace("\n", "")
+                .replace("-", "")
 
             predefinedPostpositions.firstOrNull { it.text == tabTextNormalized }?.let {
                 return it

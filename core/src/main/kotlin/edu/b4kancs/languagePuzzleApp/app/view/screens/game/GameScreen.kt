@@ -134,7 +134,7 @@ class GameScreen(
 //        (uiStage.viewport as ExtendViewport).
         uiStage.viewport.update(newWidth, newHeight, true)
 
-        val multiplier = maxOf(newWidth / 1200f, newHeight / 800f)
+        val multiplier = maxOf(1200f / newWidth, 800f / newHeight)
         uiManager.updateFonts(multiplier)
         uiManager.updateTaskInfo()
     }
