@@ -3,7 +3,7 @@
   "buttonDescription": "FB2/152–155/32f",
   "tasks": [
     {
-      "taskDescription": "Csatold össze ennek az előre kitöltött megoldásnak az elemeit! Figyeld meg jól, mielőtt továbblépsz!\nRajzold fel az alábbi mondatban szereplő ige puzzle-szerkezetét!\n\"Mindig magamat vádolom a történtekért.\"",
+      "taskDescription": "A következőkben mondatokat adunk meg, és fel kell rajzolnod a nekik megfelelő puzzle-szerkezetet.\nNézd meg alaposan a mintát, mielőtt továbblépsz!\nA mondat: \"Mindig magamat vádolom a történtekért.\"",
       "predefinedPieces": [
         {
           "text": "vádol",
@@ -383,7 +383,7 @@
               "text": "magad",
               "grammaticalRole": "OBJECT",
               "via": {
-                "text": "(-t)"
+                "text": "-t"
               }
             },
             {

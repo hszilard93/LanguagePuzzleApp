@@ -2,7 +2,8 @@
   "type": "PLACE_PUZZLES_IN_ORDER",
   "buttonDescription": "FB2/50–52/5Aa",
   "customRuleset": {
-    "canEditTabText": "true"
+    "canEditTabText": "true",
+    "doesBlankTextCount": "false"
   },
   "tasks": [
     {
@@ -61,7 +62,7 @@
           "blanks": []
         },
         {
-          "text": "megkap",
+          "text": "megnyer",
           "grammaticalRole": "VERB",
           "tabs": [
             {
@@ -399,7 +400,7 @@
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "megkap",
+            "text": "megnyer",
             "grammaticalRole": "VERB"
           },
           "puzzlesConnected": [

@@ -2,7 +2,9 @@
   "type": "FREE_EDIT_PUZZLE",
   "buttonDescription": "FB2/44–45/3.V.2.A.a-b",
   "customRuleset": {
-    "canAddRemoveTabs": "false"
+    "canAddRemoveTabs": "false",
+    "canAddMainPieces": "false",
+    "canAddBlankPieces": "false"
   },
   "tasks": [
     {

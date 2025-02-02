@@ -8,7 +8,7 @@
   },
   "tasks": [
     {
-      "taskDescription": "Írd rá az igepuzzle-re az igét, a többi puzzle-re a további szavak valamelyikét, majd írd rá az ige füleire a megfelelő toldalékot. Válaszd ki az ige füleire illő végződést, amelyből a többiek is érteni fogják a szó, kifejezés szerepét, és helyezd rájuk a megfelelő puzzle-darabokat! Állapítsd meg, és írd le a füzetedbe, milyen szerepük van az egyes szavaknak, kifejezéseknek az igével leírható jelenetben!\nA felhasználandó szavak: \"rábíz\", \"a szülő\", \"a gyerek\", \"az óvó néni\".",
+      "taskDescription": "Írd rá az igepuzzle-re az igét, a többi puzzle-re a többi szókártya valamelyikét, majd az ige füleire azt a toldalékot, amelyikből a többiek is érteni fogják a fülre csatolandó puzzle szerepét. Rakd össze a puzzle-szerkezetet úgy, hogy figyelembe veszed a szókártyák melletti információt is! Állapítsd meg, és írd le a füzetbe, hogy milyen szerepük van az egyes szavaknak, kifejezéseknek az igével leírható jelenetben!\nA szókártyák: „a gyerek”, „az óvó néni”, „a szülő”, „rábíz”.\n(Az óvó néni vigyáz a gyerekekre.)",
       "predefinedPieces": [
         {
           "text": "",
@@ -97,7 +97,7 @@
       ]
     },
     {
-      "taskDescription": "Írd rá az igepuzzle-re az igét, a többi puzzle-re a további szavak valamelyikét, majd válassz az ige füleinek megfelelő szerepet, és helyezd rájuk a megfelelő puzzle-darabokat! Állapítsd meg, milyen szerepük van az egyes szavaknak, kifejezéseknek az igével leírható jelenetben! Írd rá a fülekre a végződést, amelyből a többiek is érteni fogják a szó, kifejezés szerepét!\nA felhasználandó szavak: \"eltalál\", \"Gyuri\", \"a labda\", \"az igazgató\"",
+      "taskDescription": "Írd rá az igepuzzle-re az igét, a többi puzzle-re a többi szókártya valamelyikét, majd az ige füleire azt a toldalékot, amelyikből a többiek is érteni fogják a fülre csatolandó puzzle szerepét. Rakd össze a puzzle-szerkezetet úgy, hogy figyelembe veszed a szókártyák melletti információt is! Állapítsd meg, és írd le a füzetbe, hogy milyen szerepük van az egyes szavaknak, kifejezéseknek az igével leírható jelenetben!\nA szókártyák: „a labda”, „az igazgató”, „eltalál”, „Gyuri”.\n(Az igazgató volt a célpont.)",
       "predefinedPieces": [
         {
           "text": "",
@@ -186,7 +186,7 @@
       ]
     },
     {
-      "taskDescription": "Írd rá az igepuzzle-re az igét, a többi puzzle-re a további szavak valamelyikét, majd válassz az ige füleinek megfelelő szerepet, és helyezd rájuk a megfelelő puzzle-darabokat! Állapítsd meg, milyen szerepük van az egyes szavaknak, kifejezéseknek az igével leírható jelenetben! Írd rá a fülekre a végződést, amelyből a többiek is érteni fogják a szó, kifejezés szerepét!\nA felhasználandó szavak: \"megment\", \"a királyfi\", \"a királylány\", \"a sárkány\"",
+      "taskDescription": "Írd rá az igepuzzle-re az igét, a többi puzzle-re a többi szókártya valamelyikét, majd az ige füleire azt a toldalékot, amelyikből a többiek is érteni fogják a fülre csatolandó puzzle szerepét. Rakd össze a puzzle-szerkezetet úgy, hogy figyelembe veszed a szókártyák melletti információt is! Állapítsd meg, és írd le a füzetbe, hogy milyen szerepük van az egyes szavaknak, kifejezéseknek az igével leírható jelenetben!\nA szókártyák: „a királyfi”, „a királylány”, „a sárkány”, „megment”.\n(A sárkányt a királyfi  győzte le.)",
       "predefinedPieces": [
         {
           "text": "",
@@ -275,7 +275,7 @@
       ]
     },
     {
-      "taskDescription": "Írd rá az igepuzzle-re az igét, a többi puzzle-re a további szavak valamelyikét, majd válassz az ige füleinek megfelelő szerepet, és helyezd rájuk a megfelelő puzzle-darabokat! Állapítsd meg, milyen szerepük van az egyes szavaknak, kifejezéseknek az igével leírható jelenetben! Írd rá a fülekre a végződést, amelyből a többiek is érteni fogják a szó, kifejezés szerepét!\nA felhasználandó szavak: \"kigyógyít\", \"az orvos\", \"a betegség\", \"egy páciens\"",
+      "taskDescription": "Írd rá az igepuzzle-re az igét, a többi puzzle-re a többi szókártya valamelyikét, majd az ige füleire azt a toldalékot, amelyikből a többiek is érteni fogják a fülre csatolandó puzzle szerepét. Rakd össze a puzzle-szerkezetet úgy, hogy figyelembe veszed a szókártyák melletti információt is! Állapítsd meg, és írd le a füzetbe, hogy milyen szerepük van az egyes szavaknak, kifejezéseknek az igével leírható jelenetben!\nA szókártyák: „a betegség”, „az orvos”, „egy páciens”, „kigyógyít”.\n(A páciens meggyógyult.)",
       "predefinedPieces": [
         {
           "text": "",
@@ -364,7 +364,7 @@
       ]
     },
     {
-      "taskDescription": "Írd rá az igepuzzle-re az igét, a többi puzzle-re a további szavak valamelyikét, majd válassz az ige füleinek megfelelő szerepet, és helyezd rájuk a megfelelő puzzle-darabokat! Állapítsd meg, milyen szerepük van az egyes szavaknak, kifejezéseknek az igével leírható jelenetben! Írd rá a fülekre a végződést, amelyből a többiek is érteni fogják a szó, kifejezés szerepét!\nA felhasználandó szavak: \"hozzáragaszt\", \"Marci\", \"a Peti nadrágja\", \"a szék\"",
+      "taskDescription": "Írd rá az igepuzzle-re az igét, a többi puzzle-re a többi szókártya valamelyikét, majd az ige füleire azt a toldalékot, amelyikből a többiek is érteni fogják a fülre csatolandó puzzle szerepét. Rakd össze a puzzle-szerkezetet úgy, hogy figyelembe veszed a szókártyák melletti információt is! Állapítsd meg, és írd le a füzetbe, hogy milyen szerepük van az egyes szavaknak, kifejezéseknek az igével leírható jelenetben!\nA szókártyák: „a Peti nadrágja”, „a szék”, „hozzáragaszt”, „Marci”.\n(Peti nem tudott felállni a székről.)",
       "predefinedPieces": [
         {
           "text": "",
@@ -453,7 +453,7 @@
       ]
     },
     {
-      "taskDescription": "Írd rá az igepuzzle-re az igét, a többi puzzle-re a további szavak valamelyikét, majd válassz az ige füleinek megfelelő szerepet, és helyezd rájuk a megfelelő puzzle-darabokat! Állapítsd meg, milyen szerepük van az egyes szavaknak, kifejezéseknek az igével leírható jelenetben! Írd rá a fülekre a végződést, amelyből a többiek is érteni fogják a szó, kifejezés szerepét!\nA felhasználandó szavak: \"megszór\", \"a kínai szakács\", \"a sonkás pizza\", \"sajt\"",
+      "taskDescription": "Írd rá az igepuzzle-re az igét, a többi puzzle-re a többi szókártya valamelyikét, majd az ige füleire azt a toldalékot, amelyikből a többiek is érteni fogják a fülre csatolandó puzzle szerepét. Rakd össze a puzzle-szerkezetet úgy, hogy figyelembe veszed a szókártyák melletti információt is! Állapítsd meg, és írd le a füzetbe, hogy milyen szerepük van az egyes szavaknak, kifejezéseknek az igével leírható jelenetben!\nA szókártyák: „a kínai szakács”, „a sonkás pizza”, „megszór”,  „sajt”.\n(Sajt került a pizzára.)",
       "predefinedPieces": [
         {
           "text": "",
