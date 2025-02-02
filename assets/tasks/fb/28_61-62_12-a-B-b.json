@@ -1,0 +1,699 @@
+{
+  "type": "EDIT_PUZZLES",
+  "buttonDescription": "FB2/61–62/12aB,b",
+  "customRuleset": {
+    "doesBlankTextCount": "false"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Rendszerezd a kapott puzzle-eket aszerint, hogy melyik igéhez melyik puzzle-darab kapcsolódhat!\nSzínezd ki az igepuzzle füleit, és írd bele a megfelelő toldalékot (ahol szükséges)!\nA legodaillőbb puzzle-darabok felhasználásával rakd össze a puzzle-szerkezetet!",
+      "requiredSolutions": 4,
+      "predefinedPieces": [
+        {
+          "text": "pletykál",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "UNDEFINED",
+              "text": ""
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "UNDEFINED",
+              "text": ""
+            },
+            {
+              "side": "RIGHT",
+              "grammaticalRole": "UNDEFINED",
+              "text": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "Zsófi",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "Zsolti",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "Zsuzsi",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "belekavar",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "UNDEFINED",
+              "text": ""
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "UNDEFINED",
+              "text": ""
+            },
+            {
+              "side": "RIGHT",
+              "grammaticalRole": "UNDEFINED",
+              "text": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "a szakácsnő",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "a kanál",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "a mártás",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "átmásol",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "UNDEFINED",
+              "text": ""
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "UNDEFINED",
+              "text": ""
+            },
+            {
+              "side": "RIGHT",
+              "grammaticalRole": "UNDEFINED",
+              "text": ""
+            },
+            {
+              "side": "BOTTOM",
+              "grammaticalRole": "UNDEFINED",
+              "text": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "a rendszergazda",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "a számítógép",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "az adathordozó",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "a fájlok",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "fordít",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "UNDEFINED",
+              "text": ""
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "UNDEFINED",
+              "text": ""
+            },
+            {
+              "side": "RIGHT",
+              "grammaticalRole": "UNDEFINED",
+              "text": ""
+            },
+            {
+              "side": "BOTTOM",
+              "grammaticalRole": "UNDEFINED",
+              "text": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "francia",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "ukrán",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "a tanárnőnk",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "újságcikkek",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "pletykál",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Zsófi",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "Zsolti",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-val/-vel"
+              }
+            },
+            {
+              "text": "Zsuzsi",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ról/-ről"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "pletykál",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Zsófi",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "Zsuzsi",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-val/-vel"
+              }
+            },
+            {
+              "text": "Zsolti",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ról/-ről"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "pletykál",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Zsolti",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "Zsófi",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-val/-vel"
+              }
+            },
+            {
+              "text": "Zsuzsi",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ról/-ről"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "pletykál",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Zsolti",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "Zsuzsi",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-val/-vel"
+              }
+            },
+            {
+              "text": "Zsófi",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ról/-ről"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "pletykál",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Zsuzsi",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "Zsófi",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-val/-vel"
+              }
+            },
+            {
+              "text": "Zsolti",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ról/-ről"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "pletykál",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Zsuzsi",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "Zsolti",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-val/-vel"
+              }
+            },
+            {
+              "text": "Zsófi",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ról/-ről"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "belekavar",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-val/-vel"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ba/-be"
+              }
+            ]
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a szakácsnő",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a kanál",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-val/-vel"
+              }
+            },
+            {
+              "text": "a mártás",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ba/-be"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "átmásol",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ról/-ről"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ra/-re"
+              }
+            ]
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a rendszergazda",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a fájlok",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "a számítógép",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ról/-ről"
+              }
+            },
+            {
+              "text": "az adathordozó",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ra/-re"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "átmásol",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ról/-ről"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ra/-re"
+              }
+            ]
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a rendszergazda",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a fájlok",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "az adathordozó",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ról/-ről"
+              }
+            },
+            {
+              "text": "a számítógép",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ra/-re"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "fordít",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ról/-ről"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ra/-re"
+              }
+            ]
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a tanárnőnk",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "újságcikkek",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "ukrán",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ról/-ről"
+              }
+            },
+            {
+              "text": "francia",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ra/-re"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "fordít",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ról/-ről"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ra/-re"
+              }
+            ]
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a tanárnőnk",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "újságcikkek",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "francia",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ról/-ről"
+              }
+            },
+            {
+              "text": "ukrán",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ra/-re"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
