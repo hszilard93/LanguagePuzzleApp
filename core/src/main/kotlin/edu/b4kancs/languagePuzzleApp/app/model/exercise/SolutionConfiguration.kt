@@ -4,7 +4,6 @@ import edu.b4kancs.languagePuzzleApp.app.model.Connection
 import edu.b4kancs.languagePuzzleApp.app.model.Ending
 import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
-import edu.b4kancs.languagePuzzleApp.app.model.Suffix
 import edu.b4kancs.languagePuzzleApp.app.serialization.SolutionConfigurationSerializer
 import kotlinx.serialization.Serializable
 
@@ -14,8 +13,8 @@ enum class SolutionResult {
 
 @Serializable(with = SolutionConfigurationSerializer::class)
 class SolutionConfiguration(
-    private val solutionCenterPiece: PuzzlePiece,
-    private val solutionSet: Set<Connection>,
+    val solutionCenterPiece: PuzzlePiece,
+    val solutionSet: Set<Connection>,
     private val checkTabText: Boolean = false
 ) {
 
@@ -26,7 +25,7 @@ class SolutionConfiguration(
         The text of the tabs is optionally taken into account.
      */
 
-    fun doesVerbHaveSolution(centerPiece: PuzzlePiece, exercise: Exercise): SolutionResult {
+    fun doesVerbMatchSolution(centerPiece: PuzzlePiece, exercise: Exercise): SolutionResult {
         ruleset = exercise.ruleset
 
         if (exercise.type == TaskType.COMPLETE_ARGUMENTS) {
@@ -60,10 +59,7 @@ class SolutionConfiguration(
                 val matchesText =
                     if (checkTabText) {
                         Connection(emptySet(), t1, t1.grammaticalRole)
-                            .matches(
-                                Connection(emptySet(), t2, t2.grammaticalRole),
-                                checkTabText
-                            )
+                            .matches(Connection(emptySet(), t2, t2.grammaticalRole), checkTabText)
                     }
                     else true
 

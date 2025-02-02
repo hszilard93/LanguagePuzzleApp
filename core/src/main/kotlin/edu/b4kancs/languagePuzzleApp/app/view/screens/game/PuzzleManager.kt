@@ -368,12 +368,18 @@ class PuzzleManager(
         // All the tabs are connected, let's check the correctness of the result
         val solutionResult = gameModel.currentTask
             ?.solutionConfigurations
-            ?.map { it.doesVerbHaveSolution(centerPuzzle, gameModel.currentExercise!!) }
+            ?.filter {
+                val centerText = it.solutionCenterPiece.text
+                if (gameModel.currentExercise?.ruleset?.doesBaseTextCount == true) centerPuzzle.text == centerText else true
+            }
+            ?.map {
+                it.doesVerbMatchSolution(centerPuzzle, gameModel.currentExercise!!)
+            }
             ?.fold(SolutionResult.INELIGIBLE) { acc, result ->
                 if (result == SolutionResult.CORRECT || acc == SolutionResult.CORRECT) {
                     SolutionResult.CORRECT
                 }
-                else if (result == SolutionResult.INCORRECT && acc == SolutionResult.INCORRECT) {
+                else if (result == SolutionResult.INCORRECT || acc == SolutionResult.INCORRECT) {
                     SolutionResult.INCORRECT
                 }
                 else

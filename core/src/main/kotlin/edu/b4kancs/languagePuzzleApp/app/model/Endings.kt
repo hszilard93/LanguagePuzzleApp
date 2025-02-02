@@ -9,6 +9,8 @@ interface Ending {
 
     companion object {
         fun normalizeEnding(text: String): String {
+            if (text.isEmpty()) return text
+
             val suffixOrNull = Suffix.identifySuffixFromTabText(text)
             suffixOrNull?.let {
                 return suffixOrNull.text
@@ -131,29 +133,30 @@ data class IndefinitePronoun(
 ) : Ending {
     companion object {
         val predefinedIndPronouns = listOf(
-            IndefinitePronoun("valahová"),
-            IndefinitePronoun("valamerre"),
-            IndefinitePronoun("valahonnan"),
-            IndefinitePronoun("valahol"),
-            IndefinitePronoun("valahogyan"),
-            IndefinitePronoun("valamennyibe")
+            IndefinitePronoun("'valahová'"),
+            IndefinitePronoun("'valamerre'"),
+            IndefinitePronoun("'valahonnan'"),
+            IndefinitePronoun("'valahol'"),
+            IndefinitePronoun("'valahogyan'"),
+            IndefinitePronoun("'valamennyibe'")
         )
 
         fun shortenPredefinedIndPronoun(pronoun: IndefinitePronoun): IndefinitePronoun {
             return when (pronoun.text) {
-                "valamennyibe" -> IndefinitePronoun("vmeny-\nnyibe")
+                "'valamennyibe'" -> IndefinitePronoun("'vmeny-\nnyibe'")
+                "'valahonnan'" -> IndefinitePronoun("'vhon-\nnan'")
                 else -> IndefinitePronoun(pronoun.text.replace("vala", "v"))
             }
         }
 
         fun splitShortenedIndPronoun(pronoun: IndefinitePronoun): IndefinitePronoun {
             return when (pronoun.text) {
-                "valahová" -> IndefinitePronoun("vho-\nvá")
-                "valamerre" -> IndefinitePronoun("vmer-\nre")
-                "valahonnan" -> IndefinitePronoun("vhon-\nnan")
-                "valahol" -> IndefinitePronoun("vala-\nhol")
-                "valahogyan" -> IndefinitePronoun("vho-\ngyan")
-                "valamennyibe" -> IndefinitePronoun("vmeny-\nnyibe")
+                "'valahová'" -> IndefinitePronoun("'vho-\nvá'")
+                "'valamerre'" -> IndefinitePronoun("'vmer-\nre'")
+                "'valahonnan'" -> IndefinitePronoun("'vhon-\nnan'")
+                "'valahol'" -> IndefinitePronoun("'vala-\nhol'")
+                "'valahogyan'" -> IndefinitePronoun("'vho-\ngyan'")
+                "'valamennyibe'" -> IndefinitePronoun("'vmeny-\nnyibe'")
                 else -> pronoun
             }
         }
@@ -163,6 +166,7 @@ data class IndefinitePronoun(
             val tabTextNormalized = tabText
                 .trim()
                 .lowercase()
+                .replace("'", "")
                 .replace("\n", "")
                 .replace("-", "")
                 .run {
@@ -174,7 +178,7 @@ data class IndefinitePronoun(
                     }
                 }
 
-            predefinedIndPronouns.firstOrNull { it.text == tabTextNormalized }?.let {
+            predefinedIndPronouns.firstOrNull { it.text.replace("'", "") == tabTextNormalized }?.let {
                 return it
             }
             return null

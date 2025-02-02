@@ -183,6 +183,19 @@
         {
           "checkTabText": "true",
           "centerPiece": {
+            "text": "utazik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
             "text": "táncol",
             "grammaticalRole": "VERB",
             "tabs": [
@@ -370,6 +383,23 @@
         {
           "checkTabText": "true",
           "centerPiece": {
+            "text": "eltalál",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "valahová"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
             "text": "felhív",
             "grammaticalRole": "VERB",
             "tabs": [
@@ -435,6 +465,23 @@
               {
                 "grammaticalRole": "ADVERBIAL",
                 "text": "elől"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "menekül",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "valahonnan"
               }
             ]
           }

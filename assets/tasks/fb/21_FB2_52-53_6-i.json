@@ -128,7 +128,7 @@
           },
           "puzzlesConnected": [
             {
-              "text": "az összes lány",
+              "text": "az összes első padban ülő lány",
               "grammaticalRole": "SUBJECT",
               "via": {
                 "text": ""
@@ -160,7 +160,7 @@
           },
           "puzzlesConnected": [
             {
-              "text": "a cipőm",
+              "text": "a bátyámtól örökölt hegyes orrú cipőm",
               "grammaticalRole": "SUBJECT",
               "via": {
                 "text": ""

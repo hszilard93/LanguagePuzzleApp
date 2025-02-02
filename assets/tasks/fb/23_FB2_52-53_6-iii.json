@@ -168,100 +168,98 @@
         }
       ],
       "solutionConfigurations": [
-        [
-          {
-            "checkTabText": "true",
-            "centerPiece": {
-              "text": "gratulál",
-              "grammaticalRole": "VERB"
-            },
-            "puzzlesConnected": [
-              {
-                "text": "az iskola igazgatója",
-                "grammaticalRole": "SUBJECT",
-                "via": {
-                  "text": ""
-                }
-              },
-              {
-                "text": "a verseny győztesei",
-                "grammaticalRole": "ADVERBIAL",
-                "via": {
-                  "text": "-nak/-nek"
-                }
-              }
-            ]
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "gratulál",
+            "grammaticalRole": "VERB"
           },
-          {
-            "checkTabText": "true",
-            "centerPiece": {
-              "text": "tetszik",
-              "grammaticalRole": "VERB"
-            },
-            "puzzlesConnected": [
-              {
-                "text": "a fehér orgona",
-                "grammaticalRole": "SUBJECT",
-                "via": {
-                  "text": ""
-                }
-              },
-              {
-                "text": "nagymamám",
-                "grammaticalRole": "ADVERBIAL",
-                "via": {
-                  "text": "-nak/-nek"
-                }
+          "puzzlesConnected": [
+            {
+              "text": "az iskola igazgatója",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
               }
-            ]
+            },
+            {
+              "text": "a verseny győztesei",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-nak/-nek"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "tetszik",
+            "grammaticalRole": "VERB"
           },
-          {
-            "checkTabText": "true",
-            "centerPiece": {
-              "text": "szurkol",
-              "grammaticalRole": "VERB"
-            },
-            "puzzlesConnected": [
-              {
-                "text": "apa",
-                "grammaticalRole": "SUBJECT",
-                "via": {
-                  "text": ""
-                }
-              },
-              {
-                "text": "az osztályunk csapata",
-                "grammaticalRole": "ADVERBIAL",
-                "via": {
-                  "text": "-nak/-nek"
-                }
+          "puzzlesConnected": [
+            {
+              "text": "a fehér orgona",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
               }
-            ]
+            },
+            {
+              "text": "nagymamám",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-nak/-nek"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "szurkol",
+            "grammaticalRole": "VERB"
           },
-          {
-            "checkTabText": "true",
-            "centerPiece": {
-              "text": "udvarol",
-              "grammaticalRole": "VERB"
-            },
-            "puzzlesConnected": [
-              {
-                "text": "a szőke fiú",
-                "grammaticalRole": "SUBJECT",
-                "via": {
-                  "text": ""
-                }
-              },
-              {
-                "text": "a legokosabb lány",
-                "grammaticalRole": "ADVERBIAL",
-                "via": {
-                  "text": "-nak/-nek"
-                }
+          "puzzlesConnected": [
+            {
+              "text": "apa",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
               }
-            ]
-          }
-        ]
+            },
+            {
+              "text": "az osztályunk csapata",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-nak/-nek"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "udvarol",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a szőke fiú",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a legokosabb lány",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-nak/-nek"
+              }
+            }
+          ]
+        }
       ]
     }
   ]

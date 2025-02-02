@@ -35,7 +35,6 @@ class TextEditorPopup(
 
     init {
         window = Window("", skin).apply {
-            setSize(250f, 100f)
             isMovable = true
             isResizable = true
 
@@ -115,18 +114,21 @@ class TextEditorPopup(
         val table = Table(skin).apply {
             pad(2.5f)
             defaults().pad(2.5f).expandX().fillX()
-            add(textField).height(40f).row()
+            add(textField).height(45f).pad(5f).row()
 
             val buttonTable = Table(skin).apply {
 //                defaults().pad(2f)
-                add(saveButton).width(100f)
-                add(cancelButton).width(100f)
+                add(saveButton).width(100f).pad(5f)
+                add(cancelButton).width(100f).pad(5f)
             }
-            add(buttonTable).height(25f)
+            buttonTable.pack()
+            add(buttonTable)
+            pack()
         }
 
         // TODO refactor this eventually
         window.add(table).expand().fill()
+        window.pack()
         stage.addActor(window)
         stage.setKeyboardFocus(textField)
     }

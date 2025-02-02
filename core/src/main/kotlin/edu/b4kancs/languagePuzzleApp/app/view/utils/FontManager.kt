@@ -47,7 +47,12 @@ fun loadFreeTypeFont(fileName: String, fontSize: Int, flipFont: Boolean = false)
 }
 
 fun loadTaskDescriptionFont(multiplier: Float = 1f): BitmapFont {
-    return loadFreeTypeFont("PlaywriteGBS.ttf", (TASK_DESC_DEFAULT_FONT_SIZE * multiplier).toInt())
+    val normalizedMultiplier = if (multiplier > 1f) {
+        multiplier * (1f - (multiplier / 8))
+    } else {
+        multiplier
+    }
+    return loadFreeTypeFont("PlaywriteGBS.ttf", (TASK_DESC_DEFAULT_FONT_SIZE * normalizedMultiplier).toInt())
 //    return loadFreeTypeFont("libre-baskerville.regular.ttf", (TASK_DESC_DEFAULT_FONT_SIZE * scale).toInt())
 }
 
@@ -60,7 +65,12 @@ fun loadMenuFont(multiplier: Float = 1f): BitmapFont {
 }
 
 fun loadUIFont(multiplier: Float = 1f): BitmapFont {
-    return loadFreeTypeFont("Roboto-Regular.ttf", (UI_DEFAULT_FONT_SIZE * multiplier).toInt())
+    val normalizedMultiplier = if (multiplier > 1f) {
+        multiplier * (1f - (multiplier / 8))
+    } else {
+        multiplier
+    }
+    return loadFreeTypeFont("Roboto-Regular.ttf", (UI_DEFAULT_FONT_SIZE * normalizedMultiplier).toInt())
 }
 
 fun loadPuzzleBaseFont(multiplier: Float = 1f): BitmapFont {
