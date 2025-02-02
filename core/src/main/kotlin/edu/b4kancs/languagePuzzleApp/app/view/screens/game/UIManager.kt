@@ -26,11 +26,16 @@ import edu.b4kancs.languagePuzzleApp.app.HudViewport
 import edu.b4kancs.languagePuzzleApp.app.misc
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
 import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole
+import edu.b4kancs.languagePuzzleApp.app.model.IndefinitePronoun
+import edu.b4kancs.languagePuzzleApp.app.model.Postposition
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 import edu.b4kancs.languagePuzzleApp.app.model.Side
 import edu.b4kancs.languagePuzzleApp.app.model.Suffix
 import edu.b4kancs.languagePuzzleApp.app.view.ui.AddPuzzlePopup
 import edu.b4kancs.languagePuzzleApp.app.view.ui.GrammaticalRolePopup
+import edu.b4kancs.languagePuzzleApp.app.view.ui.SelectEndingTypePopup
+import edu.b4kancs.languagePuzzleApp.app.view.ui.SelectIndefinitePronounPopup
+import edu.b4kancs.languagePuzzleApp.app.view.ui.SelectPostpositionPopup
 import edu.b4kancs.languagePuzzleApp.app.view.ui.SelectSuffixPopup
 import edu.b4kancs.languagePuzzleApp.app.view.ui.TextEditorPopup
 import edu.b4kancs.languagePuzzleApp.app.view.utils.TaskFontHolder
@@ -40,7 +45,6 @@ import edu.b4kancs.languagePuzzleApp.app.view.utils.loadTaskDescriptionFont
 import edu.b4kancs.languagePuzzleApp.app.view.utils.loadUIFont
 import edu.b4kancs.languagePuzzleApp.app.view.utils.partialFadeIn
 import ktx.inject.Context
-import ktx.log.debug
 
 class UIManager(
     private val context: Context,
@@ -97,7 +101,7 @@ class UIManager(
     }
 
     fun initializeUI() {
-        logger.debug { "initializeUI" }
+        logger.info { "initializeUI" }
         initializeTopBar()
 
         val rules = gameModel.currentExercise?.type?.ruleset
@@ -366,7 +370,113 @@ class UIManager(
         currentPopupWindow = popupWindow
     }
 
-    fun displaySelectSuffixPopupForResult(
+    fun displayTabTextPopups(
+        role: GrammaticalRole,
+        puzzlePiece: PuzzlePiece,
+        side: Side,
+        onEndingSelected: (String) -> Unit,
+        onCancel: () -> Unit
+    ) {
+        logger.debug { "displaySelectEndingPopups role = $role" }
+
+        val callDisplaySelectSuffixPopup = {
+            displaySelectSuffixPopup(
+                role = role,
+                puzzlePiece = puzzlePiece,
+                side = side,
+                onSuffixSelected = { suffix ->
+                    onEndingSelected(suffix.text)
+                },
+                onCancel = onCancel
+            )
+        }
+
+        val callDisplayPostpositionPopup = {
+            displaySelectPostpositionPopup(
+                role = role,
+                puzzlePiece = puzzlePiece,
+                side = side,
+                onPostpSelected = { postp ->
+                    val text =
+                        if (side == Side.LEFT || side == Side.RIGHT) {
+                            Postposition.splitPredefinedPostposition(postp).text
+                        }
+                        else {
+                            postp.text
+                        }
+                    onEndingSelected(text)
+                },
+                onCancel = onCancel
+            )
+        }
+
+        val callDisplayIndPronounPopup = {
+            displayIndefinitePronounPopup(
+                puzzlePiece = puzzlePiece,
+                side = side,
+                onIndPronounSelected = { pronoun ->
+                    val text =
+                        if (side == Side.LEFT || side == Side.RIGHT) {
+                            IndefinitePronoun.splitShortenedIndPronoun(pronoun).text
+                        }
+                        else {
+                            IndefinitePronoun.shortenPredefinedIndPronoun(pronoun).text
+                        }
+                    onEndingSelected(text)
+                },
+                onCancel = onCancel
+            )
+        }
+
+        val rules = gameModel.currentExercise?.type?.ruleset
+
+        if (rules?.shouldOfferPostpositions == true || rules?.shouldOfferIndPronouns == true || true) {
+            displaySelectEndingTypePopup(
+                puzzlePiece = puzzlePiece,
+                side = side,
+                onSuffixesSelected = { callDisplaySelectSuffixPopup() },
+                onPostpSelected = { callDisplayPostpositionPopup() },
+                onIndPronounsSelected = { callDisplayIndPronounPopup() },
+                onCancel = onCancel
+            )
+        }
+        else {
+            callDisplaySelectSuffixPopup()
+        }
+    }
+
+    private fun displaySelectEndingTypePopup(
+        puzzlePiece: PuzzlePiece,
+        side: Side,
+        onSuffixesSelected: () -> Unit,
+        onPostpSelected: () -> Unit,
+        onIndPronounsSelected: () -> Unit,
+        onCancel: () -> Unit
+    ) {
+        logger.debug { "displaySelectEndingTypePopup" }
+
+        val popupWindow = SelectEndingTypePopup(
+            title = "Mit kérsz?",
+            skin = uiSkin,
+            font = uiFont,
+            puzzlePiece = puzzlePiece,
+            side = side,
+            gameViewport = gameViewport,
+            onSuffixesSelected = onSuffixesSelected,
+            onPostpSelected = onPostpSelected,
+            onIndPronounsSelected = onIndPronounsSelected,
+            onClose = {
+                currentPopupWindow?.remove()
+                currentPopupWindow = null
+            },
+            onCancel = onCancel
+        )
+
+        uiStage.addActor(popupWindow)
+        currentPopupWindow = popupWindow
+    }
+
+    fun displaySelectSuffixPopup(
         role: GrammaticalRole,
         puzzlePiece: PuzzlePiece,
         side: Side,
@@ -384,6 +494,63 @@ class UIManager(
             side = side,
             gameViewport = gameViewport,
             onSuffixSelected = onSuffixSelected,
+            onClose = {
+                currentPopupWindow?.remove()
+                currentPopupWindow = null
+            },
+            onCancel = onCancel
+        )
+
+        uiStage.addActor(popupWindow)
+        uiStage.setScrollFocus(popupWindow)
+        currentPopupWindow = popupWindow
+    }
+
+    private fun displaySelectPostpositionPopup(
+        role: GrammaticalRole,
+        puzzlePiece: PuzzlePiece,
+        side: Side,
+        onPostpSelected: (Postposition) -> Unit,
+        onCancel: () -> Unit
+    ) {
+        logger.debug { "displaySelectPostpositionPopup role = $role" }
+
+        val popupWindow = SelectPostpositionPopup(
+            title = "Válassz\n névutót!",
+            skin = uiSkin,
+            font = uiFont,
+            puzzlePiece = puzzlePiece,
+            side = side,
+            gameViewport = gameViewport,
+            onPostpSelected = onPostpSelected,
+            onClose = {
+                currentPopupWindow?.remove()
+                currentPopupWindow = null
+            },
+            onCancel = onCancel
+        )
+
+        uiStage.addActor(popupWindow)
+        uiStage.setScrollFocus(popupWindow)
+        currentPopupWindow = popupWindow
+    }
+
+    private fun displayIndefinitePronounPopup(
+        puzzlePiece: PuzzlePiece,
+        side: Side,
+        onIndPronounSelected: (IndefinitePronoun) -> Unit,
+        onCancel: () -> Unit
+    ) {
+        logger.debug { "displayIndefinitePronounPopup" }
+
+        val popupWindow = SelectIndefinitePronounPopup(
+            title = "Válassz\n jelentéscímkét!",
+            skin = uiSkin,
+            font = uiFont,
+            puzzlePiece = puzzlePiece,
+            side = side,
+            gameViewport = gameViewport,
+            onIndPronounSelected = onIndPronounSelected,
             onClose = {
                 currentPopupWindow?.remove()
                 currentPopupWindow = null

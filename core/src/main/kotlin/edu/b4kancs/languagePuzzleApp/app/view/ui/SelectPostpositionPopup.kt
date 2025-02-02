@@ -11,20 +11,18 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.ui.Window
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.viewport.Viewport
-import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole
+import edu.b4kancs.languagePuzzleApp.app.model.Postposition
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 import edu.b4kancs.languagePuzzleApp.app.model.Side
-import edu.b4kancs.languagePuzzleApp.app.model.Suffix
 
-class SelectSuffixPopup(
+class SelectPostpositionPopup(
     title: String = "",
     skin: Skin,
     font: BitmapFont,
-    role: GrammaticalRole,
     puzzlePiece: PuzzlePiece,
     side: Side,
     gameViewport: Viewport,
-    onSuffixSelected: (Suffix) -> Unit,
+    onPostpSelected: (Postposition) -> Unit,
     onClose: () -> Unit,
     onCancel: () -> Unit
 ) : Window(
@@ -33,7 +31,7 @@ class SelectSuffixPopup(
     skin
 ) {
     companion object {
-        val logger = ktx.log.logger<SelectSuffixPopup>()
+        val logger = ktx.log.logger<SelectPostpositionPopup>()
     }
 
     init {
@@ -50,23 +48,23 @@ class SelectSuffixPopup(
         titleLabel.style.font = font
         titleLabel.style = titleLabel.style
 
-        val suffixes = Suffix.predefinedSuffixes.filter { it.grammaticalRole == role && it.text.isNotEmpty() }
-        suffixes.forEach { suffix ->
+        val postpositions = Postposition.predefinedPostpositions
+        postpositions.forEach { postp ->
             val buttonStyle = TextButton.TextButtonStyle().apply {
                 this.font = font
                 this.fontColor = Color.BLACK
             }
-            val suffixButton = TextButton(suffix.text, buttonStyle).apply {
+            val postpButton = TextButton(postp.text, buttonStyle).apply {
                 addListener(object : ClickListener() {
                     override fun clicked(event: InputEvent?, x: Float, y: Float) {
-                        logger.info { "TextButton suffixSelected = ${suffix.text} clicked" }
+                        logger.info { "TextButton postpSelected = ${postp.text} clicked" }
                         onClose()
-                        onSuffixSelected(suffix)
+                        onPostpSelected(postp)
                     }
                 })
             }
 
-            textTable.add(suffixButton).pad(0f).space(10f)
+            textTable.add(postpButton).pad(0f).space(10f)
             if (side == Side.LEFT || side == Side.RIGHT) {
                 textTable.row()
             }
@@ -90,7 +88,8 @@ class SelectSuffixPopup(
         contentTable.add(scrollPane).apply {
             if (side == Side.TOP || side == Side.BOTTOM) {
                 maxWidth(400f)
-            } else {
+            }
+            else {
                 maxHeight(400f)
             }
             grow()

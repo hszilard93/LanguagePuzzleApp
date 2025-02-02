@@ -392,16 +392,20 @@ class PuzzlePieceDrawer(
         else {
             logger.debug { "Creating new layout data for tab $key" }
 
-            // Handles "valahonnan" and "-nak/-nek" differently, for example
-            val maxWidth =
-                if ((!tab.text.contains("/")) && (tab.side == Side.LEFT || tab.side == Side.RIGHT))
-                    PuzzleTab.WIDTH / 2
-                else
-                    PuzzleTab.WIDTH
+            var shouldWrap = true
+            // Handles "vhonnan" and "-nak/-nek" differently, for example
+            val maxWidth: Float
+            if ((tab.text.startsWith("v")) && (tab.side == Side.LEFT || tab.side == Side.RIGHT)) {
+                maxWidth = PuzzleTab.WIDTH / 2 + 8f
+                shouldWrap = false
+            }
+            else {
+                maxWidth = PuzzleTab.WIDTH
+            }
 
             // Create a new GlyphLayout
             val layout = GlyphLayout().apply {
-                setText(tabFont, tab.text, Color.BLACK, maxWidth, Align.left, true)
+                setText(tabFont, tab.text, Color.BLACK, maxWidth, Align.left, shouldWrap)
             }
 
             // Calculate offsets based on the tab's side

@@ -10,30 +10,29 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.ui.Window
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
+import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.viewport.Viewport
-import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 import edu.b4kancs.languagePuzzleApp.app.model.Side
-import edu.b4kancs.languagePuzzleApp.app.model.Suffix
 
-class SelectSuffixPopup(
+class SelectEndingTypePopup(
     title: String = "",
     skin: Skin,
     font: BitmapFont,
-    role: GrammaticalRole,
-    puzzlePiece: PuzzlePiece,
     side: Side,
     gameViewport: Viewport,
-    onSuffixSelected: (Suffix) -> Unit,
+    puzzlePiece: PuzzlePiece,
+    onSuffixesSelected: () -> Unit,
+    onPostpSelected: () -> Unit,
+    onIndPronounsSelected: () -> Unit,
     onClose: () -> Unit,
     onCancel: () -> Unit
 ) : Window(
-    // Strip the newline (if any) out of the title if the popup is going to be displayed vertically, else leave it in
-    if (side == Side.TOP || side == Side.BOTTOM) title.replace("\n", "") else title,
+    title,
     skin
 ) {
     companion object {
-        val logger = ktx.log.logger<SelectSuffixPopup>()
+        val logger = ktx.log.logger<SelectEndingTypePopup>()
     }
 
     init {
@@ -50,26 +49,31 @@ class SelectSuffixPopup(
         titleLabel.style.font = font
         titleLabel.style = titleLabel.style
 
-        val suffixes = Suffix.predefinedSuffixes.filter { it.grammaticalRole == role && it.text.isNotEmpty() }
-        suffixes.forEach { suffix ->
+        val suffixButtonText = "Toldalék"
+        val postpButtonText = "Névutó"
+        val indPronounsButtonText = "Jelentéscímke"
+        val items = listOf(suffixButtonText, postpButtonText, indPronounsButtonText)
+        items.forEach { item ->
             val buttonStyle = TextButton.TextButtonStyle().apply {
                 this.font = font
                 this.fontColor = Color.BLACK
             }
-            val suffixButton = TextButton(suffix.text, buttonStyle).apply {
+            val button = TextButton(item, buttonStyle).apply {
                 addListener(object : ClickListener() {
                     override fun clicked(event: InputEvent?, x: Float, y: Float) {
-                        logger.info { "TextButton suffixSelected = ${suffix.text} clicked" }
+                        logger.info { "TextButton $item clicked" }
                         onClose()
-                        onSuffixSelected(suffix)
+                        when (item) {
+                            suffixButtonText -> onSuffixesSelected()
+                            postpButtonText -> onPostpSelected()
+                            indPronounsButtonText -> onIndPronounsSelected()
+                        }
                     }
                 })
             }
 
-            textTable.add(suffixButton).pad(0f).space(10f)
-            if (side == Side.LEFT || side == Side.RIGHT) {
-                textTable.row()
-            }
+            textTable.add(button).pad(0f).space(10f).align(Align.left)
+            textTable.row()
         }
 
         textTable.pack()
@@ -77,24 +81,12 @@ class SelectSuffixPopup(
         val scrollPane = ScrollPane(textTable, skin).apply {
             pad(-5f)
             setFadeScrollBars(false)
-            setScrollbarsVisible(true)
-            if (side == Side.TOP || side == Side.BOTTOM) {
-                setScrollingDisabled(false, true)
-            }
-            else {
-                setScrollingDisabled(true, false)
-            }
+            setScrollbarsVisible(false)
+            setScrollingDisabled(true, false)
         }
 
         contentTable.add(titleLabel).growX().row()
-        contentTable.add(scrollPane).apply {
-            if (side == Side.TOP || side == Side.BOTTOM) {
-                maxWidth(400f)
-            } else {
-                maxHeight(400f)
-            }
-            grow()
-        }
+        contentTable.add(scrollPane)
 
         // Clear the default window content and add our outer table
         this.clear()

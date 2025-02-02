@@ -72,6 +72,8 @@ class GameModel {
         setUpTask(currentExercise!!.tasks.first())
         currentTaskNumber = 1
         totalTaskCount = currentExercise!!.tasks.size
+
+        logger.info { "Exercise initialized." }
     }
 
     private fun setUpTask(task: Task) {

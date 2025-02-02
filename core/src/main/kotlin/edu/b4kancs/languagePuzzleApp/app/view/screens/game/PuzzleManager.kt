@@ -192,18 +192,18 @@ class PuzzleManager(
 
                 if (selectedRole == GrammaticalRole.ADVERBIAL) {
                     if (doesAllowTabText) {
-                        uiManager.displaySelectSuffixPopupForResult(
+                        uiManager.displayTabTextPopups(
                             role = selectedRole,
                             puzzlePiece = puzzle,
                             side = side,
-                            onSuffixSelected = { suffix ->
-                                val indexOfSecondNewLine = suffix.text
+                            onEndingSelected = { ending ->
+                                val indexOfSecondNewLine = ending
                                     .mapIndexed { i, c -> if (c == '\n') i else -1 }
                                     .filter { it != -1 }
                                     .getOrNull(1)
                                     ?.minus(1)
-                                    ?: (suffix.text.lastIndex + 1)
-                                val trimmedText = suffix.text
+                                    ?: (ending.lastIndex + 1)
+                                val trimmedText = ending
                                     .take(indexOfSecondNewLine)
 
                                 finishAddFeature(puzzle, type, side, selectedRole, trimmedText)

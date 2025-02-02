@@ -54,7 +54,9 @@ data class Ruleset(
     val canEditTabText: Boolean? = null,
     val doesAllowTabText: Boolean? = null,
     val doesBaseTextCount: Boolean? = null,
-    val doesBlankTextCount: Boolean? = null
+    val doesBlankTextCount: Boolean? = null,
+    val shouldOfferPostpositions: Boolean? = null,      // Névutók
+    val shouldOfferIndPronouns: Boolean? = null,        // Jelentéscímkék
 )
 
 @Serializable
