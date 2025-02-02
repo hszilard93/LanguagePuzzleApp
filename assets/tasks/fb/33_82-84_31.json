@@ -1,0 +1,442 @@
+{
+  "type": "COMPLETE_ARGUMENTS",
+  "buttonDescription": "FB2/82–84/31",
+  "customRuleset": {
+    "shouldOfferIndPronouns": "true",
+    "canEditBaseText": "true"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Melyik mondatban melyik ige szerepel?\nÍrd rá az igepuzzle-re a megfelelő igét és a utána a mondat számát, amiben ez az ige jelenik meg (pl. „jár1”).\n1. „Nagytatám tévét néz.”\n2. „A házunk a tengerre néz.”\n3. „Tomi Jancsit bohócnak nézte.”\n4. „A tekintete a messzeségbe néz.”",
+      "requiredSolutions": 4,
+      "predefinedPieces": [
+        {
+          "text": "néz",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "side": "LEFT"
+            },
+            {
+              "grammaticalRole": "OBJECT",
+              "text": "-t",
+              "side": "TOP"
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "text": "-nak/\n-nek",
+              "side": "RIGHT"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "néz",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "side": "LEFT"
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "text": "'vala-\nhová'",
+              "side": "TOP"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "néz",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "side": "LEFT"
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "text": "-ra/-re",
+              "side": "TOP"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "néz",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "side": "LEFT"
+            },
+            {
+              "grammaticalRole": "OBJECT",
+              "text": "-t",
+              "side": "TOP"
+            }
+          ],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "néz1",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "néz2",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ra/-re"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "néz4",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "valahová"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "néz3",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-nak/-nek"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "taskDescription": "Melyik mondatban melyik ige szerepel?\nÍrd rá az igepuzzle-re a megfelelő igét és a utána a mondat számát, amiben ez az ige jelenik meg (pl. „jár1”).\n1. „A baba jár!”\n2. „Eszter atlétikára jár.”\n3. „Miksa pórul járt.”\n4. „Balázs Antóniával jár.”\n5. „A testvéremnek jár egy fagyi.”",
+      "requiredSolutions": 5,
+      "predefinedPieces": [
+        {
+          "text": "jár",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "side": "LEFT"
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "text": "'vala-\nhogy'",
+              "side": "TOP"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "jár",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "side": "LEFT"
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "text": "-val/-vel",
+              "side": "TOP"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "jár",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "side": "LEFT"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "jár",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "side": "LEFT"
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "text": "-nak/\n-nek",
+              "side": "TOP"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "jár",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "side": "LEFT"
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "text": "'vala-\nhová'",
+              "side": "TOP"
+            }
+          ],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "jár1",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "jár2",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "valahová"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "jár3",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "valahogy"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "jár4",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-val/-vel"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "jár5",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-nak/-nek"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "taskDescription": "Melyik mondatban melyik ige szerepel?\nÍrd rá az igepuzzle-re a megfelelő igét és a utána a mondat számát, amiben ez az ige jelenik meg (pl. „jár1”).\n1. „Gerzson kerüli a tekintetemet.”\n2. „A kék blúzom 25 lejbe került.”\n3. „A kés a hűtőbe került.”",
+      "requiredSolutions": 3,
+      "predefinedPieces": [
+        {
+          "text": "kerül",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "side": "LEFT"
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "text": "vmeny-\nnyibe",
+              "side": "TOP"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "kerül",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "side": "LEFT"
+            },
+            {
+              "grammaticalRole": "OBJECT",
+              "text": "-t",
+              "side": "TOP"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "kerül",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "side": "LEFT"
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "text": "'vala-\nhová'",
+              "side": "TOP"
+            }
+          ],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "kerül1",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "kerül2",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "valamennyibe"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "kerül3",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "valahová"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

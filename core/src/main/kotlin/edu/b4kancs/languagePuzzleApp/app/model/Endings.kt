@@ -143,7 +143,7 @@ data class IndefinitePronoun(
             IndefinitePronoun("'valamerre'"),
             IndefinitePronoun("'valahonnan'"),
             IndefinitePronoun("'valahol'"),
-            IndefinitePronoun("'valahogyan'"),
+            IndefinitePronoun("'valahogy'"),
             IndefinitePronoun("'valamennyibe'")
         )
 
@@ -161,7 +161,7 @@ data class IndefinitePronoun(
                 "'valamerre'" -> IndefinitePronoun("'vmer-\nre'")
                 "'valahonnan'" -> IndefinitePronoun("'vhon-\nnan'")
                 "'valahol'" -> IndefinitePronoun("'vala-\nhol'")
-                "'valahogyan'" -> IndefinitePronoun("'vho-\ngyan'")
+                "'valahogy'" -> IndefinitePronoun("'vhogy'")
                 "'valamennyibe'" -> IndefinitePronoun("'vmeny-\nnyibe'")
                 else -> pronoun
             }
@@ -176,13 +176,19 @@ data class IndefinitePronoun(
                 .replace("\n", "")
                 .replace("-", "")
                 .run {
+                    val newVal = replace("nyny", "nny")
                     if (!startsWith("vala")) {
-                        replaceFirst("v", "vala")
+                        newVal.replaceFirst("v", "vala")
                     }
                     else {
-                        this
+                        newVal
                     }
                 }
+
+            // Special case; I adjusted 'valahogyan' to 'valahogy' late.
+            if (tabTextNormalized == "valahogyan") {
+                return IndefinitePronoun("'valahogy'")
+            }
 
             predefinedIndPronouns.firstOrNull { it.text.replace("'", "") == tabTextNormalized }?.let {
                 return it
