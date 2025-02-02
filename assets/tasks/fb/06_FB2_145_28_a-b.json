@@ -11,7 +11,7 @@
   },
   "tasks": [
     {
-      "taskDescription": "Alkosd meg az alábbi mondatban szereplő igék igepuzzle-jét!\nFigyelem, a puzzle mindig csak az ige vonzatait modellezi!\n\"A hetedikesek vicces dalokat énekelnek a ballagó nyolcadikosoknak.\"\n\"Anya esti mesét olvas a bóbiskoló fiának.\"\n\"Nagyi palacsintát süt a családnak.\"\n\"A főnököm új autót vásárolt magának.\"",
+      "taskDescription": "Alkosd meg az alábbi mondatban szereplő igék igepuzzle-jét!\nFigyelem, a puzzle mindig csak az ige vonzatait modellezi!\n1. \"A hetedikesek vicces dalokat énekelnek a ballagó nyolcadikosoknak.\"\n2. \"Anya esti mesét olvas a bóbiskoló fiának.\"\n3. \"Nagyi palacsintát süt a családnak.\"\n4. \"A főnököm új autót vásárolt magának.\"",
       "requiredSolutions": 4,
       "predefinedPieces": [
         {
