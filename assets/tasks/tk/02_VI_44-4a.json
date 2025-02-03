@@ -1,0 +1,162 @@
+{
+  "type": "COMPLETE_ARGUMENTS",
+  "buttonDescription": "VI_44/4a",
+  "customRuleset": {
+    "canAddMainPieces": "false",
+    "canAddBlankPieces": "false",
+    "canAddRemoveTabs": "true",
+    "canColorTabs": "false",
+    "canEditBaseText": "true",
+    "canEditTabText": "true"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Rajzold le az alábbi darabokból álló puzzle-szerkezetek igepuzzle-jét! Írd a fülekbe a megfelelő toldalékokat!\n1. „megoszt”, „nagyapa”, „az étel”, „az unokái”\n2. „a diák”, „a tanár”, „pletyka”, „terjeszt”\n3. „a királyfi”, „átváltoztat”, „béka”, „a boszorkány”\n4. „rákényszerít”, „a döntés”, „a bizottság”, „az elnök”\n5. „egy mókus”, „a csapda”, „Ádám”, „kiszabadít”\n",
+      "requiredSolutions": 5,
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "megoszt",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": "-val/-vel"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "terjeszt",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": "-ról/-ről"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "átváltoztat",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": "-vá/-vé"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "rákényszerít",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": "-ra/-re"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "kiszabadít",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": "-ból/-ből"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        }
+      ]
+    }
+  ]
+}

@@ -312,16 +312,21 @@ class PuzzleManager(
     fun checkSolution() {
         val verbPuzzles = gameModel.puzzlePieces.filter { it.grammaticalRole == GrammaticalRole.VERB }
 
-        if (verbPuzzles.size < gameModel.currentTask?.requiredSolutions ?: 1) {
+        val requiredSoltionsCount = gameModel.currentTask?.requiredSolutions ?: 1
+        if (verbPuzzles.size < requiredSoltionsCount) {
             uiManager.hideCheckMark()
             return
         }
 
         val hasSameVerbTooManyTimes = verbPuzzles.any { thisPuzzle ->
-            gameModel.currentExercise?.ruleset?.doesBaseTextCount == true &&
-            verbPuzzles.count { it.text == thisPuzzle.text } > (gameModel.currentTask?.solutionConfigurations?.map { it.solutionCenterPiece.text }
-                ?.count { it == thisPuzzle.text } ?: 0)
-//                (verbPuzzles - thisPuzzle).any { otherPuzzle -> thisPuzzle.text == otherPuzzle.text && thisPuzzle.text.isNotEmpty() }
+            if (gameModel.currentExercise?.ruleset?.doesBaseTextCount == true) {
+                val thisCount = verbPuzzles.count { it.text == thisPuzzle.text }
+                val solutionCount = gameModel.currentTask?.solutionConfigurations?.map { it.solutionCenterPiece.text }?.size ?: 0
+                thisCount > solutionCount && verbPuzzles.size - thisCount < solutionCount
+            }
+            else {
+                false
+            }
         }
 
         if (hasSameVerbTooManyTimes) {

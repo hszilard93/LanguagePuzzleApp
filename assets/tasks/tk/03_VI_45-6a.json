@@ -1,0 +1,50 @@
+{
+  "type": "COMPLETE_ARGUMENTS",
+  "buttonDescription": "VI_45/6a",
+  "customRuleset": {
+    "canAddMainPieces": "false",
+    "canAddBlankPieces": "false",
+    "canAddRemoveTabs": "true",
+    "canColorTabs": "true",
+    "doesAllowTabText": "false",
+    "canEditBaseText": "true",
+    "canEditTabText": "false"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Rajzold meg a „kap” ige puzzle-jét, és színezd ki a füleket az ige által kijelölt szerepeknek megfelelően!",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "kap",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": ""
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        }
+      ]
+    }
+  ]
+}

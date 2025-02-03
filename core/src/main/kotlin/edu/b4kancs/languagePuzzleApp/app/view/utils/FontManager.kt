@@ -1,10 +1,10 @@
 package edu.b4kancs.languagePuzzleApp.app.view.utils
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter
-import com.badlogic.gdx.utils.GdxRuntimeException
 import ktx.log.Logger
 
 data class PuzzleFontHolder(val baseFont: BitmapFont, val tabFont: BitmapFont)
@@ -19,6 +19,7 @@ data class UIFontHolder(val font: BitmapFont)
 
 private const val TASK_DESC_DEFAULT_FONT_SIZE = 24
 private const val MENU_DEFAULT_FONT_SIZE = 24
+private const val MANUAL_DEFAULT_FONT_SIZE = 32
 private const val UI_DEFAULT_FONT_SIZE = 22
 private const val PUZZLE_BASE_FONT_SIZE = 40
 private const val PUZZLE_TAB_FONT_SIZE = (PUZZLE_BASE_FONT_SIZE * 0.75f).toInt()
@@ -38,11 +39,12 @@ fun loadFreeTypeFont(fileName: String, fontSize: Int, flipFont: Boolean = false)
 
     val typeFontParameter = FreeTypeFontParameter().apply {
         size = maxOf(fontSize, MIN_FONT_SIZE)   // The app crashes if the font size becomes too small.
-        characters = FreeTypeFontGenerator.DEFAULT_CHARS + "őŐűŰ–„”"
+        characters = FreeTypeFontGenerator.DEFAULT_CHARS + "őŐűŰ–„“”"
         flip = flipFont
     }
 
     val font = typeFontGenerator.generateFont(typeFontParameter)
+    font.region.texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
     return font
 }
 
@@ -61,12 +63,16 @@ fun loadTaskCounterFont(multiplier: Float = 1f): BitmapFont {
 }
 
 fun loadMenuFont(multiplier: Float = 1f): BitmapFont {
-    return loadFreeTypeFont("Roboto-Regular.ttf", (MENU_DEFAULT_FONT_SIZE * multiplier.toInt()))
+    return loadFreeTypeFont("Roboto-Regular.ttf", (MENU_DEFAULT_FONT_SIZE * normalizeMultiplier(multiplier).toInt()))
+}
+
+fun loadManualFont(multiplier: Float = 1f): BitmapFont {
+    return loadFreeTypeFont("Roboto-Regular.ttf", (MANUAL_DEFAULT_FONT_SIZE * multiplier.toInt()))
 }
 
 fun loadUIFont(multiplier: Float = 1f): BitmapFont {
     val normalizedMultiplier = if (multiplier > 1f) {
-        multiplier * (1f - (multiplier / 8))
+        multiplier * (1f - (multiplier / 7))
     } else {
         multiplier
     }
@@ -79,4 +85,12 @@ fun loadPuzzleBaseFont(multiplier: Float = 1f): BitmapFont {
 
 fun loadPuzzleTabFont(multiplier: Float = 1f): BitmapFont {
     return loadFreeTypeFont("libre-baskerville.regular.ttf", PUZZLE_TAB_FONT_SIZE, true)
+}
+
+private fun normalizeMultiplier(multiplier: Float): Float {
+    return if (multiplier > 1f) {
+        multiplier * (1f - (multiplier / 8))
+    } else {
+        multiplier
+    }
 }

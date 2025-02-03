@@ -513,7 +513,7 @@ class UIManager(
         )
 
         uiStage.addActor(popupWindow)
-        uiStage.setScrollFocus(popupWindow)
+        popupWindow.setScrollFocus(uiStage)
         currentPopupWindow = popupWindow
     }
 
@@ -542,7 +542,7 @@ class UIManager(
         )
 
         uiStage.addActor(popupWindow)
-        uiStage.setScrollFocus(popupWindow)
+        popupWindow.setScrollFocus(uiStage)
         currentPopupWindow = popupWindow
     }
 
@@ -570,7 +570,7 @@ class UIManager(
         )
 
         uiStage.addActor(popupWindow)
-        uiStage.setScrollFocus(popupWindow)
+        popupWindow.setScrollFocus(uiStage)
         currentPopupWindow = popupWindow
     }
 

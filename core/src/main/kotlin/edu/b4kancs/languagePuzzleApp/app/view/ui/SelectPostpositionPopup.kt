@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.InputEvent
+import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.Table
@@ -33,6 +34,8 @@ class SelectPostpositionPopup(
     companion object {
         val logger = ktx.log.logger<SelectPostpositionPopup>()
     }
+
+    private val scrollPane: ScrollPane
 
     init {
         isMovable = true
@@ -73,7 +76,7 @@ class SelectPostpositionPopup(
 
         textTable.pack()
 
-        val scrollPane = ScrollPane(textTable, skin).apply {
+        scrollPane = ScrollPane(textTable, skin).apply {
             pad(-5f)
             setFadeScrollBars(false)
             setScrollbarsVisible(true)
@@ -131,5 +134,9 @@ class SelectPostpositionPopup(
 
         val projectedCoords = gameViewport.project(Vector2(popupX, popupY))
         setPosition(projectedCoords.x, projectedCoords.y)
+    }
+
+    fun setScrollFocus(stage: Stage) {
+        stage.scrollFocus = scrollPane
     }
 }

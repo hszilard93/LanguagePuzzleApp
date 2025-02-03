@@ -26,6 +26,8 @@ class TeaVMLauncher {
         config.preloadListener = TeaAssetPreloadListener { assetLoader: AssetLoader ->
             assetLoader.loadScript("freetype.js")
         }
+        config.antialiasing = true
+        config.stencil = true            // Enable stencil buffer if needed
 
         val environment = getEnvironment(config)
         val environmentalImplementations = EnvironmentalImplementations(

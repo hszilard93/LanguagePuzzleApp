@@ -7,7 +7,7 @@
   },
   "tasks": [
     {
-      "taskDescription": "Melyik mondatban melyik ige szerepel?\nÍrd rá az igepuzzle-re a megfelelő igét és a utána a mondat számát, amiben ez az ige jelenik meg (pl. „jár1”).\n1. „Nagytatám tévét néz.”\n2. „A házunk a tengerre néz.”\n3. „Tomi Jancsit bohócnak nézte.”\n4. „A tekintete a messzeségbe néz.”",
+      "taskDescription": "Melyik mondatban melyik ige szerepel?\nÍrd rá az igepuzzle-re az ige után (szóköz nélkül) a mondat számát, amiben ez az ige jelenik meg (pl. jár1).\n1. „Nagytatám tévét néz.”\n2. „A házunk a tengerre néz.”\n3. „Tomi Jancsit bohócnak nézte.”\n4. „A tekintete a messzeségbe néz.”",
       "requiredSolutions": 4,
       "predefinedPieces": [
         {
@@ -160,7 +160,7 @@
       ]
     },
     {
-      "taskDescription": "Melyik mondatban melyik ige szerepel?\nÍrd rá az igepuzzle-re a megfelelő igét és a utána a mondat számát, amiben ez az ige jelenik meg (pl. „jár1”).\n1. „A baba jár!”\n2. „Eszter atlétikára jár.”\n3. „Miksa pórul járt.”\n4. „Balázs Antóniával jár.”\n5. „A testvéremnek jár egy fagyi.”",
+      "taskDescription": "Melyik mondatban melyik ige szerepel?\nÍrd rá az igepuzzle-re az ige után (szóköz nélkül) a mondat számát, amiben ez az ige jelenik meg (pl. jár1).\n1. „A baba jár!”\n2. „Eszter atlétikára jár.”\n3. „Miksa pórul járt.”\n4. „Balázs Antóniával jár.”\n5. „A testvéremnek jár egy fagyi.”",
       "requiredSolutions": 5,
       "predefinedPieces": [
         {
@@ -329,7 +329,7 @@
       ]
     },
     {
-      "taskDescription": "Melyik mondatban melyik ige szerepel?\nÍrd rá az igepuzzle-re a megfelelő igét és a utána a mondat számát, amiben ez az ige jelenik meg (pl. „jár1”).\n1. „Gerzson kerüli a tekintetemet.”\n2. „A kék blúzom 25 lejbe került.”\n3. „A kés a hűtőbe került.”",
+      "taskDescription": "Melyik mondatban melyik ige szerepel?\nÍrd rá az igepuzzle-re az ige után (szóköz nélkül) a mondat számát, amiben ez az ige jelenik meg (pl. jár1).\n1. „Gerzson kerüli a tekintetemet.”\n2. „A kék blúzom 25 lejbe került.”\n3. „A kés a hűtőbe került.”",
       "requiredSolutions": 3,
       "predefinedPieces": [
         {

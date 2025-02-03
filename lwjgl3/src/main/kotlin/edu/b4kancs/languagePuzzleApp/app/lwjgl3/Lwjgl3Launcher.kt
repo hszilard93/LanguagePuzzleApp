@@ -2,6 +2,7 @@
 
 package edu.b4kancs.languagePuzzleApp.app.lwjgl3
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration
 import edu.b4kancs.languagePuzzleApp.app.Game
@@ -35,6 +36,7 @@ fun main() {
         setTitle("PuzzliApp")
         setWindowedMode(defaultWidth, defaultHeight)
         setResizable(true)
+//        setWindowIcon("assets/graphics/app_icon_1.png")
         setWindowIcon(*(arrayOf(128, 64, 32, 16).map { "libgdx$it.png" }.toTypedArray()))
         setTitle("PuzzliApp")
         setForegroundFPS(90)

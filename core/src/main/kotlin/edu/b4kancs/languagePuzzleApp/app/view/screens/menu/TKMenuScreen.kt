@@ -7,15 +7,15 @@ import edu.b4kancs.languagePuzzleApp.app.Game
 class TKMenuScreen(
     context: Context,
     game: Game
-) : AbstractExerciseMenuScreen(context, game, fileListPath) { // Pass fileListPath to superclass
+) : AbstractExerciseMenuScreen(context, game, FILE_LIST_PATH) { // Pass fileListPath to superclass
 
     companion object {
         val logger = logger<TKMenuScreen>()
-        private const val fileListPath = "tasks/tk_task_list.txt"
-
+        private const val FILE_LIST_PATH = "tasks/tk_task_list.txt"
     }
 
     override val screenLogger = logger // Provide logger instance for AbstractMenuScreen
     override val tasksWebPath = "tasks/tk"
     override val tasksDesktopPath = "assets/tasks/tk"
+    override val menuButtonWidth = 500f
 }

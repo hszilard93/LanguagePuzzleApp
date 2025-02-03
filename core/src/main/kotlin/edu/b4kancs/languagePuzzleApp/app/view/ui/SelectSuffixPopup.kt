@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.InputEvent
+import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.Table
@@ -27,7 +28,7 @@ class SelectSuffixPopup(
     gameViewport: Viewport,
     onSuffixSelected: (Suffix) -> Unit,
     onClose: () -> Unit,
-    onCancel: () -> Unit
+    onCancel: () -> Unit,
 ) : Window(
     // Strip the newline (if any) out of the title if the popup is going to be displayed vertically, else leave it in
     if (side == Side.TOP || side == Side.BOTTOM) title.replace("\n", "") else title,
@@ -36,6 +37,8 @@ class SelectSuffixPopup(
     companion object {
         val logger = ktx.log.logger<SelectSuffixPopup>()
     }
+
+    private val scrollPane: ScrollPane
 
     init {
         isMovable = true
@@ -77,7 +80,7 @@ class SelectSuffixPopup(
 
         textTable.pack()
 
-        val scrollPane = ScrollPane(textTable, skin).apply {
+        scrollPane = ScrollPane(textTable, skin).apply {
             pad(-5f)
             setFadeScrollBars(false)
             setScrollbarsVisible(true)
@@ -134,5 +137,9 @@ class SelectSuffixPopup(
 
         val projectedCoords = gameViewport.project(Vector2(popupX, popupY))
         setPosition(projectedCoords.x, projectedCoords.y)
+    }
+
+    fun setScrollFocus(stage: Stage) {
+        stage.scrollFocus = scrollPane
     }
 }

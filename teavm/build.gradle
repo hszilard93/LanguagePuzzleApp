@@ -97,7 +97,7 @@ teavm {
   */
 }
 
-tasks.register('generateFileList') {
+tasks.register('generateFbFileList') {
   description = "Generates file_list.txt in the tasks directory with JSON filenames from ../assets/tasks/fb"
 
   doLast {
@@ -138,8 +138,49 @@ tasks.register('generateFileList') {
   }
 }
 
+tasks.register('generateTkFileList') {
+  description = "Generates tk_file_list.txt in the tasks directory with JSON filenames from ../assets/tasks/tk"
+
+  doFirst {
+    File tasksTkDir = file("../assets/tasks/tk")
+    File tkListFile = file("../assets/tasks/tk_task_list.txt")
+
+    if (!tasksTkDir.exists() || !tasksTkDir.isDirectory()) {
+      logger.error("../assets/tasks/tk directory not found!")
+      return
+    }
+
+    File[] jsonFiles = tasksTkDir.listFiles({ dir, name -> name.endsWith(".json") } as FilenameFilter)
+
+    if (jsonFiles == null) {
+      jsonFiles = []
+    }
+
+    BufferedWriter writer = null // Declare writer outside try-finally
+    try {
+      writer = new BufferedWriter(new FileWriter(tkListFile)) // Standard Java BufferedWriter creation
+      jsonFiles.each { File file ->
+        writer.write(file.name)
+        writer.newLine()
+      }
+    } catch (IOException e) {
+      logger.error("Error writing to file list: ${fbListFile.absolutePath}", e)
+    } finally {
+      if (writer != null) {
+        try {
+          writer.close() // Manually close the writer in finally block
+        } catch (IOException e) {
+          // Log closing error if necessary, but not critical for task failure
+          logger.error("Error closing writer for: ${tkListFile.absolutePath}", e)
+        }
+      }
+    }
+    logger.info("File list generated at: ${tkListFile.absolutePath}")
+  }
+}
+
 tasks.register('buildJavaScript', JavaExec) {
-  dependsOn classes, generateFileList
+  dependsOn classes, generateFbFileList, generateTkFileList
   setDescription("Transpile bytecode to JavaScript via TeaVM")
   mainClass.set(project.mainClassName)
   setClasspath(sourceSets.main.runtimeClasspath)

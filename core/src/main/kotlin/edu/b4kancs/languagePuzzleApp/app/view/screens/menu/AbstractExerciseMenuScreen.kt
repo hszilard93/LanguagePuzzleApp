@@ -61,6 +61,7 @@ abstract class AbstractExerciseMenuScreen(
     abstract val tasksDesktopPath: String // Abstract desktop path
     abstract val screenLogger: Logger
 
+    abstract val menuButtonWidth: Float
 
     override fun show() {
         screenLogger.debug { "${this::class.simpleName}: show" }
@@ -98,7 +99,7 @@ abstract class AbstractExerciseMenuScreen(
         }
 
         menuButtons.forEach { button ->
-            buttonTable.add(button).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(80f).pad(0f).row()
+            buttonTable.add(button).width(menuButtonWidth * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(80f).pad(0f).row()
         }
 
         val scrollPane = ScrollPane(buttonTable, uiSkin).apply {
