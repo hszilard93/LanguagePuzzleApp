@@ -28,7 +28,8 @@ import ktx.log.logger
 
 class GameScreen(
     context: Context,
-    private val game: Game
+    private val game: Game,
+    private val onBackButtonClicked: (KtxScreen) -> Unit
 ) : KtxScreen {
 
     companion object {
@@ -79,7 +80,7 @@ class GameScreen(
         cameraController.setupCameras()
 
         uiManager = UIManager(context, uiStage, uiSkin) {
-            game.backToMenuScreen()
+            onBackButtonClicked(this@GameScreen)
         }
 
         puzzleManager = PuzzleManager(gameModel, puzzleSnapHelper, uiManager)

@@ -18,7 +18,9 @@ import edu.b4kancs.languagePuzzleApp.app.other.gdxSmartFontMaster.SmartFontGener
 import edu.b4kancs.languagePuzzleApp.app.view.screens.game.Constants
 import edu.b4kancs.languagePuzzleApp.app.view.screens.game.CursorManager
 import edu.b4kancs.languagePuzzleApp.app.view.screens.game.GameScreen
+import edu.b4kancs.languagePuzzleApp.app.view.screens.menu.FBMenuScreen
 import edu.b4kancs.languagePuzzleApp.app.view.screens.menu.MainMenuScreen
+import edu.b4kancs.languagePuzzleApp.app.view.screens.menu.TKMenuScreen
 import edu.b4kancs.languagePuzzleApp.app.view.ui.FilePickerInterface
 import edu.b4kancs.languagePuzzleApp.app.view.utils.HudFontHolder
 import edu.b4kancs.languagePuzzleApp.app.view.utils.PuzzleFontHolder
@@ -49,6 +51,7 @@ class Game(
     private val gameCamera = GameCamera()
     private val disposables = DisposableContainer()
     private lateinit var gameModel: GameModel
+    private var lastScreen: KtxScreen? = null
 
     companion object {
         const val LOG_LEVEL = com.badlogic.gdx.utils.Logger.DEBUG
@@ -84,8 +87,7 @@ class Game(
             gameMinWorldHeight = Constants.GAME_MOBILE_MIN_WORLD_HEIGHT
             gameMaxWorldWidth = Constants.GAME_MOBILE_MAX_WORLD_WIDTH
             gameMaxWorldHeight = Constants.GAME_MOBILE_MAX_WORLD_HEIGHT
-        }
-        else {
+        } else {
             gameVirtualWidth = Constants.GAME_VIRTUAL_WIDTH
             gameVirtualHeight = Constants.GAME_VIRTUAL_HEIGHT
             gameMinWorldWidth = Constants.GAME_MIN_WORLD_WIDTH
@@ -169,49 +171,64 @@ class Game(
         super.create()
     }
 
-    private fun loadMainMenuScreen() {
+    fun loadGameScreen(currentScreen: KtxScreen?) {
+        logger.info { "loadGameScreen" }
+        lastScreen = currentScreen
+
+        if (containsScreen(GameScreen::class.java)) {
+            removeScreen<GameScreen>()  // We never want to persist the GameScreen
+        }
+
+        addScreen(GameScreen(context, this@Game) {
+            loadLastScreen(currentScreen)
+        })
+        setScreen<GameScreen>()
+    }
+
+    fun loadMainMenuScreen() {
         logger.info { "loadMainMenuScreen" }
 
-        this.removeScreen<GameScreen>()
-        addScreen(
-            MainMenuScreen(
-                context,
-                this@Game
-            )
-        )
+        lastScreen = null
+        if (!containsScreen(MainMenuScreen::class.java)) {
+            addScreen(MainMenuScreen(context, this@Game))
+        }
 
         setScreen<MainMenuScreen>() // Set MainMenuScreen as the initial screen
     }
 
-    private fun loadGameScreen() {
-        logger.info { "loadGameScreen" }
+    fun loadFBMenuScreen(currentScreen: KtxScreen) {
+        logger.info { "loadFBMenuScreen" }
 
-        this.removeScreen<MainMenuScreen>()
-        addScreen(
-//                OldGameScreen(
-            GameScreen(
-                context,
-                this@Game
-            )
-        )
+        lastScreen = currentScreen
+        if (!containsScreen(FBMenuScreen::class.java)) {
+            addScreen(FBMenuScreen(context, this@Game))
+        }
 
-//        setScreen<OldGameScreen>()
-        setScreen<GameScreen>()
+        setScreen<FBMenuScreen>()
     }
 
-    fun backToMenuScreen() {
-        logger.info { "backToMenu" }
-        this.removeScreen<GameScreen>()
-        loadMainMenuScreen()
+    fun loadTKMenuScreen(currentScreen: KtxScreen) {
+        logger.info { "loadTKMenuScreen" }
+
+        lastScreen = currentScreen
+        if (!containsScreen(TKMenuScreen::class.java)) {
+            addScreen(TKMenuScreen(context, this@Game))
+        }
+
+        setScreen<TKMenuScreen>()
+    }
+
+    private fun loadLastScreen(currentScreen: KtxScreen?) {
+        logger.info { "loadLastScreen" }
+        lastScreen?.let {
+            setScreen(it::class.java)
+        } ?: loadMainMenuScreen()
     }
 
     fun loadExerciseFromDisk(fileHandle: FileHandle) {
         logger.info { "Loading exercise from file: ${fileHandle.path()}" }
 
         gameModel.loadExerciseFromDisk(fileHandle)
-
-        // Switch to GameScreen
-        loadGameScreen()
     }
 
     override fun dispose() {
