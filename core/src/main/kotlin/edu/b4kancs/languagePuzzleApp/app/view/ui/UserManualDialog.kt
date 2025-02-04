@@ -20,8 +20,6 @@ class UserManualDialog(
     title: String,
     skin: Skin,
     style: WindowStyle,
-    var textFont: BitmapFont,
-    var buttonFont: BitmapFont,
     val setScrollFocus: (ScrollPane) -> Unit
 ) : Dialog(title, style) {
 
@@ -30,13 +28,19 @@ class UserManualDialog(
     }
 
     private val scrollPane: ScrollPane
-    private var fontMultiplier: Float = maxOf(1200f / Gdx.graphics.width, 800f / Gdx.graphics.height)
+
+    private var fontMultiplier: Float
+    private var textFont: BitmapFont
+    private var buttonFont: BitmapFont
 
     init {
         logger.debug { "init" }
 
         isMovable = false
         isResizable = false
+
+        fontMultiplier = maxOf(1200f / Gdx.graphics.width, 800f / Gdx.graphics.height)
+        textFont = loadManualFont(fontMultiplier)
 
         val contentTable = Table()
 
@@ -55,9 +59,11 @@ class UserManualDialog(
 
         contentTable.add(scrollPane).grow().pad(10f).row() // Grow in both directions within ScrollPane
 
+        buttonFont = loadUIFont(fontMultiplier)
         val buttonStyle = TextButton.TextButtonStyle(skin.get(TextButton.TextButtonStyle::class.java)).apply {
             this.font = buttonFont
         }
+
         val closeButton = TextButton("Bezárás", buttonStyle).apply {
             addListener(object : ClickListener() {
                 override fun clicked(event: InputEvent?, x: Float, y: Float) {
@@ -76,7 +82,7 @@ class UserManualDialog(
 
         val screenWidth = Gdx.graphics.width.toFloat()
         val screenHeight = Gdx.graphics.height.toFloat()
-        this.setSize(stage?.width ?: screenWidth * 0.8f, stage?.height ?: screenHeight * 0.8f)
+        this.setSize(stage?.width ?: (screenWidth * 0.8f), stage?.height ?: (screenHeight * 0.8f))
         this.setPosition((screenWidth - width) / 2f, (screenHeight - height) / 2f)
         this.setScrollFocus(scrollPane)
 

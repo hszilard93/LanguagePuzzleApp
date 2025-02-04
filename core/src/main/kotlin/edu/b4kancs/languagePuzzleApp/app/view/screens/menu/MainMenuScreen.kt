@@ -53,7 +53,7 @@ class MainMenuScreen(
     private val buttonTable = Table()
     private val outerTable = Table()
     private var userManualDialog: UserManualDialog? = null
-    private var buttonFont: BitmapFont = loadUIFont(1f)
+    private var buttonFont: BitmapFont = loadUIFont()
 
     override fun show() {
         logger.debug { "MainMenuScreen: show" }
@@ -106,8 +106,6 @@ class MainMenuScreen(
                         "Használati útmutató",
                         uiSkin,
                         dialogWindowStyle,
-                        loadManualFont(fontMultiplier),
-                        buttonFont,
                         setScrollFocus = { scrollable ->
                             stage.scrollFocus = scrollable
                         }
