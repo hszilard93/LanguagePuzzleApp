@@ -86,6 +86,7 @@ data class Exercise(
                     canColorTabs = customRuleset.canColorTabs ?: defaultRuleset.canColorTabs,
                     canEditBaseText = customRuleset.canEditBaseText ?: defaultRuleset.canEditBaseText,
                     canEditTabText = customRuleset.canEditTabText ?: defaultRuleset.canEditTabText,
+                    canEditBlankText = customRuleset.canEditBlankText ?: defaultRuleset.canEditBlankText,
                     doesAllowTabText = customRuleset.doesAllowTabText ?: defaultRuleset.doesAllowTabText,
                     doesBaseTextCount = customRuleset.doesBaseTextCount ?: defaultRuleset.doesBaseTextCount,
                     doesBlankTextCount = customRuleset.doesBlankTextCount ?: defaultRuleset.doesBlankTextCount,
