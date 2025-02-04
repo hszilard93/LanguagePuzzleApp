@@ -270,6 +270,7 @@ object RulesetSerializer : KSerializer<Ruleset> {
         element<Boolean?>("shouldOfferPostpositions", isOptional = true)
         element<Boolean?>("shouldOfferIndPronouns", isOptional = true)
         element<Boolean?>("doNotOfferSuffixes", isOptional = true)
+        element<Boolean?>("canEditBlankText", isOptional = true)
     }
 
     @OptIn(ExperimentalSerializationApi::class)
@@ -287,6 +288,7 @@ object RulesetSerializer : KSerializer<Ruleset> {
         var shouldOfferPostpositions: Boolean? = null
         var shouldOfferIndPronouns: Boolean? = null
         var doNotOfferSuffixes: Boolean? = null
+        var canEditBlankText: Boolean? = null
 
         loop@ while (true) {
             when (val index = decStructure.decodeElementIndex(descriptor)) {
@@ -302,6 +304,7 @@ object RulesetSerializer : KSerializer<Ruleset> {
                 9 -> shouldOfferPostpositions = decStructure.decodeNullableSerializableElement(descriptor, 9, Boolean.serializer())
                 10 -> shouldOfferIndPronouns = decStructure.decodeNullableSerializableElement(descriptor, 10, Boolean.serializer())
                 11 -> doNotOfferSuffixes = decStructure.decodeNullableSerializableElement(descriptor, 11, Boolean.serializer())
+                12 -> canEditBlankText = decStructure.decodeNullableSerializableElement(descriptor, 12, Boolean.serializer())
                 CompositeDecoder.DECODE_DONE -> break@loop
                 else -> throw SerializationException("Unknown index $index in Ruleset deserialization")
             }
@@ -314,6 +317,7 @@ object RulesetSerializer : KSerializer<Ruleset> {
             canAddRemoveTabs = canAddRemoveTabs,
             canColorTabs = canColorTabs,
             canEditBaseText = canEditBaseText,
+            canEditBlankText = canEditBlankText,
             canEditTabText = canEditTabText,
             doesAllowTabText = doesAllowTabText,
             doesBaseTextCount = doesBaseTextCount,

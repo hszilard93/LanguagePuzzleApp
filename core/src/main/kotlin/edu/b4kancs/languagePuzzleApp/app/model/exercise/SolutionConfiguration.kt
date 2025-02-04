@@ -90,7 +90,11 @@ class SolutionConfiguration(
             }
         }
 
-        if ((thoseBlankTexts.any(String::isBlank) || thoseVerbTexts.any(String::isBlank)) && !isArgumentSolution) return false
+        if ((thoseBlankTexts.any(String::isBlank) || thoseVerbTexts.any(String::isBlank))
+            && !isArgumentSolution && (ruleset.canEditBlankText != false ).not())
+        {
+            return false
+        }
 
         val doBlankTextsMatch =
             if (ruleset.doesBlankTextCount != false) {

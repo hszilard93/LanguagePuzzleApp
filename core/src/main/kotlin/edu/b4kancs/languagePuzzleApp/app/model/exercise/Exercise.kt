@@ -57,6 +57,7 @@ data class Ruleset(
     val canAddRemoveTabs: Boolean? = null,
     val canColorTabs: Boolean? = null,
     val canEditBaseText: Boolean? = null,
+    val canEditBlankText: Boolean? = null,
     val canEditTabText: Boolean? = null,
     val doesAllowTabText: Boolean? = null,
     val doesBaseTextCount: Boolean? = null,

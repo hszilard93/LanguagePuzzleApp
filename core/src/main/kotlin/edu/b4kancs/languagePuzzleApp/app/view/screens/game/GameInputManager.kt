@@ -174,10 +174,13 @@ class GameInputManager(
 
                 // We check if it's over a puzzle piece's text
                 val isTextUnderPointer = puzzleUnderPointer.isPointerOverTextLayout(mousePos)
-                if (isTextUnderPointer && rules?.canEditBaseText == true) {
-                    cursorManager.setCursor(cursorManager.editTextCursor)
-                    puzzleManager.puzzlePieceToEdit = puzzleUnderPointer
-                    return true
+                if (isTextUnderPointer && rules?.canEditBaseText == true && !puzzleUnderPointer.isConnected) {
+                    val isBlankPiece = puzzleUnderPointer.blanks.isNotEmpty()
+                    if (!(isBlankPiece && (rules.canEditBlankText == false).not())) {
+                        cursorManager.setCursor(cursorManager.editTextCursor)
+                        puzzleManager.puzzlePieceToEdit = puzzleUnderPointer
+                        return true
+                    }
                 }
                 puzzleManager.puzzlePieceToEdit = null
 
