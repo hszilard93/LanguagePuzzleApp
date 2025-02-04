@@ -1,0 +1,45 @@
+{
+  "type": "FREE_EDIT_PUZZLE",
+  "customRuleset": {
+    "canAddMainPieces": "false"
+  },
+  "buttonDescription": "FB2/141–142/26f",
+  "tasks": [
+    {
+      "taskDescription": "Osszátok el társaddal a két mondatcsoportot, és mindegyikőtök rajzolja meg az egyik mondatcsoport igéjének a puzzle-szerkezetét! Figyelj arra, hogy mi kerül a puzzle-darabokra és az igepuzzle fülére! Vessétek össze megoldásaitokat!\nA.    „Apa kezeslábasban mossa a kocsit.”\n„Apa slaggal mossa a kocsit.”\n„Apa a garázsnál mossa a kocsit.”\n„Apa fütyörészve mossa a kocsit.”\n\nB.    „Apa fürdőnadrágban mossa a kocsit.”\n„Apa szivaccsal mossa a kocsit.”\n„Apa a pataknál mossa a kocsit.”\n„Apa unottan mossa a kocsit.”",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "mos",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Apa",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a kocsi",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

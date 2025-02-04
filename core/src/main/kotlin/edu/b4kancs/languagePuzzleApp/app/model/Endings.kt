@@ -44,11 +44,11 @@ data class Suffix(
             Suffix("-val/\n-vel"),
             Suffix("-tól/\n-től"),
             Suffix("-ban/\n-ben"),
-            Suffix("-ba/\n-be"),
-            Suffix("-ra/\n-re"),
-            Suffix("-hoz/\n-hez/\n-höz"),
             Suffix("-ból/\n-ből"),
             Suffix("-ról/\n-ről"),
+            Suffix("-ra/\n-re"),
+            Suffix("-ba/\n-be"),
+            Suffix("-hoz/\n-hez/\n-höz"),
             Suffix("-n/\n-on/\n-en/\n-ön"),
             Suffix("-vá/\n-vé"),
             Suffix("-ért"),
@@ -90,17 +90,16 @@ data class Postposition(
 ) : Ending {
     companion object {
         val predefinedPostpositions = listOf(
-            Postposition("miatt"),
+            Postposition("ellen"),
             Postposition("elől"),
-            Postposition("után"),
-            Postposition("mellett"),
+            Postposition("felé"),
             Postposition("felett"),
-            Postposition("fölött"),
+            Postposition("felől"),
             Postposition("közül"),
             Postposition("körül"),
-            Postposition("felől"),
-            Postposition("ellen"),
-            Postposition("felé")
+            Postposition("mellett"),
+            Postposition("miatt"),
+            Postposition("után")
         )
 
         fun splitPredefinedPostposition(postposition: Postposition): Postposition {
@@ -108,7 +107,6 @@ data class Postposition(
                 "miatt" -> Postposition("mi-\natt")
                 "mellett" -> Postposition("mel-\nlett")
                 "felett" -> Postposition("fe-\nlett")
-                "fölött" -> Postposition("fö-\nlött")
                 "közül" -> Postposition("kö-\nzül")
                 "körül" -> Postposition("kö-\nrül")
                 "felől" -> Postposition("fe-\nlől")
@@ -122,6 +120,8 @@ data class Postposition(
                 .lowercase()
                 .replace("\n", "")
                 .replace("-", "")
+
+            if (tabTextNormalized == "fölött") return Postposition("felett")    // Special case
 
             predefinedPostpositions.firstOrNull { it.text == tabTextNormalized }?.let {
                 return it

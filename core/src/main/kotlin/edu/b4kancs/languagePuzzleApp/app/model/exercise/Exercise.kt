@@ -91,7 +91,8 @@ data class Exercise(
                     doesBaseTextCount = customRuleset.doesBaseTextCount ?: defaultRuleset.doesBaseTextCount,
                     doesBlankTextCount = customRuleset.doesBlankTextCount ?: defaultRuleset.doesBlankTextCount,
                     shouldOfferPostpositions = customRuleset.shouldOfferPostpositions ?: defaultRuleset.shouldOfferPostpositions,
-                    shouldOfferIndPronouns = customRuleset.shouldOfferIndPronouns ?: defaultRuleset.shouldOfferIndPronouns
+                    shouldOfferIndPronouns = customRuleset.shouldOfferIndPronouns ?: defaultRuleset.shouldOfferIndPronouns,
+                    doNotOfferSuffixes = customRuleset.doNotOfferSuffixes ?: defaultRuleset.doNotOfferSuffixes
                 )
             }
             else {

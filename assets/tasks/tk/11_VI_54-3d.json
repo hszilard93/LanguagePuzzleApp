@@ -1,0 +1,189 @@
+{
+  "type": "FREE_EDIT_PUZZLE",
+  "buttonDescription": "VI_54/3d",
+  "customRuleset": {
+    "canAddMainPieces": "false"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Készítsd el a mondatok puzzle-szerkezetét! Különbözik ez páronként?\n„Mirminyó törölgette a kezét.”\n„Mirminyó kötényébe törölgette a kezét.”",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "törölget",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Mirminyó",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a keze",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Készítsd el a mondatok puzzle-szerkezetét! Különbözik ez páronként?\n„Bocskoján kihúzta a vaskos dugót az üvegből.”\n„Bocskoján kihúzta a fogával a vaskos dugót az üvegből.”",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "kihúz",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Bocskoján",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a vaskos dugó",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "az üveg",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ból/-ből"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Készítsd el a mondatok puzzle-szerkezetét! Különbözik ez páronként?\n„Bocskoján kortyolta a rozsdalevet.”\n„Bocskoján nagyokat pislogva kortyolta a rozsdalevet.”",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "kortyol",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Bocskoján",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a rozsdalé",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Készítsd el a mondatok puzzle-szerkezetét! Különbözik ez páronként?\n„Bocskoján felébredt.”\n„Bocskoján felébredt a nagy csámcsogásra.”",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "felébred",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Bocskoján",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Készítsd el a mondatok puzzle-szerkezetét! Különbözik ez páronként?\n„Bocskoján mert a mészkőfőzelékből.”\n„Bocskoján háromszor mert a mészkőfőzelékből.”",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "mer",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Bocskoján",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a mészkőfőzelék",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ból/-ből"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
