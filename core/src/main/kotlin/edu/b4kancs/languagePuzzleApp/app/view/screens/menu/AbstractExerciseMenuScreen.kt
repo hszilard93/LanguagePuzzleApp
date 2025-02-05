@@ -204,8 +204,8 @@ abstract class AbstractExerciseMenuScreen(
         }
     }
 
-    protected fun extractPageNumber(buttonText: String): Int? { // Made protected
-        val pageNumberRegex = Regex("FB2/(\\d+)(?:[-–]\\d+)?[/]") // Example regex, adjust as needed
+    private fun extractPageNumber(buttonText: String): Int? { // Made protected
+        val pageNumberRegex = Regex(".+[/_](\\d+)(?:[-–]\\d+)?[/]") // Example regex, adjust as needed
         val matchResult = pageNumberRegex.find(buttonText)
         return matchResult?.groups?.get(1)?.value?.toIntOrNull()
     }

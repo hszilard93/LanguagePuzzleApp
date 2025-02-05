@@ -90,6 +90,7 @@ data class Postposition(
 ) : Ending {
     companion object {
         val predefinedPostpositions = listOf(
+            Postposition("alá"),
             Postposition("ellen"),
             Postposition("elől"),
             Postposition("felé"),

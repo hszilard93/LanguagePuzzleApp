@@ -199,6 +199,23 @@
             ]
           },
           "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "kikészül",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "miatt"
+              }
+            ]
+          },
+          "puzzlesConnected": []
         }
       ]
     }

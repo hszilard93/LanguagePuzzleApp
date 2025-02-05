@@ -90,9 +90,7 @@ class SolutionConfiguration(
             }
         }
 
-        if ((thoseBlankTexts.any(String::isBlank) || thoseVerbTexts.any(String::isBlank))
-            && !isArgumentSolution && (ruleset.canEditBlankText != false ).not())
-        {
+        if (thoseVerbTexts.any(String::isBlank) && !isArgumentSolution) {
             return false
         }
 
@@ -105,8 +103,7 @@ class SolutionConfiguration(
         val doVerbTextsMatch =
             if (ruleset.doesBaseTextCount != false) {
                 theseVerbTexts.size == thoseVerbTexts.size &&
-                    theseVerbTexts.all { s -> thoseVerbTexts.any { t -> s.specialEquals(t) } } &&
-                    theseVerbTexts.all { s -> s.isNotBlank() }
+                    theseVerbTexts.all { s -> thoseVerbTexts.any { t -> s.specialEquals(t) } }
             } else true
 
         return doBlankTextsMatch && doVerbTextsMatch
