@@ -2,12 +2,11 @@
   "type": "COMPLETE_ARGUMENTS",
   "buttonDescription": "VI_101/4c",
   "customRuleset": {
-    "shouldOfferPostpositions": "true",
     "shouldOfferIndPronouns": "true"
   },
   "tasks": [
     {
-      "taskDescription": "Készítsd el a „tart” ige megadott mondatokban szereplő jelentéseinek megfelelő igepuzzle-eket!\n1. „Toldi Miklóst tartják a legerősebb embernek.”",
+      "taskDescription": "Készítsd el a „tart” ige megadott mondatokban szereplő jelentéseinek megfelelő igepuzzle-eket!\n„Toldi Miklóst tartják a legerősebb embernek.”",
       "predefinedPieces": [
         {
           "text": "tart",
@@ -42,7 +41,7 @@
       ]
     },
     {
-      "taskDescription": "Készítsd el a „tart” ige megadott mondatokban szereplő jelentéseinek megfelelő igepuzzle-eket!\n2. „...fél kézzel mereven tartott egy szekérrudat Buda irányába.”",
+      "taskDescription": "Készítsd el a „tart” ige megadott mondatokban szereplő jelentéseinek megfelelő igepuzzle-eket!\n„...fél kézzel mereven tartott egy szekérrudat Buda irányába.”",
       "predefinedPieces": [
         {
           "text": "tart",
@@ -73,7 +72,7 @@
       ]
     },
     {
-      "taskDescription": "Készítsd el a „tart” ige megadott mondatokban szereplő jelentéseinek megfelelő igepuzzle-eket!\n3. „Az egész mutatvány csak néhány másodpercig tartott...”",
+      "taskDescription": "Készítsd el a „tart” ige megadott mondatokban szereplő jelentéseinek megfelelő igepuzzle-eket!\n„Az egész mutatvány csak néhány másodpercig tartott...”",
       "predefinedPieces": [
         {
           "text": "tart",
@@ -104,7 +103,7 @@
       ]
     },
     {
-      "taskDescription": "Készítsd el a „tart” ige megadott mondatokban szereplő jelentéseinek megfelelő igepuzzle-eket!\n4. „Miklós épp hazafelé tartott a mezőről...”",
+      "taskDescription": "Készítsd el a „tart” ige megadott mondatokban szereplő jelentéseinek megfelelő igepuzzle-eket!\n„Miklós épp hazafelé tartott a mezőről...”",
       "predefinedPieces": [
         {
           "text": "tart",
@@ -148,6 +147,24 @@
               },
               {
                 "grammaticalRole": "ADVERBIAL",
+                "text": "valamerre"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "tart",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
                 "text": "valahonnan"
               },
               {
@@ -161,7 +178,7 @@
       ]
     },
     {
-      "taskDescription": "Készítsd el a „tart” ige megadott mondatokban szereplő jelentéseinek megfelelő igepuzzle-eket!\n5. „Ő sem tartotta valami sokra a bátyját...”",
+      "taskDescription": "Készítsd el a „tart” ige megadott mondatokban szereplő jelentéseinek megfelelő igepuzzle-eket!\n„Ő sem tartotta valami sokra a bátyját...”",
       "predefinedPieces": [
         {
           "text": "tart",
@@ -196,7 +213,7 @@
       ]
     },
     {
-      "taskDescription": "Készítsd el a „tart” ige megadott mondatokban szereplő jelentéseinek megfelelő igepuzzle-eket!\n6. „...nem ott tartott az életében, ahol szeretett volna.”",
+      "taskDescription": "Készítsd el a „tart” ige megadott mondatokban szereplő jelentéseinek megfelelő igepuzzle-eket!\n„...nem ott tartott az életében, ahol szeretett volna.”",
       "predefinedPieces": [
         {
           "text": "tart",
@@ -227,7 +244,7 @@
       ]
     },
     {
-      "taskDescription": "Készítsd el a „tart” ige megadott mondatokban szereplő jelentéseinek megfelelő igepuzzle-eket!\n7. „Miklós talán jól tette, hogy nem tartott magánál fegyvert...”",
+      "taskDescription": "Készítsd el a „tart” ige megadott mondatokban szereplő jelentéseinek megfelelő igepuzzle-eket!\n„Miklós talán jól tette, hogy nem tartott magánál fegyvert...”",
       "predefinedPieces": [
         {
           "text": "tart",
@@ -262,7 +279,7 @@
       ]
     },
     {
-      "taskDescription": "Készítsd el a „tart” ige megadott mondatokban szereplő jelentéseinek megfelelő igepuzzle-eket!\n8. „...édesanyja melegen tartotta neki az ételt...”",
+      "taskDescription": "Készítsd el a „tart” ige megadott mondatokban szereplő jelentéseinek megfelelő igepuzzle-eket!\n„...édesanyja melegen tartotta neki az ételt...”",
       "predefinedPieces": [
         {
           "text": "tart",
@@ -297,7 +314,7 @@
       ]
     },
     {
-      "taskDescription": "Készítsd el a „tart” ige megadott mondatokban szereplő jelentéseinek megfelelő igepuzzle-eket!\n9. „Tartott tőle...”",
+      "taskDescription": "Készítsd el a „tart” ige megadott mondatokban szereplő jelentéseinek megfelelő igepuzzle-eket!\n„Tartott tőle...”",
       "predefinedPieces": [
         {
           "text": "tart",
@@ -328,7 +345,7 @@
       ]
     },
     {
-      "taskDescription": "Készítsd el a „tart” ige megadott mondatokban szereplő jelentéseinek megfelelő igepuzzle-eket!\n10. „Érezte, hogy lélekben édesanyja is vele tartott.”",
+      "taskDescription": "Készítsd el a „tart” ige megadott mondatokban szereplő jelentéseinek megfelelő igepuzzle-eket!\n1„Érezte, hogy lélekben édesanyja is vele tartott.”",
       "predefinedPieces": [
         {
           "text": "tart",

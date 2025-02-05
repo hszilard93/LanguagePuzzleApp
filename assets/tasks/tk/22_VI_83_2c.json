@@ -6,7 +6,7 @@
   },
   "tasks": [
     {
-      "taskDescription": "Rajzold le a következő mondatok igéinek a puzzle-szerkezetét!\n1. „Bodri mérges Cirmire.”",
+      "taskDescription": "Rajzold le a következő mondatoknak megfelelő puzzle-szerkezeteket!\nTársad veled párhuzamosan oldja meg a 83/2a-b (előző) feladatot!\n„Bodri mérges Cirmire.”",
       "predefinedPieces": [
         {
           "text": "",
@@ -42,7 +42,7 @@
       ]
     },
     {
-      "taskDescription": "Rajzold le a következő mondatok igéinek a puzzle-szerkezetét!\n2. „Magor szerelmes Boriba.”",
+      "taskDescription": "Rajzold le a következő mondatoknak megfelelő puzzle-szerkezeteket!\n„Magor szerelmes Boriba.”",
       "predefinedPieces": [
         {
           "text": "",
@@ -78,7 +78,7 @@
       ]
     },
     {
-      "taskDescription": "Rajzold le a következő mondatok igéinek a puzzle-szerkezetét!\n3. „Péter a Bolero étteremben pincér.”",
+      "taskDescription": "Rajzold le a következő mondatoknak megfelelő puzzle-szerkezeteket!\n„Péter a Bolero étteremben pincér.”",
       "predefinedPieces": [
         {
           "text": "",
@@ -107,7 +107,7 @@
       ]
     },
     {
-      "taskDescription": "Rajzold le a következő mondatok igéinek a puzzle-szerkezetét!\n4. „A kutya hűséges a gazdájához.”",
+      "taskDescription": "Rajzold le a következő mondatoknak megfelelő puzzle-szerkezeteket!\n„A kutya hűséges a gazdájához.”",
       "predefinedPieces": [
         {
           "text": "",

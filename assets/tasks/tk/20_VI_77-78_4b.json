@@ -45,84 +45,6 @@
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "megmosakodik/megtörölközik/megfésülködik",
-            "grammaticalRole": "VERB",
-            "tabs": [
-              {
-                "grammaticalRole": "SUBJECT"
-              }
-            ]
-          },
-          "puzzlesConnected": []
-        },
-        {
-          "checkTabText": "true",
-          "centerPiece": {
-            "text": "megmosakodik/megfésülködik/megtörölközik",
-            "grammaticalRole": "VERB",
-            "tabs": [
-              {
-                "grammaticalRole": "SUBJECT"
-              }
-            ]
-          },
-          "puzzlesConnected": []
-        },
-        {
-          "checkTabText": "true",
-          "centerPiece": {
-            "text": "megtörölközik/megmosakodik/megfésülködik",
-            "grammaticalRole": "VERB",
-            "tabs": [
-              {
-                "grammaticalRole": "SUBJECT"
-              }
-            ]
-          },
-          "puzzlesConnected": []
-        },
-        {
-          "checkTabText": "true",
-          "centerPiece": {
-            "text": "megtörölközik/megfésülködik/megmosakodik",
-            "grammaticalRole": "VERB",
-            "tabs": [
-              {
-                "grammaticalRole": "SUBJECT"
-              }
-            ]
-          },
-          "puzzlesConnected": []
-        },
-        {
-          "checkTabText": "true",
-          "centerPiece": {
-            "text": "megfésülködik/megmosakodik/megtörölközik",
-            "grammaticalRole": "VERB",
-            "tabs": [
-              {
-                "grammaticalRole": "SUBJECT"
-              }
-            ]
-          },
-          "puzzlesConnected": []
-        },
-        {
-          "checkTabText": "true",
-          "centerPiece": {
-            "text": "megfésülködik/megtörölközik/megmosakodik",
-            "grammaticalRole": "VERB",
-            "tabs": [
-              {
-                "grammaticalRole": "SUBJECT"
-              }
-            ]
-          },
-          "puzzlesConnected": []
-        },
-        {
-          "checkTabText": "true",
-          "centerPiece": {
             "text": "megmos/megtöröl/megfésül",
             "grammaticalRole": "VERB",
             "tabs": [
@@ -217,6 +139,162 @@
               {
                 "grammaticalRole": "OBJECT",
                 "text": ""
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "megmosakodik/megtörölközik/megfésülködik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "megmosakodik/megfésülködik/megtörölközik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "megtörölközik/megmosakodik/megfésülködik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "megtörölközik/megfésülködik/megmosakodik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "megfésülködik/megmosakodik/megtörölközik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "megfésülködik/megtörölközik/megmosakodik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "megmosakszik/megtörölközik/megfésülködik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "megmosakszik/megfésülködik/megtörölközik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "megtörölközik/megmosakszik/megfésülködik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "megtörölközik/megfésülködik/megmosakszik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "megfésülködik/megmosakszik/megtörölközik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "megfésülködik/megtörölközik/megmosakszik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT"
               }
             ]
           },

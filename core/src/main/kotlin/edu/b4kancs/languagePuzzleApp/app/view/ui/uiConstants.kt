@@ -3,9 +3,9 @@ package edu.b4kancs.languagePuzzleApp.app.view.ui
 val appInstructionsDescription =
     """
 A feladatok a Feladatbank 2. kötete és a VI. osztályos tankönyvünk alapján készültek, de a papíron lévőkhöz képest nagyrész át van írva a szövegük, hogy ezen a platformon is megoldhatóak legyenek. Ettől függetlenül néha utasítunk, hogy nézz meg valamit a kötetben. Ilyenkor ide kell menned:
-A Feladatbank2 - https://bit.ly/fb6oPuzzli
+Feladatbank2 - https://bit.ly/fb6oPuzzli
 vagy ide:
-A tankönyv - https://bit.ly/tk6oPuzzli
+Tankönyv - https://bit.ly/tk6oPuzzli
 A gombokon lévő számok is ezeknek a köteteknek a lapszámait, valamint a feladatszámait jelölik.
 
 Szómagyarázat:

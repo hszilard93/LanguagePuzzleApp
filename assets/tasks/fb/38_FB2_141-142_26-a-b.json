@@ -1,12 +1,13 @@
 {
-  "type": "FREE_EDIT_PUZZLE",
-  "buttonDescription": "VI_83/2a–b",
+  "type": "EDIT_PUZZLES",
+  "buttonDescription": "FB2/141–142/26a-b",
   "customRuleset": {
-    "canAddMainPieces": "false"
+    "canAddMainPieces": "false",
+    "canAddBlankPieces": "true"
   },
   "tasks": [
     {
-      "taskDescription": "Rajzold le a következő mondatok igéinek a puzzle-szerkezetét!\nTársad veled párhuzamosan oldja meg a 83/2c (következő) feladatot!\n„Bodri haragszik Cirmire.”",
+      "taskDescription": "Rajzold meg a mondatcsoport igéjének a puzzle-szerkezetét!\n„Az egér éjszaka rágcsálja a sajtot.”\n„Az egér a kamrában rágcsálja a sajtot.”\n„Az egér vígan rágcsálja a sajtot.”\n„Az egér lyukasra rágcsálja a sajtot.”",
       "predefinedPieces": [
         {
           "text": "",
@@ -19,22 +20,23 @@
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "haragszik",
-            "grammaticalRole": "VERB"
+            "text": "rágcsál",
+            "grammaticalRole": "VERB",
+            "tabs": []
           },
           "puzzlesConnected": [
             {
-              "text": "Bodri",
+              "text": "az egér",
               "grammaticalRole": "SUBJECT",
               "via": {
                 "text": ""
               }
             },
             {
-              "text": "Cirmi",
-              "grammaticalRole": "ADVERBIAL",
+              "text": "a sajt",
+              "grammaticalRole": "OBJECT",
               "via": {
-                "text": "-ra/-re"
+                "text": "-t"
               }
             }
           ]
@@ -42,7 +44,7 @@
       ]
     },
     {
-      "taskDescription": "Rajzold le a következő mondatok igéinek a puzzle-szerkezetét!\n„Magor beleszeretett Boriba.”",
+      "taskDescription": "Rajzold meg a mondatcsoport igéjének a puzzle-szerkezetét!\n„Bogi a tükörnél fésüli a haját.”\n„Bogi énekelve fésüli a haját.”\n„Bogi oldalra fésüli a haját.”\n„Bogi köntösben fésüli a haját.”",
       "predefinedPieces": [
         {
           "text": "",
@@ -55,22 +57,23 @@
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "beleszeret",
-            "grammaticalRole": "VERB"
+            "text": "fésül",
+            "grammaticalRole": "VERB",
+            "tabs": []
           },
           "puzzlesConnected": [
             {
-              "text": "Magor",
+              "text": "Bogi",
               "grammaticalRole": "SUBJECT",
               "via": {
                 "text": ""
               }
             },
             {
-              "text": "Bori",
-              "grammaticalRole": "ADVERBIAL",
+              "text": "a haja",
+              "grammaticalRole": "OBJECT",
               "via": {
-                "text": "-ba/-be"
+                "text": "-t"
               }
             }
           ]
@@ -78,7 +81,7 @@
       ]
     },
     {
-      "taskDescription": "Rajzold le a következő mondatok igéinek a puzzle-szerkezetét!\n„Péter a Bolero étteremben pincérkedik.”",
+      "taskDescription": "Rajzold meg a mondatcsoport igéjének a puzzle-szerkezetét!\n„A csibe kíváncsian bújt ki a tojásból.”\n„A csibe hajnali ötkor bújt ki a tojásból.”\n„A csibe csipogva bújt ki a tojásból.”\n„A csibe a lámpafénynél bújt ki a tojásból.”",
       "predefinedPieces": [
         {
           "text": "",
@@ -91,15 +94,23 @@
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "pincérkedik",
-            "grammaticalRole": "VERB"
+            "text": "kibújik",
+            "grammaticalRole": "VERB",
+            "tabs": []
           },
           "puzzlesConnected": [
             {
-              "text": "Péter",
+              "text": "a csibe",
               "grammaticalRole": "SUBJECT",
               "via": {
                 "text": ""
+              }
+            },
+            {
+              "text": "a tojás",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ból/-ből"
               }
             }
           ]
@@ -107,7 +118,7 @@
       ]
     },
     {
-      "taskDescription": "Rajzold le a következő mondatok igéinek a puzzle-szerkezetét!\n„A kutya ragaszkodik a gazdájához.”",
+      "taskDescription": "Rajzold meg a mondatcsoport igéjének a puzzle-szerkezetét!\n„Robi levelet ír Budapestre.”\n„Robi levelet ír egy szalvétára.”\n„Robi levelet ír a szobájában.”\n„Robi mosolyogva ír levelet.”",
       "predefinedPieces": [
         {
           "text": "",
@@ -120,22 +131,23 @@
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "ragaszkodik",
-            "grammaticalRole": "VERB"
+            "text": "ír",
+            "grammaticalRole": "VERB",
+            "tabs": []
           },
           "puzzlesConnected": [
             {
-              "text": "a kutya",
+              "text": "Robi",
               "grammaticalRole": "SUBJECT",
               "via": {
                 "text": ""
               }
             },
             {
-              "text": "a gazdája",
-              "grammaticalRole": "ADVERBIAL",
+              "text": "levél",
+              "grammaticalRole": "OBJECT",
               "via": {
-                "text": "-hoz/-hez/-höz"
+                "text": "-t"
               }
             }
           ]

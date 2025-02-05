@@ -1,8 +1,7 @@
 {
   "type": "FREE_EDIT_PUZZLE",
-  "buttonDescription": "VI_84/3a–b",
+  "buttonDescription": "FB2/155–157/33d",
   "customRuleset": {
-    "canAddMainPieces": "false",
     "shouldOfferIndPronouns": "true"
   },
   "tasks": [

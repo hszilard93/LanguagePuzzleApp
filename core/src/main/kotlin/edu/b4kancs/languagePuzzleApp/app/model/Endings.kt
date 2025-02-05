@@ -145,7 +145,7 @@ data class IndefinitePronoun(
             IndefinitePronoun("'valahonnan'"),
             IndefinitePronoun("'valahol'"),
             IndefinitePronoun("'valahogy'"),
-            IndefinitePronoun("'valamennyibe'")
+//            IndefinitePronoun("'valamennyibe'")
         )
 
         fun shortenPredefinedIndPronoun(pronoun: IndefinitePronoun): IndefinitePronoun {
