@@ -7,7 +7,7 @@
   },
   "tasks": [
     {
-      "taskDescription": "Rajzoljátok meg a mondatok puzzle-szerkezetét!\n1. „Az ingét vasalta ki a legkisebb fiam az évnyitóra.\n2. „Kivasalta az ingét a legkisebb fiam az évnyitóra.\n3. „Az ingét az évnyitóra vasalta ki a legkisebb fiam.\n4. „A legkisebb fiam vasalta ki az évnyitóra az ingét.”",
+      "taskDescription": "Rajzold meg a mondatok puzzle-szerkezetét!\n1. „Az ingét vasalta ki a legkisebb fiam az évnyitóra.\n2. „Kivasalta az ingét a legkisebb fiam az évnyitóra.\n3. „Az ingét az évnyitóra vasalta ki a legkisebb fiam.\n4. „A legkisebb fiam vasalta ki az évnyitóra az ingét.”",
       "predefinedPieces": [
         {
           "text": "",

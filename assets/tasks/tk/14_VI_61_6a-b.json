@@ -7,7 +7,7 @@
   },
   "tasks": [
     {
-      "taskDescription": "Alkoss értelmes mondatot a megadott szavakból a füzetedbe! Készítsd el a mondat puzzle-szerkezetét, és írd rá a puzzle-ekre a mondat megfelelő szavait, kifejezéseit!\n„a”, „alszik”, „aranyos”, „egy”, „kiscica”, „között”, „piros”, „tulipánok”",
+      "taskDescription": "Alkoss értelmes mondatot a megadott szavakból a füzetedbe! Készítsd el a mondat igéjének puzzle-szerkezetét, és írd rá a puzzle-ekre a mondat megfelelő szavait, kifejezéseit!\n„a”, „alszik”, „aranyos”, „egy”, „kiscica”, „között”, „piros”, „tulipánok”",
       "predefinedPieces": [
         {
           "text": "",
@@ -36,7 +36,7 @@
       ]
     },
     {
-      "taskDescription": "Alkoss értelmes mondatot a megadott szavakból a füzetedbe! Készítsd el a mondat puzzle-szerkezetét, és írd rá a puzzle-ekre a mondat megfelelő szavait, kifejezéseit!\n„a”, „barátaim”, „csokoládét”, „ebéd”, „ettek”, „öt”, „tábla”, „után”",
+      "taskDescription": "Alkoss értelmes mondatot a megadott szavakból a füzetedbe! Készítsd el a mondat igéjének puzzle-szerkezetét, és írd rá a puzzle-ekre a mondat megfelelő szavait, kifejezéseit!\n„a”, „barátaim”, „csokoládét”, „ebéd”, „ettek”, „öt”, „tábla”, „után”",
       "predefinedPieces": [
         {
           "text": "",
@@ -72,7 +72,7 @@
       ]
     },
     {
-      "taskDescription": "Alkoss értelmes mondatot a megadott szavakból a füzetedbe! Készítsd el a mondat puzzle-szerkezetét, és írd rá a puzzle-ekre a mondat megfelelő szavait, kifejezéseit!\n„a”, „a”, „bolt”, „elárusítója”, „eset”, „felmondott”, „miatt”, „pénteki”, „sarki”",
+      "taskDescription": "Alkoss értelmes mondatot a megadott szavakból a füzetedbe! Készítsd el a mondat igéjének puzzle-szerkezetét, és írd rá a puzzle-ekre a mondat megfelelő szavait, kifejezéseit!\n„a”, „a”, „bolt”, „elárusítója”, „eset”, „felmondott”, „miatt”, „pénteki”, „sarki”",
       "predefinedPieces": [
         {
           "text": "",

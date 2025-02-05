@@ -4,15 +4,15 @@
   "customRuleset": {
     "canColorTabs": "true",
     "canAddRemoveTabs": "true",
-    "canAddMainPieces": "true",
+    "canAddMainPieces": "false",
     "canAddBlankPieces": "true"
   },
   "tasks": [
     {
-      "taskDescription": "Formáld mondatokká az alábbi szósort a füzetedbe, majd rajzold meg mindegyikhez a mondatban leírt eseményt, helyzetet modellező puzzle-szerkezetet! Írd a központi puzzle füleire azokat a végződéseket, amelyeket az egyes mondatrészeknek kapniuk kellett ahhoz, hogy megértsük, mi a szerepük a jelenetben!\n„rábízza”, „a szülő”, „a gyerek”, „az óvó néni”",
+      "taskDescription": "Formáld mondattá az alábbi szósort a füzetedbe, majd rajzold meg a mondatban leírt eseményt, helyzetet modellező puzzle-szerkezetet! Írd a központi puzzle füleire azokat a végződéseket, amelyeket az egyes mondatrészeknek kapniuk kellett ahhoz, hogy megértsük, mi a szerepük a jelenetben!\n„rábízza”, „a szülő”, „a gyerek”, „az óvó néni”",
       "predefinedPieces": [
         {
-          "text": "rábízza",
+          "text": "rábíz",
           "grammaticalRole": "VERB",
           "tabs": [],
           "blanks": []
@@ -22,7 +22,7 @@
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "rábízza",
+            "text": "rábíz",
             "grammaticalRole": "VERB"
           },
           "puzzlesConnected": [
@@ -52,10 +52,10 @@
       ]
     },
     {
-      "taskDescription": "Formáld mondatokká az alábbi szósort a füzetedbe, majd rajzold meg mindegyikhez a mondatban leírt eseményt, helyzetet modellező puzzle-szerkezetet! Írd a központi puzzle füleire azokat a végződéseket, amelyeket az egyes mondatrészeknek kapniuk kellett ahhoz, hogy megértsük, mi a szerepük a jelenetben!\n„eltalálja”, „Gyuri”, „a labda”, „a kapu”",
+      "taskDescription": "Formáld mondattá az alábbi szósort a füzetedbe, majd rajzold meg a mondatban leírt eseményt, helyzetet modellező puzzle-szerkezetet! Írd a központi puzzle füleire azokat a végződéseket, amelyeket az egyes mondatrészeknek kapniuk kellett ahhoz, hogy megértsük, mi a szerepük a jelenetben!\n„eltalálja”, „Gyuri”, „a labda”, „a kapu”",
       "predefinedPieces": [
         {
-          "text": "eltalálja",
+          "text": "eltalál",
           "grammaticalRole": "VERB",
           "tabs": [],
           "blanks": []
@@ -66,7 +66,7 @@
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "eltalálja",
+            "text": "eltalál",
             "grammaticalRole": "VERB"
           },
           "puzzlesConnected": [
@@ -96,10 +96,10 @@
       ]
     },
     {
-      "taskDescription": "Formáld mondatokká az alábbi szósort a füzetedbe, majd rajzold meg mindegyikhez a mondatban leírt eseményt, helyzetet modellező puzzle-szerkezetet! Írd a központi puzzle füleire azokat a végződéseket, amelyeket az egyes mondatrészeknek kapniuk kellett ahhoz, hogy megértsük, mi a szerepük a jelenetben!\n„megmenti”, „a királyfi”, „a királylány”, „a sárkány”",
+      "taskDescription": "Formáld mondattá az alábbi szósort a füzetedbe, majd rajzold meg a mondatban leírt eseményt, helyzetet modellező puzzle-szerkezetet! Írd a központi puzzle füleire azokat a végződéseket, amelyeket az egyes mondatrészeknek kapniuk kellett ahhoz, hogy megértsük, mi a szerepük a jelenetben!\n„megmenti”, „a királyfi”, „a királylány”, „a sárkány”",
       "predefinedPieces": [
         {
-          "text": "megmenti",
+          "text": "megment",
           "grammaticalRole": "VERB",
           "tabs": [],
           "blanks": []
@@ -110,7 +110,7 @@
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "megmenti",
+            "text": "megment",
             "grammaticalRole": "VERB"
           },
           "puzzlesConnected": [
@@ -140,10 +140,10 @@
       ]
     },
     {
-      "taskDescription": "Formáld mondatokká az alábbi szósort a füzetedbe, majd rajzold meg mindegyikhez a mondatban leírt eseményt, helyzetet modellező puzzle-szerkezetet! Írd a központi puzzle füleire azokat a végződéseket, amelyeket az egyes mondatrészeknek kapniuk kellett ahhoz, hogy megértsük, mi a szerepük a jelenetben!\n„kigyógyítja”, „az orvos”, „a betegség”, „a páciens”",
+      "taskDescription": "Formáld mondattá az alábbi szósort a füzetedbe, majd rajzold meg a mondatban leírt eseményt, helyzetet modellező puzzle-szerkezetet! Írd a központi puzzle füleire azokat a végződéseket, amelyeket az egyes mondatrészeknek kapniuk kellett ahhoz, hogy megértsük, mi a szerepük a jelenetben!\n„kigyógyítja”, „az orvos”, „a betegség”, „a páciens”",
       "predefinedPieces": [
         {
-          "text": "kigyógyítja",
+          "text": "kigyógyít",
           "grammaticalRole": "VERB",
           "tabs": [],
           "blanks": []
@@ -154,7 +154,7 @@
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "kigyógyítja",
+            "text": "kigyógyít",
             "grammaticalRole": "VERB"
           },
           "puzzlesConnected": [
@@ -184,10 +184,10 @@
       ]
     },
     {
-      "taskDescription": "Formáld mondatokká az alábbi szósort a füzetedbe, majd rajzold meg mindegyikhez a mondatban leírt eseményt, helyzetet modellező puzzle-szerkezetet! Írd a központi puzzle füleire azokat a végződéseket, amelyeket az egyes mondatrészeknek kapniuk kellett ahhoz, hogy megértsük, mi a szerepük a jelenetben!\n„hozzáragasztja”, „Marci”, „a nadrágja”, „a szék”",
+      "taskDescription": "Formáld mondattá az alábbi szósort a füzetedbe, majd rajzold meg a mondatban leírt eseményt, helyzetet modellező puzzle-szerkezetet! Írd a központi puzzle füleire azokat a végződéseket, amelyeket az egyes mondatrészeknek kapniuk kellett ahhoz, hogy megértsük, mi a szerepük a jelenetben!\n„hozzáragasztja”, „Marci”, „a nadrágja”, „a szék”",
       "predefinedPieces": [
         {
-          "text": "hozzáragasztja",
+          "text": "hozzáragaszt",
           "grammaticalRole": "VERB",
           "tabs": [],
           "blanks": []
@@ -198,7 +198,7 @@
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "hozzáragasztja",
+            "text": "hozzáragaszt",
             "grammaticalRole": "VERB"
           },
           "puzzlesConnected": [
@@ -228,10 +228,10 @@
       ]
     },
     {
-      "taskDescription": "Formáld mondatokká az alábbi szósort a füzetedbe, majd rajzold meg mindegyikhez a mondatban leírt eseményt, helyzetet modellező puzzle-szerkezetet! Írd a központi puzzle füleire azokat a végződéseket, amelyeket az egyes mondatrészeknek kapniuk kellett ahhoz, hogy megértsük, mi a szerepük a jelenetben!\n„megszórja”, „a kínai szakács”, „a sonkás pizza”, „sajt”",
+      "taskDescription": "Formáld mondattá az alábbi szósort a füzetedbe, majd rajzold meg a mondatban leírt eseményt, helyzetet modellező puzzle-szerkezetet! Írd a központi puzzle füleire azokat a végződéseket, amelyeket az egyes mondatrészeknek kapniuk kellett ahhoz, hogy megértsük, mi a szerepük a jelenetben!\n„megszórja”, „a kínai szakács”, „a sonkás pizza”, „sajt”",
       "predefinedPieces": [
         {
-          "text": "megszórja",
+          "text": "megszór",
           "grammaticalRole": "VERB",
           "tabs": [],
           "blanks": []
@@ -242,7 +242,7 @@
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "megszórja",
+            "text": "megszór",
             "grammaticalRole": "VERB"
           },
           "puzzlesConnected": [

@@ -8,7 +8,7 @@
   },
   "tasks": [
     {
-      "taskDescription": "Ha emlékszel, korábban hatféle helyzetet tudtunk leírni úgy, hogy a bemutat igepuzzle-hez kapcsoltuk sorra a „Zsolti”, „Zsuzsi” és „Zsófi” feliratú puzzle-darabokat különböző szerepben.\nMost hozz létre hat különböző helyzetet leíró mondatot úgy, hogy a „bemutat” igéhez ezúttal az\n„én”, „te” és „ő”\npuzzle-darabokat illeszted hozzá!\nÍrd ki a füzetedbe, hogy hányféle alakban fordul elő az ige a hat mondatban!",
+      "taskDescription": "Ha emlékszel, korábban hatféle helyzetet tudtunk leírni úgy, hogy a bemutat igepuzzle-hez kapcsoltuk sorra a „Zsolti”, „Zsuzsi” és „Zsófi” feliratú puzzle-darabokat különböző szerepben.\nMost hozz létre hat különböző helyzetet leíró mondatot úgy, hogy a „bemutat” igéhez ezúttal az\n„én”, „te” és „ő”\npuzzle-darabokat illeszted hozzá!\nÍrd ki a füzetedbe, hogy hányféle alakban fordul elő az ige és a névmások a hat mondatban!",
       "predefinedPieces": [
         {
           "text": "bemutat",
@@ -25,7 +25,7 @@
               "text": "-t"
             },
             {
-              "side": "BOTTOM",
+              "side": "RIGHT",
               "grammaticalRole": "ADVERBIAL",
               "text": "-nak/\n-nek"
             }
