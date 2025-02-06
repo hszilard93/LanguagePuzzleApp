@@ -7,7 +7,8 @@
   "tasks": [
     {
       "taskDescription": "Rajzold le a következő mondatok igéinek a puzzle-szerkezetét!\n„A Cirmire mérges Bodrit elkergették.”",
-      "predefinedPieces": [],
+      "predefinedPieces": [
+      ],
       "solutionConfigurations": [
         {
           "checkTabText": "true",
@@ -82,7 +83,8 @@
     },
     {
       "taskDescription": "Rajzold le a következő mondatok igéinek a puzzle-szerkezetét!\n„A Boriba szerelmes Magortól kaptam a csokit.”",
-      "predefinedPieces": [],
+      "predefinedPieces": [
+      ],
       "solutionConfigurations": [
         {
           "checkTabText": "true",
@@ -143,68 +145,7 @@
               }
             }
           ]
-        },
-        {
-          "checkTabText": "true",
-          "centerPiece": {
-            "text": "kap",
-            "grammaticalRole": "VERB"
-          },
-          "puzzlesConnected": [
-            {
-              "text": "(én)",
-              "grammaticalRole": "SUBJECT",
-              "via": {
-                "text": ""
-              }
-            },
-            {
-              "text": "a csoki",
-              "grammaticalRole": "OBJECT",
-              "via": {
-                "text": "-t"
-              }
-            },
-            {
-              "text": "a Boriba szerelmes Magor",
-              "grammaticalRole": "ADVERBIAL",
-              "via": {
-                "text": "'valahonnan'"
-              }
-            }
-          ]
-        },
-        {
-          "checkTabText": "true",
-          "centerPiece": {
-            "text": "kap",
-            "grammaticalRole": "VERB"
-          },
-          "puzzlesConnected": [
-            {
-              "text": "én",
-              "grammaticalRole": "SUBJECT",
-              "via": {
-                "text": ""
-              }
-            },
-            {
-              "text": "a csoki",
-              "grammaticalRole": "OBJECT",
-              "via": {
-                "text": "-t"
-              }
-            },
-            {
-              "text": "a Boriba szerelmes Magor",
-              "grammaticalRole": "ADVERBIAL",
-              "via": {
-                "text": "'valahonnan'"
-              }
-            }
-          ]
         }
-
       ]
     },
     {
@@ -220,6 +161,36 @@
           "puzzlesConnected": [
             {
               "text": "(én)",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "az információ",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "a Bolero étteremben pincér barátom",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-tól/-től"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "kap",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "én",
               "grammaticalRole": "SUBJECT",
               "via": {
                 "text": ""
@@ -266,6 +237,29 @@
               "grammaticalRole": "ADVERBIAL",
               "via": {
                 "text": "-tól/-től"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "megszökik",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a gazdájához hűséges kutya",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a tolvajok",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "'valahonnan'"
               }
             }
           ]
