@@ -126,44 +126,43 @@ class GameInputManager(
                             potentialFeatureType.first
                         )
                         return true
-                    }
-                    else {
+                    } else {
                         puzzleManager.featureTripleToAdd = null
                     }
                 }
 
                 // We check if the pointer is over an existing feature
                 // But only if we are allowed to add/remove features
-                val featureUnderPointer = isPointOverEditablePuzzleFeature(mousePos, puzzleUnderPointer)
+                val featureUnderPointer = isPointerOverTab(mousePos, puzzleUnderPointer)
                 if (!featureUnderPointer.isEmpty) {
-                    val feature = featureUnderPointer.get()
-                    if (feature is PuzzleTab) {
-                        if (feature.grammaticalRole == GrammaticalRole.UNDEFINED && rules?.canColorTabs == true) {
-                            cursorManager.setCursor(cursorManager.gearCursor)
-                            puzzleManager.featureTripleToAdd = Triple(puzzleUnderPointer, feature.side, PuzzlePieceFeature.Type.TAB)
-                            return true
-                        }
+                    val feature = featureUnderPointer.get() as PuzzleTab
 
-                        if (rules?.canEditTabText == true) {
-                            val isPointerOverText = feature.isPointerOverTextLayout(mousePos)
-                            if (isPointerOverText) {
-                                cursorManager.setCursor(cursorManager.editTextCursor)
-                                puzzleManager.featureToTextEdit = feature
-                                return true
-                            }
-                        }
-                        puzzleManager.featureToTextEdit = null
+                    if ((feature.grammaticalRole == GrammaticalRole.UNDEFINED && rules?.canColorTabs == true) ||
+                        (rules?.doesAllowTabText == true && rules?.canEditTabText == false && rules?.canAddRemoveTabs == false)) {
+                        cursorManager.setCursor(cursorManager.gearCursor)
+                        puzzleManager.featureTripleToAdd = Triple(puzzleUnderPointer, feature.side, PuzzlePieceFeature.Type.TAB)
+                        return true
+                    }
 
-                        if (rules?.canAddRemoveTabs == true) {
-                            cursorManager.setCursor(cursorManager.removeFeatureCursor)
-                            puzzleManager.featureToRemove = Pair(puzzleUnderPointer, feature)
+                    if (rules?.canEditTabText == true) {
+                        val isPointerOverText = feature.isPointerOverTextLayout(mousePos)
+                        if (isPointerOverText) {
+                            cursorManager.setCursor(cursorManager.editTextCursor)
+                            puzzleManager.featureToTextEdit = feature
                             return true
                         }
                     }
+                    puzzleManager.featureToTextEdit = null
+
+                    if (rules?.canAddRemoveTabs == true) {
+                        cursorManager.setCursor(cursorManager.removeFeatureCursor)
+                        puzzleManager.featureToRemove = Pair(puzzleUnderPointer, feature)
+                        return true
+                    }
+
                     puzzleManager.featureToRemove = null
                     return true
-                }
-                else {
+                } else {
                     puzzleManager.featureToRemove = null
                     puzzleManager.featureToTextEdit = null
                 }
@@ -231,6 +230,7 @@ class GameInputManager(
                 }
                 return true
             }
+
             Input.Keys.RIGHT -> if (isCtrlPressed) {
                 logger.debug { "Ctrl + Right Arrow pressed" }
                 gameModel.setUpNextTask {
@@ -371,8 +371,7 @@ class GameInputManager(
             logger.debug { "rotateLeft" }
             puzzleManager.puzzlePieceToRotate!!.rotateLeft()
             return
-        }
-        else if (cursorManager.currentCursor == cursorManager.rotateRightCursor) {
+        } else if (cursorManager.currentCursor == cursorManager.rotateRightCursor) {
             logger.debug { "rotateRight" }
             puzzleManager.puzzlePieceToRotate!!.rotateRight()
             return
@@ -413,13 +412,11 @@ class GameInputManager(
                 lastMouseWorldPos.set(mousePos)
                 return true
             }
-        }
-        else if (puzzleManager.draggedPuzzlePiece != null) {
+        } else if (puzzleManager.draggedPuzzlePiece != null) {
             puzzleManager.dragPuzzle(mousePos, lastMouseWorldPos)
             lastMouseWorldPos.set(mousePos)
             return true
-        }
-        else if (isDraggingGame) {
+        } else if (isDraggingGame) {
             val deltaX = Gdx.input.deltaX.toFloat() * (1 / realToVirtualResolutionRatio) * cameraController.gameCamera.zoom
             val deltaY = Gdx.input.deltaY.toFloat() * (1 / realToVirtualResolutionRatio) * cameraController.gameCamera.zoom
             cameraController.gameCamera.translate(-deltaX, deltaY, 0f)
@@ -435,7 +432,8 @@ class GameInputManager(
         if (button == Input.Buttons.LEFT) {
             if (isPotentialClick && puzzleManager.potentialDragOrRotatePiece != null) {
                 if (!puzzleManager.potentialDragOrRotatePiece!!.isConnected &&
-                    puzzleManager.potentialDragOrRotatePiece!!.grammaticalRole != GrammaticalRole.VERB) {
+                    puzzleManager.potentialDragOrRotatePiece!!.grammaticalRole != GrammaticalRole.VERB
+                ) {
                     logger.debug { "Single click: Rotating puzzle piece" }
                     puzzleManager.potentialDragOrRotatePiece?.rotateRight()
                 }
@@ -463,8 +461,7 @@ class GameInputManager(
         if (uiManager.isPointerOverTaskDescription()) {
             uiManager.setFocusToTaskDescription(true)
             return false
-        }
-        else {
+        } else {
             scrollWorld(amountY)
             return true
         }
@@ -522,7 +519,7 @@ class GameInputManager(
             mousePos.y in (puzzlePiece.pos.y - offset)..(puzzlePiece.pos.y + puzzlePiece.size + offset)
     }
 
-    private fun isPointOverEditablePuzzleFeature(mousePos: Vector2, puzzlePiece: PuzzlePiece): Optional<PuzzlePieceFeature> {
+    private fun isPointerOverTab(mousePos: Vector2, puzzlePiece: PuzzlePiece): Optional<PuzzlePieceFeature> {
 
         puzzlePiece.tabs.forEach { tab ->
             if (tab.isPointOverFeature(mousePos)) {

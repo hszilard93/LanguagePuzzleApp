@@ -219,7 +219,7 @@ class PuzzleManager(
                                 finishAddFeature(puzzle, type, side, selectedRole, trimmedText)
                             },
                             onCancel = {
-
+                                cancelAddFeature()
                             }
                         )
                     }
@@ -245,8 +245,8 @@ class PuzzleManager(
             }
         }
 
-        // Directly add the blank
-        finishAddFeature(puzzle, type, side)
+//        // Directly add the blank
+//        finishAddFeature(puzzle, type, side)
     }
 
     private fun finishAddFeature(
@@ -261,6 +261,12 @@ class PuzzleManager(
         if (gameModel.currentExercise?.type == TaskType.COMPLETE_ARGUMENTS) {
             checkSolution()
         }
+        featureToRemove = null
+    }
+
+    private fun cancelAddFeature() {
+        logger.info { "Add feature cancelled" }
+        featureTripleToAdd = null
         featureToRemove = null
     }
 
