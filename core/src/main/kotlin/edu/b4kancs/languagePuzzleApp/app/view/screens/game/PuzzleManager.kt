@@ -8,6 +8,7 @@ import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePieceFeature
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzleTab
 import edu.b4kancs.languagePuzzleApp.app.model.Side
 import edu.b4kancs.languagePuzzleApp.app.model.Suffix
+import edu.b4kancs.languagePuzzleApp.app.model.exercise.SolutionConfiguration
 import edu.b4kancs.languagePuzzleApp.app.model.exercise.SolutionResult
 import edu.b4kancs.languagePuzzleApp.app.model.exercise.TaskType
 import ktx.log.logger
@@ -80,8 +81,7 @@ class PuzzleManager(
                     .forEach { otherPiece ->
                         otherPiece.pos = otherPiece.pos.add(delta)
                     }
-            }
-            else {
+            } else {
                 this.copyOfConnections.forEach(::removeConnection)
             }
         }
@@ -90,8 +90,7 @@ class PuzzleManager(
             if (!uiManager.isGarbageBinLifted) {
                 uiManager.showLiftedGarbageBin()
             }
-        }
-        else if (uiManager.isGarbageBinLifted) {
+        } else if (uiManager.isGarbageBinLifted) {
             uiManager.showClosedGarbageBin()
         }
 
@@ -222,24 +221,20 @@ class PuzzleManager(
                                 cancelAddFeature()
                             }
                         )
-                    }
-                    else {
+                    } else {
                         finishAddFeature(puzzle, type, side, selectedRole, "")
                     }
-                }
-                else if (selectedRole == GrammaticalRole.OBJECT) {
+                } else if (selectedRole == GrammaticalRole.OBJECT) {
                     if (doesAllowTabText) {
                         val tabText = Suffix.predefinedSuffixes
                             .firstOrNull { it.grammaticalRole == GrammaticalRole.OBJECT }
                             ?.text?.takeWhile { c -> c != '/' }
                             ?: ""
                         finishAddFeature(puzzle, type, side, selectedRole, tabText)
-                    }
-                    else {
+                    } else {
                         finishAddFeature(puzzle, type, side, selectedRole, "")
                     }
-                }
-                else {
+                } else {
                     finishAddFeature(puzzle, type, side, selectedRole, "")
                 }
             }
@@ -297,8 +292,7 @@ class PuzzleManager(
 
         if (!isBlank) {
 //            newPuzzlePiece.addFeature(PuzzlePieceFeature.Type.TAB, Side.TOP, GrammaticalRole.SUBJECT)
-        }
-        else {
+        } else {
             newPuzzlePiece.addFeature(PuzzlePieceFeature.Type.BLANK, Side.BOTTOM)
         }
 
@@ -316,10 +310,13 @@ class PuzzleManager(
     }
 
     fun checkSolution() {
+        val solutionsSet = gameModel.currentTask?.solutionConfigurations?.toMutableSet()
+            ?: return
+
         val verbPuzzles = gameModel.puzzlePieces.filter { it.grammaticalRole == GrammaticalRole.VERB }
 
-        val requiredSoltionsCount = gameModel.currentTask?.requiredSolutions ?: 1
-        if (verbPuzzles.size < requiredSoltionsCount) {
+        val requiredSolutionsCount = gameModel.currentTask?.requiredSolutions ?: 1
+        if (verbPuzzles.size < requiredSolutionsCount) {
             uiManager.hideCheckMark()
             return
         }
@@ -329,8 +326,7 @@ class PuzzleManager(
                 val thisCount = verbPuzzles.count { it.text == thisPuzzle.text }
                 val solutionCount = gameModel.currentTask?.solutionConfigurations?.map { it.solutionCenterPiece.text }?.size ?: 0
                 thisCount > solutionCount && verbPuzzles.size - thisCount < solutionCount
-            }
-            else {
+            } else {
                 false
             }
         }
@@ -342,18 +338,16 @@ class PuzzleManager(
 
         val solutionResults = arrayListOf<SolutionResult>()
         verbPuzzles.forEach { verbPuzzle ->
-            val solutionResult = checkSolutionsForVerb(verbPuzzle)
+            val solutionResult = checkSolutionsForVerb(verbPuzzle, solutionsSet)
             solutionResults.add(solutionResult)
         }
 
         val aggregateSolutionState: SolutionResult =
             if (solutionResults.count { it == SolutionResult.CORRECT } >= (gameModel.currentTask?.requiredSolutions ?: 1)) {
                 SolutionResult.CORRECT
-            }
-            else if (solutionResults.contains(SolutionResult.INELIGIBLE)) {
+            } else if (solutionResults.contains(SolutionResult.INELIGIBLE)) {
                 SolutionResult.INELIGIBLE
-            }
-            else {
+            } else {
                 SolutionResult.INCORRECT
             }
 
@@ -375,32 +369,35 @@ class PuzzleManager(
         }
     }
 
-    private fun checkSolutionsForVerb(centerPuzzle: PuzzlePiece): SolutionResult {
+    private fun checkSolutionsForVerb(centerPuzzle: PuzzlePiece, solutionsSet: MutableSet<SolutionConfiguration>): SolutionResult {
         if (centerPuzzle.connectionSize < centerPuzzle.tabs.size && gameModel.currentExercise?.type != TaskType.COMPLETE_ARGUMENTS) {
             return SolutionResult.INELIGIBLE
         }
 
         // All the tabs are connected, let's check the correctness of the result
-        val solutionResult = gameModel.currentTask
-            ?.solutionConfigurations
-            ?.filter {
+        val solutionResult = solutionsSet
+            .filter {
                 val centerText = it.solutionCenterPiece.text
                 if (gameModel.currentExercise?.ruleset?.doesBaseTextCount == true) centerPuzzle.text == centerText else true
             }
-            ?.map {
-                it.doesVerbMatchSolution(centerPuzzle, gameModel.currentExercise!!)
+            .map {
+                val result = it.doesVerbMatchSolution(
+                    centerPuzzle,
+                    gameModel.currentExercise!!
+                )
+                if (result == SolutionResult.CORRECT) {
+                    solutionsSet.remove(it)     // So that the same solution can't be used again.
+                }
+                result
             }
-            ?.fold(SolutionResult.INELIGIBLE) { acc, result ->
+            .fold(SolutionResult.INELIGIBLE) { acc, result ->
                 if (result == SolutionResult.CORRECT || acc == SolutionResult.CORRECT) {
                     SolutionResult.CORRECT
-                }
-                else if (result == SolutionResult.INCORRECT || acc == SolutionResult.INCORRECT) {
+                } else if (result == SolutionResult.INCORRECT || acc == SolutionResult.INCORRECT) {
                     SolutionResult.INCORRECT
-                }
-                else
+                } else
                     SolutionResult.INELIGIBLE
             }
-            ?: SolutionResult.INELIGIBLE
 
         GameModel.logger.info { "solutionResult = $solutionResult" }
         return solutionResult
