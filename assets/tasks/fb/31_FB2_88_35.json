@@ -132,6 +132,27 @@
         {
           "checkTabText": "true",
           "centerPiece": {
+            "text": "épít",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ra/-re"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
             "text": "udvarol",
             "grammaticalRole": "VERB",
             "tabs": [
@@ -172,6 +193,19 @@
               {
                 "grammaticalRole": "SUBJECT",
                 "text": ""
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "utazik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
               },
               {
                 "grammaticalRole": "ADVERBIAL",
@@ -189,6 +223,14 @@
               {
                 "grammaticalRole": "SUBJECT",
                 "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "valahová"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-val/-vel"
               }
             ]
           }
@@ -283,6 +325,44 @@
               {
                 "grammaticalRole": "OBJECT",
                 "text": "-t"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "(meg)ajándékoz",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "(meg)ajándékoz",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-val/-vel"
               }
             ]
           }

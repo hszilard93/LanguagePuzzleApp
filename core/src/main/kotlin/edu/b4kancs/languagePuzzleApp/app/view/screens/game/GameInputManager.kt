@@ -138,7 +138,8 @@ class GameInputManager(
                     val feature = featureUnderPointer.get() as PuzzleTab
 
                     if ((feature.grammaticalRole == GrammaticalRole.UNDEFINED && rules?.canColorTabs == true) ||
-                        (rules?.doesAllowTabText == true && rules?.canEditTabText == false && rules?.canAddRemoveTabs == false)) {
+                        (rules?.doesAllowTabText == true && rules?.canEditTabText == false && rules?.canAddRemoveTabs == false)
+                    ) {
                         cursorManager.setCursor(cursorManager.gearCursor)
                         puzzleManager.featureTripleToAdd = Triple(puzzleUnderPointer, feature.side, PuzzlePieceFeature.Type.TAB)
                         return true
@@ -163,6 +164,7 @@ class GameInputManager(
                     puzzleManager.featureToRemove = null
                     return true
                 } else {
+                    puzzleManager.featureTripleToAdd = null
                     puzzleManager.featureToRemove = null
                     puzzleManager.featureToTextEdit = null
                 }
@@ -173,10 +175,17 @@ class GameInputManager(
 
                 // We check if it's over a puzzle piece's text
                 val isTextUnderPointer = puzzleUnderPointer.isPointerOverTextLayout(mousePos)
-                if (isTextUnderPointer && rules?.canEditBaseText == true && !puzzleUnderPointer.isConnected) {
+
+                if (
+                    isTextUnderPointer
+                    && (rules?.canEditBaseText == true || rules?.canEditBlankText == true)
+                    && !puzzleUnderPointer.isConnected
+                ) {
                     val isBlankPiece = puzzleUnderPointer.blanks.isNotEmpty()
-                    val canNotEditBlanks = rules.canEditBlankText == false
-                    if (!(isBlankPiece && canNotEditBlanks)) {
+                    val canEditIsBlank = rules.canEditBlankText == true && isBlankPiece
+                    val canEditIsMain = rules.canEditBaseText == true && !isBlankPiece
+
+                    if (canEditIsMain || canEditIsBlank) {
                         cursorManager.setCursor(cursorManager.editTextCursor)
                         puzzleManager.puzzlePieceToEdit = puzzleUnderPointer
                         return true

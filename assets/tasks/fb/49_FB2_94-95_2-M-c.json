@@ -4,6 +4,7 @@
   "customRuleset": {
     "canAddMainPieces": "false",
     "canEditBaseText": "false",
+    "canEditBlankText": "true",
     "canEditTabText": "true",
     "canAddRemoveTabs": "true",
     "doesBaseTextCount": "false",
@@ -49,14 +50,14 @@
           },
           "puzzlesConnected": [
             {
-              "text": "",
+              "text": "ANYTHING",
               "grammaticalRole": "SUBJECT",
               "via": {
                 "text": ""
               }
             },
             {
-              "text": "",
+              "text": "ANYTHING",
               "grammaticalRole": "ADVERBIAL",
               "via": {
                 "text": "-hoz/-hez/-höz"
@@ -72,14 +73,14 @@
           },
           "puzzlesConnected": [
             {
-              "text": "",
+              "text": "ANYTHING",
               "grammaticalRole": "SUBJECT",
               "via": {
                 "text": ""
               }
             },
             {
-              "text": "",
+              "text": "ANYTHING",
               "grammaticalRole": "ADVERBIAL",
               "via": {
                 "text": "-nak/-nek"
@@ -95,14 +96,14 @@
           },
           "puzzlesConnected": [
             {
-              "text": "",
+              "text": "ANYTHING",
               "grammaticalRole": "SUBJECT",
               "via": {
                 "text": ""
               }
             },
             {
-              "text": "",
+              "text": "ANYTHING",
               "grammaticalRole": "ADVERBIAL",
               "via": {
                 "text": "valahová"
@@ -118,14 +119,14 @@
           },
           "puzzlesConnected": [
             {
-              "text": "",
+              "text": "ANYTHING",
               "grammaticalRole": "SUBJECT",
               "via": {
                 "text": ""
               }
             },
             {
-              "text": "",
+              "text": "ANYTHING",
               "grammaticalRole": "ADVERBIAL",
               "via": {
                 "text": "-ra/-re"
@@ -141,21 +142,21 @@
           },
           "puzzlesConnected": [
             {
-              "text": "",
+              "text": "ANYTHING",
               "grammaticalRole": "SUBJECT",
               "via": {
                 "text": ""
               }
             },
             {
-              "text": "",
+              "text": "ANYTHING",
               "grammaticalRole": "ADVERBIAL",
               "via": {
                 "text": "-nak/-nek"
               }
             },
             {
-              "text": "",
+              "text": "ANYTHING",
               "grammaticalRole": "ADVERBIAL",
               "via": {
                 "text": "-val/-vel"
@@ -171,28 +172,28 @@
           },
           "puzzlesConnected": [
             {
-              "text": "",
+              "text": "ANYTHING",
               "grammaticalRole": "SUBJECT",
               "via": {
                 "text": ""
               }
             },
             {
-              "text": "",
+              "text": "ANYTHING",
               "grammaticalRole": "ADVERBIAL",
               "via": {
                 "text": "-nak/-nek"
               }
             },
             {
-              "text": "",
+              "text": "ANYTHING",
               "grammaticalRole": "ADVERBIAL",
               "via": {
                 "text": "-val/-vel"
               }
             },
             {
-              "text": "",
+              "text": "ANYTHING",
               "grammaticalRole": "ADVERBIAL",
               "via": {
                 "text": "-ért"
@@ -208,21 +209,21 @@
           },
           "puzzlesConnected": [
             {
-              "text": "",
+              "text": "ANYTHING",
               "grammaticalRole": "SUBJECT",
               "via": {
                 "text": ""
               }
             },
             {
-              "text": "",
+              "text": "ANYTHING",
               "grammaticalRole": "OBJECT",
               "via": {
                 "text": "-t"
               }
             },
             {
-              "text": "",
+              "text": "ANYTHING",
               "grammaticalRole": "ADVERBIAL",
               "via": {
                 "text": "-ba/-be"
@@ -238,21 +239,21 @@
           },
           "puzzlesConnected": [
             {
-              "text": "",
+              "text": "ANYTHING",
               "grammaticalRole": "SUBJECT",
               "via": {
                 "text": ""
               }
             },
             {
-              "text": "",
+              "text": "ANYTHING",
               "grammaticalRole": "OBJECT",
               "via": {
                 "text": "-t"
               }
             },
             {
-              "text": "",
+              "text": "ANYTHING",
               "grammaticalRole": "ADVERBIAL",
               "via": {
                 "text": "-val/-vel"

@@ -1,0 +1,725 @@
+{
+  "type": "EDIT_PUZZLES",
+  "buttonDescription": "FB2/95–96/3M",
+  "customRuleset": {
+    "canEditBaseText": "true",
+    "canEditBlankText": "false",
+    "doesBaseTextCount": "true",
+    "canEditTabText": "false",
+    "doesAllowTabText": "false",
+    "canAddRemoveTabs": "false"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Írjatok a megadott puzzle-szerkezetek központi puzzle-jére három különböző igét, amelyekhez tartozhatnak szereplőkként a puzzle-darabokon levő kifejezések! (Ahhoz, hogy ráírhass az igepuzzle-re előbb le kell választanod a puzzle-darabokat. Rakd ismét össze!)\nEllenőrizzétek egymás megoldásait!",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "connectedTo": "Vera"
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": "-t",
+              "connectedTo": "a narancslé"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "Vera",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "a narancslé",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "connectedTo": "Vera"
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": "-t",
+              "connectedTo": "a narancslé"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "Vera",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "a narancslé",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "connectedTo": "Vera"
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": "-t",
+              "connectedTo": "a narancslé"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "Vera",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "a narancslé",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        }
+      ],
+      "solutionConfigurations": []
+    },
+    {
+      "taskDescription": "Írjatok a megadott puzzle-szerkezetek központi puzzle-jére három különböző igét, amelyekhez tartozhatnak szereplőkként a puzzle-darabokon levő kifejezések! (Ahhoz, hogy ráírhass az igepuzzle-re előbb le kell választanod a puzzle-darabokat. Rakd ismét össze!)\nEllenőrizzétek egymás megoldásait!",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "connectedTo": "a macska"
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "ADVERBIAL",
+              "text": "-hoz/\n-hez",
+              "connectedTo": "a gazdája"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "a macska",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "a gazdája",
+          "grammaticalRole": "ADVERBIAL",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "connectedTo": "a macska"
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "ADVERBIAL",
+              "text": "-hoz/\n-hez",
+              "connectedTo": "a gazdája"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "a macska",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "a gazdája",
+          "grammaticalRole": "ADVERBIAL",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "connectedTo": "a macska"
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "ADVERBIAL",
+              "text": "-hoz/\n-hez",
+              "connectedTo": "a gazdája"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "a macska",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "a gazdája",
+          "grammaticalRole": "ADVERBIAL",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        }
+      ],
+      "solutionConfigurations": []
+    },
+    {
+      "taskDescription": "Írjatok a megadott puzzle-szerkezetek központi puzzle-jére három különböző igét, amelyekhez tartozhatnak szereplőkként a puzzle-darabokon levő kifejezések! (Ahhoz, hogy ráírhass az igepuzzle-re előbb le kell választanod a puzzle-darabokat. Rakd ismét össze!)\nEllenőrizzétek egymás megoldásait!",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "connectedTo": "a tanár"
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": "-t",
+              "connectedTo": "a diák"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "a tanár",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "a diák",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "connectedTo": "a tanár"
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": "-t",
+              "connectedTo": "a diák"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "a tanár",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "a diák",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "connectedTo": "a tanár"
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": "-t",
+              "connectedTo": "a diák"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "a tanár",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "a diák",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        }
+      ],
+      "solutionConfigurations": []
+    },
+    {
+      "taskDescription": "Írjatok a megadott puzzle-szerkezetek központi puzzle-jére három különböző igét, amelyekhez tartozhatnak szereplőkként a puzzle-darabokon levő kifejezések! (Ahhoz, hogy ráírhass az igepuzzle-re előbb le kell választanod a puzzle-darabokat. Rakd ismét össze!)\nEllenőrizzétek egymás megoldásait!",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "connectedTo": "az ikrek"
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": "-t",
+              "connectedTo": "a hörcsög"
+            },
+            {
+              "side": "RIGHT",
+              "grammaticalRole": "ADVERBIAL",
+              "text": "-tól/\n-től",
+              "connectedTo": "a szüleik"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "az ikrek",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "a hörcsög",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "a szüleik",
+          "grammaticalRole": "ADVERBIAL",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "LEFT"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "connectedTo": "az ikrek"
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": "-t",
+              "connectedTo": "a hörcsög"
+            },
+            {
+              "side": "RIGHT",
+              "grammaticalRole": "ADVERBIAL",
+              "text": "-tól/\n-től",
+              "connectedTo": "a szüleik"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "az ikrek",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "a hörcsög",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "a szüleik",
+          "grammaticalRole": "ADVERBIAL",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "LEFT"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "connectedTo": "az ikrek"
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": "-t",
+              "connectedTo": "a hörcsög"
+            },
+            {
+              "side": "RIGHT",
+              "grammaticalRole": "ADVERBIAL",
+              "text": "-tól/\n-től",
+              "connectedTo": "a szüleik"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "az ikrek",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "a hörcsög",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "a szüleik",
+          "grammaticalRole": "ADVERBIAL",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "LEFT"
+            }
+          ]
+        }
+      ],
+      "solutionConfigurations": []
+    },
+    {
+      "taskDescription": "Írjatok a megadott puzzle-szerkezetek központi puzzle-jére három különböző igét, amelyekhez tartozhatnak szereplőkként a puzzle-darabokon levő kifejezések! (Ahhoz, hogy ráírhass az igepuzzle-re előbb le kell választanod a puzzle-darabokat. Rakd ismét össze!)\nEllenőrizzétek egymás megoldásait!",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "connectedTo": "Máté"
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": "-t",
+              "connectedTo": "bazsarózsa"
+            },
+            {
+              "side": "RIGHT",
+              "grammaticalRole": "ADVERBIAL",
+              "text": "-nak/\n-nek",
+              "connectedTo": "a kedvese"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "Máté",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "bazsarózsa",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "a kedvese",
+          "grammaticalRole": "ADVERBIAL",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "LEFT"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "connectedTo": "Máté"
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": "-t",
+              "connectedTo": "bazsarózsa"
+            },
+            {
+              "side": "RIGHT",
+              "grammaticalRole": "ADVERBIAL",
+              "text": "-nak/\n-nek",
+              "connectedTo": "a kedvese"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "Máté",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "bazsarózsa",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "a kedvese",
+          "grammaticalRole": "ADVERBIAL",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "LEFT"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "connectedTo": "Máté"
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": "-t",
+              "connectedTo": "bazsarózsa"
+            },
+            {
+              "side": "RIGHT",
+              "grammaticalRole": "ADVERBIAL",
+              "text": "-nak/\n-nek",
+              "connectedTo": "a kedvese"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "Máté",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "bazsarózsa",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "a kedvese",
+          "grammaticalRole": "ADVERBIAL",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "LEFT"
+            }
+          ]
+        }
+      ],
+      "solutionConfigurations": []
+    }
+  ]
+}

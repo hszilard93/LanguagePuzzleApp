@@ -10,7 +10,7 @@
   "tasks": [
     {
       "taskDescription": "Keresd meg a mérőlap 1. feladatában (a 93–94. oldalon) olvasható szöveg második felében a magyar igének tűnő halandzsaszavakat, majd készítsd el ezen igék puzzle-jét!",
-      "requiredSolutions": 1,
+      "requiredSolutions": 5,
       "predefinedPieces": [
         {
           "text": "",

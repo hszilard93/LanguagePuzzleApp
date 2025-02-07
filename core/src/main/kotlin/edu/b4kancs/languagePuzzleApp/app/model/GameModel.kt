@@ -195,14 +195,6 @@ class GameModel {
                     val x = startX + (col * (puzzlePieceSize + puzzlePieceSpacingX))
                     val y = startY + (row * (puzzlePieceSize + puzzlePieceSpacingY))
                     piece.pos = Vector2(x, y)
-
-                    // Log if the piece is preconnected (for debugging/awareness)
-                    if (preConnectedPieces.contains(piece)) {
-                        logger.debug { "Positioned preconnected piece: ${piece.text} at ($x, $y)" }
-                    } else {
-                        logger.debug { "Positioned piece: ${piece.text} at ($x, $y)" }
-                    }
-
                     pieceIndex++
                 } else {
                     break // No more pieces
@@ -219,9 +211,8 @@ class GameModel {
         logger.debug { "Found preconnected pieces: $preConnectedPieces" }
 
         if (verbPiecesWithConnections.size > 1) {
-            // Adjust connected groups so that their overall bounds have more breathing room.
-            adjustConnectedGroupsSpacing()
             alignGroupsToGrid()
+//            adjustConnectedGroupsSpacing()        // It doesn't work for now
         }
 
         // Finally, perform forced snapping among connected pieces.
@@ -403,13 +394,13 @@ class GameModel {
 
         // For each group, compute its current center.
         // (At this point the group positions already include any offsets applied by adjustConnectedGroupsSpacing.)
-        val groupRectangles = groups.associateWith { group ->
+        val groupRectangleMap = groups.associateWith { group ->
             computeGroupBoundingRectangle(group, Vector2.Zero)
         }
 
         // Determine grid dimensions based on the number of groups.
-        val numColumns = groups.size / 2
-        val numRows = groups.size / 2
+        val numColumns = ceil(sqrt(groups.size.toFloat())).toInt()
+        val numRows = if (groups.size > numColumns * numColumns) numColumns + 1 else numColumns
 
         // Determine the maximum group sizes (width and height) to define grid cell spacing.
         val maxGroupWidth = 900f
@@ -431,22 +422,77 @@ class GameModel {
 
         // For each group, assign a grid cell based on its index and compute the delta
         // needed to move its current center to the target center.
-        groups.forEachIndexed { index, group ->
-            val col = index % numColumns
-            val row = index / numColumns
+//        groups.forEachIndexed { index, group ->
+//            val col = index % numColumns
+//            val row = index / numColumns
+//
+//            val targetCenter = Vector2(startX + col * cellSpacingX, startY + row * cellSpacingY)
+//            val currentCenter = Vector2()
+//            group.first { it.grammaticalRole == GrammaticalRole.VERB }.getBoundingRectangle().getCenter(currentCenter)
+//
+//            // Compute the delta to move the group so that its center is at the target.
+//            val delta = targetCenter.cpy().sub(currentCenter)
+//
+//            // Apply this delta to every puzzle piece in the group.
+//            group.forEach { piece ->
+//                piece.pos = piece.pos.add(delta)
+//            }
+//            logger.debug { "Aligned group $index (grid cell: [$col, $row]) with delta: $delta" }
+//        }
 
-            val targetCenter = Vector2(startX + col * cellSpacingX, startY + row * cellSpacingY)
-            val currentCenter = Vector2()
-            group.first { it.grammaticalRole == GrammaticalRole.VERB }.getBoundingRectangle().getCenter(currentCenter)
+        val colWidths = HashMap<Int, Float>()
+        val rowHeights = HashMap<Int, Float>()
+        val colCenterX = HashMap<Int, Float>()
+        val rowCenterY = HashMap<Int, Float>()
+        for (i in 0 until numColumns) {
+            for (j in 0 until numRows) {
+                val width = colWidths.getOrPut(i) {
+                    val colGroups = groups.indices.filter { it % numColumns == i }.map { groups[it] }
+                    colGroups.maxOf { g ->
+                        val numSidePieces =
+                            g.first { it.grammaticalRole == GrammaticalRole.VERB }.tabs.count { it.side == Side.LEFT || it.side == Side.RIGHT }
+                        (numSidePieces + 1) * PuzzlePiece.MIN_SIZE
+                    } + extraSpacing * 2
+                }
+                val height = rowHeights.getOrPut(j) {
+                    val rowGroups = groups.indices.filter { it % numColumns == j }.map { groups[it] }
+                    rowGroups.maxOf { g ->
+                        val numVertPieces =
+                            g.first { it.grammaticalRole == GrammaticalRole.VERB }.tabs.count { it.side == Side.TOP || it.side == Side.BOTTOM }
+                        (numVertPieces + 1) * PuzzlePiece.MIN_SIZE
+                    } + extraSpacing * 2
+                }
 
-            // Compute the delta to move the group so that its center is at the target.
-            val delta = targetCenter.cpy().sub(currentCenter)
+                val cellCenterX = colCenterX.getOrPut(i) {
+                   // Get sum of width of previous cols
+                    var sum = 0f
+                    for (k in 0 until i) {
+                        sum += colWidths[k]!!
+                    }
+                    sum + width / 2
+                } + startX
+                val cellCenterY = rowCenterY.getOrPut(j) {
+                    // Get sum of height of previous rows
+                    var sum = 0f
+                    for (k in 0 until j) {
+                        sum += rowHeights[k]!!
+                    }
+                    sum + height / 2
+                } + startY
 
-            // Apply this delta to every puzzle piece in the group.
-            group.forEach { piece ->
-                piece.pos = piece.pos.add(delta)
+                val thisGroup = groups.getOrNull(numColumns * j + i)    // It is not guaranteed that every row of the grid has a group
+
+                if (thisGroup != null) {
+//                    val targetCenter = Vector2(startX + i * (width + extraSpacing), startY + j * (height + extraSpacing))
+                    val targetCenter = Vector2(cellCenterX - width / 2, cellCenterY - height / 2)
+                    val currentCenter = Vector2()
+                    thisGroup.first { it.grammaticalRole == GrammaticalRole.VERB }.getBoundingRectangle().getCenter(currentCenter)
+                    val delta = targetCenter.cpy().sub(currentCenter)
+                    thisGroup.forEach { piece ->
+                        piece.pos = piece.pos.add(delta)
+                    }
+                }
             }
-            logger.debug { "Aligned group $index (grid cell: [$col, $row]) with delta: $delta" }
         }
     }
 

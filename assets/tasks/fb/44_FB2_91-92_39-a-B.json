@@ -11,14 +11,14 @@
   },
   "tasks": [
     {
-      "taskDescription": "Készítsd el a következő mondatokbeli igék igepuzzle-jeit! Írd az ige mellé a mondatnak a számát, amihez tartozik (pl. tart8)!\n1. „Az a gerenda tartja az egész tetőt.”\n2. „A befőtteket nagyi a kamrában tartja.”\n3. „A hegymászó a szakadék felé tart.”\n4. „A mai edzés nyolcig tart.”\n5. „Az öcsém bogárgyűjteményét az egész család becsben tartja.”\n6. „Mindenki tart a goromba titkárnőtől.”\n7. „Apukám az ilyen óvintézkedéseket fölöslegesnek tartja.”\n8. „Ma egy híres fizikus tart előadást az Értékek Akadémiája keretében.”\n9. „Én minden fontos évfordulót észben tartok.”\n10. „A győzelem gondolata tartja a lelket a csapatban.”",
-      "requiredSolutions": 10,
+      "taskDescription": "Készítsd el a mondatbeli ige puzzle-jét!\n„Az a gerenda tartja az egész tetőt.”",
+      "requiredSolutions": 1,
       "predefinedPieces": [],
       "solutionConfigurations": [
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "tart1",
+            "text": "tart",
             "grammaticalRole": "VERB",
             "tabs": [
               {
@@ -31,11 +31,18 @@
               }
             ]
           }
-        },
+        }
+      ]
+    },
+    {
+      "taskDescription": "Készítsd el a mondatbeli ige puzzle-jét!\n„A befőtteket nagyi a kamrában tartja.”",
+      "requiredSolutions": 1,
+      "predefinedPieces": [],
+      "solutionConfigurations": [
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "tart8",
+            "text": "tart",
             "grammaticalRole": "VERB",
             "tabs": [
               {
@@ -45,6 +52,10 @@
               {
                 "grammaticalRole": "OBJECT",
                 "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ban/-ben"
               }
             ]
           }
@@ -52,7 +63,35 @@
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "tart3",
+            "text": "tart",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "'valahol'"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "taskDescription": "Készítsd el a mondatbeli ige puzzle-jét!\n„A hegymászó a szakadék felé tart.”",
+      "requiredSolutions": 1,
+      "predefinedPieces": [],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "tart",
             "grammaticalRole": "VERB",
             "tabs": [
               {
@@ -69,7 +108,7 @@
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "tart6",
+            "text": "tart",
             "grammaticalRole": "VERB",
             "tabs": [
               {
@@ -78,15 +117,22 @@
               },
               {
                 "grammaticalRole": "ADVERBIAL",
-                "text": "-tól/-től"
+                "text": "'valamerre'"
               }
             ]
           }
-        },
+        }
+      ]
+    },
+    {
+      "taskDescription": "Készítsd el a mondatbeli ige puzzle-jét!\n„A mai edzés nyolcig tart.”",
+      "requiredSolutions": 1,
+      "predefinedPieces": [],
+      "solutionConfigurations": [
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "tart4",
+            "text": "tart",
             "grammaticalRole": "VERB",
             "tabs": [
               {
@@ -99,11 +145,18 @@
               }
             ]
           }
-        },
+        }
+      ]
+    },
+    {
+      "taskDescription": "Készítsd el a mondatbeli ige puzzle-jét!\n„Az öcsém bogárgyűjteményét az egész család becsben tartja.”",
+      "requiredSolutions": 1,
+      "predefinedPieces": [],
+      "solutionConfigurations": [
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "tart2",
+            "text": "tart",
             "grammaticalRole": "VERB",
             "tabs": [
               {
@@ -120,11 +173,18 @@
               }
             ]
           }
-        },
+        }
+      ]
+    },
+    {
+      "taskDescription": "Készítsd el a mondatbeli ige puzzle-jét!\n„Mindenki tart a goromba titkárnőtől.”",
+      "requiredSolutions": 1,
+      "predefinedPieces": [],
+      "solutionConfigurations": [
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "tart5",
+            "text": "tart",
             "grammaticalRole": "VERB",
             "tabs": [
               {
@@ -132,62 +192,23 @@
                 "text": ""
               },
               {
-                "grammaticalRole": "OBJECT",
-                "text": "-t"
-              },
-              {
                 "grammaticalRole": "ADVERBIAL",
-                "text": "-ban/-ben"
+                "text": "-tól/-től"
               }
             ]
           }
-        },
+        }
+      ]
+    },
+    {
+      "taskDescription": "Készítsd el a mondatbeli ige puzzle-jét!\n„Apukám az ilyen óvintézkedéseket fölöslegesnek tartja.”",
+      "requiredSolutions": 1,
+      "predefinedPieces": [],
+      "solutionConfigurations": [
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "tart9",
-            "grammaticalRole": "VERB",
-            "tabs": [
-              {
-                "grammaticalRole": "SUBJECT",
-                "text": ""
-              },
-              {
-                "grammaticalRole": "OBJECT",
-                "text": "-t"
-              },
-              {
-                "grammaticalRole": "ADVERBIAL",
-                "text": "-ban/-ben"
-              }
-            ]
-          }
-        },
-        {
-          "checkTabText": "true",
-          "centerPiece": {
-            "text": "tart10",
-            "grammaticalRole": "VERB",
-            "tabs": [
-              {
-                "grammaticalRole": "SUBJECT",
-                "text": ""
-              },
-              {
-                "grammaticalRole": "OBJECT",
-                "text": "-t"
-              },
-              {
-                "grammaticalRole": "ADVERBIAL",
-                "text": "-ban/-ben"
-              }
-            ]
-          }
-        },
-        {
-          "checkTabText": "true",
-          "centerPiece": {
-            "text": "tart7",
+            "text": "tart",
             "grammaticalRole": "VERB",
             "tabs": [
               {
@@ -201,6 +222,86 @@
               {
                 "grammaticalRole": "ADVERBIAL",
                 "text": "-nak/-nek"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "taskDescription": "Készítsd el a mondatbeli ige puzzle-jét!\n„Ma egy híres fizikus tart előadást az Értékek Akadémiája keretében.”",
+      "requiredSolutions": 1,
+      "predefinedPieces": [],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "tart",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "taskDescription": "Készítsd el a mondatbeli ige puzzle-jét!\n„Én minden fontos évfordulót észben tartok.”",
+      "requiredSolutions": 1,
+      "predefinedPieces": [],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "tart",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ban/-ben"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "taskDescription": "Készítsd el a mondatbeli ige puzzle-jét!\n„A győzelem gondolata tartja a lelket a csapatban.”",
+      "requiredSolutions": 1,
+      "predefinedPieces": [],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "tart",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ban/-ben"
               }
             ]
           }

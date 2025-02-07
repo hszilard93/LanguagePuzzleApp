@@ -526,7 +526,7 @@ class PuzzlePiece(
 
     private fun calculateRenderPosition(): Vector2 = Vector2(pos.x - PuzzleTab.HEIGHT, pos.y - PuzzleTab.HEIGHT)
 
-    private fun calculateRenderSize(): Float = size + 2f * PuzzleTab.HEIGHT
+    private fun calculateRenderSize(): Float = size + PuzzleTab.HEIGHT * 2f
 
     // Method to initiate animation
     fun changeSize(newTargetSize: Float, doAnimate: Boolean = true) {

@@ -10,7 +10,7 @@
   },
   "tasks": [
     {
-      "taskDescription": "Melyik kifejezésben melyik ige szerepel? Írd rá az igepuzzle-re a megfelelő igét és utána szóköz nélkül a kifejezés(ek) számát, amiben ez az ige jelenik meg (pl. tesz5,6)! Nem biztos, hogy mindegyik kifejezéshez találni fogsz puzzle-t.\n1. „valaki tesz egy kört”\n2. „valaki lakatot tesz a szájára”\n3. „valaki sírba tesz valakit”\n4. „valaki lóvá tesz valakit”\n5. „valaki nem tesz semmit”\n6. „valaki teszi az eszét”\n7. „valaki teszi a szépet valakinek”",
+      "taskDescription": "Az itt megadott kifejezések közül van egy, aminek egyik itt látható igepuzzle sem feleltethető meg.\nRajzold meg ennek az igepuzzle-jét! A puzzle-re ne csak az igét, hanem a kifejezés számát is írd rá, szóköz nélkül!\n1. „valaki tesz egy kört”\n2. „valaki lakatot tesz a szájára”\n3. „valaki sírba tesz valakit”\n4. „valaki lóvá tesz valakit”\n5. „valaki nem tesz semmit”\n6. „valaki teszi az eszét”\n7. „valaki teszi a szépet valakinek”",
       "requiredSolutions": 1,
       "predefinedPieces": [
         {

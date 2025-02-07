@@ -331,7 +331,7 @@ class PuzzleManager(
             }
         }
 
-        if (hasSameVerbTooManyTimes) {
+        if (hasSameVerbTooManyTimes || !doesPassSpecialChecks(verbPuzzles)) {
             uiManager.hideCheckMark()
             return
         }
@@ -401,5 +401,17 @@ class PuzzleManager(
 
         GameModel.logger.info { "solutionResult = $solutionResult" }
         return solutionResult
+    }
+
+    private fun doesPassSpecialChecks(verbPuzzles: List<PuzzlePiece>): Boolean {
+        when (gameModel.currentExercise?.buttonDescription) {
+            "FB2/94–95/2Mb" -> {
+                // The 4 solutions must use just 2 verbs, each 2 times, both with one adverbial and one object tab.
+                val textGroups = verbPuzzles.groupingBy { it.text }
+                val verbsWithObjectTab = verbPuzzles.filter { it.tabs.any { tab -> tab.grammaticalRole == GrammaticalRole.OBJECT } }
+                return textGroups.eachCount().all { it.value == 2 } && verbsWithObjectTab.distinctBy { it.text }.size == 2
+            }
+            else -> return true
+        }
     }
 }

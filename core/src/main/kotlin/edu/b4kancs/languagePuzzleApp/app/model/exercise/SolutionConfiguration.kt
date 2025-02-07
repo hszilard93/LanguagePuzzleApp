@@ -115,9 +115,13 @@ class SolutionConfiguration(
 
 fun String.process() = this.trim().lowercase()//.replace("(", "").replace(")", "")
 
-// Special rule: if a puzzle piece's text is set to "IGNORE", count it as if it would match anything
+// Special rule: if a puzzle piece's text is set to "ignore", count it as if it would match anything.
+// Special rule: if a puzzle piece's text is set to "anything", count it as if it would match anything BUT blank.
 fun String.specialEquals(other: String): Boolean {
-    return if (this == "IGNORE" || other == "IGNORE") {
+    return if (this == "anything" || other == "anything") {
+        return this.isNotBlank() && other.isNotBlank()
+    }
+    else if (this == "ignore" || other == "ignore") {
         true
     } else {
         this.lowercase().trim() == other.lowercase().trim()
