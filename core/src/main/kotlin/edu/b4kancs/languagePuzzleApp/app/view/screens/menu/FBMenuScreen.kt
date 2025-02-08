@@ -17,5 +17,5 @@ class FBMenuScreen(
     override val screenLogger = logger // Provide logger instance for AbstractMenuScreen
     override val tasksWebPath = "tasks/fb"
     override val tasksDesktopPath = "assets/tasks/fb"
-    override val menuButtonWidth: Float = 600f
+    override val menuButtonWidth: Float = 550f
 }

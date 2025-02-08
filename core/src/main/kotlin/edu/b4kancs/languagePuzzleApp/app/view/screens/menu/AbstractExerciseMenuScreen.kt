@@ -94,7 +94,8 @@ abstract class AbstractExerciseMenuScreen(
                 )
             )
             menuButtons.forEachIndexed { i, button ->
-                button.setText("${i + 1}. feladat: ${button.text}")
+                val newText = button.text.toString().replace("FB2/", "").replace("VI_", "")
+                button.setText("${i + 1}. feladat: $newText")
             }
         }
 
