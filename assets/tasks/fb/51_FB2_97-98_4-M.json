@@ -1,0 +1,743 @@
+{
+  "type": "EDIT_PUZZLES",
+  "buttonDescription": "FB2/97–98/4M",
+  "customRuleset": {
+    "canEditBaseText": "false",
+    "canEditBlankText": "true",
+    "doesBaseTextCount": "true",
+    "canEditTabText": "false",
+    "doesAllowTabText": "false",
+    "canAddRemoveTabs": "false"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Nézd meg a képeket (54-63 oldal) és döntsd el, hogy milyen szót vagy kifejezést csatolnál az ige tárgyi fülére ahhoz, hogy a mondat és a kép ugyanazt a jelenetet írja le! A kiválasztott tárgyakat írd a puzzle-szerkezetekre! (Ehhez előbb szét kell szedned a szerkezetet, majd újra összerakd.)",
+      "requiredSolutions": 2,
+      "predefinedPieces": [
+        {
+          "text": "forgat",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "connectedTo": ""
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": "-t",
+              "connectedTo": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "forgat",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "connectedTo": ""
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": "-t",
+              "connectedTo": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "forgat",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "IGNORE",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "kard",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "forgat",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "IGNORE",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "széna",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Nézd meg a képeket (54-63 oldal) és döntsd el, hogy milyen szót vagy kifejezést csatolnál az ige tárgyi fülére ahhoz, hogy a mondat és a kép ugyanazt a jelenetet írja le! A kiválasztott tárgyakat írd a puzzle-szerkezetekre! (Ehhez előbb szét kell szedned a szerkezetet, majd újra összerakd.)",
+      "requiredSolutions": 2,
+      "predefinedPieces": [
+        {
+          "text": "húz",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "connectedTo": ""
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": "-t",
+              "connectedTo": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "húz",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "connectedTo": ""
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": "-t",
+              "connectedTo": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "húz",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "IGNORE",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "fog",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "húz",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "IGNORE",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "vonal",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "húz",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "IGNORE",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "csík",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Nézd meg a képeket (54-63 oldal) és döntsd el, hogy milyen szót vagy kifejezést csatolnál az ige tárgyi fülére ahhoz, hogy a mondat és a kép ugyanazt a jelenetet írja le! A kiválasztott tárgyakat írd a puzzle-szerkezetekre! (Ehhez előbb szét kell szedned a szerkezetet, majd újra összerakd.)",
+      "requiredSolutions": 2,
+      "predefinedPieces": [
+        {
+          "text": "vet",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "connectedTo": ""
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": "-t",
+              "connectedTo": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "vet",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "connectedTo": ""
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": "-t",
+              "connectedTo": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "vet",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "IGNORE",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "gabona",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "vet",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "IGNORE",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "mag",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "vet",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "IGNORE",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "ágy",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Nézd meg a képeket (54-63 oldal) és döntsd el, hogy milyen szót vagy kifejezést csatolnál az ige tárgyi fülére ahhoz, hogy a mondat és a kép ugyanazt a jelenetet írja le! A kiválasztott tárgyakat írd a puzzle-szerkezetekre! (Ehhez előbb szét kell szedned a szerkezetet, majd újra összerakd.)",
+      "requiredSolutions": 2,
+      "predefinedPieces": [
+        {
+          "text": "köt",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "connectedTo": ""
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": "-t",
+              "connectedTo": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "köt",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "connectedTo": ""
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": "-t",
+              "connectedTo": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "köt",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "IGNORE",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "nyakkendő",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "köt",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "IGNORE",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "üzlet",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "köt",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "IGNORE",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "egyezség",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Nézd meg a képeket (54-63 oldal) és döntsd el, hogy milyen szót vagy kifejezést csatolnál az ige tárgyi fülére ahhoz, hogy a mondat és a kép ugyanazt a jelenetet írja le! A kiválasztott tárgyakat írd a puzzle-szerkezetekre! (Ehhez előbb szét kell szedned a szerkezetet, majd újra összerakd.)",
+      "requiredSolutions": 2,
+      "predefinedPieces": [
+        {
+          "text": "rak",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "connectedTo": ""
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": "-t",
+              "connectedTo": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "rak",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "connectedTo": ""
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": "-t",
+              "connectedTo": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "rak",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "IGNORE",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "tűz",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "rak",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "IGNORE",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "rend",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "type": "COMPLETE_ARGUMENTS",
+  "buttonDescription": "FB2/131–132/18c1",
+  "customRuleset": {
+    "canEditBaseText": "false",
+    "doesBaseTextCount": "true",
+    "canEditTabText": "true",
+    "canAddRemoveTabs": "true",
+    "shouldOfferPostpositions": "true",
+    "shouldOfferIndPronouns": "true"
+  },
+  "tasks": [
+    {
+      "taskDescription": "„– Jean, megetette a papagájt?\n– Igen, uram.\n– Mivel?\n– A macskával, uram!”\nRajzold meg az eszik és a megetet igék puzzle-jét!",
+      "requiredSolutions": 2,
+      "predefinedPieces": [
+        {
+          "text": "eszik",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "megetet",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "eszik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "megetet",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-val/-vel"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

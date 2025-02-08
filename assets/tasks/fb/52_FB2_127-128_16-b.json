@@ -1,0 +1,91 @@
+{
+  "type": "COMPLETE_ARGUMENTS",
+  "buttonDescription": "FB2/127–128/16b",
+  "customRuleset": {
+    "canEditBaseText": "false",
+    "doesBaseTextCount": "true",
+    "canEditTabText": "true",
+    "canAddRemoveTabs": "true",
+    "shouldOfferPostpositions": "true",
+    "shouldOfferIndPronouns": "true"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Rajzold meg az alábbi három mondat igéjének puzzle-jét! Ne felejtsd kitölteni a füleket is, ahol szükséges!\n1. „Sül a kenyér.”\n2. „A fogadósné süti a kenyeret.”\n3. „A fogadósné a péktanoncokkal sütteti a kenyeret.”",
+      "requiredSolutions": 3,
+      "predefinedPieces": [
+        {
+          "text": "sül",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "süt",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "süttet",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "sül",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "süt",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "süttet",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-val/-vel"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
