@@ -182,7 +182,11 @@ class GameInputManager(
                     && !puzzleUnderPointer.isConnected
                 ) {
                     val isBlankPiece = puzzleUnderPointer.blanks.isNotEmpty()
-                    val canEditIsBlank = rules.canEditBlankText == true && isBlankPiece
+                    val canEditIsBlank = (
+                        rules.canEditBlankText == true ||
+                            (rules.canEditBaseText == true && rules.canEditBlankText != false)
+                        )
+                        && isBlankPiece
                     val canEditIsMain = rules.canEditBaseText == true && !isBlankPiece
 
                     if (canEditIsMain || canEditIsBlank) {

@@ -1,0 +1,76 @@
+{
+  "type": "FREE_EDIT_PUZZLE",
+  "buttonDescription": "FB2/173–175/6Mc",
+  "customRuleset": {
+    "canAddMainPieces": "false",
+    "shouldOfferPostpositions": "true"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Készítsd el az alábbi két mondatnak megfelelő puzzle-szerkezetet!\n„De az én véleményemre senki nem kíváncsi.”\n„Az csak egy a sok közül.”",
+      "requiredSolutions": 2,
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "kíváncsi",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "ki",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "az én véleményem",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ra/-re"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "egy",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "az",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a sok",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "közül"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

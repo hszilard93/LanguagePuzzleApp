@@ -1,32 +1,34 @@
 {
   "type": "FREE_EDIT_PUZZLE",
-  "buttonDescription": "FB2/155–157/33d",
-  "customRuleset": {},
+  "buttonDescription": "FB2/172–173/5M",
+  "customRuleset": {
+    "canAddMainPieces": "false",
+    "shouldOfferIndPronouns": "true"
+  },
   "tasks": [
     {
-      "taskDescription": "Rajzold le a következő mondatok igéinek a puzzle-szerkezetét!\n„A Cirmire mérges Bodrit elkergették.”",
+      "taskDescription": "Készítsd el a mondat igéjének puzzle-szerkezetét!\n„Anna Andrással népviseletben szépen táncolt a parkban más párokkal együtt.”",
       "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
       ],
       "solutionConfigurations": [
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "elkerget",
+            "text": "táncol",
             "grammaticalRole": "VERB"
           },
           "puzzlesConnected": [
             {
-              "text": "(valakik)",
+              "text": "Anna",
               "grammaticalRole": "SUBJECT",
               "via": {
                 "text": ""
-              }
-            },
-            {
-              "text": "a Cirmire mérges Bodri",
-              "grammaticalRole": "OBJECT",
-              "via": {
-                "text": "-t"
               }
             }
           ]
@@ -34,45 +36,22 @@
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "elkerget",
+            "text": "táncol",
             "grammaticalRole": "VERB"
           },
           "puzzlesConnected": [
             {
-              "text": "(ők)",
+              "text": "Anna",
               "grammaticalRole": "SUBJECT",
               "via": {
                 "text": ""
               }
             },
             {
-              "text": "a Cirmire mérges Bodri",
-              "grammaticalRole": "OBJECT",
+              "text": "András",
+              "grammaticalRole": "ADVERBIAL",
               "via": {
-                "text": "-t"
-              }
-            }
-          ]
-        },
-        {
-          "checkTabText": "true",
-          "centerPiece": {
-            "text": "elkerget",
-            "grammaticalRole": "VERB"
-          },
-          "puzzlesConnected": [
-            {
-              "text": "",
-              "grammaticalRole": "SUBJECT",
-              "via": {
-                "text": ""
-              }
-            },
-            {
-              "text": "a Cirmire mérges Bodri",
-              "grammaticalRole": "OBJECT",
-              "via": {
-                "text": "-t"
+                "text": "-val/-vel"
               }
             }
           ]
@@ -80,66 +59,35 @@
       ]
     },
     {
-      "taskDescription": "Rajzold le a következő mondatok igéinek a puzzle-szerkezetét!\n„A Boriba szerelmes Magortól kaptam a csokit.”",
+      "taskDescription": "Készítsd el a mondat igéjének puzzle-szerkezetét!\n„Krisztinka Gyurival szőlőt szed a lugasban.”",
       "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
       ],
       "solutionConfigurations": [
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "kap",
+            "text": "szed",
             "grammaticalRole": "VERB"
           },
           "puzzlesConnected": [
             {
-              "text": "(én)",
+              "text": "Krisztinka",
               "grammaticalRole": "SUBJECT",
               "via": {
                 "text": ""
               }
             },
             {
-              "text": "a csoki",
+              "text": "szőlő",
               "grammaticalRole": "OBJECT",
               "via": {
                 "text": "-t"
-              }
-            },
-            {
-              "text": "a Boriba szerelmes Magor",
-              "grammaticalRole": "ADVERBIAL",
-              "via": {
-                "text": "-tól/-től"
-              }
-            }
-          ]
-        },
-        {
-          "checkTabText": "true",
-          "centerPiece": {
-            "text": "kap",
-            "grammaticalRole": "VERB"
-          },
-          "puzzlesConnected": [
-            {
-              "text": "én",
-              "grammaticalRole": "SUBJECT",
-              "via": {
-                "text": ""
-              }
-            },
-            {
-              "text": "a csoki",
-              "grammaticalRole": "OBJECT",
-              "via": {
-                "text": "-t"
-              }
-            },
-            {
-              "text": "a Boriba szerelmes Magor",
-              "grammaticalRole": "ADVERBIAL",
-              "via": {
-                "text": "-tól/-től"
               }
             }
           ]
@@ -147,65 +95,42 @@
       ]
     },
     {
-      "taskDescription": "Rajzold le a következő mondatok igéinek a puzzle-szerkezetét!\n„A Bolero étteremben pincér barátomtól kaptam az információt.”",
-      "predefinedPieces": [],
+      "taskDescription": "Készítsd el a mondat igéjének puzzle-szerkezetét!\n„A vőlegény meglepi a menyasszonyt egy csokor rózsával az erdőben.”",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
       "solutionConfigurations": [
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "kap",
+            "text": "meglep",
             "grammaticalRole": "VERB"
           },
           "puzzlesConnected": [
             {
-              "text": "(én)",
+              "text": "a vőlegény",
               "grammaticalRole": "SUBJECT",
               "via": {
                 "text": ""
               }
             },
             {
-              "text": "az információ",
+              "text": "a menyasszony",
               "grammaticalRole": "OBJECT",
               "via": {
                 "text": "-t"
               }
             },
             {
-              "text": "a Bolero étteremben pincér barátom",
+              "text": "egy csokor rózsa",
               "grammaticalRole": "ADVERBIAL",
               "via": {
-                "text": "-tól/-től"
-              }
-            }
-          ]
-        },
-        {
-          "checkTabText": "true",
-          "centerPiece": {
-            "text": "kap",
-            "grammaticalRole": "VERB"
-          },
-          "puzzlesConnected": [
-            {
-              "text": "én",
-              "grammaticalRole": "SUBJECT",
-              "via": {
-                "text": ""
-              }
-            },
-            {
-              "text": "az információ",
-              "grammaticalRole": "OBJECT",
-              "via": {
-                "text": "-t"
-              }
-            },
-            {
-              "text": "a Bolero étteremben pincér barátom",
-              "grammaticalRole": "ADVERBIAL",
-              "via": {
-                "text": "-tól/-től"
+                "text": "-val/-vel"
               }
             }
           ]
@@ -213,28 +138,64 @@
       ]
     },
     {
-      "taskDescription": "Rajzold le a következő mondatok igéinek a puzzle-szerkezetét!\n„A gazdájához hűséges kutya megszökött a tolvajoktól.”",
-      "predefinedPieces": [],
+      "taskDescription": "Készítsd el a mondat igéjének puzzle-szerkezetét!\n„Laura a tengerparton rövidnadrágban biciklizik.”",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
       "solutionConfigurations": [
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "megszökik",
+            "text": "biciklizik",
             "grammaticalRole": "VERB"
           },
           "puzzlesConnected": [
             {
-              "text": "a gazdájához hűséges kutya",
+              "text": "Laura",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Készítsd el a mondat igéjének puzzle-szerkezetét!\n„A lány nagy csomaggal egyedül száll le a vonatról.”",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "leszáll",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a lány",
               "grammaticalRole": "SUBJECT",
               "via": {
                 "text": ""
               }
             },
             {
-              "text": "a tolvajok",
+              "text": "a vonat",
               "grammaticalRole": "ADVERBIAL",
               "via": {
-                "text": "-tól/-től"
+                "text": "-ról/-ről"
               }
             }
           ]
@@ -242,22 +203,81 @@
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "megszökik",
+            "text": "leszáll",
             "grammaticalRole": "VERB"
           },
           "puzzlesConnected": [
             {
-              "text": "a gazdájához hűséges kutya",
+              "text": "a lány",
               "grammaticalRole": "SUBJECT",
               "via": {
                 "text": ""
               }
             },
             {
-              "text": "a tolvajok",
+              "text": "a vonat",
               "grammaticalRole": "ADVERBIAL",
               "via": {
                 "text": "'valahonnan'"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Készítsd el a mondat igéjének puzzle-szerkezetét!\n„Brúnó 700-as rajtszámmal vetélytársai előtt győztesként beér a célba.”",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "beér",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Brúnó",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a cél",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ba/-be"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "beér",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Brúnó",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a cél",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "'valahová'"
               }
             }
           ]
