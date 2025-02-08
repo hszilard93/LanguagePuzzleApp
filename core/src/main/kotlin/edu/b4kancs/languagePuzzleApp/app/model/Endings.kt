@@ -43,16 +43,16 @@ data class Suffix(
             Suffix("-nak/\n-nek"),
             Suffix("-val/\n-vel"),
             Suffix("-tól/\n-től"),
-            Suffix("-ban/\n-ben"),
-            Suffix("-ból/\n-ből"),
-            Suffix("-ról/\n-ről"),
             Suffix("-ra/\n-re"),
             Suffix("-ba/\n-be"),
             Suffix("-hoz/\n-hez/\n-höz"),
             Suffix("-n/\n-on/\n-en/\n-ön"),
             Suffix("-vá/\n-vé"),
+            Suffix("-ból/\n-ből"),
             Suffix("-ért"),
             Suffix("-ig"),
+            Suffix("-ban/\n-ben"),
+            Suffix("-ról/\n-ről")
         )
 
         fun identifySuffixFromTabText(tabText: String): Suffix? {

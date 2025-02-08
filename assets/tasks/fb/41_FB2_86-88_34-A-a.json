@@ -12,7 +12,7 @@
   },
   "tasks": [
     {
-      "taskDescription": "A kapott üres igepuzzle-ekre írj rá egy-egy odaillő igét a listából! A fülekre válaszd ki a viszonyító elemeket (toldalékot vagy névutót) vagy jelentéscímkét!\n„elkezd”, „felcserél”, „borotválkozik”, „találkozik”, „legyőz”, „vágyik”, „bevon”",
+      "taskDescription": "A kapott üres igepuzzle-ekre írj rá egy-egy odaillő igét a listából! A lila fülekre válaszd ki a viszonyító elemeket (toldalékot vagy névutót) vagy jelentéscímkét!\n„elkezd”, „felcserél”, „borotválkozik”, „találkozik”, „legyőz”, „vágyik”, „bevon”",
       "requiredSolutions": 7,
       "predefinedPieces": [
         {

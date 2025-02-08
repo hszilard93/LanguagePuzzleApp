@@ -11,7 +11,7 @@
   },
   "tasks": [
     {
-      "taskDescription": "Nézd meg a képeket (54-63 oldal) és döntsd el, hogy milyen szót vagy kifejezést csatolnál az ige tárgyi fülére ahhoz, hogy a mondat és a kép ugyanazt a jelenetet írja le! A kiválasztott tárgyakat írd a puzzle-szerkezetekre! (Ehhez előbb szét kell szedned a szerkezetet, majd újra összerakd.)",
+      "taskDescription": "Nézd meg a képeket (54-63. oldal) és döntsd el, hogy milyen szót vagy kifejezést csatolnál az ige tárgyi fülére ahhoz, hogy a mondat és a kép ugyanazt a jelenetet írja le! A kiválasztott tárgyakat írd a puzzle-szerkezetekre! (Ehhez előbb szét kell szedned a szerkezetet, majd újra összerakd.)",
       "requiredSolutions": 2,
       "predefinedPieces": [
         {
@@ -21,21 +21,19 @@
             {
               "side": "LEFT",
               "grammaticalRole": "SUBJECT",
-              "text": "",
-              "connectedTo": ""
+              "text": ""
             },
             {
               "side": "TOP",
               "grammaticalRole": "OBJECT",
-              "text": "-t",
-              "connectedTo": ""
+              "text": "-t"
             }
           ],
           "blanks": []
         },
         {
           "text": "",
-          "grammaticalRole": "SUBJECT",
+          "grammaticalRole": "UNDEFINED",
           "tabs": [],
           "blanks": [
             {
@@ -45,7 +43,7 @@
         },
         {
           "text": "",
-          "grammaticalRole": "OBJECT",
+          "grammaticalRole": "UNDEFINED",
           "tabs": [],
           "blanks": [
             {
@@ -60,21 +58,19 @@
             {
               "side": "LEFT",
               "grammaticalRole": "SUBJECT",
-              "text": "",
-              "connectedTo": ""
+              "text": ""
             },
             {
               "side": "TOP",
               "grammaticalRole": "OBJECT",
-              "text": "-t",
-              "connectedTo": ""
+              "text": "-t"
             }
           ],
           "blanks": []
         },
         {
           "text": "",
-          "grammaticalRole": "SUBJECT",
+          "grammaticalRole": "UNDEFINED",
           "tabs": [],
           "blanks": [
             {
@@ -84,7 +80,7 @@
         },
         {
           "text": "",
-          "grammaticalRole": "OBJECT",
+          "grammaticalRole": "UNDEFINED",
           "tabs": [],
           "blanks": [
             {
@@ -143,7 +139,7 @@
       ]
     },
     {
-      "taskDescription": "Nézd meg a képeket (54-63 oldal) és döntsd el, hogy milyen szót vagy kifejezést csatolnál az ige tárgyi fülére ahhoz, hogy a mondat és a kép ugyanazt a jelenetet írja le! A kiválasztott tárgyakat írd a puzzle-szerkezetekre! (Ehhez előbb szét kell szedned a szerkezetet, majd újra összerakd.)",
+      "taskDescription": "Nézd meg a képeket (54-63. oldal) és döntsd el, hogy milyen szót vagy kifejezést csatolnál az ige tárgyi fülére ahhoz, hogy a mondat és a kép ugyanazt a jelenetet írja le! A kiválasztott tárgyakat írd a puzzle-szerkezetekre! (Ehhez előbb szét kell szedned a szerkezetet, majd újra összerakd.)",
       "requiredSolutions": 2,
       "predefinedPieces": [
         {
@@ -153,21 +149,19 @@
             {
               "side": "LEFT",
               "grammaticalRole": "SUBJECT",
-              "text": "",
-              "connectedTo": ""
+              "text": ""
             },
             {
               "side": "TOP",
               "grammaticalRole": "OBJECT",
-              "text": "-t",
-              "connectedTo": ""
+              "text": "-t"
             }
           ],
           "blanks": []
         },
         {
           "text": "",
-          "grammaticalRole": "SUBJECT",
+          "grammaticalRole": "UNDEFINED",
           "tabs": [],
           "blanks": [
             {
@@ -177,7 +171,7 @@
         },
         {
           "text": "",
-          "grammaticalRole": "OBJECT",
+          "grammaticalRole": "UNDEFINED",
           "tabs": [],
           "blanks": [
             {
@@ -192,21 +186,19 @@
             {
               "side": "LEFT",
               "grammaticalRole": "SUBJECT",
-              "text": "",
-              "connectedTo": ""
+              "text": ""
             },
             {
               "side": "TOP",
               "grammaticalRole": "OBJECT",
-              "text": "-t",
-              "connectedTo": ""
+              "text": "-t"
             }
           ],
           "blanks": []
         },
         {
           "text": "",
-          "grammaticalRole": "SUBJECT",
+          "grammaticalRole": "UNDEFINED",
           "tabs": [],
           "blanks": [
             {
@@ -216,7 +208,7 @@
         },
         {
           "text": "",
-          "grammaticalRole": "OBJECT",
+          "grammaticalRole": "UNDEFINED",
           "tabs": [],
           "blanks": [
             {
@@ -264,30 +256,7 @@
               }
             },
             {
-              "text": "vonal",
-              "grammaticalRole": "OBJECT",
-              "via": {
-                "text": "-t"
-              }
-            }
-          ]
-        },
-        {
-          "checkTabText": "true",
-          "centerPiece": {
-            "text": "húz",
-            "grammaticalRole": "VERB"
-          },
-          "puzzlesConnected": [
-            {
-              "text": "IGNORE",
-              "grammaticalRole": "SUBJECT",
-              "via": {
-                "text": ""
-              }
-            },
-            {
-              "text": "csík",
+              "text": "vonal|csík",
               "grammaticalRole": "OBJECT",
               "via": {
                 "text": "-t"
@@ -298,7 +267,7 @@
       ]
     },
     {
-      "taskDescription": "Nézd meg a képeket (54-63 oldal) és döntsd el, hogy milyen szót vagy kifejezést csatolnál az ige tárgyi fülére ahhoz, hogy a mondat és a kép ugyanazt a jelenetet írja le! A kiválasztott tárgyakat írd a puzzle-szerkezetekre! (Ehhez előbb szét kell szedned a szerkezetet, majd újra összerakd.)",
+      "taskDescription": "Nézd meg a képeket (54-63. oldal) és döntsd el, hogy milyen szót vagy kifejezést csatolnál az ige tárgyi fülére ahhoz, hogy a mondat és a kép ugyanazt a jelenetet írja le! A kiválasztott tárgyakat írd a puzzle-szerkezetekre! (Ehhez előbb szét kell szedned a szerkezetet, majd újra összerakd.)",
       "requiredSolutions": 2,
       "predefinedPieces": [
         {
@@ -308,21 +277,19 @@
             {
               "side": "LEFT",
               "grammaticalRole": "SUBJECT",
-              "text": "",
-              "connectedTo": ""
+              "text": ""
             },
             {
               "side": "TOP",
               "grammaticalRole": "OBJECT",
-              "text": "-t",
-              "connectedTo": ""
+              "text": "-t"
             }
           ],
           "blanks": []
         },
         {
           "text": "",
-          "grammaticalRole": "SUBJECT",
+          "grammaticalRole": "UNDEFINED",
           "tabs": [],
           "blanks": [
             {
@@ -332,7 +299,7 @@
         },
         {
           "text": "",
-          "grammaticalRole": "OBJECT",
+          "grammaticalRole": "UNDEFINED",
           "tabs": [],
           "blanks": [
             {
@@ -347,21 +314,19 @@
             {
               "side": "LEFT",
               "grammaticalRole": "SUBJECT",
-              "text": "",
-              "connectedTo": ""
+              "text": ""
             },
             {
               "side": "TOP",
               "grammaticalRole": "OBJECT",
-              "text": "-t",
-              "connectedTo": ""
+              "text": "-t"
             }
           ],
           "blanks": []
         },
         {
           "text": "",
-          "grammaticalRole": "SUBJECT",
+          "grammaticalRole": "UNDEFINED",
           "tabs": [],
           "blanks": [
             {
@@ -371,7 +336,7 @@
         },
         {
           "text": "",
-          "grammaticalRole": "OBJECT",
+          "grammaticalRole": "UNDEFINED",
           "tabs": [],
           "blanks": [
             {
@@ -396,30 +361,7 @@
               }
             },
             {
-              "text": "gabona",
-              "grammaticalRole": "OBJECT",
-              "via": {
-                "text": "-t"
-              }
-            }
-          ]
-        },
-        {
-          "checkTabText": "true",
-          "centerPiece": {
-            "text": "vet",
-            "grammaticalRole": "VERB"
-          },
-          "puzzlesConnected": [
-            {
-              "text": "IGNORE",
-              "grammaticalRole": "SUBJECT",
-              "via": {
-                "text": ""
-              }
-            },
-            {
-              "text": "mag",
+              "text": "gabona|mag",
               "grammaticalRole": "OBJECT",
               "via": {
                 "text": "-t"
@@ -453,7 +395,7 @@
       ]
     },
     {
-      "taskDescription": "Nézd meg a képeket (54-63 oldal) és döntsd el, hogy milyen szót vagy kifejezést csatolnál az ige tárgyi fülére ahhoz, hogy a mondat és a kép ugyanazt a jelenetet írja le! A kiválasztott tárgyakat írd a puzzle-szerkezetekre! (Ehhez előbb szét kell szedned a szerkezetet, majd újra összerakd.)",
+      "taskDescription": "Nézd meg a képeket (54-63. oldal) és döntsd el, hogy milyen szót vagy kifejezést csatolnál az ige tárgyi fülére ahhoz, hogy a mondat és a kép ugyanazt a jelenetet írja le! A kiválasztott tárgyakat írd a puzzle-szerkezetekre! (Ehhez előbb szét kell szedned a szerkezetet, majd újra összerakd.)",
       "requiredSolutions": 2,
       "predefinedPieces": [
         {
@@ -463,21 +405,19 @@
             {
               "side": "LEFT",
               "grammaticalRole": "SUBJECT",
-              "text": "",
-              "connectedTo": ""
+              "text": ""
             },
             {
               "side": "TOP",
               "grammaticalRole": "OBJECT",
-              "text": "-t",
-              "connectedTo": ""
+              "text": "-t"
             }
           ],
           "blanks": []
         },
         {
           "text": "",
-          "grammaticalRole": "SUBJECT",
+          "grammaticalRole": "UNDEFINED",
           "tabs": [],
           "blanks": [
             {
@@ -487,7 +427,7 @@
         },
         {
           "text": "",
-          "grammaticalRole": "OBJECT",
+          "grammaticalRole": "UNDEFINED",
           "tabs": [],
           "blanks": [
             {
@@ -502,21 +442,19 @@
             {
               "side": "LEFT",
               "grammaticalRole": "SUBJECT",
-              "text": "",
-              "connectedTo": ""
+              "text": ""
             },
             {
               "side": "TOP",
               "grammaticalRole": "OBJECT",
-              "text": "-t",
-              "connectedTo": ""
+              "text": "-t"
             }
           ],
           "blanks": []
         },
         {
           "text": "",
-          "grammaticalRole": "SUBJECT",
+          "grammaticalRole": "UNDEFINED",
           "tabs": [],
           "blanks": [
             {
@@ -526,7 +464,7 @@
         },
         {
           "text": "",
-          "grammaticalRole": "OBJECT",
+          "grammaticalRole": "UNDEFINED",
           "tabs": [],
           "blanks": [
             {
@@ -574,30 +512,7 @@
               }
             },
             {
-              "text": "üzlet",
-              "grammaticalRole": "OBJECT",
-              "via": {
-                "text": "-t"
-              }
-            }
-          ]
-        },
-        {
-          "checkTabText": "true",
-          "centerPiece": {
-            "text": "köt",
-            "grammaticalRole": "VERB"
-          },
-          "puzzlesConnected": [
-            {
-              "text": "IGNORE",
-              "grammaticalRole": "SUBJECT",
-              "via": {
-                "text": ""
-              }
-            },
-            {
-              "text": "egyezség",
+              "text": "üzlet|egyezség",
               "grammaticalRole": "OBJECT",
               "via": {
                 "text": "-t"
@@ -608,7 +523,7 @@
       ]
     },
     {
-      "taskDescription": "Nézd meg a képeket (54-63 oldal) és döntsd el, hogy milyen szót vagy kifejezést csatolnál az ige tárgyi fülére ahhoz, hogy a mondat és a kép ugyanazt a jelenetet írja le! A kiválasztott tárgyakat írd a puzzle-szerkezetekre! (Ehhez előbb szét kell szedned a szerkezetet, majd újra összerakd.)",
+      "taskDescription": "Nézd meg a képeket (54-63. oldal) és döntsd el, hogy milyen szót vagy kifejezést csatolnál az ige tárgyi fülére ahhoz, hogy a mondat és a kép ugyanazt a jelenetet írja le! A kiválasztott tárgyakat írd a puzzle-szerkezetekre! (Ehhez előbb szét kell szedned a szerkezetet, majd újra összerakd.)",
       "requiredSolutions": 2,
       "predefinedPieces": [
         {
@@ -618,21 +533,19 @@
             {
               "side": "LEFT",
               "grammaticalRole": "SUBJECT",
-              "text": "",
-              "connectedTo": ""
+              "text": ""
             },
             {
               "side": "TOP",
               "grammaticalRole": "OBJECT",
-              "text": "-t",
-              "connectedTo": ""
+              "text": "-t"
             }
           ],
           "blanks": []
         },
         {
           "text": "",
-          "grammaticalRole": "SUBJECT",
+          "grammaticalRole": "UNDEFINED",
           "tabs": [],
           "blanks": [
             {
@@ -642,7 +555,7 @@
         },
         {
           "text": "",
-          "grammaticalRole": "OBJECT",
+          "grammaticalRole": "UNDEFINED",
           "tabs": [],
           "blanks": [
             {
@@ -657,21 +570,19 @@
             {
               "side": "LEFT",
               "grammaticalRole": "SUBJECT",
-              "text": "",
-              "connectedTo": ""
+              "text": ""
             },
             {
               "side": "TOP",
               "grammaticalRole": "OBJECT",
-              "text": "-t",
-              "connectedTo": ""
+              "text": "-t"
             }
           ],
           "blanks": []
         },
         {
           "text": "",
-          "grammaticalRole": "SUBJECT",
+          "grammaticalRole": "UNDEFINED",
           "tabs": [],
           "blanks": [
             {
@@ -681,7 +592,7 @@
         },
         {
           "text": "",
-          "grammaticalRole": "OBJECT",
+          "grammaticalRole": "UNDEFINED",
           "tabs": [],
           "blanks": [
             {

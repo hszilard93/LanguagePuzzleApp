@@ -3,13 +3,13 @@
   "buttonDescription": "FB2/53–54/7b-c",
   "tasks": [
     {
-      "taskDescription": "Rakd össze a szókártyákból a mondat igéjének puzzle-szerkezetét! Írd rá az igét a központi puzzle-re, feliratozd a füleket (ahol szükséges)  és a puzzle-darabokat is!\n„a fürdőkád”, „megtölt”, „meleg víz”, „Panni édesanyja”\n",
+      "taskDescription": "Rakd össze a szókártyák alapján a mondat igéjének puzzle-szerkezetét! Írd rá az igét a központi puzzle-re, feliratozd a füleket (ahol szükséges)  és a puzzle-darabokat is!\n„a fürdőkád”, „megtölt”, „meleg víz”, „Panni édesanyja”\n",
       "predefinedPieces": [],
       "solutionConfigurations": [
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "megtölt",
+            "text": "megtölti",
             "grammaticalRole": "VERB",
             "tabs": [
               {
@@ -53,7 +53,7 @@
       ]
     },
     {
-      "taskDescription": "Rakd össze a szókártyákból a mondat igéjének puzzle-szerkezetét! Írd rá az igét a központi puzzle-re, feliratozd a füleket (ahol szükséges)  és a puzzle-darabokat is!\n„a bátyjától kapott kiskutya”, „Ábel”, „ragaszkodik”\n",
+      "taskDescription": "Rakd össze a szókártyák alapján a mondat igéjének puzzle-szerkezetét! Írd rá az igét a központi puzzle-re, feliratozd a füleket (ahol szükséges)  és a puzzle-darabokat is!\n„a bátyjától kapott kiskutya”, „Ábel”, „ragaszkodik”\n",
       "predefinedPieces": [],
       "solutionConfigurations": [
         {
@@ -125,7 +125,7 @@
       ]
     },
     {
-      "taskDescription": "Rakd össze a szókártyákból a mondat igéjének puzzle-szerkezetét! Írd rá az igét a központi puzzle-re, feliratozd a füleket (ahol szükséges)  és a puzzle-darabokat is!\n„a víz”, „jég”, „változik”",
+      "taskDescription": "Rakd össze a szókártyák alapján a mondat igéjének puzzle-szerkezetét! Írd rá az igét a központi puzzle-re, feliratozd a füleket (ahol szükséges)  és a puzzle-darabokat is!\n„a víz”, „jég”, „változik”",
       "predefinedPieces": [],
       "solutionConfigurations": [
         {
@@ -164,13 +164,13 @@
       ]
     },
     {
-      "taskDescription": "Rakd össze a szókártyákból a mondat igéjének puzzle-szerkezetét! Írd rá az igét a központi puzzle-re, feliratozd a füleket (ahol szükséges)  és a puzzle-darabokat is!\n„a természetgyógyászok”, „gyógynövények”, „illóolajok”, „kivon”",
+      "taskDescription": "Rakd össze a szókártyák alapján a mondat igéjének puzzle-szerkezetét! Írd rá az igét a központi puzzle-re, feliratozd a füleket (ahol szükséges)  és a puzzle-darabokat is!\n„a természetgyógyászok”, „gyógynövények”, „illóolajok”, „kivon”",
       "predefinedPieces": [],
       "solutionConfigurations": [
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "kivon",
+            "text": "kivonnak",
             "grammaticalRole": "VERB",
             "tabs": [
               {
@@ -214,7 +214,7 @@
       ]
     },
     {
-      "taskDescription": "Rakd össze a szókártyákból a mondat igéjének puzzle-szerkezetét! Írd rá az igét a központi puzzle-re, feliratozd a füleket (ahol szükséges)  és a puzzle-darabokat is!\n„a barátnőjének tett ígérete”, „Éva”, „megfeledkezik”",
+      "taskDescription": "Rakd össze a szókártyák alapján a mondat igéjének puzzle-szerkezetét! Írd rá az igét a központi puzzle-re, feliratozd a füleket (ahol szükséges)  és a puzzle-darabokat is!\n„a barátnőjének tett ígérete”, „Éva”, „megfeledkezik”",
       "predefinedPieces": [],
       "solutionConfigurations": [
         {
@@ -253,7 +253,7 @@
       ]
     },
     {
-      "taskDescription": "Rakd össze a szókártyákból a mondat igéjének puzzle-szerkezetét! Írd rá az igét a központi puzzle-re, feliratozd a füleket (ahol szükséges)  és a puzzle-darabokat is!\n„a hároméves öcsém”, „minden”, „rákérdez”",
+      "taskDescription": "Rakd össze a szókártyák alapján a mondat igéjének puzzle-szerkezetét! Írd rá az igét a központi puzzle-re, feliratozd a füleket (ahol szükséges)  és a puzzle-darabokat is!\n„a hároméves öcsém”, „minden”, „rákérdez”",
       "predefinedPieces": [],
       "solutionConfigurations": [
         {
@@ -292,13 +292,13 @@
       ]
     },
     {
-      "taskDescription": "Rakd össze a szókártyákból a mondat igéjének puzzle-szerkezetét! Írd rá az igét a központi puzzle-re, feliratozd a füleket (ahol szükséges)  és a puzzle-darabokat is!\n„a főhős”, „a szappanopera árva lánya”, „beleszeretett”",
+      "taskDescription": "Rakd össze a szókártyák alapján a mondat igéjének puzzle-szerkezetét! Írd rá az igét a központi puzzle-re, feliratozd a füleket (ahol szükséges)  és a puzzle-darabokat is!\n„a főhős”, „a szappanopera árva lánya”, „beleszeretett”",
       "predefinedPieces": [],
       "solutionConfigurations": [
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "beleszeret",
+            "text": "beleszeretett",
             "grammaticalRole": "VERB",
             "tabs": [
               {
@@ -364,7 +364,7 @@
       ]
     },
     {
-      "taskDescription": "Rakd össze a szókártyákból a mondat igéjének puzzle-szerkezetét! Írd rá az igét a központi puzzle-re, feliratozd a füleket (ahol szükséges)  és a puzzle-darabokat is!\n„a csont”, „a Tóni kiskutyája”, „rágódik”",
+      "taskDescription": "Rakd össze a szókártyák alapján a mondat igéjének puzzle-szerkezetét! Írd rá az igét a központi puzzle-re, feliratozd a füleket (ahol szükséges)  és a puzzle-darabokat is!\n„a csont”, „a Tóni kiskutyája”, „rágódik”",
       "predefinedPieces": [],
       "solutionConfigurations": [
         {
@@ -403,13 +403,13 @@
       ]
     },
     {
-      "taskDescription": "Rakd össze a szókártyákból a mondat igéjének puzzle-szerkezetét! Írd rá az igét a központi puzzle-re, feliratozd a füleket (ahol szükséges)  és a puzzle-darabokat is!\n„a kedvenc elárusítónője”, „a szomszéd néni”, „csalódott”",
+      "taskDescription": "Rakd össze a szókártyák alapján a mondat igéjének puzzle-szerkezetét! Írd rá az igét a központi puzzle-re, feliratozd a füleket (ahol szükséges)  és a puzzle-darabokat is!\n„a kedvenc elárusítónője”, „a szomszéd néni”, „csalódott”",
       "predefinedPieces": [],
       "solutionConfigurations": [
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "csalódik",
+            "text": "csalódott",
             "grammaticalRole": "VERB",
             "tabs": [
               {

@@ -124,6 +124,8 @@ fun String.specialEquals(other: String): Boolean {
     else if (this == "ignore" || other == "ignore") {
         true
     } else {
-        this.lowercase().trim() == other.lowercase().trim()
+        val theseSplits = this.lowercase().trim().split('|')
+        val otherSplits = other.lowercase().trim().split('|')
+        theseSplits.any { s1 -> otherSplits.any { s2 -> s1 == s2 }}
     }
 }
