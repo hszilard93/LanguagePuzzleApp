@@ -9,7 +9,7 @@
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "megtölti",
+            "text": "megtölt",
             "grammaticalRole": "VERB",
             "tabs": [
               {
@@ -298,7 +298,7 @@
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "beleszeretett",
+            "text": "beleszeret",
             "grammaticalRole": "VERB",
             "tabs": [
               {
@@ -409,7 +409,7 @@
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "csalódott",
+            "text": "csalódik",
             "grammaticalRole": "VERB",
             "tabs": [
               {
