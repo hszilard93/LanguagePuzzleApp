@@ -170,13 +170,13 @@
               "side": "TOP",
               "grammaticalRole": "OBJECT",
               "text": "-t",
-              "connectedTo": "a papagáj"
+              "connectedTo": "a kölesgombóc"
             },
             {
               "side": "RIGHT",
               "grammaticalRole": "ADVERBIAL",
               "text": "-val/\n-vel",
-              "connectedTo": "a kölesgombóc"
+              "connectedTo": "a papagáj"
             }
           ],
           "blanks": []
@@ -192,7 +192,7 @@
           ]
         },
         {
-          "text": "a papagáj",
+          "text": "a kölesgombóc",
           "grammaticalRole": "OBJECT",
           "tabs": [],
           "blanks": [
@@ -202,7 +202,7 @@
           ]
         },
         {
-          "text": "a kölesgombóc",
+          "text": "a papagáj",
           "grammaticalRole": "ADVERBIAL",
           "tabs": [],
           "blanks": [
@@ -319,7 +319,7 @@
               "side": "RIGHT",
               "grammaticalRole": "ADVERBIAL",
               "text": "-val/\n-vel",
-              "connectedTo": "a kölesgombóc"
+              "connectedTo": "a macska"
             }
           ],
           "blanks": []
@@ -345,7 +345,7 @@
           ]
         },
         {
-          "text": "a kölesgombóc",
+          "text": "a macska",
           "grammaticalRole": "ADVERBIAL",
           "tabs": [],
           "blanks": [
@@ -438,7 +438,7 @@
       ]
     },
     {
-      "taskDescription": "Ha Jean a papagájt megeteti a macskával, akkor ki és mit eszik? Csatold a megfelelő öblös puzzle-t az igepuzzle-re!",
+      "taskDescription": "Ha Jean a macskát megeteti a papagájjal, akkor ki és mit eszik? Csatold a megfelelő öblös puzzle-t az igepuzzle-re!",
       "requiredSolutions": 1,
       "predefinedPieces": [
         {
@@ -455,13 +455,13 @@
               "side": "TOP",
               "grammaticalRole": "OBJECT",
               "text": "-t",
-              "connectedTo": "a papagáj"
+              "connectedTo": "a macska"
             },
             {
               "side": "RIGHT",
               "grammaticalRole": "ADVERBIAL",
               "text": "-val/\n-vel",
-              "connectedTo": "a kölesgombóc"
+              "connectedTo": "a papagáj"
             }
           ],
           "blanks": []
@@ -477,7 +477,7 @@
           ]
         },
         {
-          "text": "a papagáj",
+          "text": "a macska",
           "grammaticalRole": "OBJECT",
           "tabs": [],
           "blanks": [
@@ -487,7 +487,7 @@
           ]
         },
         {
-          "text": "a kölesgombóc",
+          "text": "a papagáj",
           "grammaticalRole": "ADVERBIAL",
           "tabs": [],
           "blanks": [

@@ -15,26 +15,25 @@
       "predefinedPieces": [
         {
           "text": "",
-          "grammaticalRole": "VERB",
-          "tabs": [
-            {
-              "grammaticalRole": "SUBJECT",
-              "text": "",
-              "side": "LEFT",
-              "connectedTo": ""
-            }
-          ],
-          "blanks": []
-        },
-        {
-          "text": "",
-          "grammaticalRole": "SUBJECT",
+          "grammaticalRole": "UNDEFINED",
           "tabs": [],
           "blanks": [
             {
               "side": "RIGHT"
             }
           ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "side": "LEFT"
+            }
+          ],
+          "blanks": []
         }
       ],
       "solutionConfigurations": [
@@ -62,26 +61,25 @@
       "predefinedPieces": [
         {
           "text": "",
-          "grammaticalRole": "VERB",
-          "tabs": [
-            {
-              "grammaticalRole": "SUBJECT",
-              "text": "",
-              "side": "LEFT",
-              "connectedTo": ""
-            }
-          ],
-          "blanks": []
-        },
-        {
-          "text": "",
-          "grammaticalRole": "SUBJECT",
+          "grammaticalRole": "UNDEFINED",
           "tabs": [],
           "blanks": [
             {
               "side": "RIGHT"
             }
           ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "side": "LEFT"
+            }
+          ],
+          "blanks": []
         }
       ],
       "solutionConfigurations": [
@@ -109,26 +107,25 @@
       "predefinedPieces": [
         {
           "text": "",
-          "grammaticalRole": "VERB",
-          "tabs": [
-            {
-              "grammaticalRole": "SUBJECT",
-              "text": "",
-              "side": "LEFT",
-              "connectedTo": ""
-            }
-          ],
-          "blanks": []
-        },
-        {
-          "text": "",
-          "grammaticalRole": "SUBJECT",
+          "grammaticalRole": "UNDEFINED",
           "tabs": [],
           "blanks": [
             {
               "side": "RIGHT"
             }
           ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "side": "LEFT"
+            }
+          ],
+          "blanks": []
         }
       ],
       "solutionConfigurations": [
@@ -156,26 +153,25 @@
       "predefinedPieces": [
         {
           "text": "",
-          "grammaticalRole": "VERB",
-          "tabs": [
-            {
-              "grammaticalRole": "SUBJECT",
-              "text": "",
-              "side": "LEFT",
-              "connectedTo": ""
-            }
-          ],
-          "blanks": []
-        },
-        {
-          "text": "",
-          "grammaticalRole": "SUBJECT",
+          "grammaticalRole": "UNDEFINED",
           "tabs": [],
           "blanks": [
             {
               "side": "RIGHT"
             }
           ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "side": "LEFT"
+            }
+          ],
+          "blanks": []
         }
       ],
       "solutionConfigurations": [
@@ -203,26 +199,25 @@
       "predefinedPieces": [
         {
           "text": "",
-          "grammaticalRole": "VERB",
-          "tabs": [
-            {
-              "grammaticalRole": "SUBJECT",
-              "text": "",
-              "side": "LEFT",
-              "connectedTo": ""
-            }
-          ],
-          "blanks": []
-        },
-        {
-          "text": "",
-          "grammaticalRole": "SUBJECT",
+          "grammaticalRole": "UNDEFINED",
           "tabs": [],
           "blanks": [
             {
               "side": "RIGHT"
             }
           ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "side": "LEFT"
+            }
+          ],
+          "blanks": []
         }
       ],
       "solutionConfigurations": [
@@ -250,26 +245,25 @@
       "predefinedPieces": [
         {
           "text": "",
-          "grammaticalRole": "VERB",
-          "tabs": [
-            {
-              "grammaticalRole": "SUBJECT",
-              "text": "",
-              "side": "LEFT",
-              "connectedTo": ""
-            }
-          ],
-          "blanks": []
-        },
-        {
-          "text": "",
-          "grammaticalRole": "SUBJECT",
+          "grammaticalRole": "UNDEFINED",
           "tabs": [],
           "blanks": [
             {
               "side": "RIGHT"
             }
           ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "side": "LEFT"
+            }
+          ],
+          "blanks": []
         }
       ],
       "solutionConfigurations": [
@@ -297,24 +291,39 @@
       "predefinedPieces": [
         {
           "text": "",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "",
           "grammaticalRole": "VERB",
           "tabs": [
             {
               "grammaticalRole": "SUBJECT",
               "text": "",
-              "side": "LEFT",
-              "connectedTo": ""
+              "side": "LEFT"
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "text": "",
+              "side": "RIGHT",
+              "connectedTo": "nekem"
             }
           ],
           "blanks": []
         },
         {
-          "text": "",
-          "grammaticalRole": "SUBJECT",
+          "text": "nekem",
+          "grammaticalRole": "ADVERBIAL",
           "tabs": [],
           "blanks": [
             {
-              "side": "RIGHT"
+              "side": "LEFT"
             }
           ]
         }
@@ -333,6 +342,13 @@
               "via": {
                 "text": ""
               }
+            },
+            {
+              "text": "nekem",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": ""
+              }
             }
           ]
         }
@@ -344,26 +360,25 @@
       "predefinedPieces": [
         {
           "text": "",
-          "grammaticalRole": "VERB",
-          "tabs": [
-            {
-              "grammaticalRole": "SUBJECT",
-              "text": "",
-              "side": "LEFT",
-              "connectedTo": ""
-            }
-          ],
-          "blanks": []
-        },
-        {
-          "text": "",
-          "grammaticalRole": "SUBJECT",
+          "grammaticalRole": "UNDEFINED",
           "tabs": [],
           "blanks": [
             {
               "side": "RIGHT"
             }
           ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "side": "LEFT"
+            }
+          ],
+          "blanks": []
         }
       ],
       "solutionConfigurations": [
@@ -391,24 +406,39 @@
       "predefinedPieces": [
         {
           "text": "",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "",
           "grammaticalRole": "VERB",
           "tabs": [
             {
               "grammaticalRole": "SUBJECT",
               "text": "",
-              "side": "LEFT",
-              "connectedTo": ""
+              "side": "LEFT"
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "text": "",
+              "side": "RIGHT",
+              "connectedTo": "neked"
             }
           ],
           "blanks": []
         },
         {
-          "text": "",
-          "grammaticalRole": "SUBJECT",
+          "text": "neked",
+          "grammaticalRole": "ADVERBIAL",
           "tabs": [],
           "blanks": [
             {
-              "side": "RIGHT"
+              "side": "LEFT"
             }
           ]
         }
@@ -427,6 +457,13 @@
               "via": {
                 "text": ""
               }
+            },
+            {
+              "text": "neked",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": ""
+              }
             }
           ]
         }
@@ -438,26 +475,25 @@
       "predefinedPieces": [
         {
           "text": "",
-          "grammaticalRole": "VERB",
-          "tabs": [
-            {
-              "grammaticalRole": "SUBJECT",
-              "text": "",
-              "side": "LEFT",
-              "connectedTo": ""
-            }
-          ],
-          "blanks": []
-        },
-        {
-          "text": "",
-          "grammaticalRole": "SUBJECT",
+          "grammaticalRole": "UNDEFINED",
           "tabs": [],
           "blanks": [
             {
               "side": "RIGHT"
             }
           ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "side": "LEFT"
+            }
+          ],
+          "blanks": []
         }
       ],
       "solutionConfigurations": [

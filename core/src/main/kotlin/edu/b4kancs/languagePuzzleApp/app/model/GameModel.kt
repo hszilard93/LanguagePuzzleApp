@@ -329,8 +329,8 @@ class GameModel {
         if (individualPieces.isEmpty()) return
 
         val numPieces = individualPieces.size
-        val numColumns = ceil(sqrt(numPieces.toDouble())).toInt()
-        val numRows = ceil(numPieces.toDouble() / numColumns).toInt()
+        val numColumns = ceil(sqrt(numPieces.toDouble())).toInt() + 1
+        val numRows = ceil(numPieces.toDouble() / numColumns).toInt() - 1
 
         val pieceWidth = puzzlePieceSize + puzzlePieceSpacingX
         val pieceHeight = puzzlePieceSize + puzzlePieceSpacingY
@@ -362,6 +362,7 @@ class GameModel {
             if (currentPieceIndex < numPieces) {
                 startXRow = connectedGroupsLayoutRect.x // Align left edge
                 startYRow = connectedGroupsLayoutRect.y + connectedGroupsLayoutRect.height + puzzlePieceSpacingY
+                startYRow -= startXRow % (puzzlePieceSize + puzzlePieceSpacingY / 2)
 
                 for (col in 0 until numColumns) { // Fill row from left to right
                     if (currentPieceIndex < numPieces) {
@@ -373,7 +374,7 @@ class GameModel {
                     }
                 }
             }
-            
+
             // --- 3. Additional Columns to the Right and Rows Above (Alternating) ---
             var columnRowCycleIndex = 0
             while (currentPieceIndex < numPieces) {

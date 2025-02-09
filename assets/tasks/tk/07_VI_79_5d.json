@@ -3,7 +3,7 @@
   "buttonDescription": "VI_79/5d",
   "tasks": [
     {
-      "taskDescription": "A következőkben mondatokat adunk meg, és fel kell rajzolnod a nekik megfelelő puzzle-szerkezetet.\nNézd meg alaposan a mintát, mielőtt továbblépsz!\nA mondat: „Magamat vádolom a történtekért.”",
+      "taskDescription": "A következőkben mondatokat adunk meg, és fel kell rajzolnod a nekik megfelelő puzzle-szerkezetet.\nNézd meg alaposan a mintát, mielőtt továbblépsz!\nA mondat: „Mindig magamat vádolom a történtekért.”",
       "predefinedPieces": [
         {
           "text": "vádol",
@@ -95,7 +95,7 @@
       ]
     },
     {
-      "taskDescription": "Rajzold fel az alábbi mondatban szereplő ige puzzle-szerkezetét!\n„A lurkók magukra zárták a kamraajtót.”",
+      "taskDescription": "Rajzold fel az alábbi mondatban szereplő ige puzzle-szerkezetét!\n„A lurkók tegnap rázárták magukra a kamraajtót.”",
       "predefinedPieces": [],
       "solutionConfigurations": [
         {
@@ -131,7 +131,7 @@
       ]
     },
     {
-      "taskDescription": "Rajzold fel az alábbi mondatban szereplő ige puzzle-szerkezetét!\n„Uralkodj magadon!”",
+      "taskDescription": "Rajzold fel az alábbi mondatban szereplő ige puzzle-szerkezetét!\n„Uralkodj már magadon!”",
       "predefinedPieces": [],
       "solutionConfigurations": [
         {
@@ -160,7 +160,7 @@
       ]
     },
     {
-      "taskDescription": "Rajzold fel az alábbi mondatban szereplő ige puzzle-szerkezetét!\n„Ágota agyonhajszolja magát.”",
+      "taskDescription": "Rajzold fel az alábbi mondatban szereplő ige puzzle-szerkezetét!\n„Ágota mindig agyonhajszolja magát.”",
       "predefinedPieces": [],
       "solutionConfigurations": [
         {
@@ -189,8 +189,32 @@
       ]
     },
     {
-      "taskDescription": "Rajzold fel az alábbi mondatban szereplő ige puzzle-szerkezetét!\n„Lóciék csapata átküzdötte magát a rajongókon.”",
-      "predefinedPieces": [],
+      "taskDescription": "Rajzold fel az alábbi mondatban szereplő ige puzzle-szerkezetét!\n„Lóciék csapata nagy nehezen átküzdötte magát a rajongókon.”",
+      "predefinedPieces": [
+        {
+          "text": "átküzd",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": "-t",
+              "connectedTo": "maga"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "maga",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        }
+      ],
       "solutionConfigurations": [
         {
           "checkTabText": "true",
@@ -255,7 +279,31 @@
     },
     {
       "taskDescription": "Rajzold fel az alábbi mondatban szereplő ige puzzle-szerkezetét!\n„Én ezt kikérem magamnak!”",
-      "predefinedPieces": [],
+      "predefinedPieces": [
+        {
+          "text": "kikér",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "RIGHT",
+              "grammaticalRole": "ADVERBIAL",
+              "text": "-nak/\n-nek",
+              "connectedTo": "magam"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "magam",
+          "grammaticalRole": "ADVERBIAL",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "LEFT"
+            }
+          ]
+        }
+      ],
       "solutionConfigurations": [
         {
           "checkTabText": "true",
@@ -290,7 +338,7 @@
       ]
     },
     {
-      "taskDescription": "Rajzold fel az alábbi mondatban szereplő ige puzzle-szerkezetét!\n„Ezt csak bebeszélitek magatoknak…”",
+      "taskDescription": "Rajzold fel az alábbi mondatban szereplő ige puzzle-szerkezetét!\n„Szerintem ezt csak bebeszélitek magatoknak…”",
       "predefinedPieces": [],
       "solutionConfigurations": [
         {
@@ -327,7 +375,31 @@
     },
     {
       "taskDescription": "Rajzold fel az alábbi mondatban szereplő ige puzzle-szerkezetét!\n„Bolondot csinálsz magadból.”",
-      "predefinedPieces": [],
+      "predefinedPieces": [
+        {
+          "text": "csinál",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": "-t",
+              "connectedTo": "bolond"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "bolond",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        }
+      ],
       "solutionConfigurations": [
         {
           "checkTabText": "true",
@@ -362,8 +434,32 @@
       ]
     },
     {
-      "taskDescription": "Rajzold fel az alábbi mondatban szereplő ige puzzle-szerkezetét!\n„Rászánod magad a műtétre?”",
-      "predefinedPieces": [],
+      "taskDescription": "Rajzold fel az alábbi mondatban szereplő ige puzzle-szerkezetét!\n„Végül akkor rászánod magad a műtétre?”",
+      "predefinedPieces": [
+        {
+          "text": "rászán",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": "-t",
+              "connectedTo": "magad"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "magad",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        }
+      ],
       "solutionConfigurations": [
         {
           "checkTabText": "true",
