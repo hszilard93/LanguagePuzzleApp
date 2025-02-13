@@ -312,11 +312,11 @@ class PuzzlePiece(
     val blanks: MutableList<PuzzleBlank> = mutableListOf()
 
     @Transient
-    private val _connections = mutableSetOf<Connection>()
+    private val _connections = mutableListOf<Connection>()
 
     @Transient
-    var copyOfConnections: Set<Connection> = emptySet()
-        get(): Set<Connection> = _connections.toSet()
+    var copyOfConnections: List<Connection> = emptyList()
+        get(): List<Connection> = _connections.toList()
         private set
 
     @Transient
@@ -554,6 +554,18 @@ class PuzzlePiece(
 
     fun isPointerOverTextLayout(mousePos: Vector2): Boolean {
         return textLayoutBounds.contains(mousePos.x, mousePos.y)
+    }
+
+    fun getStackCount(): Int {
+        val isBlank = this.blanks.isNotEmpty()
+        return if (isBlank) {
+            this._connections.firstOrNull()?.let { c1 ->
+                val other = c1.puzzlesConnected.first { it != this }
+                val stack = other.copyOfConnections.filter { c2 -> c2.via == c1.via }
+                stack.indexOfFirst { it.puzzlesConnected.contains(this) } + 1
+            } ?: 0
+        }
+        else 0
     }
 
     fun findPotentialFeatureUnderPointer(mousePos: Vector2): Optional<Pair<PuzzlePieceFeature.Type, Side>> {

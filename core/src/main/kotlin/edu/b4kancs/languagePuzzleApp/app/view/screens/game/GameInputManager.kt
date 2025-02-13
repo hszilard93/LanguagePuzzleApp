@@ -99,7 +99,9 @@ class GameInputManager(
 
             // Then we check if the pointer is over a puzzle piece's approximate area
             gameModel.puzzlePieces.toMutableList().sortByDescending { it.depth }
-            val puzzleUnderPointer = gameModel.puzzlePieces.find { isPointerOverPuzzlePiece(mousePos, it, true) }
+            val puzzleUnderPointer = gameModel.puzzlePieces
+                .filter { isPointerOverPuzzlePiece(mousePos, it, true) }
+                .maxByOrNull { it.depth }
 
             if (puzzleUnderPointer != null && puzzleManager.draggedPuzzlePiece == null) {
 

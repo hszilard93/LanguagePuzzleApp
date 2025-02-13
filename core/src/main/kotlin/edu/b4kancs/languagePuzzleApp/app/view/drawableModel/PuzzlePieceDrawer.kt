@@ -161,8 +161,7 @@ class PuzzlePieceDrawer(
         if (layout.height > maxLayoutHeight && puzzlePiece.targetSize <= puzzlePiece.size) {
             val newSize = puzzlePiece.size + (layout.height - maxLayoutHeight) / 2
             puzzlePiece.changeSize(newSize)
-        }
-        else if (
+        } else if (
             puzzlePiece.size > PuzzlePiece.MIN_SIZE
             && (maxLayoutHeight - layout.height) > 60f
             && !puzzlePiece.isConnected
@@ -176,8 +175,7 @@ class PuzzlePieceDrawer(
                 if (topBlankOffset != 0f && bottomBlankOffset == 0f) -20f
                 else if (topBlankOffset == 0f && bottomBlankOffset != 0f) 20f
                 else 0f
-            }
-            else 0f
+            } else 0f
 
         // Calculate positions to center the text
         val layoutX = BASE_OFFSET + (puzzlePiece.size - leftBlankOffset - rightBlankOffset) / 2 -
@@ -388,8 +386,7 @@ class PuzzlePieceDrawer(
             // Use cached layout and positions
             logger.misc { "Using cached layout data for tab $key" }
             tabFont.draw(batch, cachedData.layout, cachedData.layoutX, cachedData.layoutY)
-        }
-        else {
+        } else {
             logger.debug { "Creating new layout data for tab $key" }
 
             var shouldWrap = true
@@ -398,8 +395,7 @@ class PuzzlePieceDrawer(
             if ((tab.text.startsWith("v")) && (tab.side == Side.LEFT || tab.side == Side.RIGHT)) {
                 maxWidth = PuzzleTab.WIDTH / 2 + 8f
                 shouldWrap = false
-            }
-            else {
+            } else {
                 maxWidth = PuzzleTab.WIDTH
             }
 
@@ -451,14 +447,21 @@ class PuzzlePieceDrawer(
     }
 
     private fun calculatePuzzleColor(puzzlePiece: PuzzlePiece): Color {
-        return puzzlePiece.let {
-            if (it.grammaticalRole != UNDEFINED) {
-                it.grammaticalRole.color
-            }
-            else {
-                it.copyOfConnections.firstOrNull { c -> c.puzzlesConnected.any { p -> p.grammaticalRole == VERB } }?.via?.grammaticalRole?.color
+        return puzzlePiece.let { p ->
+            if (p.grammaticalRole != UNDEFINED) {
+                p.grammaticalRole.color
+            } else {
+                p.copyOfConnections.firstOrNull { c -> c.puzzlesConnected.any { p -> p.grammaticalRole == VERB } }?.via?.grammaticalRole?.color
                     ?: UNDEFINED.color
             }
+                .cpy()
+                .apply {
+                    // If it's a stacked piece, modify the alpha
+                    val stackCount = p.getStackCount()
+                    if (stackCount > 1) {
+                        this.a = 1f - 0.2f * (stackCount - 1)
+                    }
+                }
         }
     }
 

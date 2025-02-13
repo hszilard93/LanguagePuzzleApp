@@ -7,6 +7,7 @@ import edu.b4kancs.languagePuzzleApp.app.model.PuzzleBlank
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePieceFeature
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzleTab
+import edu.b4kancs.languagePuzzleApp.app.view.drawableModel.Tab
 import ktx.collections.GdxMap
 import ktx.log.logger
 
@@ -44,6 +45,25 @@ class PuzzleSnapHelper(private val gameModel: GameModel) {
         val delta = snapFeature.getFeatureMidpoint().sub(targetFeature.getFeatureMidpoint())
         val puzzleToSnap = snapFeature.owner!!
         puzzleToSnap.pos = puzzleToSnap.pos.sub(delta)
+
+        val canStack = gameModel.currentExercise?.ruleset?.canStackBlankPieces == true
+        if (canStack) {
+            val stackCount =
+                targetPiece
+                    .copyOfConnections
+                    .filter { it.via == targetFeature }
+                    .maxOfOrNull { c ->
+                        c.puzzlesConnected
+                            .firstOrNull { it != targetPiece }
+                            ?.getStackCount()
+                            ?: 0
+                    }
+                    ?: 0
+
+            if (stackCount > 0) {
+                puzzleToSnap.pos = puzzleToSnap.pos.add(10f * stackCount, 10f * stackCount)
+            }
+        }
 
         val puzzleTab = (if (snapFeature is PuzzleTab) snapFeature else targetFeature) as PuzzleTab
         val newConnection =
@@ -97,8 +117,7 @@ class PuzzleSnapHelper(private val gameModel: GameModel) {
             smallerPuzzle = puzzle1
             largerPuzzle = puzzle2
             smallerFeature = feature1
-        }
-        else {
+        } else {
             smallerPuzzle = puzzle2
             largerPuzzle = puzzle1
             smallerFeature = feature2
@@ -127,8 +146,10 @@ class PuzzleSnapHelper(private val gameModel: GameModel) {
             for (target in compatibles) {
                 val distance = feature.getFeatureMidpoint().dst(target.getFeatureMidpoint())
                 val isFeatureConnected = feature in target.owner!!.copyOfConnections.map { it.via }
+                val isTargetConnected = target in target.owner!!.copyOfConnections.map { it.via }
+                val canStackBlanks = gameModel.currentExercise?.ruleset?.canStackBlankPieces == true
 
-                if (distance < minDistance && !isFeatureConnected) {
+                if (distance < minDistance && ((!isFeatureConnected && !isTargetConnected) || canStackBlanks)) {
                     minDistance = distance
                     closestPair = Pair(feature, target)
                 }
@@ -150,8 +171,7 @@ class PuzzleSnapHelper(private val gameModel: GameModel) {
             innerTargetFeature!!.isGlowing = true
             innerSnapFeature!!.isGlowing = true
             logger.debug { "Snapping pair found with distance=$minDistance: $innerSnapFeature and $innerTargetFeature" }
-        }
-        else {
+        } else {
             logger.debug { "No snapping pair within threshold found." }
             innerSnapFeature = null
             innerTargetFeature = null

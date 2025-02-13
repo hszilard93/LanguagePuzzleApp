@@ -172,3 +172,5 @@ frameBufferScreenshot.png
 /assets/tasks/fb_task_list_generator.bat
 
 assets/tasks/tk_task_list.txt
+
+.kotlin/errors/

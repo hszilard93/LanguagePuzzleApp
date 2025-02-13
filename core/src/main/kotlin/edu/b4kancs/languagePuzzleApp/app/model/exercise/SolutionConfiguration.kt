@@ -32,6 +32,14 @@ class SolutionConfiguration(
             return doesMatchArgumentsSolution(centerPiece)
         }
 
+        // Special case for FB2_65-68_17
+        if (ruleset.canStackBlankPieces == true) {
+            val hasDuplicateTabs = centerPiece.copyOfConnections.map { it.via }.distinct().size == centerPiece.copyOfConnections.size
+            if (hasDuplicateTabs) {
+                return SolutionResult.INELIGIBLE
+            }
+        }
+
         if (solutionSet.isEmpty()) return SolutionResult.INELIGIBLE
 
         val verbConnections = centerPiece.copyOfConnections

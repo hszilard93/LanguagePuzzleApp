@@ -65,6 +65,7 @@ data class Ruleset(
     val shouldOfferPostpositions: Boolean? = null,      // Névutók
     val shouldOfferIndPronouns: Boolean? = null,        // Jelentéscímkék
     val doNotOfferSuffixes: Boolean? = null,            // NE ajánljon toldalékokat
+    val canStackBlankPieces: Boolean? = null            // Only relevant for FB2/65–68/17
 )
 
 @Serializable
@@ -92,7 +93,8 @@ data class Exercise(
                     doesBlankTextCount = customRuleset.doesBlankTextCount ?: defaultRuleset.doesBlankTextCount,
                     shouldOfferPostpositions = customRuleset.shouldOfferPostpositions ?: defaultRuleset.shouldOfferPostpositions,
                     shouldOfferIndPronouns = customRuleset.shouldOfferIndPronouns ?: defaultRuleset.shouldOfferIndPronouns,
-                    doNotOfferSuffixes = customRuleset.doNotOfferSuffixes ?: defaultRuleset.doNotOfferSuffixes
+                    doNotOfferSuffixes = customRuleset.doNotOfferSuffixes ?: defaultRuleset.doNotOfferSuffixes,
+                    canStackBlankPieces = customRuleset.canStackBlankPieces ?: defaultRuleset.canStackBlankPieces
                 )
             }
             else {

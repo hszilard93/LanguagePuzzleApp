@@ -271,6 +271,7 @@ object RulesetSerializer : KSerializer<Ruleset> {
         element<Boolean?>("shouldOfferIndPronouns", isOptional = true)
         element<Boolean?>("doNotOfferSuffixes", isOptional = true)
         element<Boolean?>("canEditBlankText", isOptional = true)
+        element<Boolean?>("canStackBlankPieces", isOptional = true)
     }
 
     @OptIn(ExperimentalSerializationApi::class)
@@ -289,6 +290,7 @@ object RulesetSerializer : KSerializer<Ruleset> {
         var shouldOfferIndPronouns: Boolean? = null
         var doNotOfferSuffixes: Boolean? = null
         var canEditBlankText: Boolean? = null
+        var canStackBlankPieces: Boolean? = null
 
         loop@ while (true) {
             when (val index = decStructure.decodeElementIndex(descriptor)) {
@@ -305,6 +307,7 @@ object RulesetSerializer : KSerializer<Ruleset> {
                 10 -> shouldOfferIndPronouns = decStructure.decodeNullableSerializableElement(descriptor, 10, Boolean.serializer())
                 11 -> doNotOfferSuffixes = decStructure.decodeNullableSerializableElement(descriptor, 11, Boolean.serializer())
                 12 -> canEditBlankText = decStructure.decodeNullableSerializableElement(descriptor, 12, Boolean.serializer())
+                13 -> canStackBlankPieces = decStructure.decodeNullableSerializableElement(descriptor, 13, Boolean.serializer())
                 CompositeDecoder.DECODE_DONE -> break@loop
                 else -> throw SerializationException("Unknown index $index in Ruleset deserialization")
             }
@@ -324,7 +327,8 @@ object RulesetSerializer : KSerializer<Ruleset> {
             doesBlankTextCount = doesBlankTextCount,
             shouldOfferPostpositions = shouldOfferPostpositions,
             shouldOfferIndPronouns = shouldOfferIndPronouns,
-            doNotOfferSuffixes = doNotOfferSuffixes
+            doNotOfferSuffixes = doNotOfferSuffixes,
+            canStackBlankPieces = canStackBlankPieces
         )
     }
 
