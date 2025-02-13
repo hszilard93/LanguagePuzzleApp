@@ -2,8 +2,7 @@
   "type": "FREE_EDIT_PUZZLE",
   "buttonDescription": "FB2/172–173/5M",
   "customRuleset": {
-    "canAddMainPieces": "false",
-    "shouldOfferIndPronouns": "true"
+    "canAddMainPieces": "false"
   },
   "tasks": [
     {

@@ -3,13 +3,13 @@
   "buttonDescription": "FB2/53–54/7b-c",
   "tasks": [
     {
-      "taskDescription": "Rakd össze a szókártyák alapján a mondat igéjének puzzle-szerkezetét! Írd rá az igét a központi puzzle-re, feliratozd a füleket (ahol szükséges)  és a puzzle-darabokat is!\n„a fürdőkád”, „megtölt”, „meleg víz”, „Panni édesanyja”\n",
+      "taskDescription": "Rakd össze a szókártyák alapján a mondat igéjének puzzle-szerkezetét! Írd rá az igét a központi puzzle-re, feliratozd a füleket (ahol szükséges)  és a puzzle-darabokat is!\n„a fürdőkád”, „megtölti”, „meleg víz”, „Panni édesanyja”\n",
       "predefinedPieces": [],
       "solutionConfigurations": [
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "megtölt",
+            "text": "megtölti",
             "grammaticalRole": "VERB",
             "tabs": [
               {
@@ -164,7 +164,7 @@
       ]
     },
     {
-      "taskDescription": "Rakd össze a szókártyák alapján a mondat igéjének puzzle-szerkezetét! Írd rá az igét a központi puzzle-re, feliratozd a füleket (ahol szükséges)  és a puzzle-darabokat is!\n„a természetgyógyászok”, „gyógynövények”, „illóolajok”, „kivon”",
+      "taskDescription": "Rakd össze a szókártyák alapján a mondat igéjének puzzle-szerkezetét! Írd rá az igét a központi puzzle-re, feliratozd a füleket (ahol szükséges)  és a puzzle-darabokat is!\n„a természetgyógyászok”, „gyógynövények”, „illóolajok”, „kivonnak”",
       "predefinedPieces": [],
       "solutionConfigurations": [
         {

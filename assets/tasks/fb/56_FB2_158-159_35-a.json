@@ -425,15 +425,15 @@
             },
             {
               "grammaticalRole": "ADVERBIAL",
-              "text": "",
+              "text": "-nak/\n-nek",
               "side": "RIGHT",
-              "connectedTo": "neked"
+              "connectedTo": "te"
             }
           ],
           "blanks": []
         },
         {
-          "text": "neked",
+          "text": "te",
           "grammaticalRole": "ADVERBIAL",
           "tabs": [],
           "blanks": [
@@ -459,10 +459,10 @@
               }
             },
             {
-              "text": "neked",
+              "text": "te",
               "grammaticalRole": "ADVERBIAL",
               "via": {
-                "text": ""
+                "text": "-nak/-nek"
               }
             }
           ]

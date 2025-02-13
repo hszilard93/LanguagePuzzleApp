@@ -121,13 +121,39 @@ class GameScreen(
 
     override fun show() {
         logger.debug { "show" }
-        gameCamera.moveTo(gameCamera.position.toVector2().add(0f, 150f))
-        gameCamera.update()
+        centerCameraByPuzzleGrid()
 
         // Temporary
         puzzleManager.checkSolution()
 
         super.show()
+    }
+
+    private fun centerCameraByPuzzleGrid() {
+        if (gameModel.puzzlePieces.isNotEmpty()) {
+            var maxX = Float.MIN_VALUE
+            var minX = Float.MAX_VALUE
+            var maxY = Float.MIN_VALUE
+            var minY = Float.MAX_VALUE
+
+            for (piece in gameModel.puzzlePieces) {
+                maxX = maxOf(maxX, piece.pos.x)
+                minX = minOf(minX, piece.pos.x)
+                maxY = maxOf(maxY, piece.pos.y)
+                minY = minOf(minY, piece.pos.y)
+            }
+
+            val middlePos = Vector2((maxX + minX) / 2, (maxY + minY) / 2)
+            val middlePosScreen = gameViewport.project(middlePos.cpy())//.add(-350f, -100f)
+            logger.info { "middlePos = $middlePos \tmiddlePosScreen = $middlePosScreen" }
+            gameCamera.moveTo(middlePosScreen, Gdx.graphics.width / 2f * -1, Gdx.graphics.height / 5f * -1)
+//            gameCamera.moveTo(middlePosScreen)
+            gameCamera.update()
+        }
+        else {
+            gameCamera.moveTo(Vector2(0f, 0f))
+            gameCamera.update()
+        }
     }
 
     override fun resize(newWidth: Int, newHeight: Int) {

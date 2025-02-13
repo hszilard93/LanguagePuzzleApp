@@ -330,7 +330,7 @@ class GameModel {
 
         val numPieces = individualPieces.size
         val numColumns = ceil(sqrt(numPieces.toDouble())).toInt() + 1
-        val numRows = ceil(numPieces.toDouble() / numColumns).toInt() - 1
+        val numRows = ceil(numPieces.toDouble() / numColumns).toInt()
 
         val pieceWidth = puzzlePieceSize + puzzlePieceSpacingX
         val pieceHeight = puzzlePieceSize + puzzlePieceSpacingY
