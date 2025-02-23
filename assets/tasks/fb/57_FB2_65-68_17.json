@@ -134,7 +134,7 @@
               }
             },
             {
-              "text": "én",
+              "text": "én|(én)",
               "grammaticalRole": "OBJECT",
               "via": {
                 "text": "-t"

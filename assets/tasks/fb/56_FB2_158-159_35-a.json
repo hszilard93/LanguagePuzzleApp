@@ -310,15 +310,15 @@
             },
             {
               "grammaticalRole": "ADVERBIAL",
-              "text": "",
+              "text": "-nak/\n-nek",
               "side": "RIGHT",
-              "connectedTo": "nekem"
+              "connectedTo": "én"
             }
           ],
           "blanks": []
         },
         {
-          "text": "nekem",
+          "text": "én",
           "grammaticalRole": "ADVERBIAL",
           "tabs": [],
           "blanks": [
@@ -344,10 +344,10 @@
               }
             },
             {
-              "text": "nekem",
+              "text": "én",
               "grammaticalRole": "ADVERBIAL",
               "via": {
-                "text": ""
+                "text": "-nak/-nek"
               }
             }
           ]

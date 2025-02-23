@@ -11,7 +11,7 @@
   },
   "tasks": [
     {
-      "taskDescription": "Ha Jean a papagájt megeteti a kölesgombóccal, akkor ki és mit eszik? Csatold a megfelelő puzzle darabot az igepuzzle-re!",
+      "taskDescription": "Ha Jean a papagájt megeteti a kölesgombóccal, akkor ki és mit eszik? Csatold a megfelelő puzzle-darabot az igepuzzle-re!",
       "requiredSolutions": 1,
       "predefinedPieces": [
         {
@@ -153,7 +153,7 @@
       ]
     },
     {
-      "taskDescription": "Ha Jean a kölesgombócot megeteti a papagájjal, akkor ki és mit eszik? Csatold a megfelelő puzzle darabot az igepuzzle-re!",
+      "taskDescription": "Ha Jean a kölesgombócot megeteti a papagájjal, akkor ki és mit eszik? Csatold a megfelelő puzzle-darabot az igepuzzle-re!",
       "requiredSolutions": 1,
       "predefinedPieces": [
         {
@@ -296,7 +296,7 @@
       ]
     },
     {
-      "taskDescription": "Ha Jean a papagájt megeteti a macskával, akkor ki és mit eszik? Csatold a megfelelő puzzle darabot az igepuzzle-re!",
+      "taskDescription": "Ha Jean a papagájt megeteti a macskával, akkor ki és mit eszik? Csatold a megfelelő puzzle-darabot az igepuzzle-re!",
       "requiredSolutions": 1,
       "predefinedPieces": [
         {
@@ -438,7 +438,7 @@
       ]
     },
     {
-      "taskDescription": "Ha Jean a macskát megeteti a papagájjal, akkor ki és mit eszik? Csatold a megfelelő puzzle darabot az igepuzzle-re!",
+      "taskDescription": "Ha Jean a macskát megeteti a papagájjal, akkor ki és mit eszik? Csatold a megfelelő puzzle-darabot az igepuzzle-re!",
       "requiredSolutions": 1,
       "predefinedPieces": [
         {

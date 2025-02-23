@@ -7,7 +7,7 @@
   },
   "tasks": [
     {
-      "taskDescription": "Válasszátok ki a megadott mondatokból azokat, amelyek a nektek megadott puzzle-szerkezetre vetíthető! Írjátok rá a megfelelő szavakat, kifejezéseket a puzzle-ekre és a fülekre! (Ehhez előbb szét kell szednetek a puzzle-szerekezeteket.)\n„A botanikusok ismerik a legtöbb növényfajt.”\n„Ani mosolyog.”\n„Az iskola igazgatója gratulált a verseny győzteseinek.”\n„A zöld kabátos fiú kergeti a labdát.”\n„Az összes első padban ülő  lány elpirult.”\n„Nagymamámnak a fehér orgona tetszik.”\n„Csúszik a bátyámtól örökölt hegyes orrú cipőm.”\n„A kerámiakanál tört el.”\n„A szemetet mi szedtük össze.”\n„A legokosabb lánynak udvarol a szőke fiú.”\n„A legkisebb ovis építette a legmagasabb tornyot.”\n„Apa is szurkol az osztályunk csapatának.”",
+      "taskDescription": "Válasszátok ki a megadott mondatokból azokat, amelyek a nektek megadott puzzle-szerkezetre vetíthető! Írjátok rá a megfelelő szavakat, kifejezéseket a puzzle-ekre és a fülekre! (Ehhez előbb szét kell szednetek a puzzle-szerkezeteket.)\n„A botanikusok ismerik a legtöbb növényfajt.”\n„Ani mosolyog.”\n„Az iskola igazgatója gratulált a verseny győzteseinek.”\n„A zöld kabátos fiú kergeti a labdát.”\n„Az összes első padban ülő  lány elpirult.”\n„Nagymamámnak a fehér orgona tetszik.”\n„Csúszik a bátyámtól örökölt hegyes orrú cipőm.”\n„A kerámiakanál tört el.”\n„A szemetet mi szedtük össze.”\n„A legokosabb lánynak udvarol a szőke fiú.”\n„A legkisebb ovis építette a legmagasabb tornyot.”\n„Apa is szurkol az osztályunk csapatának.”",
       "requiredSolutions": 4,
       "predefinedPieces": [
         {

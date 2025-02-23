@@ -7,6 +7,7 @@ Feladatbank2 - https://bit.ly/fb6oPuzzli
 vagy ide:
 Tankönyv - https://bit.ly/tk6oPuzzli
 A gombokon lévő számok is ezeknek a köteteknek a lapszámait, valamint a feladatszámait jelölik.
+A  puzzle-ről rövid leírás  ebben a tanári segédletben található a “puzzle eszköz” címszó alatt: https://bit.ly/termelPuzzli
 
 Szómagyarázat:
   központi puzzle - ez legtöbbször egy igepuzzle, és szinte mindig lesznek fülei

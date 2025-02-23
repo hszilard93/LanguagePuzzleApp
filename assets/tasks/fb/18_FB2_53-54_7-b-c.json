@@ -9,7 +9,7 @@
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "megtölti",
+            "text": "megtölt",
             "grammaticalRole": "VERB",
             "tabs": [
               {
@@ -170,7 +170,7 @@
         {
           "checkTabText": "true",
           "centerPiece": {
-            "text": "kivonnak",
+            "text": "kivon",
             "grammaticalRole": "VERB",
             "tabs": [
               {

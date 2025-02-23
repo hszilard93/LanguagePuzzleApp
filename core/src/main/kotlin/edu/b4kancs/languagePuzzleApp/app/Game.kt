@@ -56,8 +56,8 @@ class Game(
     companion object {
         const val LOG_LEVEL = com.badlogic.gdx.utils.Logger.DEBUG
         const val LOG_LEVEL_MISC = 4
-        const val IS_DEBUG_MODE_ON = true
-        const val DEFAULT_ZOOM = 2.5f
+        const val IS_DEBUG_MODE_ON = false
+        const val DEFAULT_ZOOM = 2.7f
         val logger = logger<Game>()
     }
 

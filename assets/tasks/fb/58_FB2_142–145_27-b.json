@@ -1,0 +1,198 @@
+{
+  "type": "EDIT_PUZZLES",
+  "buttonDescription": "FB2/142–145/27b",
+  "customRuleset": {
+    "canEditBlankText": "false",
+    "canAddRemoveTabs": "false",
+    "canEditTabText": "false",
+    "canColorTabs": "false",
+    "doesAllowTabText": "false"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Négy gyerek négyféleképpen rajzolta meg az Emma a kertben olvas mondat puzzle-szerkezetét. Jelöld meg, melyikük dolgozott jól:\nírj be egy 1-t a megfelelő puzzle-szerkezet igepuzzlejére, közvetlenül az ige után (\"olvas1\")!\n(Ahhoz, hogy írni tudj az igepuzzle-re, előbb szét kell szedned a szerkezetet. A végén rakd újra össze!) ",
+      "predefinedPieces": [
+        {
+          "text": "olvas",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "connectedTo": "Emma"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "Emma",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "olvas",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "connectedTo": "Emma"
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "ADVERBIAL",
+              "text": "-ban/\n-ben",
+              "connectedTo": "a kert"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "Emma",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "a kert",
+          "grammaticalRole": "ADVERBIAL",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "olvas",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "connectedTo": "Emma"
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": "-t",
+              "connectedTo": "(valami)"
+            }
+          ]
+        },
+        {
+          "text": "Emma",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "(valami)",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "olvas",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "connectedTo": "Emma"
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": "-t",
+              "connectedTo": "(valami)"
+            },
+            {
+              "side": "RIGHT",
+              "grammaticalRole": "ADVERBIAL",
+              "text": "-ban/\n-ben",
+              "connectedTo": "a kert"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "Emma",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "(valami)",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "a kert",
+          "grammaticalRole": "ADVERBIAL",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "LEFT"
+            }
+          ]
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "olvas1",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Emma",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "(valami)",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
