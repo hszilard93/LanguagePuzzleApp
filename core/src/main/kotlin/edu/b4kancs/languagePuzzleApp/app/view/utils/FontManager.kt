@@ -18,12 +18,12 @@ data class MenuFontHolder(val font: BitmapFont)
 data class UIFontHolder(val font: BitmapFont)
 
 private const val TASK_DESC_DEFAULT_FONT_SIZE = 24
-private const val MENU_DEFAULT_FONT_SIZE = 24
+private const val MENU_DEFAULT_FONT_SIZE = 26
 private const val MANUAL_DEFAULT_FONT_SIZE = 32
 private const val UI_DEFAULT_FONT_SIZE = 22
 private const val PUZZLE_BASE_FONT_SIZE = 40
 private const val PUZZLE_TAB_FONT_SIZE = (PUZZLE_BASE_FONT_SIZE * 0.75f).toInt()
-private const val MIN_FONT_SIZE = 16
+private const val MIN_FONT_SIZE = 20
 
 // Caching the FreeTypeFontGenerator objects to save on IO
 private val fontGeneratorMapByFileName = mutableMapOf<String, FreeTypeFontGenerator>()
@@ -49,12 +49,7 @@ fun loadFreeTypeFont(fileName: String, fontSize: Int, flipFont: Boolean = false)
 }
 
 fun loadTaskDescriptionFont(multiplier: Float = 1f): BitmapFont {
-    val normalizedMultiplier = if (multiplier > 1f) {
-        multiplier * (1f - (multiplier / 8))
-    } else {
-        multiplier
-    }
-    return loadFreeTypeFont("PlaywriteGBS.ttf", (TASK_DESC_DEFAULT_FONT_SIZE * normalizedMultiplier).toInt())
+    return loadFreeTypeFont("PlaywriteGBS.ttf", (TASK_DESC_DEFAULT_FONT_SIZE * normalizeMultiplier(multiplier)).toInt())
 //    return loadFreeTypeFont("libre-baskerville.regular.ttf", (TASK_DESC_DEFAULT_FONT_SIZE * scale).toInt())
 }
 
@@ -67,16 +62,11 @@ fun loadMenuFont(multiplier: Float = 1f): BitmapFont {
 }
 
 fun loadManualFont(multiplier: Float = 1f): BitmapFont {
-    return loadFreeTypeFont("Roboto-Regular.ttf", (MANUAL_DEFAULT_FONT_SIZE * multiplier.toInt()))
+    return loadFreeTypeFont("Roboto-Regular.ttf", (MANUAL_DEFAULT_FONT_SIZE * normalizeMultiplier(multiplier).toInt()))
 }
 
 fun loadUIFont(multiplier: Float = 1f): BitmapFont {
-    val normalizedMultiplier = if (multiplier > 1f) {
-        multiplier * (1f - (multiplier / 7))
-    } else {
-        multiplier
-    }
-    return loadFreeTypeFont("Roboto-Regular.ttf", (UI_DEFAULT_FONT_SIZE * normalizedMultiplier).toInt())
+    return loadFreeTypeFont("Roboto-Regular.ttf", (UI_DEFAULT_FONT_SIZE * normalizeMultiplier(multiplier)).toInt())
 }
 
 fun loadPuzzleBaseFont(multiplier: Float = 1f): BitmapFont {
@@ -89,7 +79,7 @@ fun loadPuzzleTabFont(multiplier: Float = 1f): BitmapFont {
 
 private fun normalizeMultiplier(multiplier: Float): Float {
     return if (multiplier > 1f) {
-        multiplier * (1f - (multiplier / 8))
+        multiplier * (1f - (multiplier / 9))
     } else {
         multiplier
     }

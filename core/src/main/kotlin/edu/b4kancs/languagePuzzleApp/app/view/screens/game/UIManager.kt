@@ -83,7 +83,7 @@ class UIManager(
 
     private var backButtonTexture = Texture(Gdx.files.internal("back_button_1.png"), Pixmap.Format.RGBA8888, true)
         .apply { setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear) }
-    private var addPuzzleTexture = Texture(Gdx.files.internal("add_puzzle_button_7.png"), Pixmap.Format.RGBA8888, true)
+    private var addPuzzleTexture = Texture(Gdx.files.internal("add_puzzle_button_8.png"), Pixmap.Format.RGBA8888, true)
         .apply { setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear) }
     private var garbageBinClosedTexture = Texture(Gdx.files.internal("garbage_bin_closed_1.png"), Pixmap.Format.RGBA8888, true)
         .apply { setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear) }

@@ -11,6 +11,7 @@ import edu.b4kancs.languagePuzzleApp.app.Game
 import edu.b4kancs.languagePuzzleApp.app.model.Environment
 import edu.b4kancs.languagePuzzleApp.app.model.EnvironmentalImplementations
 import edu.b4kancs.languagePuzzleApp.app.model.Platform
+import edu.b4kancs.languagePuzzleApp.app.teavm.HtmlUtils.setFavicon
 import edu.b4kancs.languagePuzzleApp.app.teavm.screen.ui.FilePickerJsImpl
 
 
@@ -28,6 +29,7 @@ class TeaVMLauncher {
         }
         config.antialiasing = true
         config.stencil = true            // Enable stencil buffer if needed
+        config.usePhysicalPixels = true
 
         val environment = getEnvironment(config)
         val environmentalImplementations = EnvironmentalImplementations(
@@ -63,9 +65,10 @@ class TeaVMLauncher {
         val canvasSize = JsInterop.getCanvasSize().split(";").map(String::toInt)
         JsInterop.log("platform: $platform, canvasSize: ${canvasSize.first()}, ${canvasSize.last()}")
 
-        if (platform == Platform.WEB) {
+        if (platform in setOf(Platform.WEB, Platform.WEB_ANDROID, Platform.WEB_IOS, Platform.WEB_IPAD)) {
             JsInterop.log("disableBrowserScroll")
             JsInterop.disableBrowserScroll()
+            setFavicon("assets/graphics/app_icon_4.png")
         }
 
         return Environment(platform, null, canvasSize.first(), canvasSize.last())

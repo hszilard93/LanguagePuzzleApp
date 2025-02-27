@@ -29,7 +29,7 @@ class AddPuzzlePopup(
         val logger = logger<AddPuzzlePopup>()
     }
 
-    private val addBasePuzzleImage = Texture(Gdx.files.internal("add_puzzle_base_1.png"), Pixmap.Format.RGBA8888, true)
+    private val addBasePuzzleImage = Texture(Gdx.files.internal("add_puzzle_base_2.png"), Pixmap.Format.RGBA8888, true)
         .apply { setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear) }
     private val andBlankPuzzleImage = Texture(Gdx.files.internal("add_puzzle_blank_1.png"), Pixmap.Format.RGBA8888, true)
         .apply { setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.Linear) }

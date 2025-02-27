@@ -98,7 +98,7 @@ class MainMenuScreen(
                     logger.info { "'Használati útmutató' button clicked" }
 
                     val dialogWindowStyle = WindowStyle(uiSkin.get(WindowStyle::class.java)).apply {
-                        titleFont = loadUIFont(fontMultiplier * 2)
+                        titleFont = loadUIFont(fontMultiplier * 1.8f)
 //                        titleFontColor = Color.NAVY
                     }
 
