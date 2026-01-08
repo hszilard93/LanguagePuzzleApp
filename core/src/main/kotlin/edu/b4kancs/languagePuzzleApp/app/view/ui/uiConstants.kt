@@ -37,4 +37,4 @@ A segédlet felhasználási feltételeit a CC BY-NC-ND 4.0 licensz szabályozza.
 
 Programozás: Hompoth Szilárd
 A feladatokat adaptálta: Kádár Edit és Bartalis Boróka
-""".trim()
+    """.trim()

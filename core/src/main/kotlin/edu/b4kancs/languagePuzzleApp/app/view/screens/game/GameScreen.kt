@@ -16,7 +16,10 @@ import edu.b4kancs.languagePuzzleApp.app.HudCamera
 import edu.b4kancs.languagePuzzleApp.app.HudViewport
 import edu.b4kancs.languagePuzzleApp.app.model.Environment
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
+import edu.b4kancs.languagePuzzleApp.app.model.Platform
 import edu.b4kancs.languagePuzzleApp.app.view.drawableModel.PuzzlePieceDrawer
+import edu.b4kancs.languagePuzzleApp.app.view.screens.game.input.GameGestureDetector
+import edu.b4kancs.languagePuzzleApp.app.view.screens.game.input.GameInputManager
 import edu.b4kancs.languagePuzzleApp.app.view.screens.setBackgroundColor
 import edu.b4kancs.languagePuzzleApp.app.view.ui.FilePickerInterface
 import edu.b4kancs.languagePuzzleApp.app.view.utils.HudFontHolder
@@ -61,7 +64,8 @@ class GameScreen(
     private var puzzleManager: PuzzleManager
     private var puzzleRenderer: PuzzleRenderer
     private var hudRenderer: HudRenderer
-    private var gameInputManager: GameInputManager
+    private var regularInputManager: GameInputManager
+    private var mobileGestureDetector: GameGestureDetector
 
     private var shouldDisplayDebugInfo = false
         private set(value) {
@@ -100,7 +104,7 @@ class GameScreen(
         )
 
         // Initialize Input Manager
-        gameInputManager = GameInputManager(
+        regularInputManager = GameInputManager(
             cameraController,
             puzzleManager,
             cursorManager,
@@ -112,10 +116,30 @@ class GameScreen(
             toggleDebugInfo = { shouldDisplayDebugInfo = !shouldDisplayDebugInfo }
         )
 
-        puzzleManager.registerGameInputManager(gameInputManager)
+        // Initialize Mobile Gesture Detector with all required parameters
+        mobileGestureDetector = GameGestureDetector(
+            cameraController,
+            puzzleManager,
+            cursorManager,
+            uiManager,
+            environment,
+            gameModel,
+            gameViewport
+        )
 
+        // Register the input manager with puzzle manager before setting up input processors
+        puzzleManager.registerGameInputManager(regularInputManager)
+
+        // Set up input processors
         inputMultiplexer.addProcessor(uiStage)
-        inputMultiplexer.addProcessor(gameInputManager)
+        if (environment.platform in setOf(Platform.WEB_ANDROID, Platform.WEB_IOS, Platform.WEB_IPAD)) {
+            logger.info { "inputMultiplexer = mobileGestureDetector" }
+            inputMultiplexer.addProcessor(mobileGestureDetector)
+        } else {
+            logger.info { "inputMultiplexer = regularInputManager" }
+            inputMultiplexer.addProcessor(regularInputManager)
+        }
+
         Gdx.input.inputProcessor = inputMultiplexer
     }
 
