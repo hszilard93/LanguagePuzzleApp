@@ -20,6 +20,8 @@ import edu.b4kancs.languagePuzzleApp.app.util.misc
 import edu.b4kancs.languagePuzzleApp.app.view.screens.game.CursorManager
 import edu.b4kancs.languagePuzzleApp.app.view.screens.game.GameScreen
 import edu.b4kancs.languagePuzzleApp.app.view.ui.UserManualDialog
+import edu.b4kancs.languagePuzzleApp.app.view.ui.mainMenuFooterText1
+import edu.b4kancs.languagePuzzleApp.app.view.ui.mainMenuFooterText2
 import edu.b4kancs.languagePuzzleApp.app.view.util.font.loadMenuFont
 import edu.b4kancs.languagePuzzleApp.app.view.util.font.loadUIFont
 import edu.b4kancs.languagePuzzleApp.app.view.util.toRGBFloat
@@ -112,19 +114,27 @@ class MainMenuScreen(
             buttonTable.add(textButton).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(80f).pad(10f).row()
         }
 
-        val footerLabelStyle = Label.LabelStyle(loadMenuFont(fontMultiplier), Color(0.1f, 0f, 0f, 0.9f))
-        val footerLabel = Label("Jelen oktatási segédlet az MTA Domus Programja által támogatott tevékenység keretében jött létre.", footerLabelStyle).apply {
+        val footerLabelStyle1 = Label.LabelStyle(loadMenuFont(fontMultiplier), Color(0.1f, 0f, 0f, 0.9f))
+        val footerLabel1 = Label(mainMenuFooterText1, footerLabelStyle1).apply {
             setAlignment(Align.center)
             wrap = true
         }
 
+        val footerLabelStyle2 = Label.LabelStyle(loadMenuFont(fontMultiplier * 0.66f), Color(0.1f, 0f, 0f, 0.4f))
+        val footerLabel2 = Label(mainMenuFooterText2, footerLabelStyle2).apply {
+            setAlignment(Align.bottomRight)
+            wrap = false
+        }
+
         outerTable.apply {
             setFillParent(true)
-            add().height(Gdx.graphics.height / 5f).row() // Spacing at the top
+            add().height(Gdx.graphics.height / 5f).row() // Spacing
             add(buttonTable).growX().row()
-            add().height(Gdx.graphics.height / 5f).row() // Spacing at the bottom
+            add().height(Gdx.graphics.height / 5f).row() // Spacing
 
-            add(footerLabel).growX().height(50f).padLeft(20f).padRight(20f).align(Align.bottom).row
+            add(footerLabel1).growX().height(50f).padLeft(20f).padRight(20f).align(Align.bottom).row
+            add().height(Gdx.graphics.height / 5f).row() // Spacing
+            add(footerLabel2).growX().height(30f).padBottom(10f).padRight(10f).align(Align.bottom).row
 
             center()
             debug = false

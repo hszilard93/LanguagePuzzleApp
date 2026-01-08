@@ -1,5 +1,7 @@
 package edu.b4kancs.languagePuzzleApp.app.view.ui
 
+import edu.b4kancs.languagePuzzleApp.app.AppVersion
+
 val appInstructionsDescription =
     """
 A feladatok a Feladatbank 2. kötete és a VI. osztályos tankönyvünk alapján készültek, de a papíron lévőkhöz képest nagyrész át van írva a szövegük, hogy ezen a platformon is megoldhatóak legyenek. Ettől függetlenül néha utasítunk, hogy nézz meg valamit a kötetben. Ilyenkor ide kell menned:
@@ -38,3 +40,7 @@ A segédlet felhasználási feltételeit a CC BY-NC-ND 4.0 licensz szabályozza.
 Programozás: Hompoth Szilárd
 A feladatokat adaptálta: Kádár Edit és Bartalis Boróka
     """.trim()
+
+val mainMenuFooterText1 = """Jelen oktatási segédlet az MTA Domus Programja által támogatott tevékenység keretében jött létre."""
+
+val mainMenuFooterText2 = """Alkalmazásverzió: ${AppVersion.VERSION}"""
