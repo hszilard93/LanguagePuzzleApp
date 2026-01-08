@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.PixmapIO
 import com.badlogic.gdx.graphics.Texture
-import edu.b4kancs.languagePuzzleApp.app.view.utils.toRGBFloat
+import edu.b4kancs.languagePuzzleApp.app.view.util.toRGBFloat
 import ktx.log.Logger
 
 fun setBackgroundColor(red: Int, green: Int, blue: Int, alpha: Float) {

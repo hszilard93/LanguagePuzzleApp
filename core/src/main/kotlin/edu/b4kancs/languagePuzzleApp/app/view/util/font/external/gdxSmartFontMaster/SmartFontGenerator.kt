@@ -1,4 +1,4 @@
-package edu.b4kancs.languagePuzzleApp.app.other.gdxSmartFontMaster
+package edu.b4kancs.languagePuzzleApp.app.view.util.font.external.gdxSmartFontMaster
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.files.FileHandle

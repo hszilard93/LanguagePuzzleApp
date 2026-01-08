@@ -6,8 +6,8 @@ import com.badlogic.gdx.InputAdapter
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.math.Vector3
 import edu.b4kancs.languagePuzzleApp.app.Game.Companion.DEFAULT_ZOOM
-import edu.b4kancs.languagePuzzleApp.app.misc
-import edu.b4kancs.languagePuzzleApp.app.model.Environment
+import edu.b4kancs.languagePuzzleApp.app.util.misc
+import edu.b4kancs.languagePuzzleApp.app.platform.Environment
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
 import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
@@ -18,7 +18,7 @@ import edu.b4kancs.languagePuzzleApp.app.view.screens.game.CameraController
 import edu.b4kancs.languagePuzzleApp.app.view.screens.game.CursorManager
 import edu.b4kancs.languagePuzzleApp.app.view.screens.game.PuzzleManager
 import edu.b4kancs.languagePuzzleApp.app.view.screens.game.UIManager
-import edu.b4kancs.languagePuzzleApp.app.view.utils.unprojectScreenCoords
+import edu.b4kancs.languagePuzzleApp.app.view.util.unprojectScreenCoords
 import java.util.Optional
 
 

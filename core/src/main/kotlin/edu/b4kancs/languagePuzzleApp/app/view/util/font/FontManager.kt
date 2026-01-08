@@ -1,4 +1,4 @@
-package edu.b4kancs.languagePuzzleApp.app.view.utils
+package edu.b4kancs.languagePuzzleApp.app.view.util.font
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Texture

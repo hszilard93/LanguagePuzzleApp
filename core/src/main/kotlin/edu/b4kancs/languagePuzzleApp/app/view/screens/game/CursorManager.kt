@@ -2,7 +2,7 @@ package edu.b4kancs.languagePuzzleApp.app.view.screens.game
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Cursor
-import edu.b4kancs.languagePuzzleApp.app.model.Environment
+import edu.b4kancs.languagePuzzleApp.app.platform.Environment
 import edu.b4kancs.languagePuzzleApp.app.view.screens.game.CustomCursorLoader.CustomCursor.*
 import edu.b4kancs.languagePuzzleApp.app.view.screens.game.CustomCursorLoader.loadCustomCursor
 

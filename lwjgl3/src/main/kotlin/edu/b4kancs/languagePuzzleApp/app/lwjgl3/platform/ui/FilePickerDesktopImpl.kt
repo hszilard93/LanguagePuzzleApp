@@ -1,7 +1,7 @@
-package edu.b4kancs.languagePuzzleApp.app.lwjgl3.view.ui
+package edu.b4kancs.languagePuzzleApp.app.lwjgl3.platform.ui
 
 import com.badlogic.gdx.files.FileHandle
-import edu.b4kancs.languagePuzzleApp.app.view.ui.FilePickerInterface
+import edu.b4kancs.languagePuzzleApp.app.platform.services.FilePickerInterface
 import java.awt.FileDialog
 import java.awt.Frame
 import javax.swing.SwingUtilities

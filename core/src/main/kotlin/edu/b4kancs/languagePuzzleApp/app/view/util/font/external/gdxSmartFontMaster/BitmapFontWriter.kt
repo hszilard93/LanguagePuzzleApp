@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.b4kancs.languagePuzzleApp.app.other.gdxSmartFontMaster
+package edu.b4kancs.languagePuzzleApp.app.view.util.font.external.gdxSmartFontMaster
 
 import com.badlogic.gdx.files.FileHandle
 import com.badlogic.gdx.graphics.Pixmap

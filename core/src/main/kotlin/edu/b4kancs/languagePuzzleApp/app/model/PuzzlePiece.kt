@@ -3,7 +3,7 @@ package edu.b4kancs.languagePuzzleApp.app.model
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
-import edu.b4kancs.languagePuzzleApp.app.misc
+import edu.b4kancs.languagePuzzleApp.app.util.misc
 import edu.b4kancs.languagePuzzleApp.app.model.CustomColors.ADVERB_PURPLE
 import edu.b4kancs.languagePuzzleApp.app.model.CustomColors.OBJECT_YELLOW
 import edu.b4kancs.languagePuzzleApp.app.model.CustomColors.OFF_WHITE

@@ -24,9 +24,6 @@ object Constants {
 
     const val ROTATE_BY_CORNERS = false
 
-    const val MIN_ZOOM = 1f
-    const val MAX_ZOOM = 3.5f
-
 //    const val HUD_VIRTUAL_WIDTH = 1200f
 //    const val HUD_VIRTUAL_HEIGHT = 800f
 //

@@ -1,9 +1,8 @@
-package edu.b4kancs.languagePuzzleApp.app.view.utils
+package edu.b4kancs.languagePuzzleApp.app.view.util
 
 import com.badlogic.gdx.graphics.Camera
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.math.Vector3
-import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.actions.AlphaAction
 import kotlin.math.cos

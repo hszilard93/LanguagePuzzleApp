@@ -12,8 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.Align
-import edu.b4kancs.languagePuzzleApp.app.view.utils.loadManualFont
-import edu.b4kancs.languagePuzzleApp.app.view.utils.loadUIFont
+import edu.b4kancs.languagePuzzleApp.app.view.util.font.loadManualFont
+import edu.b4kancs.languagePuzzleApp.app.view.util.font.loadUIFont
 import ktx.log.logger
 
 class UserManualDialog(

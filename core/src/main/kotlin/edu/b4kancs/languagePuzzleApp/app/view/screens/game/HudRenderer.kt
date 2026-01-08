@@ -9,7 +9,7 @@ import edu.b4kancs.languagePuzzleApp.app.Game
 import edu.b4kancs.languagePuzzleApp.app.GameCamera
 import edu.b4kancs.languagePuzzleApp.app.HudCamera
 import edu.b4kancs.languagePuzzleApp.app.HudViewport
-import edu.b4kancs.languagePuzzleApp.app.view.utils.toVector2
+import edu.b4kancs.languagePuzzleApp.app.view.util.toVector2
 import ktx.graphics.use
 
 class HudRenderer(

@@ -2,8 +2,8 @@ package edu.b4kancs.languagePuzzleApp.app.view.drawableModel
 
 import com.badlogic.gdx.math.Vector2
 import edu.b4kancs.languagePuzzleApp.app.model.Side
-import edu.b4kancs.languagePuzzleApp.app.view.utils.calculateEndPosGivenRotation
-import edu.b4kancs.languagePuzzleApp.app.view.utils.toRadians
+import edu.b4kancs.languagePuzzleApp.app.view.util.calculateEndPosGivenRotation
+import edu.b4kancs.languagePuzzleApp.app.view.util.toRadians
 import kotlin.math.sqrt
 
 // 0 degrees points right, not up.

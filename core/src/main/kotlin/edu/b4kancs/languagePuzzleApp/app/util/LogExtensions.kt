@@ -1,4 +1,4 @@
-package edu.b4kancs.languagePuzzleApp.app
+package edu.b4kancs.languagePuzzleApp.app.util
 
 import com.badlogic.gdx.Gdx
 import edu.b4kancs.languagePuzzleApp.app.Game.Companion.LOG_LEVEL_MISC

@@ -14,14 +14,14 @@ import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Disposable
-import edu.b4kancs.languagePuzzleApp.app.misc
+import edu.b4kancs.languagePuzzleApp.app.util.misc
 import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole.UNDEFINED
 import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole.VERB
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzleBlank
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzleTab
 import edu.b4kancs.languagePuzzleApp.app.model.Side
-import edu.b4kancs.languagePuzzleApp.app.view.utils.PuzzleFontHolder
+import edu.b4kancs.languagePuzzleApp.app.view.util.font.PuzzleFontHolder
 import ktx.graphics.use
 import ktx.inject.Context
 import ktx.log.logger

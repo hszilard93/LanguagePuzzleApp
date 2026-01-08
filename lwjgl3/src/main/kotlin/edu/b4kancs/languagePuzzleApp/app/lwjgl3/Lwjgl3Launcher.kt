@@ -2,14 +2,13 @@
 
 package edu.b4kancs.languagePuzzleApp.app.lwjgl3
 
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration
 import edu.b4kancs.languagePuzzleApp.app.Game
-import edu.b4kancs.languagePuzzleApp.app.lwjgl3.view.ui.FilePickerDesktopImpl
-import edu.b4kancs.languagePuzzleApp.app.model.Environment
-import edu.b4kancs.languagePuzzleApp.app.model.EnvironmentalImplementations
-import edu.b4kancs.languagePuzzleApp.app.model.Platform
+import edu.b4kancs.languagePuzzleApp.app.lwjgl3.platform.ui.FilePickerDesktopImpl
+import edu.b4kancs.languagePuzzleApp.app.platform.Environment
+import edu.b4kancs.languagePuzzleApp.app.platform.EnvironmentalImplementations
+import edu.b4kancs.languagePuzzleApp.app.platform.Platform
 import org.lwjgl.glfw.GLFW
 import org.lwjgl.glfw.GLFW.GLFW_DECORATED
 import org.lwjgl.glfw.GLFW.GLFW_FALSE

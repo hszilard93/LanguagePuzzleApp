@@ -174,3 +174,5 @@ frameBufferScreenshot.png
 assets/tasks/tk_task_list.txt
 
 .kotlin/errors/
+
+.vscode/

@@ -3,7 +3,7 @@ package edu.b4kancs.languagePuzzleApp.app.view.screens.game.input
 import com.badlogic.gdx.input.GestureDetector
 import com.badlogic.gdx.math.Vector2
 import edu.b4kancs.languagePuzzleApp.app.GameViewport
-import edu.b4kancs.languagePuzzleApp.app.model.Environment
+import edu.b4kancs.languagePuzzleApp.app.platform.Environment
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
 import edu.b4kancs.languagePuzzleApp.app.view.screens.game.CameraController
 import edu.b4kancs.languagePuzzleApp.app.view.screens.game.Constants

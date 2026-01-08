@@ -23,7 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.Align
 import edu.b4kancs.languagePuzzleApp.app.GameViewport
 import edu.b4kancs.languagePuzzleApp.app.HudViewport
-import edu.b4kancs.languagePuzzleApp.app.misc
+import edu.b4kancs.languagePuzzleApp.app.util.misc
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
 import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole
 import edu.b4kancs.languagePuzzleApp.app.model.IndefinitePronoun
@@ -39,12 +39,12 @@ import edu.b4kancs.languagePuzzleApp.app.view.ui.SelectIndefinitePronounPopup
 import edu.b4kancs.languagePuzzleApp.app.view.ui.SelectPostpositionPopup
 import edu.b4kancs.languagePuzzleApp.app.view.ui.SelectSuffixPopup
 import edu.b4kancs.languagePuzzleApp.app.view.ui.TextEditorPopup
-import edu.b4kancs.languagePuzzleApp.app.view.utils.TaskFontHolder
-import edu.b4kancs.languagePuzzleApp.app.view.utils.UIFontHolder
-import edu.b4kancs.languagePuzzleApp.app.view.utils.loadTaskCounterFont
-import edu.b4kancs.languagePuzzleApp.app.view.utils.loadTaskDescriptionFont
-import edu.b4kancs.languagePuzzleApp.app.view.utils.loadUIFont
-import edu.b4kancs.languagePuzzleApp.app.view.utils.partialFadeIn
+import edu.b4kancs.languagePuzzleApp.app.view.util.font.TaskFontHolder
+import edu.b4kancs.languagePuzzleApp.app.view.util.font.UIFontHolder
+import edu.b4kancs.languagePuzzleApp.app.view.util.font.loadTaskCounterFont
+import edu.b4kancs.languagePuzzleApp.app.view.util.font.loadTaskDescriptionFont
+import edu.b4kancs.languagePuzzleApp.app.view.util.font.loadUIFont
+import edu.b4kancs.languagePuzzleApp.app.view.util.partialFadeIn
 import ktx.inject.Context
 
 class UIManager(
@@ -588,10 +588,10 @@ class UIManager(
                     logger.info { "Add puzzle button clicked" }
                     displayAddPuzzlePopup(
                         onAddBasePuzzle = {
-                            puzzleManager.addNewPuzzlePieceViaDrag(isBlankPuzzle = false)
+                            puzzleManager.addNewPuzzlePieceViaDrag(isBlank = false)
                         },
                         onAddBlankPuzzle = {
-                            puzzleManager.addNewPuzzlePieceViaDrag(isBlankPuzzle = true)
+                            puzzleManager.addNewPuzzlePieceViaDrag(isBlank = true)
                         }
                     )
                 }

@@ -1,4 +1,4 @@
-package edu.b4kancs.languagePuzzleApp.app.view.ui
+package edu.b4kancs.languagePuzzleApp.app.platform.services
 
 import com.badlogic.gdx.files.FileHandle
 

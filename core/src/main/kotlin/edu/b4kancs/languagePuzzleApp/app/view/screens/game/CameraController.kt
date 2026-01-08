@@ -5,9 +5,8 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.viewport.Viewport
 import edu.b4kancs.languagePuzzleApp.app.Game.Companion.DEFAULT_ZOOM
 import edu.b4kancs.languagePuzzleApp.app.model.GameModel
-import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole
-import edu.b4kancs.languagePuzzleApp.app.view.utils.toVector2
-import edu.b4kancs.languagePuzzleApp.app.view.utils.toVector3
+import edu.b4kancs.languagePuzzleApp.app.view.util.toVector2
+import edu.b4kancs.languagePuzzleApp.app.view.util.toVector3
 
 class CameraController(
     val gameCamera: OrthographicCamera,

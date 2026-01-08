@@ -8,11 +8,11 @@ import com.github.xpenatan.gdx.backends.teavm.TeaApplicationConfiguration
 import com.github.xpenatan.gdx.backends.teavm.TeaAssetPreloadListener
 import com.github.xpenatan.gdx.backends.teavm.assetloader.AssetLoader
 import edu.b4kancs.languagePuzzleApp.app.Game
-import edu.b4kancs.languagePuzzleApp.app.model.Environment
-import edu.b4kancs.languagePuzzleApp.app.model.EnvironmentalImplementations
-import edu.b4kancs.languagePuzzleApp.app.model.Platform
+import edu.b4kancs.languagePuzzleApp.app.platform.Environment
+import edu.b4kancs.languagePuzzleApp.app.platform.EnvironmentalImplementations
+import edu.b4kancs.languagePuzzleApp.app.platform.Platform
 import edu.b4kancs.languagePuzzleApp.app.teavm.HtmlUtils.setFavicon
-import edu.b4kancs.languagePuzzleApp.app.teavm.screen.ui.FilePickerJsImpl
+import edu.b4kancs.languagePuzzleApp.app.teavm.platform.ui.FilePickerJsImpl
 
 
 /** Launches the TeaVM/HTML application. */

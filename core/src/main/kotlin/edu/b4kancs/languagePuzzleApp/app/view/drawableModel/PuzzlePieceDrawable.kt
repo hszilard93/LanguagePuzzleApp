@@ -3,12 +3,12 @@ package edu.b4kancs.languagePuzzleApp.app.view.drawableModel
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.math.Vector2
-import edu.b4kancs.languagePuzzleApp.app.misc
+import edu.b4kancs.languagePuzzleApp.app.util.misc
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 import edu.b4kancs.languagePuzzleApp.app.model.Side
 import edu.b4kancs.languagePuzzleApp.app.view.screens.game.GameScreen.Companion.logger
-import edu.b4kancs.languagePuzzleApp.app.view.utils.plus
-import edu.b4kancs.languagePuzzleApp.app.view.utils.toRadians
+import edu.b4kancs.languagePuzzleApp.app.view.util.plus
+import edu.b4kancs.languagePuzzleApp.app.view.util.toRadians
 import ktx.inject.Context
 import space.earlygrey.shapedrawer.ShapeDrawer
 

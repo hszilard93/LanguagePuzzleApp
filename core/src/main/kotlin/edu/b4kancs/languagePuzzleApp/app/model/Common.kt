@@ -1,7 +1,7 @@
 package edu.b4kancs.languagePuzzleApp.app.model
 
 import com.badlogic.gdx.graphics.Color
-import edu.b4kancs.languagePuzzleApp.app.view.utils.toRGBFloat
+import edu.b4kancs.languagePuzzleApp.app.view.util.toRGBFloat
 
 enum class CustomColors(val value: Color) {
     SUBJECT_GREEN(Color(0x4bad5bff)),
