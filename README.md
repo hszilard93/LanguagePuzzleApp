@@ -1,36 +1,16 @@
 # PuzliApp
 
-A [libGDX](https://libgdx.com/) project generated with [gdx-liftoff](https://github.com/libgdx/gdx-liftoff).
+Jelen alkalmazás oktatási segédlet, amely a Kreatív könyvkiadó *Magyar nyelv és irodalom (anyanyelv) – VI. osztály* című tankönyvének illetve a *Feladatban (Ábel kiadó, 2. kötet)* kiegészítőjének készült.
 
-This project was generated with a template that includes Kotlin application launchers and an empty `ApplicationAdapter` implemented in Kotlin.
+Az  oktatási segédlet az MTA Domus Programja által támogatott tevékenység keretében jött létre. Pályázatvezető: Kádár Edit. Szerződésszám: 50/3/2024/HTMT
+A segédlet felhasználási feltételeit a CC BY-NC-ND 4.0 licensz szabályozza.
 
-## Platforms
+Programozás: Hompoth Szilárd
+A feladatokat adaptálta: Kádár Edit és Bartalis Boróka
 
-- `core`: Main module with the application logic shared by all platforms.
-- `lwjgl3`: Primary desktop platform using LWJGL3.
-- `teavm`: Experimental web platform using TeaVM and WebGL.
+_____________________
 
-## Gradle
+Az alkalmazás a LibGDX keretrendszer segítségével, a Kotlin programozási nyelven készült. Futási környezetek: LWJGL3, TeaVM.  
+Projektépítő: Gradle.
 
-This project uses [Gradle](https://gradle.org/) to manage dependencies.
-The Gradle wrapper was included, so you can run Gradle tasks using `gradlew.bat` or `./gradlew` commands.
-Useful Gradle tasks and flags:
-
-- `--continue`: when using this flag, errors will not stop the tasks from running.
-- `--daemon`: thanks to this flag, Gradle daemon will be used to run chosen tasks.
-- `--offline`: when using this flag, cached dependency archives will be used.
-- `--refresh-dependencies`: this flag forces validation of all dependencies. Useful for snapshot versions.
-- `build`: builds sources and archives of every project.
-- `cleanEclipse`: removes Eclipse project data.
-- `cleanIdea`: removes IntelliJ project data.
-- `clean`: removes `build` folders, which store compiled classes and built archives.
-- `eclipse`: generates Eclipse project data.
-- `idea`: generates IntelliJ project data.
-- `lwjgl3:jar`: builds application's runnable jar, which can be found at `lwjgl3/build/lib`.
-- `lwjgl3:run`: starts the application.
-- `teavm:build`: builds the JavaScript application into the build/dist/webapp folder.
-- `teavm:run`: serves the JavaScript application at http://localhost:8080 via a local Jetty server.
-- `test`: runs unit tests (if any).
-
-Note that most tasks that are not specific to a single project can be run with `name:` prefix, where the `name` should be replaced with the ID of a specific project.
-For example, `core:clean` removes `build` folder only from the `core` project.
+Az alkalmazás további fejlesztés alatt áll.
