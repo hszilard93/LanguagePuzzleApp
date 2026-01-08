@@ -160,7 +160,7 @@ abstract class AbstractExerciseMenuScreen(
             return
         }
 
-        val tasksBasePath = if (environment.platform == Platform.WEB) tasksWebPath else tasksDesktopPath
+        val tasksBasePath = if (environment.platform == Platform.DESKTOP) tasksDesktopPath else tasksWebPath
 
         fileNames.forEach { fileName ->
             val exerciseFilePath = "$tasksBasePath/$fileName"

@@ -11,6 +11,8 @@ import edu.b4kancs.languagePuzzleApp.app.model.Suffix
 import edu.b4kancs.languagePuzzleApp.app.model.exercise.SolutionConfiguration
 import edu.b4kancs.languagePuzzleApp.app.model.exercise.SolutionResult
 import edu.b4kancs.languagePuzzleApp.app.model.exercise.TaskType
+import edu.b4kancs.languagePuzzleApp.app.view.screens.game.input.GameInputHandler
+import edu.b4kancs.languagePuzzleApp.app.view.screens.game.input.GameInputManager
 import ktx.log.logger
 
 enum class RotationDirection {
@@ -27,7 +29,7 @@ class PuzzleManager(
         val logger = logger<PuzzleManager>()
     }
 
-    private lateinit var gameInputManager: GameInputManager
+    private lateinit var gameInputHandler: GameInputHandler
 
     var potentialDragOrRotatePiece: PuzzlePiece? = null
     var draggedPuzzlePiece: PuzzlePiece? = null
@@ -50,7 +52,7 @@ class PuzzleManager(
     }
 
     fun registerGameInputManager(gameInputManager: GameInputManager) {
-        this.gameInputManager = gameInputManager
+        this.gameInputHandler = gameInputManager
     }
 
     fun startDragging(puzzlePiece: PuzzlePiece, toSnap: Boolean = true) {
@@ -300,13 +302,13 @@ class PuzzleManager(
         return newPuzzlePiece
     }
 
-    fun addNewPuzzlePieceViaDrag(isBlank: Boolean = false) {
-        logger.info { "addNewPuzzlePieceViaDrag isBlank = $isBlank" }
+    fun addNewPuzzlePieceViaDrag(isBlankPuzzle: Boolean = false) {
+        logger.info { "addNewPuzzlePieceViaDrag isBlank = $isBlankPuzzle" }
 
-        val newPiece = addNewPuzzlePiece(gameInputManager.lastPublicMouseWorldPos, isBlank)
+        val newPiece = addNewPuzzlePiece(gameInputHandler.getLastTouch(), isBlankPuzzle)
 
         startDragging(newPiece, false)
-        gameInputManager.emulateDragging()
+        gameInputHandler.emulatePuzzleDragging()
     }
 
     fun checkSolution() {

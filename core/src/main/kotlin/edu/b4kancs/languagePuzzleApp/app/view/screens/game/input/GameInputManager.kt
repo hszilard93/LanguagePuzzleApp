@@ -1,4 +1,4 @@
-package edu.b4kancs.languagePuzzleApp.app.view.screens.game
+package edu.b4kancs.languagePuzzleApp.app.view.screens.game.input
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
@@ -14,6 +14,10 @@ import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePieceFeature
 import edu.b4kancs.languagePuzzleApp.app.model.PuzzleTab
 import edu.b4kancs.languagePuzzleApp.app.model.Side
+import edu.b4kancs.languagePuzzleApp.app.view.screens.game.CameraController
+import edu.b4kancs.languagePuzzleApp.app.view.screens.game.CursorManager
+import edu.b4kancs.languagePuzzleApp.app.view.screens.game.PuzzleManager
+import edu.b4kancs.languagePuzzleApp.app.view.screens.game.UIManager
 import edu.b4kancs.languagePuzzleApp.app.view.utils.unprojectScreenCoords
 import java.util.Optional
 
@@ -32,7 +36,7 @@ class GameInputManager(
     private val realToVirtualResolutionRatio: Float,
     private val setBackgroundColor: (Int, Int, Int, Float) -> Unit,
     private val toggleDebugInfo: () -> Unit
-) : InputAdapter() {
+) : InputAdapter(), GameInputHandler {
 
     companion object {
         val logger = ktx.log.logger<GameInputManager>()
@@ -52,8 +56,7 @@ class GameInputManager(
     private var isCtrlPressed = false
     private var isAltPressed = false
 
-    var lastPublicMouseWorldPos = Vector2()
-        private set
+    private var lastPublicMouseWorldPos = Vector2()
 
     private var initialTouchPos = Vector2()
     private val dragThreshold = 5f
@@ -208,20 +211,6 @@ class GameInputManager(
                 puzzleManager.potentialDragOrRotatePiece = null
             }
 
-//            gameModel.puzzlePieces.filter { !it.isConnected }.forEach { puzzlePiece ->
-//                val corner = isPointerNearCorner(mousePos, puzzlePiece)
-//                if (corner != null) {
-//                    puzzleManager.puzzlePieceToRotate = puzzlePiece
-//                    cursorM.setCursor(
-//                        when (corner) {
-//                            Corner.TOP_LEFT -> cursorM.rotateLeftCursor
-//                            Corner.TOP_RIGHT -> cursorM.rotateRightCursor
-//                        }
-//                    )
-//                    return true
-//                }
-//            }
-
             if (cursorManager.currentCursor != null) {
                 cursorManager.setCursor(null)
             }
@@ -272,10 +261,6 @@ class GameInputManager(
                 return true
             }
 
-//            Input.Keys.W -> {
-//                handleWPressed(Gdx.input.x, Gdx.input.y)
-//                return true
-//            }
             else -> return false
         }
 
@@ -522,9 +507,13 @@ class GameInputManager(
         cameraController.gameCamera.update()
     }
 
-    fun emulateDragging() {
+    override fun emulatePuzzleDragging() {
         logger.debug { "emulateDragging" }
         isEmulatedDragOn = true
+    }
+
+    override fun getLastTouch(): Vector2 {
+        return lastPublicMouseWorldPos
     }
 
     private fun isPointerOverPuzzlePiece(mousePos: Vector2, puzzlePiece: PuzzlePiece, approximate: Boolean = false): Boolean {
@@ -544,16 +533,6 @@ class GameInputManager(
                 }
             }
         }
-
-        // We don't need the blanks after all
-//        puzzlePiece.blanks.forEach { blank ->
-//            if (blank.isPointOverFeature(mousePos)) {
-//                logger.info { "Pointer is over blank." }
-//                if (blank.owner!!.copyOfConnections.map { it.via.side }.none { side -> side.opposite() == blank.side }) {
-//                    return Optional.of(blank)
-//                }
-//            }
-//        }
 
         return Optional.empty()
     }
