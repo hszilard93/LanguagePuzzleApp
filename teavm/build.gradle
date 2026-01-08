@@ -1,0 +1,194 @@
+import org.teavm.gradle.api.OptimizationLevel
+
+plugins {
+  id 'java'
+  id 'org.gretty' version '3.1.0'
+  id 'org.teavm' version "$teaVMVersion"
+  id 'org.jetbrains.kotlin.plugin.serialization' version "$kotlinVersion"
+}
+
+repositories {
+  mavenCentral()
+}
+
+gretty {
+  contextPath = '/'
+  extraResourceBase 'build/dist/webapp'
+  httpPort = 9090
+  managedClassReload = false
+}
+
+sourceSets.main.resources.srcDirs += [rootProject.file('assets').path]
+project.ext.mainClassName = 'edu.b4kancs.languagePuzzleApp.app.teavm.TeaVMBuilder'
+eclipse.project.name = appName + '-teavm'
+
+// This must be at least 11, and no higher than the JDK version this project is built with.
+java.targetCompatibility = "17"
+// This should probably be equal to targetCompatibility, above. This only affects the TeaVM module.
+java.sourceCompatibility = "17"
+
+dependencies {
+  implementation "com.github.xpenatan.gdx-teavm:backend-teavm:$gdxTeaVMVersion"
+  implementation "com.github.xpenatan.gdx-teavm:gdx-freetype-teavm:$gdxTeaVMVersion"
+  implementation "org.teavm:teavm-classlib:$teaVMVersion"
+  implementation "org.teavm:teavm-core:$teaVMVersion"
+  implementation "org.teavm:teavm-jso-apis:$teaVMVersion"
+  implementation "org.teavm:teavm-jso-impl:$teaVMVersion"
+  implementation "org.teavm:teavm-jso:$teaVMVersion"
+  implementation "org.teavm:teavm-tooling:$teaVMVersion"
+
+  implementation project(':core')
+  implementation "com.github.raeleus.TenPatch:tenpatch:$tenpatchVersion:sources"
+
+  implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3"
+}
+
+teavm {
+  // Common configuration for all TeaVM targets (if needed)
+  all {
+    // Example: fastGlobalAnalysis = true
+  }
+
+  js {
+    // Application Entry Point
+    mainClass = project.mainClassName
+
+    // Optimization Settings
+    optimization = OptimizationLevel.BALANCED // Options: NONE, BALANCED, AGGRESSIVE
+    obfuscated = true               // Enable obfuscation for production
+    fastGlobalAnalysis = true        // Improve compilation time
+
+    // Debugging and Source Maps
+    sourceMap = true                // Enable source maps for easier debugging
+    debugInformation = true         // Enable debug information for production
+
+    // Strict Mode
+    strict = false                   // Set to true if your app relies on strict checks
+
+    // Output Configuration
+    relativePathInOutputDir = 'js'  // Directory within outputDir for JS files
+    targetFileName = "${project.name}.js" // Name of the generated JS file
+
+    // Entry Point Naming
+    entryPointName = 'main'          // Name of the JavaScript function to start the app
+
+    // Memory Settings (if targeting WebAssembly or similar)
+    // minHeapSize = 1
+    // maxHeapSize = 16
+
+    // Preserved Classes (if needed)
+    // preservedClasses = ['com.example.SomeClass']
+
+    // Additional Configuration (as needed)
+    // maxTopLevelNames = 1000 // Adjust based on your app's needs
+  }
+
+  // Configure other targets if necessary (wasm, wasi, c)
+  /*
+  wasm {
+      // Configuration for WebAssembly target
+  }
+  wasi {
+      // Configuration for WASI target
+  }
+  c {
+      // Configuration for C (native) target
+  }
+  */
+}
+
+tasks.register('generateFbFileList') {
+  description = "Generates file_list.txt in the tasks directory with JSON filenames from ../assets/tasks/fb"
+
+  doLast {
+    File tasksFbDir = file("../assets/tasks/fb")
+    File fileListFile = file("../assets/tasks/fb_task_list.txt")
+
+    if (!tasksFbDir.exists() || !tasksFbDir.isDirectory()) {
+      logger.error("../assets/tasks/fb directory not found!")
+      return
+    }
+
+    File[] jsonFiles = tasksFbDir.listFiles({ dir, name -> name.endsWith(".json") } as FilenameFilter)
+
+    if (jsonFiles == null) {
+      jsonFiles = []
+    }
+
+    BufferedWriter writer = null // Declare writer outside try-finally
+    try {
+      writer = new BufferedWriter(new FileWriter(fileListFile)) // Standard Java BufferedWriter creation
+      jsonFiles.each { File file ->
+        writer.write(file.name)
+        writer.newLine()
+      }
+    } catch (IOException e) {
+      logger.error("Error writing to file list: ${fileListFile.absolutePath}", e)
+    } finally {
+      if (writer != null) {
+        try {
+          writer.close() // Manually close the writer in finally block
+        } catch (IOException e) {
+          // Log closing error if necessary, but not critical for task failure
+          logger.error("Error closing writer for: ${fileListFile.absolutePath}", e)
+        }
+      }
+    }
+    logger.info("File list generated at: ${fileListFile.absolutePath}")
+  }
+}
+
+tasks.register('generateTkFileList') {
+  description = "Generates tk_file_list.txt in the tasks directory with JSON filenames from ../assets/tasks/tk"
+
+  doFirst {
+    File tasksTkDir = file("../assets/tasks/tk")
+    File tkListFile = file("../assets/tasks/tk_task_list.txt")
+
+    if (!tasksTkDir.exists() || !tasksTkDir.isDirectory()) {
+      logger.error("../assets/tasks/tk directory not found!")
+      return
+    }
+
+    File[] jsonFiles = tasksTkDir.listFiles({ dir, name -> name.endsWith(".json") } as FilenameFilter)
+
+    if (jsonFiles == null) {
+      jsonFiles = []
+    }
+
+    BufferedWriter writer = null // Declare writer outside try-finally
+    try {
+      writer = new BufferedWriter(new FileWriter(tkListFile)) // Standard Java BufferedWriter creation
+      jsonFiles.each { File file ->
+        writer.write(file.name)
+        writer.newLine()
+      }
+    } catch (IOException e) {
+      logger.error("Error writing to file list: ${fbListFile.absolutePath}", e)
+    } finally {
+      if (writer != null) {
+        try {
+          writer.close() // Manually close the writer in finally block
+        } catch (IOException e) {
+          // Log closing error if necessary, but not critical for task failure
+          logger.error("Error closing writer for: ${tkListFile.absolutePath}", e)
+        }
+      }
+    }
+    logger.info("File list generated at: ${tkListFile.absolutePath}")
+  }
+}
+
+tasks.register('buildJavaScript', JavaExec) {
+  dependsOn classes, generateFbFileList, generateTkFileList
+  setDescription("Transpile bytecode to JavaScript via TeaVM")
+  mainClass.set(project.mainClassName)
+  setClasspath(sourceSets.main.runtimeClasspath)
+}
+
+build.dependsOn buildJavaScript
+
+tasks.register("run") {
+  description = "Run the JavaScript application hosted via a local Jetty server at http://localhost:8080/"
+  dependsOn(buildJavaScript, tasks.named("jettyRun"))
+}

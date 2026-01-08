@@ -1,0 +1,97 @@
+{
+  "type": "PLACE_PUZZLES_IN_ORDER",
+  "taskDescription": "Alakítsd ki a következő mondathoz tartozó puzzle-szerkezetet! Írd be az igefülekbe a megfelelő toldalékokat!\n\"Terka elárulta a titkot Tibinek\"",
+  "predefinedPieces": [
+    {
+      "text": "",
+      "grammaticalRole": "VERB",
+      "tabs": [],
+      "blanks": []
+    },
+    {
+      "text": "",
+      "grammaticalRole": "UNDEFINED",
+      "tabs": [],
+      "blanks": []
+    },
+    {
+      "text": "",
+      "grammaticalRole": "UNDEFINED",
+      "tabs": [],
+      "blanks": []
+    },
+    {
+      "text": "",
+      "grammaticalRole": "UNDEFINED",
+      "tabs": [],
+      "blanks": []
+    }
+  ],
+  "solutionConfiguration": {
+    "solutions": [
+      {
+        "puzzlesConnected": [
+          {
+            "text": "elárul",
+            "grammaticalRole": "VERB",
+            "tabs": [],
+            "blanks": []
+          },
+          {
+            "text": "Terka",
+            "grammaticalRole": "SUBJECT",
+            "tabs": [],
+            "blanks": []
+          }
+        ],
+        "via": {
+          "grammaticalRole": "SUBJECT",
+          "text": ""
+        },
+        "roleOfConnection": "SUBJECT"
+      },
+      {
+        "puzzlesConnected": [
+          {
+            "text": "elárul",
+            "grammaticalRole": "VERB",
+            "tabs": [],
+            "blanks": []
+          },
+          {
+            "text": "titok",
+            "grammaticalRole": "OBJECT",
+            "tabs": [],
+            "blanks": []
+          }
+        ],
+        "via": {
+          "grammaticalRole": "OBJECT",
+          "text": ""
+        },
+        "roleOfConnection": "OBJECT"
+      },
+      {
+        "puzzlesConnected": [
+          {
+            "text": "elárul",
+            "grammaticalRole": "VERB",
+            "tabs": [],
+            "blanks": []
+          },
+          {
+            "text": "Tibi",
+            "grammaticalRole": "ADVERBIAL",
+            "tabs": [],
+            "blanks": []
+          }
+        ],
+        "via": {
+          "grammaticalRole": "ADVERBIAL",
+          "text": "-nek"
+        },
+        "roleOfConnection": "ADVERBIAL"
+      }
+    ]
+  }
+}

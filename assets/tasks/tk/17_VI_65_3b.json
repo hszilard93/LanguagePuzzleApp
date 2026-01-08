@@ -1,0 +1,337 @@
+{
+  "type": "EDIT_PUZZLES",
+  "buttonDescription": "VI_65/3b",
+  "customRuleset": {
+    "canEditTabText": "false",
+    "canAddRemoveTabs": "false",
+    "canEditBlankText": "false",
+    "doesBlankTextCount": "false"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Keress ki a 63–64. oldalon lévő szövegből legalább 4 különböző igét, amely az alábbi puzzle-szerkezetbe beilleszthető! Írd rá az igét a központi puzzle-re! (Ehhez előbb szét kell szednek a puzzle-szerkezetet.)",
+      "requiredSolutions": 4,
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "side": "LEFT",
+              "text": "",
+              "connectedTo": ""
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "side": "TOP",
+              "text": "-ra/\n-re",
+              "connectedTo": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "ADVERBIAL",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "side": "LEFT",
+              "text": "",
+              "connectedTo": ""
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "side": "TOP",
+              "text": "-ra/\n-re",
+              "connectedTo": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "ADVERBIAL",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "side": "LEFT",
+              "text": "",
+              "connectedTo": ""
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "side": "TOP",
+              "text": "-ra/\n-re",
+              "connectedTo": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "ADVERBIAL",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "side": "LEFT",
+              "text": "",
+              "connectedTo": ""
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "side": "TOP",
+              "text": "-ra/\n-re",
+              "connectedTo": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "ADVERBIAL",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "ráijeszt",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ra/\n-re"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "felül",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ra/\n-re"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "figyel",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ra/\n-re"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "rázendít",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ra/\n-re"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "kerül",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ra/\n-re"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "rápillant",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ra/\n-re"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "roskad",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ra/\n-re"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

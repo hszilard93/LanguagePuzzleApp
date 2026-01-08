@@ -1,0 +1,139 @@
+{
+  "type": "COMPLETE_ARGUMENTS",
+  "buttonDescription": "FB2/93–94/1Ma",
+  "customRuleset": {
+    "canEditBaseText": "true",
+    "doesBaseTextCount": "true",
+    "canEditTabText": "true",
+    "canAddRemoveTabs": "true"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Rajzold meg a mérőlap 1. feladatában (a 93–94. oldalon) olvasható szövegben aláhúzott igék puzzle-jét!\nSzínezd ki a különböző füleket, és írd a fülekre az oda találó végződéseket!",
+      "requiredSolutions": 5,
+      "predefinedPieces": [
+        {
+          "text": "történik",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "visszaél",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "odaígér",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "teljesít",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "megtagad",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "történik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "visszaél",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-val/-vel"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "odaígér",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-nak/-nek"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "teljesít",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "megtagad",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-tól/-től"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

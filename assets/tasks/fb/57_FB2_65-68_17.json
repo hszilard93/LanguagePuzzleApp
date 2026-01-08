@@ -1,0 +1,215 @@
+{
+  "type": "EDIT_PUZZLES",
+  "buttonDescription": "FB2/65–68/17",
+  "customRuleset": {
+    "canStackBlankPieces": "true"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Hozz létre puzzle-szerkezeteket a 17. feladatban olvasható szöveg (67. oldal) aláhúzott mondatai alapján! Írd rá az egyes puzzle-darabokra a megfelelő szavakat, kifejezéseket, és töltsd ki a füleket is a megfelelő toldalékkal!\nHa jól dolgoztál, az összes megadott puzzle-darabra szükséged volt.",
+      "requiredSolutions": 3,
+      "predefinedPieces": [
+        {
+          "text": "lát",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "bemutat",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "sportol",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "bemutat",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "anyukád",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "én|(én)",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "Vencel",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-nak/-nek"
+              }
+            },
+            {
+              "text": "Vendel",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-nak/-nek"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "lát",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "te|(te)",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "Vendel",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "Vencel",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "sportol",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Vendel",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "Vencel",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

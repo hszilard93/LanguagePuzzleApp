@@ -1,0 +1,79 @@
+{
+  "type": "EDIT_PUZZLES",
+  "buttonDescription": "FB2/44/3.V.1",
+  "tasks": [
+    {
+      "taskDescription": "Készítsd el önállóan a \"Bence virágot ad Anitának\". mondat puzzle-szerkezetét! Válassz igefüleket, írd az igefülekbe a toldalékokat, és illeszd rájuk a puzzle-darabokat a mondatrész-szerepeknek megfelelően!",
+      "predefinedPieces": [
+        {
+          "text": "ad",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "Bence",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "virág",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "Anita",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "ad",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Bence",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "virág",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "Anita",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-nak/nek"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

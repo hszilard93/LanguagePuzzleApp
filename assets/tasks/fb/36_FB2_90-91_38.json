@@ -1,0 +1,635 @@
+{
+  "type": "COMPLETE_ARGUMENTS",
+  "buttonDescription": "FB2/90–91/38***",
+  "customRuleset": {
+    "canEditBaseText": "true",
+    "canAddRemoveTabs": "false",
+    "doesBaseTextCount": "true",
+    "canEditTabText": "false",
+    "doesAllowTabText": "false"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Keress egy-egy példát olyan igére a 38. feladat a. alpontjában olvasható szövegben (90. oldal), amelynek valamelyik itt látható igepuzzle felel meg!\nÍrd rá az igét a puzzle-re!",
+      "requiredSolutions": 9,
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "side": "LEFT",
+              "text": ""
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "side": "TOP",
+              "text": "-ban/\n-ben"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "side": "LEFT",
+              "text": ""
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "side": "TOP",
+              "text": "-hoz/\n-hez"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "side": "LEFT",
+              "text": ""
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "side": "TOP",
+              "text": "-nak/\n-nek"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "side": "LEFT",
+              "text": ""
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "side": "TOP",
+              "text": "-ra/\n-re"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "side": "LEFT",
+              "text": ""
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "side": "TOP",
+              "text": "-tól/\n-től"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "side": "LEFT",
+              "text": ""
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "side": "TOP",
+              "text": "-val/\n-vel"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "side": "LEFT",
+              "text": ""
+            },
+            {
+              "grammaticalRole": "OBJECT",
+              "side": "TOP",
+              "text": "-t"
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "side": "RIGHT",
+              "text": "-nak/\n-nek"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "side": "LEFT",
+              "text": ""
+            },
+            {
+              "grammaticalRole": "OBJECT",
+              "side": "TOP",
+              "text": "-t"
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "side": "RIGHT",
+              "text": "-ra/\n-re"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "side": "LEFT",
+              "text": ""
+            },
+            {
+              "grammaticalRole": "OBJECT",
+              "side": "TOP",
+              "text": "-t"
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "side": "RIGHT",
+              "text": "-tól/\n-től"
+            }
+          ],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "reménykedik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ban/-ben"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "jár",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ban/-ben"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "marad",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ban/-ben"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "csalódik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ban/-ben"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "odatapad",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-hoz/-hez/-höz"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "jár",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-hoz/-hez/-höz"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "odamegy",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-hoz/-hez/-höz"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "hozzászokik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-hoz/-hez/-höz"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "örül",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-nak/-nek"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "készül",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ra/-re"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "számít",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ra/-re"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "rávigyorog",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ra/-re"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "megijed",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-tól/-től"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "megegyezik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-val/-vel"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "találkozik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-val/-vel"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "elmagyaráz",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-nak/-nek"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "jár",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-nak/-nek"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "mutat",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-nak/-nek"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "feltehet",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ra/-re"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "feltesz",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ra/-re"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "kér",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-tól/-től"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "megkérdez",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-tól/-től"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "vár",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-tól/-től"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        }
+      ]
+    }
+  ]
+}

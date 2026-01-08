@@ -1,0 +1,158 @@
+{
+  "type": "EDIT_PUZZLES",
+  "buttonDescription": "FB2/141–142/26a-b",
+  "customRuleset": {
+    "canAddMainPieces": "false",
+    "canAddBlankPieces": "true"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Rajzold meg a mondatcsoport igéjének a puzzle-szerkezetét!\n„Az egér éjszaka rágcsálja a sajtot.”\n„Az egér a kamrában rágcsálja a sajtot.”\n„Az egér vígan rágcsálja a sajtot.”\n„Az egér lyukasra rágcsálja a sajtot.”",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "rágcsál",
+            "grammaticalRole": "VERB",
+            "tabs": []
+          },
+          "puzzlesConnected": [
+            {
+              "text": "az egér",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a sajt",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Rajzold meg a mondatcsoport igéjének a puzzle-szerkezetét!\n„Bogi a tükörnél fésüli a haját.”\n„Bogi énekelve fésüli a haját.”\n„Bogi oldalra fésüli a haját.”\n„Bogi köntösben fésüli a haját.”",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "fésül",
+            "grammaticalRole": "VERB",
+            "tabs": []
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Bogi",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a haja",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Rajzold meg a mondatcsoport igéjének a puzzle-szerkezetét!\n„A csibe kíváncsian bújt ki a tojásból.”\n„A csibe hajnali ötkor bújt ki a tojásból.”\n„A csibe csipogva bújt ki a tojásból.”\n„A csibe a lámpafénynél bújt ki a tojásból.”",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "kibújik",
+            "grammaticalRole": "VERB",
+            "tabs": []
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a csibe",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a tojás",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ból/-ből"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Rajzold meg a mondatcsoport igéjének a puzzle-szerkezetét!\n„Robi levelet ír Budapestre.”\n„Robi levelet ír egy szalvétára.”\n„Robi levelet ír a szobájában.”\n„Robi mosolyogva ír levelet.”",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "ír",
+            "grammaticalRole": "VERB",
+            "tabs": []
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Robi",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "levél",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

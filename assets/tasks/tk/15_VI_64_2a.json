@@ -1,0 +1,90 @@
+{
+  "type": "COMPLETE_ARGUMENTS",
+  "buttonDescription": "VI_64/2a",
+  "customRuleset": {
+    "canEditBaseText": "true",
+    "canEditTabText": "true"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Vizsgáld meg, milyen szereplői vannak a szövegben azoknak a helyzeteknek, amelyeket a „kinyit”, „felül” és „bámul” igékkel tudunk leírni! Rajzold meg mindhárom igepuzzle-t!",
+      "requiredSolutions": 3,
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "kinyit",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "felül",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ra/-re"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "bámul",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        }
+      ]
+    }
+  ]
+}

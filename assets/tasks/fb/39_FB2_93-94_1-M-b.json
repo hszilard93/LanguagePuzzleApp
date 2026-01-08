@@ -1,0 +1,270 @@
+{
+  "type": "COMPLETE_ARGUMENTS",
+  "buttonDescription": "FB2/93–94/1Mb",
+  "customRuleset": {
+    "canEditBaseText": "true",
+    "doesBaseTextCount": "true",
+    "canEditTabText": "true",
+    "canAddRemoveTabs": "true"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Keresd meg a mérőlap 1. feladatában (a 93–94. oldalon) olvasható szöveg második felében a magyar igének tűnő halandzsaszavakat, majd készítsd el ezen igék puzzle-jét!",
+      "requiredSolutions": 5,
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "visszakercsellál",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT"
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-tól/-től"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "kercsellál",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT"
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-tól/-től"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "visszakercsellálta",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT"
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-tól/-től"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "kercsellálta",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT"
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-tól/-től"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "frosorkodik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-val/-vel"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "frosorkodott",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-val/-vel"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "kigyosszint",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT"
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "kigyosszintotta",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT"
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "nyémlődik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "nyémlődött",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "ropál",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT"
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-nak/-nek"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "ropálta",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT"
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-nak/-nek"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        }
+      ]
+    }
+  ]
+}

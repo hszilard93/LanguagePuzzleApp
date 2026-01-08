@@ -1,0 +1,203 @@
+package edu.b4kancs.languagePuzzleApp.app.model
+
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
+
+interface Ending {
+    val text: String
+    val grammaticalRole: GrammaticalRole
+
+    companion object {
+        fun normalizeEnding(text: String): String {
+            if (text.isEmpty()) return text
+
+            val suffixOrNull = Suffix.identifySuffixFromTabText(text)
+            suffixOrNull?.let {
+                return suffixOrNull.text
+            }
+
+            val postpositionOrNull = Postposition.identifyPostPositionFromTabText(text)
+            postpositionOrNull?.let {
+                return postpositionOrNull.text
+            }
+
+            val indefinitePronounOrNull = IndefinitePronoun.identifyIndefinitePronounFromTabText(text)
+            indefinitePronounOrNull?.let {
+                return indefinitePronounOrNull.text
+            }
+
+            return text
+        }
+    }
+}
+
+@Serializable
+data class Suffix(
+    override val text: String,
+    @Transient override val grammaticalRole: GrammaticalRole = GrammaticalRole.ADVERBIAL
+) : Ending {
+    companion object {
+        val predefinedSuffixes = listOf(
+            Suffix(""),
+            Suffix("-t/\n-at/\n-ot/\n-öt", GrammaticalRole.OBJECT),
+            Suffix("-nak/\n-nek"),
+            Suffix("-val/\n-vel"),
+            Suffix("-tól/\n-től"),
+            Suffix("-ra/\n-re"),
+            Suffix("-ba/\n-be"),
+            Suffix("-hoz/\n-hez/\n-höz"),
+            Suffix("-n/\n-on/\n-en/\n-ön"),
+            Suffix("-vá/\n-vé"),
+            Suffix("-ból/\n-ből"),
+            Suffix("-ért"),
+            Suffix("-ig"),
+            Suffix("-ban/\n-ben"),
+            Suffix("-ról/\n-ről")
+        )
+
+        fun identifySuffixFromTabText(tabText: String): Suffix? {
+            val tabTextPartials = tabText
+                .replace("\n", "")
+                .split("/")
+                .map { it.removePrefix("-") }
+                .map { if (it.contains("al") || it.contains("el")) it.drop(1) else it } // helps with "-val/-vel" and its variants
+
+            for (suffix in predefinedSuffixes) {
+                val suffixPartials = suffix.text
+                    .replace("\n", "")
+                    .replace("val", "al")
+                    .replace("vel", "el")
+                    .split("/")
+                    .map { it.removePrefix("-") }
+//                    .map { if (it.contains("al") || it.contains("el")) it.drop(1) else it }
+
+                for (sp in suffixPartials) {
+                    if (tabTextPartials.any { it == sp }) {
+                        return suffix
+                    }
+                }
+            }
+            return null
+        }
+    }
+}
+
+// Névutók
+@Serializable
+data class Postposition(
+    override val text: String,
+    @Transient override val grammaticalRole: GrammaticalRole = GrammaticalRole.ADVERBIAL
+) : Ending {
+    companion object {
+        val predefinedPostpositions = listOf(
+            Postposition("alá"),
+            Postposition("ellen"),
+            Postposition("elől"),
+            Postposition("felé"),
+            Postposition("felett"),
+            Postposition("felől"),
+            Postposition("közül"),
+            Postposition("körül"),
+            Postposition("mellett"),
+            Postposition("miatt"),
+            Postposition("után")
+        )
+
+        fun splitPredefinedPostposition(postposition: Postposition): Postposition {
+            return when (postposition.text) {
+                "miatt" -> Postposition("mi-\natt")
+                "mellett" -> Postposition("mel-\nlett")
+                "felett" -> Postposition("fe-\nlett")
+                "közül" -> Postposition("kö-\nzül")
+                "körül" -> Postposition("kö-\nrül")
+                "felől" -> Postposition("fe-\nlől")
+                else -> postposition
+            }
+        }
+
+        fun identifyPostPositionFromTabText(tabText: String): Postposition? {
+            val tabTextNormalized = tabText
+                .trim()
+                .lowercase()
+                .replace("\n", "")
+                .replace("-", "")
+
+            if (tabTextNormalized == "fölött") return Postposition("felett")    // Special case
+
+            predefinedPostpositions.firstOrNull { it.text == tabTextNormalized }?.let {
+                return it
+            }
+            return null
+        }
+    }
+}
+
+// Jelentéscímkék
+@Serializable
+data class IndefinitePronoun(
+    override val text: String,
+    @Transient override val grammaticalRole: GrammaticalRole = GrammaticalRole.ADVERBIAL
+) : Ending {
+    companion object {
+        val predefinedIndPronouns = listOf(
+            IndefinitePronoun("'valahová'"),
+            IndefinitePronoun("'valamerre'"),
+            IndefinitePronoun("'valahonnan'"),
+            IndefinitePronoun("'valahol'"),
+            IndefinitePronoun("'valahogy'"),
+//            IndefinitePronoun("'valamennyibe'")
+        )
+
+        fun shortenPredefinedIndPronoun(pronoun: IndefinitePronoun): IndefinitePronoun {
+            return when (pronoun.text) {
+                "'valamennyibe'" -> IndefinitePronoun("'vmeny-\nnyibe'")
+                "'valahonnan'" -> IndefinitePronoun("'vhon-\nnan'")
+                else -> IndefinitePronoun(pronoun.text.replace("vala", "v"))
+            }
+        }
+
+        fun splitShortenedIndPronoun(pronoun: IndefinitePronoun): IndefinitePronoun {
+            return when (pronoun.text) {
+                "'valahová'" -> IndefinitePronoun("'vho-\nvá'")
+                "'valamerre'" -> IndefinitePronoun("'vmer-\nre'")
+                "'valahonnan'" -> IndefinitePronoun("'vhon-\nnan'")
+                "'valahol'" -> IndefinitePronoun("'vala-\nhol'")
+                "'valahogy'" -> IndefinitePronoun("'vhogy'")
+                "'valamennyibe'" -> IndefinitePronoun("'vmeny-\nnyibe'")
+                else -> pronoun
+            }
+        }
+
+        fun identifyIndefinitePronounFromTabText(tabText: String): IndefinitePronoun? {
+
+            val tabTextNormalized = tabText
+                .trim()
+                .lowercase()
+                .replace("'", "")
+                .replace("\n", "")
+                .replace("-", "")
+                .run {
+                    val newVal = replace("nyny", "nny")
+                    if (!startsWith("vala")) {
+                        newVal.replaceFirst("v", "vala")
+                    }
+                    else {
+                        newVal
+                    }
+                }
+
+            // Special case; I adjusted 'valahogyan' to 'valahogy' late.
+            if (tabTextNormalized == "valahogyan") {
+                return IndefinitePronoun("'valahogy'")
+            }
+
+            predefinedIndPronouns.firstOrNull { it.text.replace("'", "") == tabTextNormalized }?.let {
+                return it
+            }
+            return null
+        }
+    }
+}
+
+
+

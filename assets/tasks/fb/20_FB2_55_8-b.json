@@ -1,0 +1,220 @@
+{
+  "type": "EDIT_PUZZLES",
+  "buttonDescription": "FB2/55/8b",
+  "customRuleset": {
+    "canAddRemoveTabs": "false",
+    "canColorTabs": "false",
+    "canEditTabText": "false"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Keresd ki az alábbi mondatokból az egyes szereplőkre vonatkozó szavakat/kifejezéseket!\n(Pl. Rókus bácsi unokája dobta meg tegnap  jeges hógolyóval a rózsaszín sapkás kislányt. 1. valaki, aki megdob = Rókus bácsi unokája; 2. valaki, akit megdob = a rózsaszín sapkás kislány; 3. valami, amivel megdobja az előbbi az utóbbit = jeges hógolyó).\nEz alapján töltsd ki a puzzle-darabokat, és hozd létre a puzzle-szerkezeteket!\n1. „Legalább öt osztálytársam öltözött be idén vattaszakállú, műpocakos Mikulásnak.”\n2. „Kifakult lassan a kedvenc tavaszi kabátom színe.”\n3. „A város polgármesteri hivatalát okolja a legtöbb utcabeli lakos az ünnep másodnapján történt súlyos balesetért.”",
+      "requiredSolutions": 3,
+      "predefinedPieces": [
+        {
+          "text": "beöltözik",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "side": "LEFT"
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "text": "-nak\n/-nek",
+              "side": "TOP"
+            }
+          ]
+        },
+        {
+          "text": "kifakul",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "side": "LEFT"
+            }
+          ]
+        },
+        {
+          "text": "okol",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "side": "LEFT"
+            },
+            {
+              "grammaticalRole": "OBJECT",
+              "text": "-t",
+              "side": "TOP"
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "text": "-ért",
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "beöltözik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-nak/-nek"
+              }
+            ]
+          },
+          "puzzlesConnected": [
+            {
+              "text": "legalább öt osztálytársam",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "vattaszakállú, műpocakos Mikulás",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-nak/-nek"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "kifakul",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a kedvenc tavaszi kabátom színe",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "okol",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ért"
+              }
+            ]
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a legtöbb utcabeli lakos",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a város polgármesteri hivatala",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "az ünnep másodnapján történt súlyos baleset",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ért"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

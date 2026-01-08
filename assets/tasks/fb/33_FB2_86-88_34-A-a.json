@@ -1,0 +1,362 @@
+{
+  "type": "COMPLETE_ARGUMENTS",
+  "buttonDescription": "FB2/86–88/34Aa",
+  "customRuleset": {
+    "canEditBaseText": "true",
+    "doesBaseTextCount": "true",
+    "canAddRemoveTabs": "false",
+    "canEditTabText": "false",
+    "doesAllowTabText": "true",
+    "shouldOfferPostpositions": "true",
+    "shouldOfferIndPronouns": "true"
+  },
+  "tasks": [
+    {
+      "taskDescription": "A kapott üres igepuzzle-ekre írj rá egy-egy odaillő igét a listából! A lila fülekre válaszd ki a viszonyító elemeket (toldalékot vagy névutót) vagy jelentéscímkét!\n„elkezd”, „felcserél”, „borotválkozik”, „találkozik”, „legyőz”, „vágyik”, „bevon”",
+      "requiredSolutions": 7,
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "side": "LEFT",
+              "text": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "side": "LEFT",
+              "text": ""
+            },
+            {
+              "grammaticalRole": "OBJECT",
+              "side": "TOP",
+              "text": "-t"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "side": "LEFT",
+              "text": ""
+            },
+            {
+              "grammaticalRole": "OBJECT",
+              "side": "TOP",
+              "text": "-t"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "side": "LEFT",
+              "text": ""
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "side": "TOP",
+              "text": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "side": "LEFT",
+              "text": ""
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "side": "TOP",
+              "text": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "side": "LEFT",
+              "text": ""
+            },
+            {
+              "grammaticalRole": "OBJECT",
+              "side": "TOP",
+              "text": "-t"
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "side": "RIGHT",
+              "text": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "side": "LEFT",
+              "text": ""
+            },
+            {
+              "grammaticalRole": "OBJECT",
+              "side": "TOP",
+              "text": "-t"
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "side": "RIGHT",
+              "text": ""
+            }
+          ],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "borotválkozik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "side": "LEFT",
+                "text": ""
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "elkezd",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "side": "LEFT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "side": "TOP",
+                "text": "-t"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "legyőz",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "side": "LEFT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "side": "TOP",
+                "text": "-t"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "találkozik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "side": "LEFT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "side": "TOP",
+                "text": "-val/-vel"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "vágyik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "side": "LEFT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "side": "TOP",
+                "text": "-ra/-re"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "vágyik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "side": "LEFT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "side": "TOP",
+                "text": "'valahová'"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "felcserél",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "side": "LEFT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "side": "TOP",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "side": "RIGHT",
+                "text": "-val/-vel"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "felcserél",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "side": "LEFT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "side": "TOP",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "side": "RIGHT",
+                "text": "-ra/-re"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "bevon",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "side": "LEFT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "side": "TOP",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "side": "RIGHT",
+                "text": "-ba/-be"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "bevon",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "side": "LEFT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "side": "TOP",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "side": "RIGHT",
+                "text": "-val/-vel"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        }
+      ]
+    }
+  ]
+}

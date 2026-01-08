@@ -1,0 +1,497 @@
+{
+  "type": "FREE_EDIT_PUZZLE",
+  "buttonDescription": "VI_79/5d",
+  "tasks": [
+    {
+      "taskDescription": "A következőkben mondatokat adunk meg, és fel kell rajzolnod a nekik megfelelő puzzle-szerkezetet.\nNézd meg alaposan a mintát, mielőtt továbblépsz!\nA mondat: „Mindig magamat vádolom a történtekért.”",
+      "predefinedPieces": [
+        {
+          "text": "vádol",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": "",
+              "connectedTo": "(én)"
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": "-t",
+              "connectedTo": "magam"
+            },
+            {
+              "side": "RIGHT",
+              "grammaticalRole": "ADVERBIAL",
+              "text": "-ért",
+              "connectedTo": "a történtek"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "(én)",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "magam",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "a történtek",
+          "grammaticalRole": "ADVERBIAL",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "LEFT"
+            }
+          ]
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "vádol",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "(én)",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "magam",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "a történtek",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ért"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Rajzold fel az alábbi mondatban szereplő ige puzzle-szerkezetét!\n„A lurkók tegnap rázárták magukra a kamraajtót.”",
+      "predefinedPieces": [],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "rázár",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a lurkók",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a kamraajtó",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "maguk",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ra/-re"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Rajzold fel az alábbi mondatban szereplő ige puzzle-szerkezetét!\n„Uralkodj már magadon!”",
+      "predefinedPieces": [],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "uralkodik",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "(te)",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "magad",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-n/-on/-en/-ön"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Rajzold fel az alábbi mondatban szereplő ige puzzle-szerkezetét!\n„Ágota mindig agyonhajszolja magát.”",
+      "predefinedPieces": [],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "agyonhajszol",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Ágota",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "maga",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Rajzold fel az alábbi mondatban szereplő ige puzzle-szerkezetét!\n„Lóciék csapata nagy nehezen átküzdötte magát a rajongókon.”",
+      "predefinedPieces": [
+        {
+          "text": "átküzd",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": "-t",
+              "connectedTo": "maga"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "maga",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "átküzd",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Lóciék csapata",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "maga",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "a rajongók",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-n/-on/-en/-ön"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Rajzold fel az alábbi mondatban szereplő ige puzzle-szerkezetét!\n„Nem bírsz magaddal?”",
+      "predefinedPieces": [],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "bír",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "(te)",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "magad",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-val/-vel"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Rajzold fel az alábbi mondatban szereplő ige puzzle-szerkezetét!\n„Én ezt kikérem magamnak!”",
+      "predefinedPieces": [
+        {
+          "text": "kikér",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "RIGHT",
+              "grammaticalRole": "ADVERBIAL",
+              "text": "-nak/\n-nek",
+              "connectedTo": "magam"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "magam",
+          "grammaticalRole": "ADVERBIAL",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "LEFT"
+            }
+          ]
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "kikér",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "én",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "ez",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "magam",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-nak/-nek"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Rajzold fel az alábbi mondatban szereplő ige puzzle-szerkezetét!\n„Szerintem ezt csak bebeszélitek magatoknak…”",
+      "predefinedPieces": [],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "bebeszél",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "(ti)",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "ez",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "magatok",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-nak/-nek"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Rajzold fel az alábbi mondatban szereplő ige puzzle-szerkezetét!\n„Bolondot csinálsz magadból.”",
+      "predefinedPieces": [
+        {
+          "text": "csinál",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": "-t",
+              "connectedTo": "bolond"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "bolond",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "csinál",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "(te)",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "bolond",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "magad",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ból/-ből"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Rajzold fel az alábbi mondatban szereplő ige puzzle-szerkezetét!\n„Végül akkor rászánod magad a műtétre?”",
+      "predefinedPieces": [
+        {
+          "text": "rászán",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": "-t",
+              "connectedTo": "magad"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "magad",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "rászán",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "(te)",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "magad",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "a műtét",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ra/-re"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

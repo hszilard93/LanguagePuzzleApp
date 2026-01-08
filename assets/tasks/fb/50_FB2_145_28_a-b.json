@@ -1,0 +1,114 @@
+{
+  "type": "COMPLETE_ARGUMENTS",
+  "buttonDescription": "FB2/145/28a-b",
+  "customRuleset": {
+    "canAddMainPieces": "false",
+    "canAddBlankPieces": "false",
+    "canAddRemoveTabs": "true",
+    "canColorTabs": "true",
+    "canEditBaseText": "true",
+    "canEditTabText": "false"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Alkosd meg az alábbi mondatban szereplő igék puzzle-jét!\nFigyelem, a puzzle mindig csak az ige vonzatait modellezi!\n1. \"A hetedikesek vicces dalokat énekelnek a ballagó nyolcadikosoknak.\"\n2. \"Anya esti mesét olvas a bóbiskoló fiának.\"\n3. \"Nagyi palacsintát süt a családnak.\"\n4. \"A főnököm új autót vásárolt magának.\"",
+      "requiredSolutions": 4,
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "énekel",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "olvas",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "süt",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "vásárol",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

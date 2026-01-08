@@ -1,0 +1,238 @@
+{
+  "type": "FREE_EDIT_PUZZLE",
+  "buttonDescription": "FB2/44–45/3.V.2.B.a-b",
+  "tasks": [
+    {
+      "taskDescription": "Rajzold meg és töltsd ki az alábbi mondathoz tartozó puzzle-szerkezetet! Írd be az igefülekbe a megfelelő toldalékokat! Csoporton belül ellenőrizzétek megoldásaitokat!\n\"Terka elárulta a titkot Tibinek.\"",
+      "predefinedPieces": [],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "elárul",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Terka",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a titok",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "Tibi",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-nak/-nek"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Rajzold meg és töltsd ki az alábbi mondathoz tartozó puzzle-szerkezetet! Írd be az igefülekbe a megfelelő toldalékokat! Csoporton belül ellenőrizzétek megoldásaitokat!\n\"Nyílnak a piros és a fehér rózsák.\"",
+      "predefinedPieces": [],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "nyílik",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a piros és a fehér rózsák",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Rajzold meg és töltsd ki az alábbi mondathoz tartozó puzzle-szerkezetet! Írd be az igefülekbe a megfelelő toldalékokat! Csoporton belül ellenőrizzétek megoldásaitokat!\n\"Az egész osztály ismeri a játékot.\"",
+      "predefinedPieces": [],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "ismer",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "az egész osztály",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a játék",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Rajzold meg és töltsd ki az alábbi mondathoz tartozó puzzle-szerkezetet! Írd be az igefülekbe a megfelelő toldalékokat! Csoporton belül ellenőrizzétek megoldásaitokat!\n\"Mindenki öregszik.\"",
+      "predefinedPieces": [],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "öregszik",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "mindenki",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Rajzold meg és töltsd ki az alábbi mondathoz tartozó puzzle-szerkezetet! Írd be az igefülekbe a megfelelő toldalékokat! Csoporton belül ellenőrizzétek megoldásaitokat!\n\"A leigázott tartományok népei behódoltak a birodalom császárának.\"",
+      "predefinedPieces": [],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "behódol",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a leigázott tartományok népei",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a birodalom császára",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-nak/-nek"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Rajzold meg és töltsd ki az alábbi mondathoz tartozó puzzle-szerkezetet! Írd be az igefülekbe a megfelelő toldalékokat! Csoporton belül ellenőrizzétek megoldásaitokat!\n\"A kisebbik öcsémet Józsi bácsi edzi.\"",
+      "predefinedPieces": [],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "edz",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Józsi bácsi",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a kisebbik öcsém",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Rajzold meg és töltsd ki az alábbi mondathoz tartozó puzzle-szerkezetet! Írd be az igefülekbe a megfelelő toldalékokat! Csoporton belül ellenőrizzétek megoldásaitokat!\n\"Nekünk a magyar vizslát ajánlotta Gyuszika apukája.\"",
+      "predefinedPieces": [],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "ajánl",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Gyuszika apukája",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a magyar vizsla",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "mi",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-nak/-nek"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Rajzold meg és töltsd ki az alábbi mondathoz tartozó puzzle-szerkezetet! Írd be az igefülekbe a megfelelő toldalékokat! Csoporton belül ellenőrizzétek megoldásaitokat!\n\"A környékbeli gyerekek segítettek az üzem igazgatójának.\"",
+      "predefinedPieces": [],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "segít",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a környékbeli gyerekek",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "az üzem igazgatója",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-nak/-nek"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

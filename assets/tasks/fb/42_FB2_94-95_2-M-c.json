@@ -1,0 +1,267 @@
+{
+  "type": "FREE_EDIT_PUZZLE",
+  "buttonDescription": "FB2/94–95/2Mc",
+  "customRuleset": {
+    "canAddMainPieces": "false",
+    "canEditBaseText": "false",
+    "canEditBlankText": "true",
+    "canEditTabText": "true",
+    "canAddRemoveTabs": "true",
+    "doesBaseTextCount": "false",
+    "shouldOfferPostpositions": "true",
+    "shouldOfferIndPronouns": "true"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Alkoss két-két mondatot a tartozik és bevon igékkel úgy, hogy a jelentésük függvényében a két mondatban különböző legyen a határozó viszonyító eleme (toldaléka vagy névutója) vagy jelentéscímkéje! Készítsd el az ige puzzle-szerkezetét a mondat alapján!\nPl. „felel” \n1. „Egyikünk felel a tanár kérdésére.”\n2. „Az V. A osztály felel a buli szervezéséért.”",
+      "requiredSolutions": 4,
+      "predefinedPieces": [
+        {
+          "text": "tartozik",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "bevon",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "tartozik",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "bevon",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "tartozik",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "ANYTHING",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "ANYTHING",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-hoz/-hez/-höz"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "tartozik",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "ANYTHING",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "ANYTHING",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-nak/-nek"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "tartozik",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "ANYTHING",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "ANYTHING",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "valahová"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "tartozik",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "ANYTHING",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "ANYTHING",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ra/-re"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "tartozik",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "ANYTHING",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "ANYTHING",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-nak/-nek"
+              }
+            },
+            {
+              "text": "ANYTHING",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-val/-vel"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "tartozik",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "ANYTHING",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "ANYTHING",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-nak/-nek"
+              }
+            },
+            {
+              "text": "ANYTHING",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-val/-vel"
+              }
+            },
+            {
+              "text": "ANYTHING",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ért"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "tartozik",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "ANYTHING",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "ANYTHING",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "ANYTHING",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ba/-be"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "tartozik",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "ANYTHING",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "ANYTHING",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "ANYTHING",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-val/-vel"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

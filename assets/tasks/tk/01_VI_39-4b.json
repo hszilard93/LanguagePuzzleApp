@@ -1,0 +1,84 @@
+{
+  "type": "COMPLETE_ARGUMENTS",
+  "buttonDescription": "VI_39/4b",
+  "customRuleset": {
+    "canAddMainPieces": "false",
+    "canAddBlankPieces": "false",
+    "canAddRemoveTabs": "true",
+    "canColorTabs": "false",
+    "canEditBaseText": "false",
+    "canEditTabText": "false"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Hány fülű puzzle-ként tudnád a „vág” és az „ül” igét modellezni az alapján, hogy milyen visszatérő elemek tartoznak az igéhez? Rajzold le a megfelelő puzzle-eket!",
+      "requiredSolutions": 2,
+      "predefinedPieces": [
+        {
+          "text": "ül",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "olvas",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "ül",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "ül",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "olvas",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        }
+      ]
+    }
+  ]
+}

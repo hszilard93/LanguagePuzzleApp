@@ -1,0 +1,426 @@
+{
+  "type": "PLACE_PUZZLES_IN_ORDER",
+  "buttonDescription": "FB2/50–52/5Aa",
+  "customRuleset": {
+    "canEditTabText": "true",
+    "doesBlankTextCount": "false"
+  },
+  "tasks": [
+    {
+      "taskDescription": "A kapott puzzle-ekből rakj össze elfogadható puzzle-szerkezeteket, de előbb írd rá az igepuzzle füleire a megfelelő végződéseket!",
+      "requiredSolutions": 4,
+      "predefinedPieces": [
+        {
+          "text": "kioszt",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": ""
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": ""
+            },
+            {
+              "side": "RIGHT",
+              "grammaticalRole": "ADVERBIAL",
+              "text": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "árt",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": ""
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "ADVERBIAL",
+              "text": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "kinyílik",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "megnyer",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "side": "LEFT",
+              "grammaticalRole": "SUBJECT",
+              "text": ""
+            },
+            {
+              "side": "TOP",
+              "grammaticalRole": "OBJECT",
+              "text": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "a vállalat helyi vezetője",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "az értekezleten részt vevő alkalmazottak",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "a heti feladatok",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "mi",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "a sok rosszindulatú pletyka",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "a nagymama kertjének összes tulipánja",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "a baráti kapcsolataim",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "a szomszéd település iskolájának használaton kívül levő iskolabusza",
+          "grammaticalRole": "UNDEFINED",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "kioszt",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a vállalat helyi vezetője",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a heti feladatok",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "az értekezleten részt vevő alkalmazottak",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-nak/-nek"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "kioszt",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "mi",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a heti feladatok",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "az értekezleten részt vevő alkalmazottak",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-nak/-nek"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "árt",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a sok rosszindulatú pletyka",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a baráti kapcsolataim",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-nak/-nek"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "árt",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a sok rosszindulatú pletyka",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a vállalat helyi vezetője",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-nak/-nek"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "árt",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a sok rosszindulatú pletyka",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "az értekezleten részt vevő alkalmazottak",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-nak/-nek"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "árt",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "mi",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a vállalat helyi vezetője",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-nak/-nek"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "árt",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "mi",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "az értekezleten részt vevő alkalmazottak",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-nak/-nek"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "árt",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a vállalat helyi vezetője",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "az értekezleten részt vevő alkalmazottak",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-nak/-nek"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "kinyílik",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a nagymama kertjének összes tulipánja",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "megnyer",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "mi",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a szomszéd település iskolájának használaton kívül levő iskolabusza",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "megnyer",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a vállalat helyi vezetője",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a szomszéd település iskolájának használaton kívül levő iskolabusza",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

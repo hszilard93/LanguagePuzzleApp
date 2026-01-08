@@ -1,0 +1,195 @@
+buildscript {
+  repositories {
+    gradlePluginPortal()
+  }
+  dependencies {
+    if (enableGraalNative == 'true') {
+      classpath "org.graalvm.buildtools.native:org.graalvm.buildtools.native.gradle.plugin:0.9.28"
+    }
+  }
+}
+plugins {
+  id "io.github.fourlastor.construo" version "1.2.0"
+  id "application"
+  id "com.gradleup.shadow" version "8.3.3"
+}
+apply plugin: 'org.jetbrains.kotlin.jvm'
+
+
+import io.github.fourlastor.construo.Target
+
+sourceSets.main.resources.srcDirs += [rootProject.file('assets').path]
+mainClassName = 'edu.b4kancs.languagePuzzleApp.app.lwjgl3.Lwjgl3Launcher'
+application.setMainClass(mainClassName)
+eclipse.project.name = appName + '-lwjgl3'
+java.sourceCompatibility = 17
+java.targetCompatibility = 17
+
+dependencies {
+  implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
+  implementation "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
+  implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+  implementation project(':core')
+}
+
+def jarName = "${appName}-${version}.jar"
+def os = System.properties['os.name'].toLowerCase()
+
+run {
+  workingDir = rootProject.file('assets').path
+  setIgnoreExitValue(true)
+
+  if (os.contains('mac')) jvmArgs += "-XstartOnFirstThread"
+}
+
+jar {
+// sets the name of the .jar file this produces to the name of the game or app.
+  archiveFileName.set(jarName)
+// using 'lib' instead of the default 'libs' appears to be needed by jpackageimage.
+  destinationDirectory = file("${project.layout.buildDirectory.asFile.get().absolutePath}/lib")
+// the duplicatesStrategy matters starting in Gradle 7.0; this setting works.
+  duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+  dependsOn configurations.runtimeClasspath, 'generateFbFileList', 'generateTkFileList'
+  from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+// these "exclude" lines remove some unnecessary duplicate files in the output JAR.
+  exclude('META-INF/INDEX.LIST', 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.RSA')
+  exclude('META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA')
+  dependencies {
+    exclude('META-INF/INDEX.LIST', 'META-INF/maven/**')
+  }
+// setting the manifest makes the JAR runnable.
+  manifest {
+    attributes 'Main-Class': 'edu.b4kancs.languagePuzzleApp.app.lwjgl3.Lwjgl3Launcher'
+  }
+// this last step may help on some OSes that need extra instruction to make runnable JARs.
+  doLast {
+    file(archiveFile).setExecutable(true, false)
+  }
+}
+
+construo {
+  // name of the executable
+  name.set(appName)
+  // human-readable name, used for example in the `.app` name for macOS
+  humanName.set(appName)
+  // Optional, defaults to project version
+  version.set("0.0.0")
+
+  targets.configure {
+    create("linuxX64", Target.Linux) {
+      architecture.set(Target.Architecture.X86_64)
+      jdkUrl.set("https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.11%2B9/OpenJDK17U-jdk_x64_linux_hotspot_17.0.11_9.tar.gz")
+    }
+    create("macM1", Target.MacOs) {
+      architecture.set(Target.Architecture.AARCH64)
+      jdkUrl.set("https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.11%2B9/OpenJDK17U-jdk_aarch64_mac_hotspot_17.0.11_9.tar.gz")
+      // macOS needs an identifier
+      identifier.set("i.should.be.changed.before.merge." + appName)
+      // Optional: icon for macOS
+      macIcon.set(project.file("icons/logo.icns"))
+    }
+    create("macX64", Target.MacOs) {
+      architecture.set(Target.Architecture.X86_64)
+      jdkUrl.set("https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.11%2B9/OpenJDK17U-jdk_x64_mac_hotspot_17.0.11_9.tar.gz")
+      // macOS needs an identifier
+      identifier.set("i.should.be.changed.before.merge." + appName)
+      // Optional: icon for macOS
+      macIcon.set(project.file("icons/logo.icns"))
+    }
+    create("winX64", Target.Windows) {
+      architecture.set(Target.Architecture.X86_64)
+      jdkUrl.set("https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.11%2B9/OpenJDK17U-jdk_x64_windows_hotspot_17.0.11_9.zip")
+    }
+  }
+}
+
+tasks.register('generateFbFileList') {
+  description = "Generates fb_file_list.txt in the tasks directory with JSON filenames from ../assets/tasks/fb"
+
+  doFirst {
+    File tasksFbDir = file("../assets/tasks/fb")
+    File fbListFile = file("../assets/tasks/fb_task_list.txt")
+
+    if (!tasksFbDir.exists() || !tasksFbDir.isDirectory()) {
+      logger.error("../assets/tasks/fb directory not found!")
+      return
+    }
+
+    File[] jsonFiles = tasksFbDir.listFiles({ dir, name -> name.endsWith(".json") } as FilenameFilter)
+
+    if (jsonFiles == null) {
+      jsonFiles = []
+    }
+
+    BufferedWriter writer = null // Declare writer outside try-finally
+    try {
+      writer = new BufferedWriter(new FileWriter(fbListFile)) // Standard Java BufferedWriter creation
+      jsonFiles.each { File file ->
+        writer.write(file.name)
+        writer.newLine()
+      }
+    } catch (IOException e) {
+      logger.error("Error writing to file list: ${fbListFile.absolutePath}", e)
+    } finally {
+      if (writer != null) {
+        try {
+          writer.close() // Manually close the writer in finally block
+        } catch (IOException e) {
+          // Log closing error if necessary, but not critical for task failure
+          logger.error("Error closing writer for: ${fbListFile.absolutePath}", e)
+        }
+      }
+    }
+    logger.info("File list generated at: ${fbListFile.absolutePath}")
+  }
+}
+
+tasks.register('generateTkFileList') {
+  description = "Generates tk_file_list.txt in the tasks directory with JSON filenames from ../assets/tasks/tk"
+
+  doFirst {
+    File tasksTkDir = file("../assets/tasks/tk")
+    File tkListFile = file("../assets/tasks/tk_task_list.txt")
+
+    if (!tasksTkDir.exists() || !tasksTkDir.isDirectory()) {
+      logger.error("../assets/tasks/tk directory not found!")
+      return
+    }
+
+    File[] jsonFiles = tasksTkDir.listFiles({ dir, name -> name.endsWith(".json") } as FilenameFilter)
+
+    if (jsonFiles == null) {
+      jsonFiles = []
+    }
+
+    BufferedWriter writer = null // Declare writer outside try-finally
+    try {
+      writer = new BufferedWriter(new FileWriter(tkListFile)) // Standard Java BufferedWriter creation
+      jsonFiles.each { File file ->
+        writer.write(file.name)
+        writer.newLine()
+      }
+    } catch (IOException e) {
+      logger.error("Error writing to file list: ${fbListFile.absolutePath}", e)
+    } finally {
+      if (writer != null) {
+        try {
+          writer.close() // Manually close the writer in finally block
+        } catch (IOException e) {
+          // Log closing error if necessary, but not critical for task failure
+          logger.error("Error closing writer for: ${tkListFile.absolutePath}", e)
+        }
+      }
+    }
+    logger.info("File list generated at: ${tkListFile.absolutePath}")
+  }
+}
+
+// Equivalent to the jar task; here for compatibility with gdx-setup.
+tasks.register('dist') {
+  dependsOn 'jar'
+}
+
+if (enableGraalNative == 'true') {
+  apply from: file("nativeimage.gradle")
+}

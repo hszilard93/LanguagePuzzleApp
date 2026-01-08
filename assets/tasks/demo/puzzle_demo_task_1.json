@@ -1,0 +1,126 @@
+{
+  "type": "PLACE_PUZZLES_IN_ORDER",
+  "taskDescription": "Helyezd el a puzzle darabokat úgy, hogy a következő mondatot alkossák:\n\"Bence virágot ad Anitának.\"",
+  "buttonDescription": "1. példafeladat",
+  "predefinedPieces": [
+    {
+      "text": "ad",
+      "grammaticalRole": "VERB",
+      "tabs": [
+        {
+          "side": "LEFT",
+          "grammaticalRole": "SUBJECT",
+          "text": ""
+        },
+        {
+          "side": "TOP",
+          "grammaticalRole": "OBJECT",
+          "text": "-t"
+        },
+        {
+          "side": "RIGHT",
+          "grammaticalRole": "ADVERBIAL",
+          "text": "-nak\n/nek"
+        }
+      ],
+      "blanks": []
+    },
+    {
+      "text": "Bence",
+      "grammaticalRole": "UNDEFINED",
+      "tabs": [],
+      "blanks": [
+        {
+          "side": "BOTTOM"
+        }
+      ]
+    },
+    {
+      "text": "virág",
+      "grammaticalRole": "UNDEFINED",
+      "tabs": [],
+      "blanks": [
+        {
+          "side": "BOTTOM"
+        }
+      ]
+    },
+    {
+      "text": "Anita",
+      "grammaticalRole": "UNDEFINED",
+      "tabs": [],
+      "blanks": [
+        {
+          "side": "BOTTOM"
+        }
+      ]
+    }
+  ],
+  "solutionConfiguration": {
+    "solutions": [
+      {
+        "puzzlesConnected": [
+          {
+            "text": "ad",
+            "grammaticalRole": "VERB",
+            "tabs": [],
+            "blanks": []
+          },
+          {
+            "text": "Bence",
+            "grammaticalRole": "SUBJECT",
+            "tabs": [],
+            "blanks": []
+          }
+        ],
+        "via": {
+          "grammaticalRole": "SUBJECT",
+          "text": ""
+        },
+        "roleOfConnection": "SUBJECT"
+      },
+      {
+        "puzzlesConnected": [
+          {
+            "text": "ad",
+            "grammaticalRole": "VERB",
+            "tabs": [],
+            "blanks": []
+          },
+          {
+            "text": "virág",
+            "grammaticalRole": "OBJECT",
+            "tabs": [],
+            "blanks": []
+          }
+        ],
+        "via": {
+          "grammaticalRole": "OBJECT",
+          "text": "-t"
+        },
+        "roleOfConnection": "OBJECT"
+      },
+      {
+        "puzzlesConnected": [
+          {
+            "text": "ad",
+            "grammaticalRole": "VERB",
+            "tabs": [],
+            "blanks": []
+          },
+          {
+            "text": "Anita",
+            "grammaticalRole": "ADVERBIAL",
+            "tabs": [],
+            "blanks": []
+          }
+        ],
+        "via": {
+          "grammaticalRole": "ADVERBIAL",
+          "text": "-nak/nek"
+        },
+        "roleOfConnection": "ADVERBIAL"
+      }
+    ]
+  }
+}

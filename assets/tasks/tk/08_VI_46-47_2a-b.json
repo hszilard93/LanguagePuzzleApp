@@ -1,0 +1,354 @@
+{
+  "type": "EDIT_PUZZLES",
+  "customRuleset": {
+    "canAddRemoveTabs": "false",
+    "doesBlankTextCount": "false",
+    "canEditBlankText": "false",
+    "doesAllowTabText": "false",
+    "canEditTabText": "false"
+  },
+  "buttonDescription": "VI_46–47/2a–b",
+  "tasks": [
+    {
+      "taskDescription": "Írd be a mondatok igéit a nekik megfelelő puzzle-szerkezetekbe! (Ehhez előbb szét kell szedned a szerkezetet, majd újra összeraknod.)\n1. „Nagyi kifelejtette a levesből a sót.”\n2. „A padtársamnak a tesód tetszik.”\n3. „Elaludt a tűz.”\n4. „A tanárnő keresi az egyik szemüvegét.”\n5. „A fiúk megegyeztek a lányokkal a verseny feltételeiben.”",
+      "requiredSolutions": 5,
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "side": "LEFT",
+              "text": "",
+              "connectedTo": ""
+            },
+            {
+              "grammaticalRole": "OBJECT",
+              "side": "TOP",
+              "text": "",
+              "connectedTo": ""
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "side": "RIGHT",
+              "text": "",
+              "connectedTo": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "side": "LEFT",
+              "text": "",
+              "connectedTo": ""
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "side": "TOP",
+              "text": "",
+              "connectedTo": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "side": "LEFT",
+              "text": "",
+              "connectedTo": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "side": "LEFT",
+              "text": "",
+              "connectedTo": ""
+            },
+            {
+              "grammaticalRole": "OBJECT",
+              "side": "TOP",
+              "text": "",
+              "connectedTo": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "side": "LEFT",
+              "text": "",
+              "connectedTo": ""
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "side": "TOP",
+              "text": "",
+              "connectedTo": ""
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "side": "RIGHT",
+              "text": "",
+              "connectedTo": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "SUBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "RIGHT"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "OBJECT",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "ADVERBIAL",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "LEFT"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "ADVERBIAL",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "LEFT"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "ADVERBIAL",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        },
+        {
+          "text": "",
+          "grammaticalRole": "ADVERBIAL",
+          "tabs": [],
+          "blanks": [
+            {
+              "side": "BOTTOM"
+            }
+          ]
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "kifelejt",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": ""
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "tetszik",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": ""
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "elalszik",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "keres",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": ""
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "megegyezik",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": ""
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

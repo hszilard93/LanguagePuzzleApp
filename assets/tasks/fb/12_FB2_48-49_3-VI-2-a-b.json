@@ -1,0 +1,412 @@
+{
+  "type": "FREE_EDIT_PUZZLE",
+  "customRuleset": {
+    "doesBlankTextCount": "false"
+  },
+  "buttonDescription": "FB2/48–49/3.VI.2a-b",
+  "tasks": [
+    {
+      "taskDescription": "Társaddal válasszatok két-két igét az alábbiak közül!\n\"reklámoz\", \"töpreng\", \"áradozik\", \"elárul\", \"lefényképez\", \"megles\"\nGondold végig, hogy a kiválasztott igéivel megragadható jeleneteknek mik lennének a visszatérő elemei! Ezeket nevezd meg, de ne egyetlen szóval, hanem részletezőbb kifejezéssel, majd írd le egy puzzle-darabra, és rakd össze a puzzle-szerkezetet!\nPl. beburkolózik: valaki, aki beburkolózik (pl. a toronyugró bajnok) + valami, amibe beburkolózik (pl. a jól ismert kék törölközője)\nA társad szedje szét a puzzle-szerkezeteidet, hogy kiszínezhesse az igefüleket, és végződést választhasson. Ezután rakja újra össze. Ellenőrizzétek egymás munkáját!",
+      "predefinedPieces": [],
+      "requiredSolutions": 2,
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "reklámoz",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "reklámoz",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "",
+              "grammaticalRole": "UNDEFINED",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "UNDEFINED",
+              "via": {
+                "text": ""
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "lefényképez",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "lefényképez",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "",
+              "grammaticalRole": "UNDEFINED",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "UNDEFINED",
+              "via": {
+                "text": ""
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "megles",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "megles",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "",
+              "grammaticalRole": "UNDEFINED",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "UNDEFINED",
+              "via": {
+                "text": ""
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "elárul",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "elárul",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "",
+              "grammaticalRole": "UNDEFINED",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "UNDEFINED",
+              "via": {
+                "text": ""
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "töpreng",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-n"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "töpreng",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "",
+              "grammaticalRole": "UNDEFINED",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "UNDEFINED",
+              "via": {
+                "text": ""
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "áradozik",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ról/-ről"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "áradozik",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "",
+              "grammaticalRole": "UNDEFINED",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "UNDEFINED",
+              "via": {
+                "text": ""
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "elárul",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-nak/-nek"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "elárul",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "",
+              "grammaticalRole": "UNDEFINED",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "UNDEFINED",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "UNDEFINED",
+              "via": {
+                "text": ""
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "reklámoz",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-nak/-nek"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "reklámoz",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "",
+              "grammaticalRole": "UNDEFINED",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "UNDEFINED",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "",
+              "grammaticalRole": "UNDEFINED",
+              "via": {
+                "text": ""
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

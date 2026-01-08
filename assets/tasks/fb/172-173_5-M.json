@@ -1,0 +1,241 @@
+{
+  "type": "FREE_EDIT_PUZZLE",
+  "buttonDescription": "FB2/172–173/5M",
+  "customRuleset": {
+    "canAddMainPieces": "false"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Készítsd el a mondat igéjének puzzle-szerkezetét! (Ne felejtsd el, hogy ez csak az ige vonzatait tartalmazza!)\n„Anna Andrással népviseletben szépen táncolt a parkban más párokkal együtt.”",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "táncol",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Anna",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "táncol",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Anna",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "András",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-val/-vel"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Készítsd el a mondat igéjének puzzle-szerkezetét! (Ne felejtsd el, hogy ez csak az ige vonzatait tartalmazza!)\n„Krisztinka Gyurival szőlőt szed a lugasban.”",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "szed",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Krisztinka",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "szőlő",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Készítsd el a mondat igéjének puzzle-szerkezetét! (Ne felejtsd el, hogy ez csak az ige vonzatait tartalmazza!)\n„A vőlegény meglepi a menyasszonyt egy csokor rózsával az erdőben.”",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "meglep",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a vőlegény",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a menyasszony",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "egy csokor rózsa",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-val/-vel"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Készítsd el a mondat igéjének puzzle-szerkezetét! (Ne felejtsd el, hogy ez csak az ige vonzatait tartalmazza!)\n„Laura a tengerparton rövidnadrágban biciklizik.”",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "biciklizik",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Laura",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Készítsd el a mondat igéjének puzzle-szerkezetét! (Ne felejtsd el, hogy ez csak az ige vonzatait tartalmazza!)\n„A lány nagy csomaggal egyedül száll le a vonatról.”",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "leszáll",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a lány",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a vonat",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ról/-ről"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Készítsd el a mondat igéjének puzzle-szerkezetét! (Ne felejtsd el, hogy ez csak az ige vonzatait tartalmazza!)\n„Brúnó 700-as rajtszámmal vetélytársai előtt győztesként beér a célba.”",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "beér",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Brúnó",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a cél",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ba/-be"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

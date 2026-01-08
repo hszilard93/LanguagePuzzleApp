@@ -1,0 +1,277 @@
+{
+  "type": "COMPLETE_ARGUMENTS",
+  "buttonDescription": "FB2/41–42/3.IV.1c",
+  "customRuleset": {
+    "canAddMainPieces": "false",
+    "canAddBlankPieces": "false",
+    "canAddRemoveTabs": "true",
+    "canColorTabs": "true",
+    "doesAllowTabText": "false",
+    "canEditBaseText": "false",
+    "canEditTabText": "false"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Milyen lenne a \"kap\" ige puzzle-je? Színezd is ki a füleket!",
+      "predefinedPieces": [
+        {
+          "text": "kap",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "false",
+          "centerPiece": {
+            "text": "kap",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "OBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": ""
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        }
+      ]
+    },
+    {
+      "taskDescription": "Milyen lenne az \"olvas\" ige puzzle-je? Színezd ki a füleket!",
+      "predefinedPieces": [
+        {
+          "text": "olvas",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "olvas",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": ""
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        }
+      ]
+    },
+    {
+      "taskDescription": "Milyen lenne az \"ül\" ige puzzle-je? Színezd ki a füleket!",
+      "predefinedPieces": [
+        {
+          "text": "ül",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "ül",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "ül",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": ""
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        }
+      ]
+    },
+    {
+      "taskDescription": "Milyen lenne az \"eszik\" ige puzzle-je? Színezd ki a füleket!",
+      "predefinedPieces": [
+        {
+          "text": "eszik",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "eszik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": ""
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        }
+      ]
+    },
+    {
+      "taskDescription": "Milyen lenne a \"vág\" ige puzzle-je? Színezd ki a füleket!",
+      "predefinedPieces": [
+        {
+          "text": "vág",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "vág",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": ""
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "vág",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": ""
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        }
+      ]
+    },
+    {
+      "taskDescription": "Milyen lenne az \"utazik\" ige puzzle-je? Színezd ki a füleket!",
+      "predefinedPieces": [
+        {
+          "text": "utazik",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "utazik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "utazik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": ""
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "utazik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": ""
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        }
+      ]
+    }
+  ]
+}

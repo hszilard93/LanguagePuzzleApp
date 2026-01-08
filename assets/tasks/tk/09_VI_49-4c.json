@@ -1,0 +1,156 @@
+{
+  "type": "COMPLETE_ARGUMENTS",
+  "buttonDescription": "VI_49/4c",
+  "customRuleset": {
+    "canAddMainPieces": "false",
+    "canAddBlankPieces": "false",
+    "canAddRemoveTabs": "true",
+    "canColorTabs": "true",
+    "canEditBaseText": "false",
+    "canEditTabText": "false",
+    "doNotOfferSuffixes": "true",
+    "shouldOfferPostpositions": "true"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Alkoss mondatokat az alábbi igékkel a füzetedbe, majd rajzold meg az igepuzzle-eiket! Mit kell írnod az igepuzzle lila fülére?",
+      "requiredSolutions": 5,
+      "predefinedPieces": [
+        {
+          "text": "kitart",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "ítélkezik",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "fellázad",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "vágyódik",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "kering",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "kitart",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "mellett"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "ítélkezik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "fölött"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "ítélkezik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": ""
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "fellázad",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "ellen"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "vágyódik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "után"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "kering",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "körül"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

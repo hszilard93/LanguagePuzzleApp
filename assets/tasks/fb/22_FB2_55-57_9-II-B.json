@@ -1,0 +1,68 @@
+{
+  "type": "EDIT_PUZZLES",
+  "buttonDescription": "FB2/55–57/9.II.B",
+  "customRuleset": {
+    "canAddBlankPieces": "true",
+    "canAddMainPieces": "false"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Rajzoljátok meg a mondatok igéjének puzzle-szerkezetét!\n„A brokkolit piszkálta ki a legkisebb fiam a levesből.”\n„Kipiszkálta a brokkolit a legkisebb fiam a levesből.”\n„A brokkolit a levesből piszkálta ki a legkisebb fiam.”\n„A legkisebb fiam piszkálta ki a brokkolit a levesből.”",
+      "requiredSolutions": 1,
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "kipiszkál",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ból/-ből"
+              }
+            ]
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a legkisebb fiam",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a brokkoli",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "a leves",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ból/-ből"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

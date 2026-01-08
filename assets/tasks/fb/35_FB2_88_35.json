@@ -1,0 +1,618 @@
+{
+  "type": "COMPLETE_ARGUMENTS",
+  "buttonDescription": "FB2/88/35",
+  "customRuleset": {
+    "canEditBaseText": "true",
+    "doesBaseTextCount": "true",
+    "shouldOfferPostpositions": "true",
+    "shouldOfferIndPronouns": "true"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Válassz ki öt igét a felsoroltak közül! Rajzold meg a kiválasztott igék igepuzzle-jét! Ahol szükséges, írj viszonyító elemet (toldalékot vagy névutót) vagy jelentéscímkét a fülekbe!\ntalálkozik, kortyol, épít, udvarol, főz, utazik, táncol, úszik, cipel, énekel, (meg)ajándékoz, haragszik, eltalál, felhív, menekül, sötétedik, becsal, nyír",
+      "requiredSolutions": 5,
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "találkozik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-val/-vel"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "kortyol",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "kortyol",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ból/-ből"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "épít",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "épít",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ra/-re"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "épít",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ra/-re"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "udvarol",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-nak/-nek"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "főz",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "utazik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "utazik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "valahová"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "utazik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "valahová"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-val/-vel"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "táncol",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "táncol",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-val/-vel"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "úszik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "úszik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ban/-ben"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "cipel",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "énekel",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "(meg)ajándékoz",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "(meg)ajándékoz",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-val/-vel"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "megajándékoz",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "megajándékoz",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-val/-vel"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "haragszik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ra/-re"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "eltalál",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "eltalál",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-val/-vel"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "eltalál",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "valahová"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "felhív",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "felhív",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "valahová"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "menekül",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-tól/-től"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "menekül",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "elől"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "menekül",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "valahonnan"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "becsal",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "valahová"
+              }
+            ]
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "sötétedik",
+            "grammaticalRole": "VERB",
+            "tabs": []
+          }
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "nyír",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

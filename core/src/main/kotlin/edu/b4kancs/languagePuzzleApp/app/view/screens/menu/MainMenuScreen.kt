@@ -1,0 +1,190 @@
+package edu.b4kancs.languagePuzzleApp.app.view.screens.menu
+
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.graphics.GL20
+import com.badlogic.gdx.graphics.g2d.BitmapFont
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.scenes.scene2d.InputEvent
+import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.ui.Label
+import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import com.badlogic.gdx.scenes.scene2d.ui.Table
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton
+import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
+import com.badlogic.gdx.utils.Align
+import com.badlogic.gdx.utils.viewport.ExtendViewport
+import edu.b4kancs.languagePuzzleApp.app.Game
+import edu.b4kancs.languagePuzzleApp.app.util.misc
+import edu.b4kancs.languagePuzzleApp.app.view.screens.game.CursorManager
+import edu.b4kancs.languagePuzzleApp.app.view.screens.game.GameScreen
+import edu.b4kancs.languagePuzzleApp.app.view.ui.UserManualDialog
+import edu.b4kancs.languagePuzzleApp.app.view.ui.mainMenuFooterText1
+import edu.b4kancs.languagePuzzleApp.app.view.ui.mainMenuFooterText2
+import edu.b4kancs.languagePuzzleApp.app.view.util.font.loadMenuFont
+import edu.b4kancs.languagePuzzleApp.app.view.util.font.loadUIFont
+import edu.b4kancs.languagePuzzleApp.app.view.util.toRGBFloat
+import ktx.app.KtxScreen
+import ktx.inject.Context
+import ktx.log.logger
+
+class MainMenuScreen(
+    context: Context,
+    private val game: Game
+) : KtxScreen {
+
+    companion object {
+        private val logger = logger<MainMenuScreen>()
+    }
+
+    private val viewPortDimensions = Vector2(1200f, 800f)
+    private val viewport = ExtendViewport(viewPortDimensions.x, viewPortDimensions.y)
+
+    private val uiSkin = Skin(Gdx.files.internal("skin/holo/uiskin.json"))
+    private val cursorManager: CursorManager = context.inject()
+
+    private val stage = Stage(viewport)
+    private val buttonTable = Table()
+    private val outerTable = Table()
+    private var userManualDialog: UserManualDialog? = null
+    private var buttonFont: BitmapFont = loadUIFont()
+
+    override fun show() {
+        logger.debug { "MainMenuScreen: show" }
+
+        Gdx.input.inputProcessor = stage
+
+        outerTable.clear()
+
+        buttonTable.clear()
+        buttonTable.center()
+
+        val fontMultiplier = maxOf(1200f / Gdx.graphics.width, 800f / Gdx.graphics.height)
+        updateFonts(fontMultiplier)
+
+        val menuButtons = mutableListOf<TextButton>()
+        val fbMenuButton = TextButton("A Feladatbank feladatai", uiSkin).apply {
+            style = createButtonStyle(fontMultiplier)
+            addListener(object : ClickListener() {
+                override fun clicked(event: InputEvent?, x: Float, y: Float) {
+                    logger.info { "'A Feladatbank feladatai' button clicked" }
+                    game.loadFBMenuScreen(this@MainMenuScreen)
+                }
+            })
+        }
+        menuButtons.add(fbMenuButton)
+
+        val tkMenuButton = TextButton("A tankönyv feladatai", uiSkin).apply {
+            style = createButtonStyle(fontMultiplier)
+            addListener(object : ClickListener() {
+                override fun clicked(event: InputEvent?, x: Float, y: Float) {
+                    logger.info { "'A tankönyv feladatai' button clicked" }
+                    game.loadTKMenuScreen(this@MainMenuScreen)
+                }
+            })
+        }
+        menuButtons.add(tkMenuButton)
+
+        val userManualButton = TextButton("Használati útmutató (Olvass el!)", uiSkin).apply {
+            style = createButtonStyle(fontMultiplier)
+            addListener(object : ClickListener() {
+                override fun clicked(event: InputEvent?, x: Float, y: Float) {
+                    logger.info { "'Használati útmutató' button clicked" }
+
+                    val dialogWindowStyle = WindowStyle(uiSkin.get(WindowStyle::class.java)).apply {
+                        titleFont = loadUIFont(fontMultiplier * 1.8f)
+//                        titleFontColor = Color.NAVY
+                    }
+
+                    userManualDialog = UserManualDialog(
+                        "Használati útmutató",
+                        uiSkin,
+                        dialogWindowStyle,
+                        setScrollFocus = { scrollable ->
+                            stage.scrollFocus = scrollable
+                        }
+                    ).show(stage) as UserManualDialog
+                }
+            })
+        }
+        menuButtons.add(userManualButton)
+
+        menuButtons.forEach { textButton ->
+            buttonTable.add(textButton).width(600f * (fontMultiplier - ((fontMultiplier - 1) / 2))).height(80f).pad(10f).row()
+        }
+
+        val footerLabelStyle1 = Label.LabelStyle(loadMenuFont(fontMultiplier), Color(0.1f, 0f, 0f, 0.9f))
+        val footerLabel1 = Label(mainMenuFooterText1, footerLabelStyle1).apply {
+            setAlignment(Align.center)
+            wrap = true
+        }
+
+        val footerLabelStyle2 = Label.LabelStyle(loadMenuFont(fontMultiplier * 0.66f), Color(0.1f, 0f, 0f, 0.4f))
+        val footerLabel2 = Label(mainMenuFooterText2, footerLabelStyle2).apply {
+            setAlignment(Align.bottomRight)
+            wrap = false
+        }
+
+        outerTable.apply {
+            setFillParent(true)
+            add().height(Gdx.graphics.height / 5f).row() // Spacing
+            add(buttonTable).growX().row()
+            add().height(Gdx.graphics.height / 5f).row() // Spacing
+
+            add(footerLabel1).growX().height(50f).padLeft(20f).padRight(20f).align(Align.bottom).row
+            add().height(Gdx.graphics.height / 5f).row() // Spacing
+            add(footerLabel2).growX().height(30f).padBottom(10f).padRight(10f).align(Align.bottom).row
+
+            center()
+            debug = false
+        }
+
+        stage.addActor(outerTable)
+        cursorManager.setCursor(null)
+    }
+
+
+    private fun createButtonStyle(fontMultiplier: Float): TextButton.TextButtonStyle {
+//        buttonFont = loadMenuFont(fontMultiplier)
+//        buttonFont.region.texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
+        return TextButton.TextButtonStyle(uiSkin.get(TextButton.TextButtonStyle::class.java)).apply {
+            this.font = buttonFont
+        }
+    }
+
+
+    override fun render(delta: Float) {
+        setBackgroundColor(180, 255, 180, 1f)
+        stage.act(delta)
+        stage.draw()
+    }
+
+    override fun resize(newWidth: Int, newHeight: Int) {
+        logger.debug { "resize newWidth=$newWidth newHeight=$newHeight" }
+        val fontMultiplier = maxOf(newWidth / 1200f, newHeight / 800f)
+        updateFonts(fontMultiplier)
+        userManualDialog?.resize(newWidth, newHeight)
+        stage.viewport.update(newWidth, newHeight, true)
+    }
+
+    private fun setBackgroundColor(red: Int, green: Int, blue: Int, alpha: Float) {
+        GameScreen.logger.misc { "setBackgroundColor red=$red, green=$green, blue=$blue, alpha=$alpha" }
+        Gdx.gl.glClearColor(red.toRGBFloat(), green.toRGBFloat(), blue.toRGBFloat(), alpha)
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
+    }
+
+    private fun updateFonts(multiplier: Float) {
+        buttonFont = loadMenuFont(multiplier)
+        // No need to update menuButtons here, as this screen only has two buttons with fixed text.
+    }
+
+    override fun hide() {
+        stage.clear()
+    }
+
+    override fun dispose() {
+        uiSkin.dispose()
+        stage.dispose()
+    }
+}

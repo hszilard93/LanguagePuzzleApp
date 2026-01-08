@@ -1,0 +1,121 @@
+{
+  "type": "COMPLETE_ARGUMENTS",
+  "buttonDescription": "FB2/86–88/34Ba",
+  "customRuleset": {
+    "canEditBaseText": "true",
+    "canAddRemoveTabs": "true",
+    "canEditTabText": "true",
+    "doesAllowTabText": "false"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Egészítsd ki az üres igepuzzle-eket egy-egy odaillő igével, és a füleket fesd ki a mondatrészeknek megfelelő színekkel!\nPl. ha a készít igét írod a kétfülű puzzle-darabra, akkor annak egy zöld (valaki) és egy sárga (valamit), vagyis egy alanyi és egy tárgyi szerepű puzzle-darabot váró fület kell festened; de ha a figyel igét írod, akkor annak egy zöld (valaki) és egy lila füle (valamire) lehet, vagyis egy alanya és egy határozója. Megoldásodat mutasd meg tanárodnak!",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "UNDEFINED",
+              "side": "LEFT",
+              "text": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "UNDEFINED",
+              "side": "LEFT",
+              "text": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "UNDEFINED",
+              "side": "LEFT",
+              "text": ""
+            },
+            {
+              "grammaticalRole": "UNDEFINED",
+              "side": "TOP",
+              "text": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "UNDEFINED",
+              "side": "LEFT",
+              "text": ""
+            },
+            {
+              "grammaticalRole": "UNDEFINED",
+              "side": "TOP",
+              "text": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "UNDEFINED",
+              "side": "LEFT",
+              "text": ""
+            },
+            {
+              "grammaticalRole": "UNDEFINED",
+              "side": "TOP",
+              "text": ""
+            },
+            {
+              "grammaticalRole": "UNDEFINED",
+              "side": "RIGHT",
+              "text": ""
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "UNDEFINED",
+              "side": "LEFT",
+              "text": ""
+            },
+            {
+              "grammaticalRole": "UNDEFINED",
+              "side": "TOP",
+              "text": ""
+            },
+            {
+              "grammaticalRole": "UNDEFINED",
+              "side": "RIGHT",
+              "text": ""
+            }
+          ],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+      ]
+    }
+  ]
+}

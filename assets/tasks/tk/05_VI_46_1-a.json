@@ -1,0 +1,50 @@
+{
+  "type": "COMPLETE_ARGUMENTS",
+  "buttonDescription": "VI_46/1a",
+  "customRuleset": {
+    "canAddMainPieces": "false",
+    "canAddBlankPieces": "false",
+    "canAddRemoveTabs": "true",
+    "canColorTabs": "true",
+    "doesAllowTabText": "true",
+    "canEditBaseText": "true",
+    "canEditTabText": "true"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Színezd ki a „pletykál” ige puzzle-jének füleit a megfelelő színre, és írd a fülekbe a végződéseket!",
+      "predefinedPieces": [
+        {
+          "text": "pletykál",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "pletykál",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-val/-vel"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ról/-ről"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        }
+      ]
+    }
+  ]
+}

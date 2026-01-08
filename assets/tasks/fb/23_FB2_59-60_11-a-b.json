@@ -1,0 +1,225 @@
+{
+  "type": "FREE_EDIT_PUZZLE",
+  "buttonDescription": "FB2/59–60/11a-b",
+  "customRuleset": {
+  },
+  "tasks": [
+    {
+      "taskDescription": "Válasszatok egyet az alábbi mondatok közül, és készítsétek el a mondat igéjének puzzle-szerkezetét! Írjátok rá  a puzzle-ekre a mondat megfelelő szavait, kifejezéseit, és az igefüleket is töltsétek ki, ahol szükséges! Beszéljétek meg a megoldásaitokat!\n„Valaki figyelmeztette az ötödikes lányt a háta mögött álló tanárra.”\n„Gyuszika félti a legjobb barátját Pedróék bandájától.”\n„A gyerekek csoportja ráuszította a dühös szülőket a tanárokra.”\n„Ők megkülönböztetik az önző árulókat a megbízható barátoktól.”\n„Az igazgató lányát a kolozsvári unokatestvéremmel senki nem hozta össze.”\n„Az országos bajnok összetévesztett téged a kisebbik öcséddel.”",
+      "requiredSolutions": 1,
+      "predefinedPieces": [],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "figyelmeztet",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "valaki",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "az ötödikes lány",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "a háta mögött álló tanár",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ra/-re"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "félt",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Gyuszika",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a legjobb barátja",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "Pedróék bandája",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-tól/-től"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "ráuszít",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "A gyerekek csoportja",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a dühös szülők",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "a tanárok",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ra/-re"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "megkülönböztet",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "ők",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "az önző árulók",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "a megbízható barátok",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-tól/-től"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "összehoz",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "senki",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "az igazgató lánya",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "a kolozsvári unokatestvérem",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-val/-vel"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "összetéveszt",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "az országos bajnok",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "te",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "a kisebbik öcséd",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-val/-vel"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "összetéveszt",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "az országos bajnok",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "téged",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "a kisebbik öcséd",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-val/-vel"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

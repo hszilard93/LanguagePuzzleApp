@@ -1,0 +1,146 @@
+{
+  "type": "FREE_EDIT_PUZZLE",
+  "buttonDescription": "VI_83/2c",
+  "customRuleset": {
+    "canAddMainPieces": "false"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Rajzold le a következő mondatoknak megfelelő puzzle-szerkezeteket!\nTársad veled párhuzamosan oldja meg a 83/2a-b (előző) feladatot!\n„Bodri mérges Cirmire.”",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "mérges",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Bodri",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "Cirmi",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ra/-re"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Rajzold le a következő mondatoknak megfelelő puzzle-szerkezeteket!\n„Magor szerelmes Boriba.”",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "szerelmes",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Magor",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "Bori",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ba/-be"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Rajzold le a következő mondatoknak megfelelő puzzle-szerkezeteket!\n„Péter a Bolero étteremben pincér.”",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "pincér",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Péter",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Rajzold le a következő mondatoknak megfelelő puzzle-szerkezeteket!\n„A kutya hűséges a gazdájához.”",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "hűséges",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a kutya",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a gazdája",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-hoz/-hez/-höz"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

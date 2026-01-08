@@ -1,0 +1,125 @@
+{
+  "type": "COMPLETE_ARGUMENTS",
+  "buttonDescription": "FB2/84–85/32bii",
+  "customRuleset": {
+    "canAddMainPieces": "true",
+    "canEditBaseText": "true",
+    "doesBaseTextCount": "true",
+    "canEditTabText": "false",
+    "canAddRemoveTabs": "true"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Az itt megadott kifejezések közül van egy, aminek egyik itt látható igepuzzle sem feleltethető meg.\nRajzold meg ennek az igepuzzle-jét! A puzzle-re ne csak az igét, hanem a kifejezés számát is írd rá, szóköz nélkül!\n1. „valaki tesz egy kört”\n2. „valaki lakatot tesz a szájára”\n3. „valaki sírba tesz valakit”\n4. „valaki lóvá tesz valakit”\n5. „valaki nem tesz semmit”\n6. „valaki teszi az eszét”\n7. „valaki teszi a szépet valakinek”",
+      "requiredSolutions": 1,
+      "predefinedPieces": [
+        {
+          "text": "tesz",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "side": "LEFT",
+              "text": ""
+            },
+            {
+              "grammaticalRole": "OBJECT",
+              "side": "TOP",
+              "text": "-t"
+            }
+          ],
+          "blanks": []
+        },
+       {
+          "text": "tesz",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "side": "LEFT",
+              "text": ""
+            },
+            {
+              "grammaticalRole": "OBJECT",
+              "side": "TOP",
+              "text": "-t"
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "side": "RIGHT",
+              "text": "-ra/\n-re"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "tesz",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "side": "LEFT",
+              "text": ""
+            },
+            {
+              "grammaticalRole": "OBJECT",
+              "side": "TOP",
+              "text": "-t"
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "side": "RIGHT",
+              "text": "-ba/\n-be"
+            }
+          ],
+          "blanks": []
+        },
+        {
+          "text": "tesz",
+          "grammaticalRole": "VERB",
+          "tabs": [
+            {
+              "grammaticalRole": "SUBJECT",
+              "side": "LEFT",
+              "text": ""
+            },
+            {
+              "grammaticalRole": "OBJECT",
+              "side": "TOP",
+              "text": "-t"
+            },
+            {
+              "grammaticalRole": "ADVERBIAL",
+              "side": "RIGHT",
+              "text": "-vá/\n-vé"
+            }
+          ],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "tesz7",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-nak/-nek"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

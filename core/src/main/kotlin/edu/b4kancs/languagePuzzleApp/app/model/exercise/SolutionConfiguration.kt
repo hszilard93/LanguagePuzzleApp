@@ -1,0 +1,146 @@
+package edu.b4kancs.languagePuzzleApp.app.model.exercise
+
+import edu.b4kancs.languagePuzzleApp.app.model.Connection
+import edu.b4kancs.languagePuzzleApp.app.model.Ending
+import edu.b4kancs.languagePuzzleApp.app.model.GrammaticalRole
+import edu.b4kancs.languagePuzzleApp.app.model.PuzzlePiece
+import edu.b4kancs.languagePuzzleApp.app.serialization.SolutionConfigurationSerializer
+import kotlinx.serialization.Serializable
+
+enum class SolutionResult {
+    CORRECT, INCORRECT, INELIGIBLE
+}
+
+@Serializable(with = SolutionConfigurationSerializer::class)
+class SolutionConfiguration(
+    val solutionCenterPiece: PuzzlePiece,
+    val solutionSet: Set<Connection>,
+    private val checkTabText: Boolean = false
+) {
+
+    private lateinit var ruleset: Ruleset
+
+    /*
+        To check the validity of the solution, only the solutions of the central puzzle piece (the verb) are taken into account.
+        The text of the tabs is optionally taken into account.
+     */
+
+    fun doesVerbMatchSolution(centerPiece: PuzzlePiece, exercise: Exercise): SolutionResult {
+        ruleset = exercise.ruleset
+
+        if (exercise.type == TaskType.COMPLETE_ARGUMENTS) {
+            return doesMatchArgumentsSolution(centerPiece)
+        }
+
+        // Special rules for FB2_65-68_17
+        if (ruleset.canStackBlankPieces == true) {
+            val hasDuplicateTabs = centerPiece.copyOfConnections.map { it.via }.distinct().size == centerPiece.copyOfConnections.size
+            if (hasDuplicateTabs) {
+                return SolutionResult.INELIGIBLE
+            }
+
+            val distinctConnections = centerPiece.copyOfConnections
+                .distinctBy { c -> c.puzzlesConnected.map { it.text to it.grammaticalRole } }
+            val hasDuplicatePieces = distinctConnections.size != centerPiece.copyOfConnections.size
+            if (hasDuplicatePieces) {
+                return SolutionResult.INCORRECT
+            }
+        }
+
+        if (solutionSet.isEmpty()) return SolutionResult.INELIGIBLE
+
+        val verbConnections = centerPiece.copyOfConnections
+
+        if (verbConnections.size != solutionSet.size) return SolutionResult.INELIGIBLE
+
+        verbConnections.forEach { c1 ->
+            // If the connection is not matched by any connection solution, return false
+            if (!solutionSet.any { c2 -> c2.matches(c1, checkTabText) }) return SolutionResult.INCORRECT
+        }
+
+        return SolutionResult.CORRECT
+    }
+
+    private fun doesMatchArgumentsSolution(puzzle: PuzzlePiece): SolutionResult {
+//        if (puzzle.tabs.isEmpty()) return SolutionResult.INELIGIBLE
+
+        if (puzzle.tabs.size != solutionCenterPiece.tabs.size) return SolutionResult.INELIGIBLE
+
+        if (ruleset.doesBaseTextCount == true && puzzle.text != solutionCenterPiece.text) return SolutionResult.INCORRECT
+
+        val matches = solutionCenterPiece.tabs.all { t1 ->
+            puzzle.tabs.any { t2 ->
+                val matchesRole = t2.grammaticalRole == t1.grammaticalRole
+                val matchesText =
+                    if (checkTabText) {
+                        Connection(emptySet(), t1, t1.grammaticalRole)
+                            .matches(Connection(emptySet(), t2, t2.grammaticalRole), checkTabText, true)
+                    } else true
+
+                matchesRole && matchesText
+            }
+        }
+
+        return if (matches) return SolutionResult.CORRECT else SolutionResult.INELIGIBLE
+    }
+
+    private fun Connection.matches(other: Connection, checkTabText: Boolean, isArgumentSolution: Boolean = false): Boolean {
+//        val theseTexts = this.puzzlesConnected.map { it.text.lowercase() }.toSet()
+//        val thoseTexts = other.puzzlesConnected.map { it.text.lowercase() }.toSet()
+
+        // these pieces are IN THE SOLUTION
+        val theseVerbTexts = this.puzzlesConnected.filter { it.grammaticalRole == GrammaticalRole.VERB }.map { it.text.process() }.toSet()
+        val theseBlankTexts = this.puzzlesConnected.filter { it.grammaticalRole != GrammaticalRole.VERB }.map { it.text.process() }.toSet()
+
+        // those pieces are BY THE USER
+        val thoseVerbTexts = other.puzzlesConnected.filter { it.grammaticalRole == GrammaticalRole.VERB }.map { it.text.process() }.toSet()
+        val thoseBlankTexts = other.puzzlesConnected.filter { it.grammaticalRole != GrammaticalRole.VERB }.map { it.text.process() }.toSet()
+
+        if (this.via.grammaticalRole != other.via.grammaticalRole) return false
+        if (checkTabText) {
+            val thisEnding = Ending.normalizeEnding(this.via.text.lowercase())
+            val thatEnding = Ending.normalizeEnding(other.via.text.lowercase())
+            if (thisEnding != thatEnding) {
+                return false
+            }
+        }
+
+        if (thoseVerbTexts.any(String::isBlank) && !isArgumentSolution) {
+            return false
+        }
+
+        val doBlankTextsMatch =
+            if (ruleset.doesBlankTextCount != false) {
+                theseBlankTexts.size == thoseBlankTexts.size &&
+                    theseBlankTexts.all { s -> thoseBlankTexts.any { t -> t.specialEquals(s) } }
+            } else true
+
+        val doVerbTextsMatch =
+            if (ruleset.doesBaseTextCount != false) {
+                theseVerbTexts.size == thoseVerbTexts.size &&
+                    theseVerbTexts.all { s -> thoseVerbTexts.any { t -> s.specialEquals(t) } }
+            } else true
+
+        return doBlankTextsMatch && doVerbTextsMatch
+
+        // TODO: Fix incorrect role of connection
+//        if (this.roleOfConnection != other.roleOfConnection) return false
+    }
+}
+
+fun String.process() = this.trim().lowercase()//.replace("(", "").replace(")", "")
+
+// Special rule: if a puzzle piece's text is set to "ignore", count it as if it would match anything.
+// Special rule: if a puzzle piece's text is set to "anything", count it as if it would match anything BUT blank.
+fun String.specialEquals(other: String): Boolean {
+    return if (this == "anything" || other == "anything") {
+        return this.isNotBlank() && other.isNotBlank()
+    }
+    else if (this == "ignore" || other == "ignore") {
+        true
+    } else {
+        val theseSplits = this.lowercase().trim().split('|')
+        val otherSplits = other.lowercase().trim().split('|')
+        theseSplits.any { s1 -> otherSplits.any { s2 -> s1 == s2 }}
+    }
+}

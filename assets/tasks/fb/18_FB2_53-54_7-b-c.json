@@ -1,0 +1,478 @@
+{
+  "type": "FREE_EDIT_PUZZLE",
+  "buttonDescription": "FB2/53–54/7b-c",
+  "tasks": [
+    {
+      "taskDescription": "Rakd össze a szókártyák alapján a mondat igéjének puzzle-szerkezetét! Írd rá az igét a központi puzzle-re, feliratozd a füleket (ahol szükséges)  és a puzzle-darabokat is!\n„a fürdőkád”, „megtölti”, „meleg víz”, „Panni édesanyja”\n",
+      "predefinedPieces": [],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "megtölt",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-val/-vel"
+              }
+            ]
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Panni édesanyja",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a fürdőkád",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "meleg víz",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-val/-vel"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Rakd össze a szókártyák alapján a mondat igéjének puzzle-szerkezetét! Írd rá az igét a központi puzzle-re, feliratozd a füleket (ahol szükséges)  és a puzzle-darabokat is!\n„a bátyjától kapott kiskutya”, „Ábel”, „ragaszkodik”\n",
+      "predefinedPieces": [],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "ragaszkodik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-hoz/-hez/-höz"
+              }
+            ]
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Ábel",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a bátyjától kapott kiskutya",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-hoz/-hez/-höz"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "ragaszkodik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-hoz/-hez/-höz"
+              }
+            ]
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a bátyjától kapott kiskutya",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "Ábel",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-hoz/-hez/-höz"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Rakd össze a szókártyák alapján a mondat igéjének puzzle-szerkezetét! Írd rá az igét a központi puzzle-re, feliratozd a füleket (ahol szükséges)  és a puzzle-darabokat is!\n„a víz”, „jég”, „változik”",
+      "predefinedPieces": [],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "változik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-vá/-vé"
+              }
+            ]
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a víz",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "jég",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-vá/-vé"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Rakd össze a szókártyák alapján a mondat igéjének puzzle-szerkezetét! Írd rá az igét a központi puzzle-re, feliratozd a füleket (ahol szükséges)  és a puzzle-darabokat is!\n„a természetgyógyászok”, „gyógynövények”, „illóolajok”, „kivonnak”",
+      "predefinedPieces": [],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "kivon",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "OBJECT",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ból/-ből"
+              }
+            ]
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a természetgyógyászok",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "illóolajok",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "gyógynövények",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ból/-ből"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Rakd össze a szókártyák alapján a mondat igéjének puzzle-szerkezetét! Írd rá az igét a központi puzzle-re, feliratozd a füleket (ahol szükséges)  és a puzzle-darabokat is!\n„a barátnőjének tett ígérete”, „Éva”, „megfeledkezik”",
+      "predefinedPieces": [],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "megfeledkezik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ról/-ről"
+              }
+            ]
+          },
+          "puzzlesConnected": [
+            {
+              "text": "Éva",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a barátnőjének tett ígérete",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ról/-ről"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Rakd össze a szókártyák alapján a mondat igéjének puzzle-szerkezetét! Írd rá az igét a központi puzzle-re, feliratozd a füleket (ahol szükséges)  és a puzzle-darabokat is!\n„a hároméves öcsém”, „minden”, „rákérdez”",
+      "predefinedPieces": [],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "rákérdez",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ra/-re"
+              }
+            ]
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a hároméves öcsém",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "minden",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ra/-re"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Rakd össze a szókártyák alapján a mondat igéjének puzzle-szerkezetét! Írd rá az igét a központi puzzle-re, feliratozd a füleket (ahol szükséges)  és a puzzle-darabokat is!\n„a főhős”, „a szappanopera árva lánya”, „beleszeretett”",
+      "predefinedPieces": [],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "beleszeret",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ba/-be"
+              }
+            ]
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a főhős",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a szappanopera árva lánya",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ba/-be"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "beleszeret",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ba/-be"
+              }
+            ]
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a szappanopera árva lánya",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a főhős",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ba/-be"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Rakd össze a szókártyák alapján a mondat igéjének puzzle-szerkezetét! Írd rá az igét a központi puzzle-re, feliratozd a füleket (ahol szükséges)  és a puzzle-darabokat is!\n„a csont”, „a Tóni kiskutyája”, „rágódik”",
+      "predefinedPieces": [],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "rágódik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-n/-on/-en/-ön"
+              }
+            ]
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a Tóni kiskutyája",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a csont",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-n/-on/-en/-ön"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Rakd össze a szókártyák alapján a mondat igéjének puzzle-szerkezetét! Írd rá az igét a központi puzzle-re, feliratozd a füleket (ahol szükséges)  és a puzzle-darabokat is!\n„a kedvenc elárusítónője”, „a szomszéd néni”, „csalódott”",
+      "predefinedPieces": [],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "csalódik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ban/-ben"
+              }
+            ]
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a szomszéd néni",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a kedvenc elárusítónője",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ban/-ben"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "csalódik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "SUBJECT",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "ADVERBIAL",
+                "text": "-ban/-ben"
+              }
+            ]
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a kedvenc elárusítónője",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "a szomszéd néni",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-ban/-ben"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "type": "FREE_EDIT_PUZZLE",
+  "buttonDescription": "VI_61/6a-b",
+  "customRuleset": {
+    "canAddMainPieces": "false",
+    "canAddBlankPieces": "true"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Alkoss értelmes mondatot a megadott szavakból a füzetedbe! Készítsd el a mondat igéjének puzzle-szerkezetét, és írd rá a puzzle-ekre a mondat megfelelő szavait, kifejezéseit!\n„a”, „alszik”, „aranyos”, „egy”, „kiscica”, „között”, „piros”, „tulipánok”",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "alszik",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "egy aranyos kiscica",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Alkoss értelmes mondatot a megadott szavakból a füzetedbe! Készítsd el a mondat igéjének puzzle-szerkezetét, és írd rá a puzzle-ekre a mondat megfelelő szavait, kifejezéseit!\n„a”, „barátaim”, „csokoládét”, „ebéd”, „ettek”, „öt”, „tábla”, „után”",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "eszik",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a barátaim",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "öt tábla csokoládé",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "taskDescription": "Alkoss értelmes mondatot a megadott szavakból a füzetedbe! Készítsd el a mondat igéjének puzzle-szerkezetét, és írd rá a puzzle-ekre a mondat megfelelő szavait, kifejezéseit!\n„a”, „a”, „bolt”, „elárusítója”, „eset”, „felmondott”, „miatt”, „pénteki”, „sarki”",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "felmond",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "a sarki bolt elárusítója",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,276 @@
+{
+  "type": "COMPLETE_ARGUMENTS",
+  "buttonDescription": "FB2/31/3.I.1b",
+  "customRuleset": {
+    "canAddMainPieces": "false",
+    "canAddBlankPieces": "false",
+    "canAddRemoveTabs": "true",
+    "canColorTabs": "false",
+    "canEditBaseText": "false",
+    "canEditTabText": "false"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Hány fülű puzzle-ként tudnátok az \"ül\" igét elképzelni az alapján, hogy milyen visszatérő elemek tartoznak az igéhez? Rajzoljátok le a megfelelő puzzle-t!",
+      "predefinedPieces": [
+        {
+          "text": "ül",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "ül",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "ül",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        }
+      ]
+    },
+    {
+      "taskDescription": "Hány fülű puzzle-ként tudnátok az \"olvas\" igét elképzelni az alapján, hogy milyen visszatérő elemek tartoznak az igéhez? Rajzoljátok le a megfelelő puzzle-t!",
+      "predefinedPieces": [
+        {
+          "text": "olvas",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "olvas",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        }
+      ]
+    },
+    {
+      "taskDescription": "Hány fülű puzzle-ként tudnátok az \"eszik\" igét elképzelni az alapján, hogy milyen visszatérő elemek tartoznak az igéhez? Rajzoljátok le a megfelelő puzzle-t!",
+      "predefinedPieces": [
+        {
+          "text": "eszik",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "eszik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        }
+      ]
+    },
+    {
+      "taskDescription": "Hány fülű puzzle-ként tudnátok a \"vág\" igét elképzelni az alapján, hogy milyen visszatérő elemek tartoznak az igéhez? Rajzoljátok le a megfelelő puzzle-t!",
+      "predefinedPieces": [
+        {
+          "text": "vág",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "vág",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "vág",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        }
+      ]
+    },
+    {
+      "taskDescription": "Hány fülű puzzle-ként tudnátok az \"utazik\" igét elképzelni az alapján, hogy milyen visszatérő elemek tartoznak az igéhez? Rajzoljátok le a megfelelő puzzle-t!",
+      "predefinedPieces": [
+        {
+          "text": "utazik",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "utazik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "utazik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "utazik",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        }
+      ]
+    },
+    {
+      "taskDescription": "Hány fülű puzzle-ként tudnátok az \"ad\" igét elképzelni az alapján, hogy milyen visszatérő elemek tartoznak az igéhez? Rajzoljátok le a megfelelő puzzle-t!",
+      "predefinedPieces": [
+        {
+          "text": "ad",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "ad",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        }
+      ]
+    }
+  ]
+}

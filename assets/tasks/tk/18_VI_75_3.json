@@ -1,0 +1,142 @@
+{
+  "type": "FREE_EDIT_PUZZLE",
+  "buttonDescription": "VI_75/3",
+  "customRuleset": {
+    "canAddBlankPieces": "true"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Figyeld meg az alábbi párhuzamot!\n„Lovamat kötöttem piros almafához,”\n„Magamat kötöttem gyönge violához.”\nKészítsd el az egyik mondat igéjének puzzle-szerkezetét te, a másikét a társad! Vessétek össze megoldásaitokat!",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "köt",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "(én)",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "lovam",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "piros almafa",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-hoz/\n-hez\n-höz"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "köt",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "én",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "lovam",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "piros almafa",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-hoz/\n-hez\n-höz"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "köt",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "(én)",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "magam",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "gyönge viola",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-hoz/\n-hez\n-höz"
+              }
+            }
+          ]
+        },
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "köt",
+            "grammaticalRole": "VERB"
+          },
+          "puzzlesConnected": [
+            {
+              "text": "én",
+              "grammaticalRole": "SUBJECT",
+              "via": {
+                "text": ""
+              }
+            },
+            {
+              "text": "magam",
+              "grammaticalRole": "OBJECT",
+              "via": {
+                "text": "-t"
+              }
+            },
+            {
+              "text": "gyönge viola",
+              "grammaticalRole": "ADVERBIAL",
+              "via": {
+                "text": "-hoz/\n-hez\n-höz"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

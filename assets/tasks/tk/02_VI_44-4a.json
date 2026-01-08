@@ -1,0 +1,189 @@
+{
+  "type": "COMPLETE_ARGUMENTS",
+  "buttonDescription": "VI_44/4a",
+  "customRuleset": {
+    "canAddMainPieces": "false",
+    "canAddBlankPieces": "false",
+    "canAddRemoveTabs": "true",
+    "canColorTabs": "false",
+    "canEditBaseText": "true",
+    "canEditTabText": "true"
+  },
+  "tasks": [
+    {
+      "taskDescription": "Rajzold le az alábbi darabokból álló puzzle-szerkezet igepuzzle-jét! Írd a fülekbe a megfelelő toldalékokat!\n„megoszt”, „nagyapa”, „az étel”, „az unokái”",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "megoszt",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": "-val/-vel"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        }
+      ]
+    },
+    {
+      "taskDescription": "Rajzold le az alábbi darabokból álló puzzle-szerkezet igepuzzle-jét! Írd a fülekbe a megfelelő toldalékokat!\n„a diák”, „a tanár”, „pletyka”, „terjeszt”",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "terjeszt",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": "-ról/-ről"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        }
+      ]
+    },
+    {
+      "taskDescription": "Rajzold le az alábbi darabokból álló puzzle-szerkezet igepuzzle-jét! Írd a fülekbe a megfelelő toldalékokat!\n„a királyfi”, „átváltoztat”, „béka”, „a boszorkány”",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "átváltoztat",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": "-vá/-vé"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        }
+      ]
+    },
+    {
+      "taskDescription": "Rajzold le az alábbi darabokból álló puzzle-szerkezet igepuzzle-jét! Írd a fülekbe a megfelelő toldalékokat!\n„rákényszerít”, „a döntés”, „a bizottság”, „az elnök”",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "rákényszerít",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": "-ra/-re"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        }
+      ]
+    },
+    {
+      "taskDescription": "Rajzold le az alábbi darabokból álló puzzle-szerkezet igepuzzle-jét! Írd a fülekbe a megfelelő toldalékokat!\n„egy mókus”, „a csapda”, „Ádám”, „kiszabadít”",
+      "predefinedPieces": [
+        {
+          "text": "",
+          "grammaticalRole": "VERB",
+          "tabs": [],
+          "blanks": []
+        }
+      ],
+      "solutionConfigurations": [
+        {
+          "checkTabText": "true",
+          "centerPiece": {
+            "text": "kiszabadít",
+            "grammaticalRole": "VERB",
+            "tabs": [
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": ""
+              },
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": "-t"
+              },
+              {
+                "grammaticalRole": "UNDEFINED",
+                "text": "-ból/-ből"
+              }
+            ]
+          },
+          "puzzlesConnected": []
+        }
+      ]
+    }
+  ]
+}
