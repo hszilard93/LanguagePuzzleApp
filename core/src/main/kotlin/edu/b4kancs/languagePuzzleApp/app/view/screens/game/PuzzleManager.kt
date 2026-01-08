@@ -301,8 +301,8 @@ class PuzzleManager(
         return newPuzzlePiece
     }
 
-    fun addNewPuzzlePieceViaDrag(isBlank: Boolean = false) {
-        logger.info { "addNewPuzzlePieceViaDrag isBlank = $isBlank" }
+    fun addNewPuzzlePieceViaDrag(isBlankPuzzle: Boolean = false) {
+        logger.info { "addNewPuzzlePieceViaDrag isBlank = $isBlankPuzzle" }
 
         val newPiece = addNewPuzzlePiece(gameInputHandler.getLastTouch(), isBlank)
 

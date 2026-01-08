@@ -588,10 +588,10 @@ class UIManager(
                     logger.info { "Add puzzle button clicked" }
                     displayAddPuzzlePopup(
                         onAddBasePuzzle = {
-                            puzzleManager.addNewPuzzlePieceViaDrag(isBlank = false)
+                            puzzleManager.addNewPuzzlePieceViaDrag(isBlankPuzzle = false)
                         },
                         onAddBlankPuzzle = {
-                            puzzleManager.addNewPuzzlePieceViaDrag(isBlank = true)
+                            puzzleManager.addNewPuzzlePieceViaDrag(isBlankPuzzle = true)
                         }
                     )
                 }
